@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Instagraphics
 
-## Getting Started
+Public-facing app for building branded infographics (SmartArt-style) from SVG templates. Users pick a layout, apply brand colors/fonts/logo, fill in text fields with a live preview, save to their account, and download as SVG or PNG. Downloads cost 1 credit; credits are $0.99 each via Stripe Checkout.
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router, TypeScript) on Vercel
+- Bootstrap 5 CSS (white + Bootstrap blue)
+- Neon Postgres (`@neondatabase/serverless`)
+- Stripe Checkout + webhook fulfillment
+- Vercel Analytics
+- Cookie session auth (email/password, bcrypt + JWT)
+
+## SVG template engine
+
+Templates live in `src/lib/templates.ts` as annotated SVG strings. Annotations:
+
+| Attribute | Effect |
+|---|---|
+| `data-ig-fill="primary\|secondary\|tertiary"` | `fill` set to that color slot |
+| `data-ig-stroke="..."` | `stroke` set to that color slot |
+| `data-ig-font="..."` | `font-family` set to that font slot |
+| `data-ig-text="<fieldKey>"` | text content bound to a form field |
+| `data-ig-logo` | `<image>` href replaced with uploaded logo; hidden when absent |
+
+`src/lib/svg-engine.ts` does string-based substitution (isomorphic — used for server-rendered previews and the live client preview). PNG export is client-side canvas at 2x.
+
+To add a template: append an entry to `TEMPLATES` in `src/lib/templates.ts` with id, title, category, fields, and the annotated SVG.
+
+## Environment variables
+
+| Name | Purpose |
+|---|---|
+| `DATABASE_URL` | Neon Postgres connection string |
+| `AUTH_SECRET` | JWT session signing secret |
+| `STRIPE_SECRET_KEY` | Stripe API key |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret (endpoint: `/api/stripe/webhook`, event: `checkout.session.completed`) |
+
+The success page also fulfills purchases directly (idempotent), so local dev works without the webhook.
+
+## Setup
 
 ```bash
+npm install
+vercel env pull .env.local
+npm run db:init   # creates tables (idempotent)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Data model
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `users` — email, password_hash, credits
+- `graphics` — user_id, template_id, title, final svg
+- `purchases` — stripe_session_id (unique, idempotency), credits, amount
+- `downloads` — one row per charged download
