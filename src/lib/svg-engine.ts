@@ -1,8 +1,8 @@
 // Isomorphic SVG substitution engine (string-based; runs on server and client).
 //
 // Annotation convention inside template SVGs:
-//   data-ig-fill="primary|secondary|tertiary"    -> fill is set to that color slot
-//   data-ig-stroke="primary|secondary|tertiary"  -> stroke is set to that color slot
+//   data-ig-fill="primary|secondary|tertiary|accent"   -> fill from that color slot
+//   data-ig-stroke="primary|secondary|tertiary|accent" -> stroke from that color slot
 //   data-ig-font="primary|secondary|tertiary"    -> font-family is set to that font slot
 //   data-ig-text="<fieldKey>"                    -> text content bound to a form field
 //   data-ig-contrast="primary|secondary|tertiary"-> fill becomes black or white,
@@ -10,14 +10,22 @@
 //                                                   slot's current color
 
 export type Slot = "primary" | "secondary" | "tertiary";
+// Accent is a color-only slot used by strokes/connectors (arrows, lines,
+// leaders) so they stay visible on any background the user picks.
+export type ColorSlot = Slot | "accent";
 
 export type BrandKit = {
-  colors: Record<Slot, string>;
+  colors: Record<ColorSlot, string>;
   fonts: Record<Slot, string>;
 };
 
 export const DEFAULT_BRAND: BrandKit = {
-  colors: { primary: "#0d6efd", secondary: "#6c757d", tertiary: "#ffc107" },
+  colors: {
+    primary: "#0d6efd",
+    secondary: "#6c757d",
+    tertiary: "#ffc107",
+    accent: "#495057",
+  },
   fonts: { primary: "Roboto", secondary: "Roboto", tertiary: "Roboto" },
 };
 
@@ -65,10 +73,16 @@ function setAttr(tag: string, attr: string, value: string): string {
 }
 
 const SLOT_RE = /^(primary|secondary|tertiary)$/;
+const COLOR_SLOT_RE = /^(primary|secondary|tertiary|accent)$/;
 
 function slotIn(tag: string, name: string): Slot | null {
   const m = tag.match(new RegExp(`data-${name}="([^"]*)"`));
   return m && SLOT_RE.test(m[1]) ? (m[1] as Slot) : null;
+}
+
+function colorSlotIn(tag: string, name: string): ColorSlot | null {
+  const m = tag.match(new RegExp(`data-${name}="([^"]*)"`));
+  return m && COLOR_SLOT_RE.test(m[1]) ? (m[1] as ColorSlot) : null;
 }
 
 // YIQ luminance: readable black-or-white for text over a colored shape.
@@ -86,13 +100,13 @@ export function renderTemplate(
   values: Record<string, string>
 ): string {
   let out = svgSource.replace(/<[^>]+>/g, (tag) => {
-    const fill = slotIn(tag, "ig-fill");
+    const fill = colorSlotIn(tag, "ig-fill");
     if (fill) tag = setAttr(tag, "fill", brand.colors[fill]);
-    const stroke = slotIn(tag, "ig-stroke");
+    const stroke = colorSlotIn(tag, "ig-stroke");
     if (stroke) tag = setAttr(tag, "stroke", brand.colors[stroke]);
     const font = slotIn(tag, "ig-font");
     if (font) tag = setAttr(tag, "font-family", brand.fonts[font]);
-    const contrast = slotIn(tag, "ig-contrast");
+    const contrast = colorSlotIn(tag, "ig-contrast");
     if (contrast) tag = setAttr(tag, "fill", contrastColor(brand.colors[contrast]));
     return tag;
   });

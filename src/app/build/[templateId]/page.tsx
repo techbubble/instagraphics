@@ -2,10 +2,11 @@ import { notFound, redirect } from "next/navigation";
 import { TEMPLATES, getTemplate, toMeta } from "@/lib/templates";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
-import { BrandKit, DEFAULT_BRAND, FONT_CHOICES, Slot } from "@/lib/svg-engine";
+import { BrandKit, ColorSlot, DEFAULT_BRAND, FONT_CHOICES, Slot } from "@/lib/svg-engine";
 import Builder from "@/components/Builder";
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
+const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
 
 function mergeBrand(saved: unknown): BrandKit {
   const brand: BrandKit = {
@@ -14,11 +15,13 @@ function mergeBrand(saved: unknown): BrandKit {
   };
   if (saved && typeof saved === "object") {
     const s = saved as Partial<BrandKit>;
-    for (const slot of SLOTS) {
+    for (const slot of COLOR_SLOTS) {
       const c = s.colors?.[slot];
       if (typeof c === "string" && /^#[0-9a-fA-F]{6}$/.test(c)) {
         brand.colors[slot] = c;
       }
+    }
+    for (const slot of SLOTS) {
       const f = s.fonts?.[slot];
       if (typeof f === "string" && FONT_CHOICES.includes(f)) {
         brand.fonts[slot] = f;

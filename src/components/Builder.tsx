@@ -7,14 +7,16 @@ import {
   itemCount,
   type TemplateMeta,
 } from "@/lib/templates";
-import { BrandKit, Slot } from "@/lib/svg-engine";
+import { BrandKit, ColorSlot, Slot } from "@/lib/svg-engine";
 import FontSelect from "@/components/FontSelect";
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
-const SLOT_LABEL: Record<Slot, string> = {
+const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
+const SLOT_LABEL: Record<ColorSlot, string> = {
   primary: "Primary",
   secondary: "Secondary",
   tertiary: "Tertiary",
+  accent: "Accent",
 };
 
 type PrefsPatch = { brand?: BrandKit; values?: Record<string, string> };
@@ -129,6 +131,7 @@ export default function Builder({
       pc: b.colors.primary.slice(1),
       sc: b.colors.secondary.slice(1),
       tc: b.colors.tertiary.slice(1),
+      ac: b.colors.accent.slice(1),
       pf: b.fonts.primary,
       sf: b.fonts.secondary,
       tf: b.fonts.tertiary,
@@ -165,7 +168,7 @@ export default function Builder({
   );
   useEffect(() => flush, [flush]); // flush on unmount
 
-  function setColor(slot: Slot, color: string) {
+  function setColor(slot: ColorSlot, color: string) {
     setBrand((b) => {
       const next = { ...b, colors: { ...b.colors, [slot]: color } };
       queueSave({ brand: next });
@@ -251,8 +254,8 @@ export default function Builder({
       <div className="card mb-3">
         <div className="card-body py-2">
           <div className="row g-2 align-items-end">
-            {SLOTS.map((slot) => (
-              <div className="col-6 col-md-2" key={`c-${slot}`}>
+            {COLOR_SLOTS.map((slot) => (
+              <div className="col-6 col-md-3 col-xl" key={`c-${slot}`}>
                 <label className="form-label small fw-bold mb-1">
                   {SLOT_LABEL[slot]} Color
                 </label>
@@ -274,7 +277,7 @@ export default function Builder({
               </div>
             ))}
             {SLOTS.map((slot) => (
-              <div className="col-6 col-md-2" key={`f-${slot}`}>
+              <div className="col-6 col-md-4 col-xl" key={`f-${slot}`}>
                 <label className="form-label small fw-bold mb-1">
                   {SLOT_LABEL[slot]} Font
                 </label>

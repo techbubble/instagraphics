@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import {
   BrandKit,
+  ColorSlot,
   DEFAULT_BRAND,
   FONT_CHOICES,
   GOOGLE_FONTS,
@@ -14,6 +15,7 @@ import {
 // released solely by the paid download endpoint).
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
+const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
 
 // Classic fonts are not installed on the server, so previews substitute
 // metric-compatible (or visually close) open fonts. Downloaded SVGs keep
@@ -126,11 +128,13 @@ export function sanitizeBrand(input: unknown): BrandKit {
   };
   if (input && typeof input === "object") {
     const s = input as Partial<BrandKit>;
-    for (const slot of SLOTS) {
+    for (const slot of COLOR_SLOTS) {
       const c = s.colors?.[slot];
       if (typeof c === "string" && /^#[0-9a-fA-F]{6}$/.test(c)) {
         brand.colors[slot] = c.toLowerCase();
       }
+    }
+    for (const slot of SLOTS) {
       const f = s.fonts?.[slot];
       if (typeof f === "string" && FONT_CHOICES.includes(f)) {
         brand.fonts[slot] = f;
@@ -158,6 +162,7 @@ export function brandFromQuery(sp: URLSearchParams): BrandKit {
       primary: `#${sp.get("pc") || ""}`,
       secondary: `#${sp.get("sc") || ""}`,
       tertiary: `#${sp.get("tc") || ""}`,
+      accent: `#${sp.get("ac") || ""}`,
     },
     fonts: {
       primary: sp.get("pf") || "",

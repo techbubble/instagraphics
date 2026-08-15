@@ -129,15 +129,13 @@ export const TEMPLATES: Template[] = [
       item3: "3rd circle",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
-<defs>
-<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
-<path d="M 0 0 L 10 5 L 0 10 z" fill="#6c757d" data-ig-fill="secondary"/>
-</marker>
-</defs>
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Improvement Cycle</text>
-<path d="M 484 221 A 150 150 0 0 1 548 322" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 465 480 A 150 150 0 0 1 346 485" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 250 334 A 150 150 0 0 1 306 228" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 486 222 A 150 150 0 0 1 547 315" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="549,333 538,317 556,313"/>
+<path d="M 464 481 A 150 150 0 0 1 353 487" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="336,481 356,479 350,496"/>
+<path d="M 251 333 A 150 150 0 0 1 300 233" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="314,222 306,240 294,226"/>
 <circle data-ig-fill="primary" cx="400" cy="195" r="78"/>
 <circle data-ig-fill="secondary" cx="530" cy="420" r="78"/>
 <circle data-ig-fill="tertiary" cx="270" cy="420" r="78"/>
@@ -160,16 +158,15 @@ export const TEMPLATES: Template[] = [
       item4: "4th circle",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
-<defs>
-<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
-<path d="M 0 0 L 10 5 L 0 10 z" fill="#6c757d" data-ig-fill="secondary"/>
-</marker>
-</defs>
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Improvement Cycle</text>
-<path d="M 475 215 A 150 150 0 0 1 524 260" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 530 420 A 150 150 0 0 1 485 469" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 325 475 A 150 150 0 0 1 276 430" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 270 270 A 150 150 0 0 1 315 221" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 476 216 A 150 150 0 0 1 519 254" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="529,269 512,260 527,249"/>
+<path d="M 529 421 A 150 150 0 0 1 491 464" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="476,474 485,457 496,472"/>
+<path d="M 324 474 A 150 150 0 0 1 281 436" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="271,421 288,430 273,441"/>
+<path d="M 271 269 A 150 150 0 0 1 309 226" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="324,216 315,233 304,218"/>
 <circle data-ig-fill="primary" cx="400" cy="195" r="68"/>
 <circle data-ig-fill="secondary" cx="550" cy="345" r="68"/>
 <circle data-ig-fill="tertiary" cx="400" cy="495" r="68"/>
@@ -195,17 +192,17 @@ export const TEMPLATES: Template[] = [
       item5: "5th circle",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
-<defs>
-<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
-<path d="M 0 0 L 10 5 L 0 10 z" fill="#6c757d" data-ig-fill="secondary"/>
-</marker>
-</defs>
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Improvement Cycle</text>
-<path d="M 462 208 A 150 150 0 0 1 505 237" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 549 362 A 150 150 0 0 1 535 411" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 430 492 A 150 150 0 0 1 379 493" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 270 419 A 150 150 0 0 1 252 371" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 289 244 A 150 150 0 0 1 330 212" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 463 209 A 150 150 0 0 1 497 230" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="510,243 491,237 503,224"/>
+<path d="M 549 363 A 150 150 0 0 1 539 402" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="531,418 531,398 547,405"/>
+<path d="M 429 492 A 150 150 0 0 1 389 495" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="371,492 390,486 388,504"/>
+<path d="M 269 418 A 150 150 0 0 1 254 381" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="251,363 263,379 246,383"/>
+<path d="M 290 243 A 150 150 0 0 1 321 218" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<polygon data-ig-fill="accent" fill="#495057" points="337,209 326,225 316,210"/>
 <circle data-ig-fill="primary" cx="400" cy="195" r="55"/>
 <circle data-ig-fill="secondary" cx="543" cy="299" r="55"/>
 <circle data-ig-fill="tertiary" cx="488" cy="466" r="55"/>
@@ -235,11 +232,11 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="primary" points="300,140 374,251 226,251"/>
 <polygon data-ig-fill="secondary" points="221,259 379,259 451,367 149,367"/>
 <polygon data-ig-fill="tertiary" points="144,375 456,375 530,486 70,486"/>
-<line x1="347" y1="196" x2="550" y2="196" stroke="#ced4da" stroke-width="2"/>
+<line x1="347" y1="196" x2="550" y2="196" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item1" data-ig-font="secondary" x="562" y="203" font-size="20" fill="#223333">Vision</text>
-<line x1="425" y1="313" x2="550" y2="313" stroke="#ced4da" stroke-width="2"/>
+<line x1="425" y1="313" x2="550" y2="313" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item2" data-ig-font="secondary" x="562" y="320" font-size="20" fill="#223333">Strategy</text>
-<line x1="503" y1="430" x2="550" y2="430" stroke="#ced4da" stroke-width="2"/>
+<line x1="503" y1="430" x2="550" y2="430" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item3" data-ig-font="secondary" x="562" y="437" font-size="20" fill="#223333">Tactics</text>
 </svg>`,
   },
@@ -262,13 +259,13 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="secondary" points="240,230 360,230 412,309 188,309"/>
 <polygon data-ig-fill="tertiary" points="182,317 418,317 470,396 130,396"/>
 <polygon data-ig-fill="primary" points="125,404 475,404 530,486 70,486"/>
-<line x1="337" y1="181" x2="550" y2="181" stroke="#ced4da" stroke-width="2"/>
+<line x1="337" y1="181" x2="550" y2="181" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item1" data-ig-font="secondary" x="562" y="188" font-size="20" fill="#223333">Vision</text>
-<line x1="396" y1="270" x2="550" y2="270" stroke="#ced4da" stroke-width="2"/>
+<line x1="396" y1="270" x2="550" y2="270" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item2" data-ig-font="secondary" x="562" y="277" font-size="20" fill="#223333">Strategy</text>
-<line x1="454" y1="356" x2="550" y2="356" stroke="#ced4da" stroke-width="2"/>
+<line x1="454" y1="356" x2="550" y2="356" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item3" data-ig-font="secondary" x="562" y="363" font-size="20" fill="#223333">Tactics</text>
-<line x1="513" y1="445" x2="550" y2="445" stroke="#ced4da" stroke-width="2"/>
+<line x1="513" y1="445" x2="550" y2="445" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item4" data-ig-font="secondary" x="562" y="452" font-size="20" fill="#223333">Operations</text>
 </svg>`,
   },
@@ -293,15 +290,15 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="tertiary" points="205,282 395,282 435,344 165,344"/>
 <polygon data-ig-fill="primary" points="159,352 441,352 481,413 119,413"/>
 <polygon data-ig-fill="secondary" points="113,421 487,421 530,486 70,486"/>
-<line x1="332" y1="173" x2="550" y2="173" stroke="#ced4da" stroke-width="2"/>
+<line x1="332" y1="173" x2="550" y2="173" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item1" data-ig-font="secondary" x="562" y="180" font-size="20" fill="#223333">Vision</text>
-<line x1="379" y1="244" x2="550" y2="244" stroke="#ced4da" stroke-width="2"/>
+<line x1="379" y1="244" x2="550" y2="244" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item2" data-ig-font="secondary" x="562" y="251" font-size="20" fill="#223333">Strategy</text>
-<line x1="425" y1="313" x2="550" y2="313" stroke="#ced4da" stroke-width="2"/>
+<line x1="425" y1="313" x2="550" y2="313" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item3" data-ig-font="secondary" x="562" y="320" font-size="20" fill="#223333">Tactics</text>
-<line x1="471" y1="382" x2="550" y2="382" stroke="#ced4da" stroke-width="2"/>
+<line x1="471" y1="382" x2="550" y2="382" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item4" data-ig-font="secondary" x="562" y="389" font-size="20" fill="#223333">Operations</text>
-<line x1="518" y1="453" x2="550" y2="453" stroke="#ced4da" stroke-width="2"/>
+<line x1="518" y1="453" x2="550" y2="453" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item5" data-ig-font="secondary" x="562" y="460" font-size="20" fill="#223333">Foundation</text>
 </svg>`,
   },
@@ -419,7 +416,7 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Roadmap</text>
-<line x1="80" y1="330" x2="720" y2="330" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4"/>
+<line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <circle data-ig-fill="primary" cx="150" cy="330" r="18"/>
 <circle data-ig-fill="secondary" cx="400" cy="330" r="18"/>
 <circle data-ig-fill="tertiary" cx="650" cy="330" r="18"/>
@@ -445,7 +442,7 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Roadmap</text>
-<line x1="80" y1="330" x2="720" y2="330" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4"/>
+<line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <circle data-ig-fill="primary" cx="150" cy="330" r="18"/>
 <circle data-ig-fill="secondary" cx="317" cy="330" r="18"/>
 <circle data-ig-fill="tertiary" cx="483" cy="330" r="18"/>
@@ -474,7 +471,7 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Roadmap</text>
-<line x1="80" y1="330" x2="720" y2="330" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4"/>
+<line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <circle data-ig-fill="primary" cx="150" cy="330" r="16"/>
 <circle data-ig-fill="secondary" cx="275" cy="330" r="16"/>
 <circle data-ig-fill="tertiary" cx="400" cy="330" r="16"/>
