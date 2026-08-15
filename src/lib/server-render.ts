@@ -15,7 +15,7 @@ import {
 // released solely by the paid download endpoint).
 
 const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
-const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
+const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "quaternary", "accent"];
 
 // Classic fonts are not installed on the server, so previews substitute
 // metric-compatible (or visually close) open fonts. Downloaded SVGs keep
@@ -169,6 +169,7 @@ export function brandFromQuery(sp: URLSearchParams): BrandKit {
       primary: `#${sp.get("pc") || ""}`,
       secondary: `#${sp.get("sc") || ""}`,
       tertiary: `#${sp.get("tc") || ""}`,
+      quaternary: `#${sp.get("qc") || ""}`,
       accent: `#${sp.get("ac") || ""}`,
     },
     fonts: {

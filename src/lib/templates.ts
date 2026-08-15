@@ -941,11 +941,11 @@ export const TEMPLATES: Template[] = [
 <rect data-ig-fill="primary" x="170" y="150" width="245" height="185" rx="8"/>
 <rect data-ig-fill="secondary" x="425" y="150" width="245" height="185" rx="8"/>
 <rect data-ig-fill="tertiary" x="170" y="345" width="245" height="185" rx="8"/>
-<rect data-ig-fill="primary" x="425" y="345" width="245" height="185" rx="8"/>
+<rect data-ig-fill="quaternary" x="425" y="345" width="245" height="185" rx="8"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="292" y="250" text-anchor="middle" font-size="22" fill="#ffffff">Quick Wins</text>
 <text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="primary" x="547" y="250" text-anchor="middle" font-size="22" fill="#ffffff">Big Bets</text>
 <text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="primary" x="292" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Fill-Ins</text>
-<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="primary" x="547" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Money Pits</text>
+<text data-ig-contrast="quaternary" data-ig-text="item4" data-ig-font="primary" x="547" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Money Pits</text>
 <text data-ig-text="other1" data-ig-font="secondary" x="420" y="570" text-anchor="middle" font-size="17" fill="#495057">Effort</text>
 <text data-ig-text="other2" data-ig-font="secondary" x="130" y="340" text-anchor="middle" font-size="17" fill="#495057" transform="rotate(-90 130 340)">Impact</text>
 </g>
@@ -1256,9 +1256,9 @@ export const TEMPLATES: Template[] = [
 <rect data-ig-fill="tertiary" x="150" y="350" width="290" height="180" rx="10"/>
 <text data-ig-contrast="tertiary" data-ig-font="secondary" x="295" y="386" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">OPPORTUNITIES</text>
 <text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="295" y="458" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">New markets</text>
-<rect data-ig-fill="primary" x="460" y="350" width="290" height="180" rx="10"/>
-<text data-ig-contrast="primary" data-ig-font="secondary" x="605" y="386" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">THREATS</text>
-<text data-ig-text="item4" data-ig-contrast="primary" data-ig-font="primary" x="605" y="458" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Competition</text>
+<rect data-ig-fill="quaternary" x="460" y="350" width="290" height="180" rx="10"/>
+<text data-ig-contrast="quaternary" data-ig-font="secondary" x="605" y="386" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">THREATS</text>
+<text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="605" y="458" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Competition</text>
 </g>
 </svg>`,
   },
@@ -2017,6 +2017,743 @@ export const TEMPLATES: Template[] = [
 </g>
 </svg>`,
   },
+  {
+    id: "fishbone-1",
+    family: "fishbone",
+    title: "Fishbone",
+    category: "Analysis",
+    items: 4,
+    description: "Cause bones on a spine pointing at the effect.",
+    about: "The fishbone (Ishikawa) diagram is the standard root-cause tool: contributing causes branch off a spine that points at the effect. Name the causes on the bones and the problem at the head.",
+    usage: {
+      item1: "top bone 1",
+      item2: "top bone 2",
+      item3: "bottom bone 1",
+      item4: "bottom bone 2",
+      other1: "fish head",
+    },
+    labels: {
+      item1: "Cause 1",
+      item2: "Cause 2",
+      item3: "Cause 3",
+      item4: "Cause 4",
+      other1: "Effect",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-48.58 77.13) scale(1.2802)">
+<line x1="80" y1="330" x2="600" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="6"/>
+<polygon data-ig-fill="accent" fill="#495057" points="622,330 598,318 598,342"/>
+<line x1="230" y1="330" x2="320" y2="190" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<text data-ig-text="item1" data-ig-font="primary" x="320" y="174" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">People</text>
+<line x1="410" y1="330" x2="500" y2="190" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<text data-ig-text="item2" data-ig-font="primary" x="500" y="174" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Process</text>
+<line x1="230" y1="330" x2="320" y2="470" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<text data-ig-text="item3" data-ig-font="primary" x="320" y="500" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Tools</text>
+<line x1="410" y1="330" x2="500" y2="470" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<text data-ig-text="item4" data-ig-font="primary" x="500" y="500" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Environment</text>
+<rect data-ig-fill="primary" x="630" y="288" width="150" height="84" rx="10"/>
+<text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="primary" x="705" y="336" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Defects</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "iceberg-1",
+    family: "iceberg",
+    title: "Iceberg",
+    category: "Analysis",
+    items: 2,
+    description: "Visible tip above the waterline, hidden mass below.",
+    about: "The iceberg says the visible part is the small part. Label the tip with what everyone sees and the mass below the waterline with what actually drives it - culture, costs, effort, causes.",
+    usage: {
+      item1: "tip",
+      item2: "underwater mass",
+      other1: "right of tip",
+      other2: "right of mass",
+    },
+    labels: {
+      item1: "Tip",
+      item2: "Below Surface",
+      other1: "Tip Caption",
+      other2: "Mass Caption",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-27.09 32.21) scale(1.3177)">
+<rect data-ig-fill="primary" x="60" y="300" width="680" height="260" fill-opacity="0.16"/>
+<line x1="60" y1="300" x2="740" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3" stroke-dasharray="10 8"/>
+<polygon data-ig-fill="tertiary" points="400,150 480,300 320,300"/>
+<polygon data-ig-fill="primary" points="320,300 480,300 560,410 430,540 260,450"/>
+<text data-ig-text="item1" data-ig-contrast="tertiary" data-ig-font="primary" x="400" y="268" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Results</text>
+<text data-ig-text="item2" data-ig-contrast="primary" data-ig-font="primary" x="400" y="410" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Effort &amp; Habits</text>
+<text data-ig-text="other1" data-ig-font="secondary" x="580" y="240" text-anchor="start" font-size="17" fill="#212529">What people see</text>
+<text data-ig-text="other2" data-ig-font="secondary" x="580" y="420" text-anchor="start" font-size="17" fill="#212529">What it takes</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "balance-1",
+    family: "balance",
+    title: "Balance Scale",
+    category: "Comparison",
+    items: 2,
+    description: "Two options weighed on a scale.",
+    about: "A balance scale weighs two options against each other. Put one on each pan and let the caption state the verdict - or leave it level to show genuine trade-off.",
+    usage: {
+      item1: "left pan",
+      item2: "right pan",
+      other1: "below the base",
+    },
+    labels: {
+      item1: "Left Option",
+      item2: "Right Option",
+      other1: "Verdict",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-142.86 -78.40) scale(1.6071)">
+<line x1="200" y1="230" x2="600" y2="230" stroke="#495057" data-ig-stroke="accent" stroke-width="8"/>
+<rect data-ig-fill="accent" fill="#495057" x="392" y="230" width="16" height="250"/>
+<polygon data-ig-fill="accent" fill="#495057" points="330,520 470,520 500,556 300,556"/>
+<line x1="200" y1="230" x2="160" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="200" y1="230" x2="240" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="600" y1="230" x2="560" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="600" y1="230" x2="640" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<path d="M 140 300 A 62 34 0 0 0 260 300 Z" data-ig-fill="primary"/>
+<path d="M 540 300 A 62 34 0 0 0 660 300 Z" data-ig-fill="tertiary"/>
+<rect data-ig-fill="primary" x="120" y="120" width="160" height="56" rx="10"/>
+<rect data-ig-fill="tertiary" x="520" y="120" width="160" height="56" rx="10"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="200" y="154" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Build</text>
+<text data-ig-text="item2" data-ig-contrast="tertiary" data-ig-font="primary" x="600" y="154" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Buy</text>
+<text data-ig-text="other1" data-ig-font="secondary" x="400" y="596" text-anchor="middle" font-size="18" font-weight="bold" fill="#212529">Total cost over 3 years</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "gauge-1",
+    family: "gauge",
+    title: "Gauge",
+    category: "Analysis",
+    items: 3,
+    description: "Dial with three zones and a needle.",
+    about: "A gauge places a needle on a low-to-high dial. Label the three zones and the reading - perfect for maturity levels, risk ratings, and health scores.",
+    usage: {
+      item1: "left zone",
+      item2: "middle zone",
+      item3: "right zone",
+      other1: "reading",
+    },
+    labels: {
+      item1: "Low Zone",
+      item2: "Mid Zone",
+      item3: "High Zone",
+      other1: "Reading",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-169.95 -43.09) scale(1.6854)">
+<path d="M 180 422 A 220 220 0 0 1 277 248" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="46" stroke-linecap="butt"/>
+<text data-ig-text="item1" data-ig-font="primary" x="162" y="298" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Starting</text>
+<path d="M 297 236 A 220 220 0 0 1 496 232" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="46" stroke-linecap="butt"/>
+<text data-ig-text="item2" data-ig-font="primary" x="395" y="158" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Developing</text>
+<path d="M 517 243 A 220 220 0 0 1 619 415" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="46" stroke-linecap="butt"/>
+<text data-ig-text="item3" data-ig-font="primary" x="633" y="290" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Leading</text>
+<polygon data-ig-fill="accent" fill="#495057" points="528,330 390,422 408,440"/>
+<circle data-ig-fill="accent" fill="#495057" cx="400" cy="430" r="20"/>
+<text data-ig-text="other1" data-ig-font="primary" x="400" y="494" text-anchor="middle" font-size="28" font-weight="bold" fill="#212529">Maturity: Developing</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "flywheel-3",
+    family: "flywheel",
+    title: "Flywheel (3 segments)",
+    category: "Cycle",
+    items: 3,
+    description: "Self-reinforcing loop of 3 driving segments.",
+    about: "The flywheel is a cycle with momentum: thick segments that drive each other around. Popularized by Amazon's growth loop, it fits any self-reinforcing system.",
+    usage: {
+      item1: "segment 1",
+      item2: "segment 2",
+      item3: "segment 3",
+      other1: "center",
+    },
+    labels: {
+      item1: "Segment 1",
+      item2: "Segment 2",
+      item3: "Segment 3",
+      other1: "Center",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-208.43 -147.87) scale(1.8015)">
+<path d="M 424 162 A 170 170 0 0 1 567 360" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="54"/>
+<polygon data-ig-fill="primary" fill="#0d6efd" points="558,394 530,353 605,366"/>
+<text data-ig-text="item1" data-ig-font="primary" x="615" y="212" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Traffic</text>
+<path d="M 534 435 A 170 170 0 0 1 291 460" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="54"/>
+<polygon data-ig-fill="secondary" fill="#0d6efd" points="266,435 315,431 266,489"/>
+<text data-ig-text="item2" data-ig-font="primary" x="400" y="584" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Sellers</text>
+<path d="M 242 394 A 170 170 0 0 1 342 170" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="54"/>
+<polygon data-ig-fill="tertiary" fill="#0d6efd" points="376,162 355,206 329,135"/>
+<text data-ig-text="item3" data-ig-font="primary" x="185" y="212" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Selection</text>
+<text data-ig-text="other1" data-ig-font="primary" x="400" y="338" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Growth</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "flywheel-4",
+    family: "flywheel",
+    title: "Flywheel (4 segments)",
+    category: "Cycle",
+    items: 4,
+    description: "Self-reinforcing loop of 4 driving segments.",
+    about: "The flywheel is a cycle with momentum: thick segments that drive each other around. Popularized by Amazon's growth loop, it fits any self-reinforcing system.",
+    usage: {
+      item1: "segment 1",
+      item2: "segment 2",
+      item3: "segment 3",
+      item4: "segment 4",
+      other1: "center",
+    },
+    labels: {
+      item1: "Segment 1",
+      item2: "Segment 2",
+      item3: "Segment 3",
+      item4: "Segment 4",
+      other1: "Center",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-318.09 -191.41) scale(2.0952)">
+<path d="M 424 162 A 170 170 0 0 1 560 272" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="54"/>
+<polygon data-ig-fill="primary" fill="#0d6efd" points="568,306 524,285 595,259"/>
+<text data-ig-text="item1" data-ig-font="primary" x="575" y="161" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Traffic</text>
+<path d="M 568 354 A 170 170 0 0 1 458 490" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="54"/>
+<polygon data-ig-fill="secondary" fill="#0d6efd" points="424,498 445,454 471,525"/>
+<text data-ig-text="item2" data-ig-font="primary" x="575" y="511" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Sellers</text>
+<path d="M 376 498 A 170 170 0 0 1 240 388" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="54"/>
+<polygon data-ig-fill="tertiary" fill="#0d6efd" points="232,354 276,375 205,401"/>
+<text data-ig-text="item3" data-ig-font="primary" x="225" y="511" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Selection</text>
+<path d="M 232 306 A 170 170 0 0 1 342 170" fill="none" stroke="#0d6efd" data-ig-stroke="quaternary" stroke-width="54"/>
+<polygon data-ig-fill="quaternary" fill="#0d6efd" points="376,162 355,206 329,135"/>
+<text data-ig-text="item4" data-ig-font="primary" x="225" y="161" text-anchor="middle" font-size="19" font-weight="bold" fill="#212529">Experience</text>
+<text data-ig-text="other1" data-ig-font="primary" x="400" y="338" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Growth</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "puzzle-1",
+    family: "puzzle",
+    title: "Puzzle Pieces",
+    category: "Relationship",
+    items: 4,
+    description: "Four interlocking pieces forming one whole.",
+    about: "Four interlocking puzzle pieces say the parts only work together. Use it for teams, capabilities, or strategy components that complete each other.",
+    usage: {
+      item1: "top-left piece",
+      item2: "top-right piece",
+      item3: "bottom-right piece",
+      item4: "bottom-left piece",
+    },
+    labels: {
+      item1: "Piece 1",
+      item2: "Piece 2",
+      item3: "Piece 3",
+      item4: "Piece 4",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-500.00 -325.00) scale(2.5000)">
+<rect data-ig-fill="primary" x="220" y="150" width="180" height="180"/>
+<rect data-ig-fill="secondary" x="400" y="150" width="180" height="180"/>
+<rect data-ig-fill="tertiary" x="400" y="330" width="180" height="180"/>
+<rect data-ig-fill="quaternary" x="220" y="330" width="180" height="180"/>
+<circle data-ig-fill="primary" cx="400" cy="240" r="27"/>
+<circle data-ig-fill="secondary" cx="490" cy="330" r="27"/>
+<circle data-ig-fill="tertiary" cx="400" cy="420" r="27"/>
+<circle data-ig-fill="quaternary" cx="310" cy="330" r="27"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="300" y="245" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Product</text>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="500" y="245" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Marketing</text>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="500" y="425" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Sales</text>
+<text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="300" y="425" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Support</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "vtimeline-3",
+    family: "vtimeline",
+    title: "Vertical Timeline (3)",
+    category: "Timeline",
+    items: 3,
+    description: "3 milestones alternating down a vertical line.",
+    about: "A vertical timeline with alternating cards reads like a story: down the page, milestone by milestone. The classic company-history and project-recap layout.",
+    usage: {
+      item1: "left card 1",
+      item2: "right card 2",
+      item3: "left card 3",
+    },
+    labels: {
+      item1: "Milestone 1",
+      item2: "Milestone 2",
+      item3: "Milestone 3",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-192.31 -71.15) scale(1.7308)">
+<line x1="400" y1="140" x2="400" y2="520" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<line x1="370" y1="180" x2="400" y2="180" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="primary" cx="400" cy="180" r="13"/>
+<rect data-ig-fill="primary" x="140" y="149" width="230" height="62" rx="10"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="255" y="187" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Founded</text>
+<line x1="400" y1="330" x2="430" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="secondary" cx="400" cy="330" r="13"/>
+<rect data-ig-fill="secondary" x="430" y="299" width="230" height="62" rx="10"/>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="545" y="337" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">First product</text>
+<line x1="370" y1="480" x2="400" y2="480" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="tertiary" cx="400" cy="480" r="13"/>
+<rect data-ig-fill="tertiary" x="140" y="449" width="230" height="62" rx="10"/>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="255" y="487" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Series A</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "vtimeline-4",
+    family: "vtimeline",
+    title: "Vertical Timeline (4)",
+    category: "Timeline",
+    items: 4,
+    description: "4 milestones alternating down a vertical line.",
+    about: "A vertical timeline with alternating cards reads like a story: down the page, milestone by milestone. The classic company-history and project-recap layout.",
+    usage: {
+      item1: "left card 1",
+      item2: "right card 2",
+      item3: "left card 3",
+      item4: "right card 4",
+    },
+    labels: {
+      item1: "Milestone 1",
+      item2: "Milestone 2",
+      item3: "Milestone 3",
+      item4: "Milestone 4",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-192.31 -88.46) scale(1.7308)">
+<line x1="400" y1="120" x2="400" y2="560" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<line x1="370" y1="160" x2="400" y2="160" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="primary" cx="400" cy="160" r="13"/>
+<rect data-ig-fill="primary" x="140" y="129" width="230" height="62" rx="10"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="255" y="167" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Founded</text>
+<line x1="400" y1="280" x2="430" y2="280" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="secondary" cx="400" cy="280" r="13"/>
+<rect data-ig-fill="secondary" x="430" y="249" width="230" height="62" rx="10"/>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="545" y="287" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">First product</text>
+<line x1="370" y1="400" x2="400" y2="400" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="tertiary" cx="400" cy="400" r="13"/>
+<rect data-ig-fill="tertiary" x="140" y="369" width="230" height="62" rx="10"/>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="255" y="407" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Series A</text>
+<line x1="400" y1="520" x2="430" y2="520" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="primary" cx="400" cy="520" r="13"/>
+<rect data-ig-fill="primary" x="430" y="489" width="230" height="62" rx="10"/>
+<text data-ig-text="item4" data-ig-contrast="primary" data-ig-font="primary" x="545" y="527" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Global launch</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "vtimeline-5",
+    family: "vtimeline",
+    title: "Vertical Timeline (5)",
+    category: "Timeline",
+    items: 5,
+    description: "5 milestones alternating down a vertical line.",
+    about: "A vertical timeline with alternating cards reads like a story: down the page, milestone by milestone. The classic company-history and project-recap layout.",
+    usage: {
+      item1: "left card 1",
+      item2: "right card 2",
+      item3: "left card 3",
+      item4: "right card 4",
+      item5: "left card 5",
+    },
+    labels: {
+      item1: "Milestone 1",
+      item2: "Milestone 2",
+      item3: "Milestone 3",
+      item4: "Milestone 4",
+      item5: "Milestone 5",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-192.31 -78.08) scale(1.7308)">
+<line x1="400" y1="110" x2="400" y2="558" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<line x1="370" y1="150" x2="400" y2="150" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="primary" cx="400" cy="150" r="13"/>
+<rect data-ig-fill="primary" x="140" y="119" width="230" height="62" rx="10"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="255" y="157" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Founded</text>
+<line x1="400" y1="242" x2="430" y2="242" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="secondary" cx="400" cy="242" r="13"/>
+<rect data-ig-fill="secondary" x="430" y="211" width="230" height="62" rx="10"/>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="545" y="249" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">First product</text>
+<line x1="370" y1="334" x2="400" y2="334" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="tertiary" cx="400" cy="334" r="13"/>
+<rect data-ig-fill="tertiary" x="140" y="303" width="230" height="62" rx="10"/>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="255" y="341" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Series A</text>
+<line x1="400" y1="426" x2="430" y2="426" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="primary" cx="400" cy="426" r="13"/>
+<rect data-ig-fill="primary" x="430" y="395" width="230" height="62" rx="10"/>
+<text data-ig-text="item4" data-ig-contrast="primary" data-ig-font="primary" x="545" y="433" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Global launch</text>
+<line x1="370" y1="518" x2="400" y2="518" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<circle data-ig-fill="secondary" cx="400" cy="518" r="13"/>
+<rect data-ig-fill="secondary" x="140" y="487" width="230" height="62" rx="10"/>
+<text data-ig-text="item5" data-ig-contrast="secondary" data-ig-font="primary" x="255" y="525" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">IPO</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "mountain-1",
+    family: "mountain",
+    title: "Mountain",
+    category: "Process",
+    items: 3,
+    description: "A summit route with labeled camps and a flag on top.",
+    about: "The mountain frames an ambitious goal: labeled camps mark the route, the flag marks the summit. Use it for long programs, transformations, and growth journeys.",
+    usage: {
+      item1: "first camp",
+      item2: "second camp",
+      item3: "third camp",
+      other1: "beside the flag",
+    },
+    labels: {
+      item1: "Camp 1",
+      item2: "Camp 2",
+      item3: "Camp 3",
+      other1: "Summit",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-142.86 18.26) scale(1.6071)">
+<polygon data-ig-fill="secondary" points="400,130 680,530 120,530"/>
+<polygon data-ig-fill="tertiary" points="400,130 452,205 348,205"/>
+<line x1="400" y1="128" x2="400" y2="70" stroke="#495057" data-ig-stroke="accent" stroke-width="5"/>
+<polygon data-ig-fill="primary" points="400,70 456,88 400,106"/>
+<path d="M 230 530 Q 300 430 340 380 Q 390 320 400 220" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4" stroke-dasharray="10 8"/>
+<circle data-ig-fill="primary" cx="255" cy="495" r="13"/>
+<text data-ig-text="item1" data-ig-font="primary" x="231" y="501" text-anchor="end" font-size="18" font-weight="bold" fill="#212529">Foundations</text>
+<circle data-ig-fill="primary" cx="330" cy="390" r="13"/>
+<text data-ig-text="item2" data-ig-font="primary" x="306" y="396" text-anchor="end" font-size="18" font-weight="bold" fill="#212529">Momentum</text>
+<circle data-ig-fill="primary" cx="385" cy="285" r="13"/>
+<text data-ig-text="item3" data-ig-font="primary" x="361" y="291" text-anchor="end" font-size="18" font-weight="bold" fill="#212529">Final push</text>
+<text data-ig-text="other1" data-ig-font="primary" x="470" y="92" text-anchor="start" font-size="20" font-weight="bold" fill="#212529">Market leader</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "gears-1",
+    family: "gears",
+    title: "Gears",
+    category: "Process",
+    items: 3,
+    description: "Three interlocking gears driving each other.",
+    about: "Interlocking gears show how functions drive each other: turn one and the others move. Label each gear with a team, system, or force.",
+    usage: {
+      item1: "large gear",
+      item2: "right gear",
+      item3: "bottom gear",
+    },
+    labels: {
+      item1: "Gear 1",
+      item2: "Gear 2",
+      item3: "Gear 3",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-289.75 -251.50) scale(2.2500)">
+<circle cx="260" cy="250" r="96" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="26" stroke-dasharray="16 12"/>
+<circle data-ig-fill="primary" cx="260" cy="250" r="88"/>
+<circle cx="260" cy="250" r="14" fill="#ffffff"/>
+<circle cx="462" cy="320" r="76" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="26" stroke-dasharray="16 12"/>
+<circle data-ig-fill="secondary" cx="462" cy="320" r="68"/>
+<circle cx="462" cy="320" r="14" fill="#ffffff"/>
+<circle cx="312" cy="452" r="62" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="26" stroke-dasharray="16 12"/>
+<circle data-ig-fill="tertiary" cx="312" cy="452" r="54"/>
+<circle cx="312" cy="452" r="14" fill="#ffffff"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="260" y="288" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Strategy</text>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="462" y="354" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Execution</text>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="312" y="486" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Feedback</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "honeycomb-1",
+    family: "honeycomb",
+    title: "Honeycomb",
+    category: "Relationship",
+    items: 5,
+    description: "Five packed cells of one whole.",
+    about: "A honeycomb cluster presents five capabilities as tightly-packed cells of one whole - organic, equal, and connected.",
+    usage: {
+      item1: "cell 1",
+      item2: "cell 2",
+      item3: "cell 3",
+      item4: "cell 4",
+      item5: "cell 5",
+    },
+    labels: {
+      item1: "Cell 1",
+      item2: "Cell 2",
+      item3: "Cell 3",
+      item4: "Cell 4",
+      item5: "Cell 5",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-400.00 -170.50) scale(2.2500)">
+<polygon data-ig-fill="primary" points="332,278 266,316 200,278 200,202 266,164 332,202"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="266" y="247" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Design</text>
+<polygon data-ig-fill="secondary" points="466,278 400,316 334,278 334,202 400,164 466,202"/>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="400" y="247" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Build</text>
+<polygon data-ig-fill="tertiary" points="600,278 534,316 468,278 468,202 534,164 600,202"/>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="534" y="247" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Test</text>
+<polygon data-ig-fill="primary" points="399,394 333,432 267,394 267,318 333,280 399,318"/>
+<text data-ig-text="item4" data-ig-contrast="primary" data-ig-font="primary" x="333" y="363" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Ship</text>
+<polygon data-ig-fill="secondary" points="533,394 467,432 401,394 401,318 467,280 533,318"/>
+<text data-ig-text="item5" data-ig-contrast="secondary" data-ig-font="primary" x="467" y="363" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Learn</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "tree-1",
+    family: "tree",
+    title: "Org Tree",
+    category: "Hierarchy",
+    items: 5,
+    description: "A root, two branches, four leaves.",
+    about: "The org-tree shows two levels of structure under a single root: teams under leaders, products under a portfolio, topics under a theme.",
+    usage: {
+      item1: "root",
+      item2: "left branch",
+      item3: "right branch",
+      item4: "leaf 1",
+      item5: "leaf 2",
+      other1: "leaf 3",
+      other2: "leaf 4",
+    },
+    labels: {
+      item1: "Root",
+      item2: "Branch 1",
+      item3: "Branch 2",
+      item4: "Leaf 1",
+      item5: "Leaf 2",
+      other1: "Leaf 3",
+      other2: "Leaf 4",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-96.03 52.98) scale(1.4901)">
+<line x1="400" y1="206" x2="400" y2="240" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="230" y1="240" x2="570" y2="240" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="230" y1="240" x2="230" y2="278" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="570" y1="240" x2="570" y2="278" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="230" y1="334" x2="230" y2="368" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="160" y1="368" x2="300" y2="368" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="160" y1="368" x2="160" y2="400" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="300" y1="368" x2="300" y2="400" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="570" y1="334" x2="570" y2="368" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="500" y1="368" x2="640" y2="368" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="500" y1="368" x2="500" y2="400" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="640" y1="368" x2="640" y2="400" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<rect data-ig-fill="primary" x="325" y="150" width="150" height="56" rx="9"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="400" y="184" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">CEO</text>
+<rect data-ig-fill="secondary" x="155" y="278" width="150" height="56" rx="9"/>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="230" y="312" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Product</text>
+<rect data-ig-fill="secondary" x="495" y="278" width="150" height="56" rx="9"/>
+<text data-ig-text="item3" data-ig-contrast="secondary" data-ig-font="primary" x="570" y="312" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Operations</text>
+<rect data-ig-fill="tertiary" x="98" y="400" width="124" height="50" rx="8"/>
+<text data-ig-text="item4" data-ig-contrast="tertiary" data-ig-font="primary" x="160" y="430" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Design</text>
+<rect data-ig-fill="tertiary" x="238" y="400" width="124" height="50" rx="8"/>
+<text data-ig-text="item5" data-ig-contrast="tertiary" data-ig-font="primary" x="300" y="430" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Engineering</text>
+<rect data-ig-fill="tertiary" x="438" y="400" width="124" height="50" rx="8"/>
+<text data-ig-text="other1" data-ig-contrast="tertiary" data-ig-font="primary" x="500" y="430" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Finance</text>
+<rect data-ig-fill="tertiary" x="578" y="400" width="124" height="50" rx="8"/>
+<text data-ig-text="other2" data-ig-contrast="tertiary" data-ig-font="primary" x="640" y="430" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">People</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "mindmap-1",
+    family: "mindmap",
+    title: "Mind Map",
+    category: "Relationship",
+    items: 4,
+    description: "A central idea with four radiating branches.",
+    about: "A mind map radiates ideas from a central concept into labeled branches. Less formal than hub-and-spoke - built for brainstorms and topic overviews.",
+    usage: {
+      item1: "top-left branch",
+      item2: "top-right branch",
+      item3: "bottom-left branch",
+      item4: "bottom-right branch",
+      other1: "central idea",
+    },
+    labels: {
+      item1: "Branch 1",
+      item2: "Branch 2",
+      item3: "Branch 3",
+      item4: "Branch 4",
+      other1: "Central Idea",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-37.31 56.72) scale(1.3433)">
+<path d="M 340 330 Q 245 180 235 180" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<path d="M 460 330 Q 555 180 565 180" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<path d="M 340 330 Q 245 480 235 480" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<path d="M 460 330 Q 555 480 565 480" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
+<ellipse data-ig-fill="primary" cx="400" cy="330" rx="115" ry="60"/>
+<text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="primary" x="400" y="338" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Campaign</text>
+<rect data-ig-fill="secondary" x="65" y="152" width="170" height="56" rx="28"/>
+<text data-ig-text="item1" data-ig-contrast="secondary" data-ig-font="primary" x="150" y="187" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Audience</text>
+<rect data-ig-fill="tertiary" x="565" y="152" width="170" height="56" rx="28"/>
+<text data-ig-text="item2" data-ig-contrast="tertiary" data-ig-font="primary" x="650" y="187" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Channels</text>
+<rect data-ig-fill="tertiary" x="65" y="452" width="170" height="56" rx="28"/>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="150" y="487" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Budget</text>
+<rect data-ig-fill="secondary" x="565" y="452" width="170" height="56" rx="28"/>
+<text data-ig-text="item4" data-ig-contrast="secondary" data-ig-font="primary" x="650" y="487" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Timing</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "stats-1",
+    family: "stats",
+    title: "Stat Tiles",
+    category: "List",
+    items: 3,
+    description: "Three headline numbers with labels.",
+    about: "Big-number stat tiles are the most shareable slide there is: three headline metrics with labels. Numbers are text, so write them any way you like.",
+    usage: {
+      item1: "big number 1",
+      item2: "big number 2",
+      item3: "big number 3",
+      other1: "label 1",
+      other2: "label 2",
+      other3: "label 3",
+    },
+    labels: {
+      item1: "Number 1",
+      item2: "Number 2",
+      item3: "Number 3",
+      other1: "Label 1",
+      other2: "Label 2",
+      other3: "Label 3",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-80.65 64.52) scale(1.4516)">
+<rect data-ig-fill="primary" x="90" y="220" width="190" height="160" rx="14"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="185" y="296" text-anchor="middle" font-size="42" font-weight="bold" fill="#ffffff">87%</text>
+<text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="secondary" x="185" y="344" text-anchor="middle" font-size="15" fill="#ffffff">Satisfaction</text>
+<rect data-ig-fill="secondary" x="305" y="220" width="190" height="160" rx="14"/>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="400" y="296" text-anchor="middle" font-size="42" font-weight="bold" fill="#ffffff">2.4x</text>
+<text data-ig-text="other2" data-ig-contrast="secondary" data-ig-font="secondary" x="400" y="344" text-anchor="middle" font-size="15" fill="#ffffff">Faster delivery</text>
+<rect data-ig-fill="tertiary" x="520" y="220" width="190" height="160" rx="14"/>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="615" y="296" text-anchor="middle" font-size="42" font-weight="bold" fill="#ffffff">150+</text>
+<text data-ig-text="other3" data-ig-contrast="tertiary" data-ig-font="secondary" x="615" y="344" text-anchor="middle" font-size="15" fill="#ffffff">Countries</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "checklist-3",
+    family: "checklist",
+    title: "Checklist (3)",
+    category: "List",
+    items: 3,
+    description: "3 checked-off points.",
+    about: "A checklist with bold checkmarks communicates completion and confidence: what is covered, included, or done.",
+    usage: {
+      item1: "row 1",
+      item2: "row 2",
+      item3: "row 3",
+    },
+    labels: {
+      item1: "Item 1",
+      item2: "Item 2",
+      item3: "Item 3",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-553.76 -777.19) scale(3.8703)">
+<circle data-ig-fill="primary" cx="180" cy="240" r="24"/>
+<path d="M 168 240 L 177 249 L 193 231" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item1" data-ig-font="primary" x="228" y="248" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Free updates</text>
+<circle data-ig-fill="secondary" cx="180" cy="330" r="24"/>
+<path d="M 168 330 L 177 339 L 193 321" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item2" data-ig-font="primary" x="228" y="338" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">No lock-in</text>
+<circle data-ig-fill="tertiary" cx="180" cy="420" r="24"/>
+<path d="M 168 420 L 177 429 L 193 411" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item3" data-ig-font="primary" x="228" y="428" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Cancel anytime</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "checklist-4",
+    family: "checklist",
+    title: "Checklist (4)",
+    category: "List",
+    items: 4,
+    description: "4 checked-off points.",
+    about: "A checklist with bold checkmarks communicates completion and confidence: what is covered, included, or done.",
+    usage: {
+      item1: "row 1",
+      item2: "row 2",
+      item3: "row 3",
+      item4: "row 4",
+    },
+    labels: {
+      item1: "Item 1",
+      item2: "Item 2",
+      item3: "Item 3",
+      item4: "Item 4",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-302.53 -433.96) scale(2.8302)">
+<circle data-ig-fill="primary" cx="180" cy="195" r="24"/>
+<path d="M 168 195 L 177 204 L 193 186" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item1" data-ig-font="primary" x="228" y="203" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Free updates</text>
+<circle data-ig-fill="secondary" cx="180" cy="285" r="24"/>
+<path d="M 168 285 L 177 294 L 193 276" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item2" data-ig-font="primary" x="228" y="293" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">No lock-in</text>
+<circle data-ig-fill="tertiary" cx="180" cy="375" r="24"/>
+<path d="M 168 375 L 177 384 L 193 366" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item3" data-ig-font="primary" x="228" y="383" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Cancel anytime</text>
+<circle data-ig-fill="primary" cx="180" cy="465" r="24"/>
+<path d="M 168 465 L 177 474 L 193 456" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item4" data-ig-font="primary" x="228" y="473" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Secure by default</text>
+</g>
+</svg>`,
+  },
+  {
+    id: "checklist-5",
+    family: "checklist",
+    title: "Checklist (5)",
+    category: "List",
+    items: 5,
+    description: "5 checked-off points.",
+    about: "A checklist with bold checkmarks communicates completion and confidence: what is covered, included, or done.",
+    usage: {
+      item1: "row 1",
+      item2: "row 2",
+      item3: "row 3",
+      item4: "row 4",
+      item5: "row 5",
+    },
+    labels: {
+      item1: "Item 1",
+      item2: "Item 2",
+      item3: "Item 3",
+      item4: "Item 4",
+      item5: "Item 5",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
+<g transform="translate(-125.50 -227.94) scale(2.2059)">
+<circle data-ig-fill="primary" cx="180" cy="150" r="24"/>
+<path d="M 168 150 L 177 159 L 193 141" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item1" data-ig-font="primary" x="228" y="158" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Free updates</text>
+<circle data-ig-fill="secondary" cx="180" cy="240" r="24"/>
+<path d="M 168 240 L 177 249 L 193 231" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item2" data-ig-font="primary" x="228" y="248" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">No lock-in</text>
+<circle data-ig-fill="tertiary" cx="180" cy="330" r="24"/>
+<path d="M 168 330 L 177 339 L 193 321" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item3" data-ig-font="primary" x="228" y="338" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Cancel anytime</text>
+<circle data-ig-fill="primary" cx="180" cy="420" r="24"/>
+<path d="M 168 420 L 177 429 L 193 411" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item4" data-ig-font="primary" x="228" y="428" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Secure by default</text>
+<circle data-ig-fill="secondary" cx="180" cy="510" r="24"/>
+<path d="M 168 510 L 177 519 L 193 501" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text data-ig-text="item5" data-ig-font="primary" x="228" y="518" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">24/7 support</text>
+</g>
+</svg>`,
+  },
 ];
 
 export const CATEGORIES = [...new Set(TEMPLATES.map((t) => t.category))];
@@ -2079,4 +2816,7 @@ export const FAMILY_DESCRIPTIONS: Record<string, string> = {
   radial: "Central circle with multiple connected nodes (user-defined).",
   staircase: "Multiple rising steps (user-defined) toward a goal.",
   target: "Multiple concentric rings (user-defined) narrowing to a bullseye.",
+  flywheel: "Self-reinforcing loop of multiple driving segments (user-defined).",
+  vtimeline: "Milestones (user-defined) alternating down a vertical line.",
+  checklist: "Multiple checked-off points (user-defined).",
 };

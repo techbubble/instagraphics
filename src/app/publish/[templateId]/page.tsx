@@ -6,7 +6,7 @@ import { BrandKit, ColorSlot, DEFAULT_BRAND, FONT_CHOICES, FontSlot } from "@/li
 import Builder from "@/components/Builder";
 
 const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
-const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
+const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "quaternary", "accent"];
 
 function mergeBrand(saved: unknown): BrandKit {
   const brand: BrandKit = {

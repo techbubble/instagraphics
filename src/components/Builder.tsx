@@ -14,12 +14,17 @@ import FontSelect from "@/components/FontSelect";
 import ColorSelect from "@/components/ColorSelect";
 
 const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
-const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
-const SLOT_LABEL: Record<ColorSlot, string> = {
+const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "quaternary", "accent"];
+const COLOR_LABEL: Record<ColorSlot, string> = {
+  primary: "Color 1",
+  secondary: "Color 2",
+  tertiary: "Color 3",
+  quaternary: "Color 4",
+  accent: "Accent",
+};
+const FONT_LABEL: Record<FontSlot, string> = {
   primary: "Primary",
   secondary: "Secondary",
-  tertiary: "Tertiary",
-  accent: "Accent",
 };
 
 type PrefsPatch = { brand?: BrandKit; values?: Record<string, string> };
@@ -334,14 +339,14 @@ export default function Builder({
               <div className="fw-bold small mb-2">Colors</div>
               <div className="row g-2 mb-3">
                 {COLOR_SLOTS.map((slot) => (
-                  <div className="col-3" key={`c-${slot}`}>
-                    <label className="form-label mb-1" style={{ fontSize: "0.8rem" }}>
-                      {SLOT_LABEL[slot]}
+                  <div className="col" key={`c-${slot}`}>
+                    <label className="form-label mb-1 text-nowrap" style={{ fontSize: "0.72rem" }}>
+                      {COLOR_LABEL[slot]}
                     </label>
                     <ColorSelect
                       value={brand.colors[slot]}
                       onChange={(c) => setColor(slot, c)}
-                      ariaLabel={`${SLOT_LABEL[slot]} color`}
+                      ariaLabel={`${COLOR_LABEL[slot]} color`}
                     />
                   </div>
                 ))}
@@ -349,11 +354,11 @@ export default function Builder({
               <div className="fw-bold small mb-2">Fonts</div>
               {FONT_SLOTS.map((slot) => (
                 <div className="mb-2" key={`f-${slot}`}>
-                  <label className="form-label small mb-1">{SLOT_LABEL[slot]}</label>
+                  <label className="form-label small mb-1">{FONT_LABEL[slot]}</label>
                   <FontSelect
                     value={brand.fonts[slot]}
                     onChange={(f) => setFont(slot, f)}
-                    ariaLabel={`${SLOT_LABEL[slot]} font`}
+                    ariaLabel={`${FONT_LABEL[slot]} font`}
                   />
                 </div>
               ))}

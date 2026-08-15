@@ -12,7 +12,7 @@
 export type Slot = "primary" | "secondary" | "tertiary";
 // Accent is a color-only slot used by strokes/connectors (arrows, lines,
 // leaders) so they stay visible on any background the user picks.
-export type ColorSlot = Slot | "accent";
+export type ColorSlot = Slot | "quaternary" | "accent";
 // Two font slots: primary = item text, secondary = captions/other text.
 export type FontSlot = "primary" | "secondary";
 
@@ -26,6 +26,7 @@ export const DEFAULT_BRAND: BrandKit = {
     primary: "#0d6efd",
     secondary: "#6c757d",
     tertiary: "#ffc107",
+    quaternary: "#198754",
     accent: "#495057",
   },
   fonts: { primary: "Roboto", secondary: "Roboto" },
@@ -75,7 +76,7 @@ function setAttr(tag: string, attr: string, value: string): string {
 }
 
 const FONT_SLOT_RE = /^(primary|secondary)$/;
-const COLOR_SLOT_RE = /^(primary|secondary|tertiary|accent)$/;
+const COLOR_SLOT_RE = /^(primary|secondary|tertiary|quaternary|accent)$/;
 
 function fontSlotIn(tag: string, name: string): FontSlot | null {
   const m = tag.match(new RegExp(`data-${name}="([^"]*)"`));
