@@ -31,13 +31,15 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return tiles.filter((t) => {
+    return [...tiles]
+      .sort((a, b) => a.title.localeCompare(b.title))
+      .filter((t) => {
       if (selected.size > 0 && !selected.has(t.category)) return false;
-      if (!q) return true;
-      return [t.title, t.category, t.description].some((s) =>
-        s.toLowerCase().includes(q)
-      );
-    });
+        if (!q) return true;
+        return [t.title, t.category, t.description].some((s) =>
+          s.toLowerCase().includes(q)
+        );
+      });
   }, [tiles, query, selected]);
 
   const allActive = selected.size === 0;
