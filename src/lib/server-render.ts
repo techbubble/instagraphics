@@ -61,10 +61,21 @@ export function fontFiles(): Promise<string[]> {
   return fontsPromise;
 }
 
+// Bake a Photoshop-style transparency checkerboard into every preview PNG,
+// so saved/screenshotted previews are visibly not production assets. The
+// clean SVG is only released by the paid download endpoint.
+const CHECKER =
+  '<defs><pattern id="ig-checker" width="24" height="24" patternUnits="userSpaceOnUse">' +
+  '<rect width="24" height="24" fill="#ffffff"/>' +
+  '<rect width="12" height="12" fill="#dee2e6"/>' +
+  '<rect x="12" y="12" width="12" height="12" fill="#dee2e6"/>' +
+  '</pattern></defs><rect width="100%" height="100%" fill="url(#ig-checker)"/>';
+
 export async function renderPng(svg: string, width = 800): Promise<Buffer> {
   const files = await fontFiles().catch(() => [] as string[]);
   const { Resvg } = await import("@resvg/resvg-js");
-  const resvg = new Resvg(svg, {
+  const checkered = svg.replace(/(<svg\b[^>]*>)/, `$1${CHECKER}`);
+  const resvg = new Resvg(checkered, {
     fitTo: { mode: "width", value: width },
     font: {
       fontFiles: files,

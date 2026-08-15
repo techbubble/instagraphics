@@ -274,7 +274,7 @@ export default function Builder({
             </div>
             <div className="card-body flex-grow-1 overflow-auto">
               {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => (
-                <div className={`mb-3 ${f.indent ? "ms-3" : ""}`} key={f.key}>
+                <div className={`mb-3 ${f.indent ? "ms-4" : ""}`} key={f.key}>
                   <div className="d-flex justify-content-between align-items-baseline">
                     <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
                       {f.label}
