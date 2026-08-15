@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import DownloadButtons from "@/components/DownloadButtons";
+import SvgImage from "@/components/SvgImage";
 
 export default async function DownloadPage({
   params,
@@ -24,10 +25,9 @@ export default async function DownloadPage({
   return (
     <div className="row g-4">
       <div className="col-lg-8">
-        <div
-          className="ig-preview border rounded p-2"
-          dangerouslySetInnerHTML={{ __html: graphic.svg }}
-        />
+        <div className="ig-preview border rounded p-2">
+          <SvgImage svg={graphic.svg} alt={graphic.title} />
+        </div>
       </div>
       <div className="col-lg-4">
         <h1 className="h4">{graphic.title}</h1>

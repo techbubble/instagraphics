@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import DownloadButtons from "@/components/DownloadButtons";
+import SvgImage from "@/components/SvgImage";
 
 export default async function MyGraphicsPage() {
   const user = await currentUser();
@@ -30,10 +31,9 @@ export default async function MyGraphicsPage() {
           {rows.map((g) => (
             <div key={g.id} className="col-sm-6 col-md-4 col-lg-3">
               <div className="card ig-tile h-100">
-                <div
-                  className="ig-tile-preview border-bottom"
-                  dangerouslySetInnerHTML={{ __html: g.svg }}
-                />
+                <div className="ig-tile-preview border-bottom">
+                  <SvgImage svg={g.svg} alt={g.title} />
+                </div>
                 <div className="card-body py-2">
                   <div className="fw-semibold">{g.title}</div>
                   <div className="small text-secondary mb-2">

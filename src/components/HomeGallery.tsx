@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import SvgImage from "@/components/SvgImage";
 
 type Tile = {
   id: string;
@@ -126,10 +127,9 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
             <div key={t.id} className="col-sm-6 col-md-4 col-lg-3">
               <Link href={`/build/${t.id}${catsQuery}`} className="text-decoration-none">
                 <div className="card ig-tile h-100">
-                  <div
-                    className="ig-tile-preview border-bottom"
-                    dangerouslySetInnerHTML={{ __html: t.preview }}
-                  />
+                  <div className="ig-tile-preview border-bottom">
+                    <SvgImage svg={t.preview} alt={t.title} />
+                  </div>
                   <div className="card-body py-2">
                     <div className="fw-semibold text-dark">{t.title}</div>
                     <div className="small text-secondary">{t.description}</div>

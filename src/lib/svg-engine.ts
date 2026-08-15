@@ -105,34 +105,56 @@ function bufToBase64(buf: ArrayBuffer): string {
 
 // Inline any Google fonts referenced by the SVG as data-URI @font-face
 // rules, so downloaded SVGs and canvas-rasterized PNGs render the chosen
-// fonts without network access.
+// fonts without network access. Inlined CSS is cached per family set, so
+// live-preview rasterization only fetches fonts once.
+const fontCssCache = new Map<string, Promise<string>>();
+
+function inlinedFontCss(families: string[]): Promise<string> {
+  const key = families.join("|");
+  let cached = fontCssCache.get(key);
+  if (!cached) {
+    cached = (async () => {
+      const query = families
+        .map((f) => `family=${f.replace(/ /g, "+")}:wght@400;700`)
+        .join("&");
+      let css = await (
+        await fetch(`https://fonts.googleapis.com/css2?${query}&display=swap`)
+      ).text();
+      const urls = [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map((m) => m[1]))];
+      await Promise.all(
+        urls.map(async (u) => {
+          const buf = await (await fetch(u)).arrayBuffer();
+          css = css.replaceAll(u, `data:font/woff2;base64,${bufToBase64(buf)}`);
+        })
+      );
+      return css;
+    })();
+    cached.catch(() => fontCssCache.delete(key));
+    fontCssCache.set(key, cached);
+  }
+  return cached;
+}
+
 export async function embedGoogleFonts(svg: string): Promise<string> {
   const used = new Set<string>();
   for (const m of svg.matchAll(/font-family="([^"]+)"/g)) used.add(m[1]);
   const families = GOOGLE_FONTS.filter((f) => used.has(f));
   if (families.length === 0) return svg;
   try {
-    const query = families
-      .map((f) => `family=${f.replace(/ /g, "+")}:wght@400;700`)
-      .join("&");
-    let css = await (
-      await fetch(`https://fonts.googleapis.com/css2?${query}&display=swap`)
-    ).text();
-    const urls = [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map((m) => m[1]))];
-    await Promise.all(
-      urls.map(async (u) => {
-        const buf = await (await fetch(u)).arrayBuffer();
-        css = css.replaceAll(u, `data:font/woff2;base64,${bufToBase64(buf)}`);
-      })
-    );
+    const css = await inlinedFontCss(families);
     return svg.replace(/(<svg\b[^>]*>)/, `$1<style>${css}</style>`);
   } catch {
-    return svg; // download still works, viewer falls back to default fonts
+    return svg; // viewer falls back to default fonts
   }
 }
 
-// Rasterize a rendered SVG string to a PNG blob at 2x scale.
-export async function svgToPngBlob(svgString: string): Promise<Blob> {
+// Rasterize a rendered SVG string to a PNG blob at 2x scale. Pass
+// background: null for a transparent PNG (used by on-screen previews).
+export async function svgToPngBlob(
+  svgString: string,
+  opts: { background?: string | null } = {}
+): Promise<Blob> {
+  const background = opts.background === undefined ? "#ffffff" : opts.background;
   const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
   const url = URL.createObjectURL(svgBlob);
   try {
@@ -149,8 +171,10 @@ export async function svgToPngBlob(svgString: string): Promise<Blob> {
     canvas.width = width * scale;
     canvas.height = height * scale;
     const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (background) {
+      ctx.fillStyle = background;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     return await new Promise<Blob>((resolve, reject) =>
       canvas.toBlob(

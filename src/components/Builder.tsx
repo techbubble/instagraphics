@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UNIVERSAL_FIELDS, itemCount, type Template } from "@/lib/templates";
+import SvgImage from "@/components/SvgImage";
 import {
   BrandKit,
   FONT_CHOICES,
@@ -236,35 +237,26 @@ export default function Builder({
               </button>
             </div>
             <div className="card-body">
-              {UNIVERSAL_FIELDS.map((f) => {
-                const usage = template.usage[f.key];
-                return (
-                  <div
-                    className={`mb-3 ${f.indent ? "ms-3" : ""}`}
-                    key={f.key}
-                  >
-                    <div className="d-flex justify-content-between align-items-baseline">
-                      <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
-                        {f.label}
-                      </label>
-                      <span
-                        className={usage ? "text-secondary" : "text-secondary opacity-50 fst-italic"}
-                        style={{ fontSize: "0.72rem" }}
-                      >
-                        {usage ?? "not used"}
-                      </span>
-                    </div>
-                    <input
-                      id={`field-${f.key}`}
-                      className="form-control form-control-sm"
-                      value={values[f.key] ?? ""}
-                      placeholder={f.label}
-                      maxLength={f.maxLength}
-                      onChange={(e) => setField(f.key, e.target.value)}
-                    />
+              {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => (
+                <div className={`mb-3 ${f.indent ? "ms-3" : ""}`} key={f.key}>
+                  <div className="d-flex justify-content-between align-items-baseline">
+                    <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
+                      {f.label}
+                    </label>
+                    <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
+                      {template.usage[f.key]}
+                    </span>
                   </div>
-                );
-              })}
+                  <input
+                    id={`field-${f.key}`}
+                    className="form-control form-control-sm"
+                    value={values[f.key] ?? ""}
+                    placeholder={f.label}
+                    maxLength={f.maxLength}
+                    onChange={(e) => setField(f.key, e.target.value)}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         ) : (
@@ -278,10 +270,9 @@ export default function Builder({
           </button>
         )}
 
-        <div
-          className="ig-preview border rounded p-2 flex-grow-1"
-          dangerouslySetInnerHTML={{ __html: rendered }}
-        />
+        <div className="ig-preview border rounded p-2 flex-grow-1">
+          <SvgImage svg={rendered} alt={template.title} />
+        </div>
 
         <div className="flex-shrink-0" style={{ width: 120 }}>
           <div className="d-flex justify-content-center mb-2">
@@ -331,12 +322,9 @@ export default function Builder({
                       t.id === template.id ? "border-primary border-2" : ""
                     }`}
                   >
-                    <div
-                      className="ig-tile-preview"
-                      dangerouslySetInnerHTML={{
-                        __html: renderTemplate(t.svg, brand, effective),
-                      }}
-                    />
+                    <div className="ig-tile-preview">
+                      <SvgImage svg={renderTemplate(t.svg, brand, effective)} alt={t.title} />
+                    </div>
                   </button>
                 ))}
               </div>

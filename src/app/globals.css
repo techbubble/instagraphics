@@ -12,7 +12,8 @@
 
 /* Photoshop-style transparency checkerboard behind previews, so on-screen
    renders are visibly not production-ready screenshots. */
-.ig-preview {
+.ig-preview,
+.ig-tile-preview {
   background-image: conic-gradient(
     #dee2e6 25%,
     #ffffff 0 50%,
