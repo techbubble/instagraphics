@@ -6,8 +6,19 @@ import {
   toMeta,
 } from "@/lib/templates";
 import HomeGallery from "@/components/HomeGallery";
+import { sql } from "@/lib/db";
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Popularity: total saves per family drives the default ordering.
+  let savesByTemplate: Record<string, number> = {};
+  try {
+    const rows = (await sql()`
+      SELECT template_id, COUNT(*)::int AS c FROM graphics GROUP BY template_id
+    `) as { template_id: string; c: number }[];
+    savesByTemplate = Object.fromEntries(rows.map((r) => [r.template_id, r.c]));
+  } catch {
+    // no DB (e.g. build-time) — fall back to alphabetical
+  }
   const byFamily = new Map<string, ReturnType<typeof toMeta>[]>();
   for (const t of TEMPLATES.map(toMeta)) {
     const list = byFamily.get(t.family) ?? [];
@@ -16,7 +27,12 @@ export default function HomePage() {
   }
   const tiles = [...byFamily.values()].map((variants) => {
     const def = familyDefault(variants);
+    const saves = variants.reduce(
+      (sum, v) => sum + (savesByTemplate[v.id] ?? 0),
+      0
+    );
     return {
+      saves,
       family: def.family,
       title: familyTitle(def),
       category: def.category,

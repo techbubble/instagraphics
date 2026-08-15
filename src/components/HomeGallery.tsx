@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type Tile = {
+  saves: number;
   family: string;
   title: string;
   category: string;
@@ -36,7 +37,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return [...tiles]
-      .sort((a, b) => a.title.localeCompare(b.title))
+      .sort((a, b) => b.saves - a.saves || a.title.localeCompare(b.title))
       .filter((t) => {
         if (selected.size > 0 && !selected.has(t.category)) return false;
         if (!q) return true;
