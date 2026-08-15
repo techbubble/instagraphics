@@ -278,6 +278,21 @@ export default function Builder({
             <div className="card d-flex flex-column flex-grow-1" style={{ minHeight: 0 }}>
             <div className="card-header d-flex justify-content-between align-items-center py-2">
               <span className="fw-bold">Content</span>
+              {variants.length > 1 && (
+                <div className="btn-group btn-group-sm" role="group" aria-label="Item count">
+                  {variants.map((v) => (
+                    <button
+                      key={v.id}
+                      type="button"
+                      className={`btn py-0 px-2 ${v.id === template.id ? "btn-primary" : "btn-outline-primary"}`}
+                      title={`${v.items}-item version`}
+                      onClick={() => switchTemplate(v.id)}
+                    >
+                      {v.items}
+                    </button>
+                  ))}
+                </div>
+              )}
               <button
                 type="button"
                 className="btn btn-sm btn-outline-secondary py-0"
@@ -350,23 +365,7 @@ export default function Builder({
 
         <div ref={centerRef} className="flex-grow-1 d-flex flex-column align-items-center">
           <div className="text-center mb-2" style={{ height: 56 }}>
-            <div className="d-flex justify-content-center align-items-center gap-2">
-              <h1 className="h4 mb-0">{familyTitle(template)}</h1>
-              {variants.length > 1 && (
-                <div className="btn-group btn-group-sm" role="group" aria-label="Item count">
-                  {variants.map((v) => (
-                    <button
-                      key={v.id}
-                      type="button"
-                      className={`btn ${v.id === template.id ? "btn-primary" : "btn-outline-primary"}`}
-                      onClick={() => switchTemplate(v.id)}
-                    >
-                      {v.items}-item
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <h1 className="h4 mb-0">{familyTitle(template)}</h1>
             <span className="small text-secondary">{template.description}</span>
           </div>
           <div
