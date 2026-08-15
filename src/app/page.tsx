@@ -1,4 +1,4 @@
-import { TEMPLATES } from "@/lib/templates";
+import { TEMPLATES, itemCount } from "@/lib/templates";
 import { DEFAULT_BRAND, renderTemplate } from "@/lib/svg-engine";
 import HomeGallery from "@/components/HomeGallery";
 
@@ -8,6 +8,7 @@ export default function HomePage() {
     title: t.title,
     category: t.category,
     description: t.description,
+    itemCount: itemCount(t),
     preview: renderTemplate(t.svg, DEFAULT_BRAND, {}),
   }));
   return (

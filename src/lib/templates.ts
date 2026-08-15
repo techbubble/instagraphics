@@ -14,6 +14,7 @@ export const UNIVERSAL_FIELDS: UniversalField[] = [
   { key: "item2", label: "Item 2", maxLength: 30, indent: true },
   { key: "item3", label: "Item 3", maxLength: 30, indent: true },
   { key: "item4", label: "Item 4", maxLength: 30, indent: true },
+  { key: "item5", label: "Item 5", maxLength: 30, indent: true },
   { key: "other1", label: "Other 1", maxLength: 40 },
   { key: "other2", label: "Other 2", maxLength: 40 },
   { key: "other3", label: "Other 3", maxLength: 40 },
@@ -186,8 +187,35 @@ ${title("Roadmap")}
 </svg>`,
   },
   {
+    id: "list-3",
+    title: "Numbered List (3 items)",
+    category: "List",
+    description: "Three numbered items in stacked bars.",
+    usage: {
+      title: "heading",
+      item1: "bar 1",
+      item2: "bar 2",
+      item3: "bar 3",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
+<text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Key Priorities</text>
+<rect data-ig-fill="primary" x="140" y="170" width="520" height="84" rx="12"/>
+<rect data-ig-fill="secondary" x="140" y="278" width="520" height="84" rx="12"/>
+<rect data-ig-fill="primary" x="140" y="386" width="520" height="84" rx="12"/>
+<circle data-ig-fill="tertiary" cx="185" cy="212" r="26"/>
+<circle data-ig-fill="tertiary" cx="185" cy="320" r="26"/>
+<circle data-ig-fill="tertiary" cx="185" cy="428" r="26"/>
+<text data-ig-font="secondary" x="185" y="221" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-font="secondary" x="185" y="329" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-font="secondary" x="185" y="437" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-text="item1" data-ig-font="secondary" x="235" y="221" font-size="24" fill="#ffffff">Grow revenue</text>
+<text data-ig-text="item2" data-ig-font="secondary" x="235" y="329" font-size="24" fill="#ffffff">Delight customers</text>
+<text data-ig-text="item3" data-ig-font="secondary" x="235" y="437" font-size="24" fill="#ffffff">Reduce costs</text>
+</svg>`,
+  },
+  {
     id: "list-4",
-    title: "Numbered List",
+    title: "Numbered List (4 items)",
     category: "List",
     description: "Four numbered items in stacked bars.",
     usage: {
@@ -215,6 +243,43 @@ ${title("Key Priorities")}
 <text data-ig-text="item2" data-ig-font="secondary" x="235" y="286" font-size="22" fill="#ffffff">Delight customers</text>
 <text data-ig-text="item3" data-ig-font="secondary" x="235" y="378" font-size="22" fill="#ffffff">Reduce costs</text>
 <text data-ig-text="item4" data-ig-font="secondary" x="235" y="470" font-size="22" fill="#ffffff">Develop talent</text>
+</svg>`,
+  },
+  {
+    id: "list-5",
+    title: "Numbered List (5 items)",
+    category: "List",
+    description: "Five numbered items in stacked bars.",
+    usage: {
+      title: "heading",
+      item1: "bar 1",
+      item2: "bar 2",
+      item3: "bar 3",
+      item4: "bar 4",
+      item5: "bar 5",
+    },
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
+<text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Key Priorities</text>
+<rect data-ig-fill="primary" x="140" y="150" width="520" height="60" rx="10"/>
+<rect data-ig-fill="secondary" x="140" y="226" width="520" height="60" rx="10"/>
+<rect data-ig-fill="primary" x="140" y="302" width="520" height="60" rx="10"/>
+<rect data-ig-fill="secondary" x="140" y="378" width="520" height="60" rx="10"/>
+<rect data-ig-fill="primary" x="140" y="454" width="520" height="60" rx="10"/>
+<circle data-ig-fill="tertiary" cx="180" cy="180" r="20"/>
+<circle data-ig-fill="tertiary" cx="180" cy="256" r="20"/>
+<circle data-ig-fill="tertiary" cx="180" cy="332" r="20"/>
+<circle data-ig-fill="tertiary" cx="180" cy="408" r="20"/>
+<circle data-ig-fill="tertiary" cx="180" cy="484" r="20"/>
+<text data-ig-font="secondary" x="180" y="187" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-font="secondary" x="180" y="263" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-font="secondary" x="180" y="339" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-font="secondary" x="180" y="415" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">4</text>
+<text data-ig-font="secondary" x="180" y="491" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">5</text>
+<text data-ig-text="item1" data-ig-font="secondary" x="220" y="187" font-size="20" fill="#ffffff">Grow revenue</text>
+<text data-ig-text="item2" data-ig-font="secondary" x="220" y="263" font-size="20" fill="#ffffff">Delight customers</text>
+<text data-ig-text="item3" data-ig-font="secondary" x="220" y="339" font-size="20" fill="#ffffff">Reduce costs</text>
+<text data-ig-text="item4" data-ig-font="secondary" x="220" y="415" font-size="20" fill="#ffffff">Develop talent</text>
+<text data-ig-text="item5" data-ig-font="secondary" x="220" y="491" font-size="20" fill="#ffffff">Expand markets</text>
 </svg>`,
   },
   {
@@ -287,4 +352,8 @@ export const CATEGORIES = [...new Set(TEMPLATES.map((t) => t.category))];
 
 export function getTemplate(id: string): Template | undefined {
   return TEMPLATES.find((t) => t.id === id);
+}
+
+export function itemCount(t: Template): number {
+  return Object.keys(t.usage).filter((k) => k.startsWith("item")).length;
 }

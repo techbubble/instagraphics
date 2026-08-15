@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { UNIVERSAL_FIELDS, type Template } from "@/lib/templates";
+import { UNIVERSAL_FIELDS, itemCount, type Template } from "@/lib/templates";
 import {
   BrandKit,
   FONT_CHOICES,
@@ -35,7 +35,7 @@ export default function Builder({
   const [brand, setBrand] = useState<BrandKit>(initialBrand);
   const [values, setValues] = useState<Record<string, string>>(savedValues);
   const [fieldsOpen, setFieldsOpen] = useState(true);
-  const [railSort, setRailSort] = useState<"category" | "name">("category");
+  const [railSort, setRailSort] = useState<"category" | "name" | "count">("category");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -117,9 +117,11 @@ export default function Builder({
     const sorted = [...templates].sort((a, b) =>
       railSort === "name"
         ? a.title.localeCompare(b.title)
-        : a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
+        : railSort === "count"
+          ? itemCount(a) - itemCount(b) || a.title.localeCompare(b.title)
+          : a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
     );
-    if (railSort === "name") return [{ category: null as string | null, items: sorted }];
+    if (railSort !== "category") return [{ category: null as string | null, items: sorted }];
     const groups: { category: string | null; items: Template[] }[] = [];
     for (const t of sorted) {
       const g = groups[groups.length - 1];
@@ -299,6 +301,15 @@ export default function Builder({
                 onClick={() => setRailSort("name")}
               >
                 A&ndash;Z
+              </button>
+              <button
+                type="button"
+                className={`btn py-0 px-1 ${railSort === "count" ? "btn-secondary" : "btn-outline-secondary"}`}
+                style={{ fontSize: "0.7rem" }}
+                title="Sort by number of items"
+                onClick={() => setRailSort("count")}
+              >
+                #
               </button>
             </div>
           </div>

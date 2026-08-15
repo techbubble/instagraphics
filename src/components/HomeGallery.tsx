@@ -8,13 +8,14 @@ type Tile = {
   title: string;
   category: string;
   description: string;
+  itemCount: number;
   preview: string;
 };
 
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [sortBy, setSortBy] = useState<"name" | "category">("name");
+  const [sortBy, setSortBy] = useState<"name" | "category" | "count">("name");
 
   const categories = useMemo(
     () => [...new Set(tiles.map((t) => t.category))].sort(),
@@ -36,7 +37,9 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
       .sort((a, b) =>
         sortBy === "category"
           ? a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
-          : a.title.localeCompare(b.title)
+          : sortBy === "count"
+            ? a.itemCount - b.itemCount || a.title.localeCompare(b.title)
+            : a.title.localeCompare(b.title)
       )
       .filter((t) => {
       if (selected.size > 0 && !selected.has(t.category)) return false;
@@ -104,6 +107,14 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
             onClick={() => setSortBy("category")}
           >
             Category
+          </button>
+          <button
+            type="button"
+            className={`btn ${sortBy === "count" ? "btn-secondary" : "btn-outline-secondary"}`}
+            title="Sort by number of items"
+            onClick={() => setSortBy("count")}
+          >
+            #
           </button>
         </div>
       </div>
