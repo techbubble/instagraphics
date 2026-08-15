@@ -258,9 +258,9 @@ export default function Builder({
         </div>
       </div>
 
-      <div className="d-flex gap-3 align-items-start">
+      <div className="d-flex gap-3 align-items-stretch">
         {fieldsOpen ? (
-          <div className="card flex-shrink-0" style={{ width: 300 }}>
+          <div className="card flex-shrink-0 d-flex flex-column" style={{ width: 300 }}>
             <div className="card-header d-flex justify-content-between align-items-center py-2">
               <span className="fw-bold">Content</span>
               <button
@@ -272,7 +272,7 @@ export default function Builder({
                 &laquo;
               </button>
             </div>
-            <div className="card-body">
+            <div className="card-body flex-grow-1 overflow-auto">
               {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => (
                 <div className={`mb-3 ${f.indent ? "ms-3" : ""}`} key={f.key}>
                   <div className="d-flex justify-content-between align-items-baseline">
@@ -298,7 +298,7 @@ export default function Builder({
         ) : (
           <button
             type="button"
-            className="btn btn-outline-secondary btn-sm flex-shrink-0"
+            className="btn btn-outline-secondary btn-sm flex-shrink-0 align-self-start"
             onClick={() => setFieldsOpen(true)}
             aria-label="Expand content panel"
           >
@@ -335,7 +335,7 @@ export default function Builder({
           </div>
         </div>
 
-        <div className="flex-shrink-0" style={{ width: 120 }}>
+        <div className="flex-shrink-0 d-flex flex-column" style={{ width: 120 }}>
           <div className="d-flex justify-content-center mb-2">
             <div className="btn-group btn-group-sm" role="group" aria-label="Sort thumbnails">
               <button
@@ -365,7 +365,7 @@ export default function Builder({
               </button>
             </div>
           </div>
-          <div className="overflow-auto" style={{ maxHeight: "70vh" }}>
+          <div className="overflow-auto flex-grow-1" style={{ height: 0, minHeight: 200 }}>
             {railGroups.map((g) => (
               <div key={g.category ?? "all"} className="mb-2">
                 {g.category && (
