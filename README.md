@@ -9,7 +9,7 @@ Public-facing app for building branded infographics (SmartArt-style) from SVG te
 - Neon Postgres (`@neondatabase/serverless`)
 - Stripe Checkout + webhook fulfillment
 - Vercel Analytics
-- Cookie session auth (email/password, bcrypt + JWT)
+- Passwordless auth: email OTP over SMTP (nodemailer), JWT cookie session
 
 ## SVG template engine
 
@@ -35,6 +35,10 @@ To add a template: append an entry to `TEMPLATES` in `src/lib/templates.ts` with
 | `AUTH_SECRET` | JWT session signing secret |
 | `STRIPE_SECRET_KEY` | Stripe API key |
 | `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret (endpoint: `/api/stripe/webhook`, event: `checkout.session.completed`) |
+| `SMTP_HOST` | SMTP server for OTP emails (unset = codes logged to server console) |
+| `SMTP_PORT` | SMTP port (default 587; 465 uses TLS) |
+| `SMTP_USER` / `SMTP_PASS` | SMTP credentials |
+| `SMTP_FROM` | From address (defaults to `SMTP_USER`) |
 
 The success page also fulfills purchases directly (idempotent), so local dev works without the webhook.
 
@@ -49,7 +53,8 @@ npm run dev
 
 ## Data model
 
-- `users` — email, password_hash, credits
+- `users` — email, credits (created on first successful OTP sign-in)
+- `login_codes` — one pending OTP per email (hashed, 10-min TTL, 5 attempts)
 - `graphics` — user_id, template_id, title, final svg
 - `purchases` — stripe_session_id (unique, idempotency), credits, amount
 - `downloads` — one row per charged download

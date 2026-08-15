@@ -1,5 +1,4 @@
 import AuthForm from "@/components/AuthForm";
-import { loginAction } from "../actions";
 
 export default async function LoginPage({
   searchParams,
@@ -7,5 +6,5 @@ export default async function LoginPage({
   searchParams: Promise<{ next?: string }>;
 }) {
   const { next } = await searchParams;
-  return <AuthForm mode="login" action={loginAction} next={next || "/"} />;
+  return <AuthForm next={next || "/"} />;
 }

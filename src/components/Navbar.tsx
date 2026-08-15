@@ -49,18 +49,11 @@ export default async function Navbar() {
               </li>
             </>
           ) : (
-            <>
-              <li className="nav-item me-2">
-                <Link className="btn btn-outline-primary btn-sm" href="/login">
-                  Sign in
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="btn btn-primary btn-sm" href="/signup">
-                  Sign up
-                </Link>
-              </li>
-            </>
+            <li className="nav-item">
+              <Link className="btn btn-primary btn-sm" href="/login">
+                Sign in
+              </Link>
+            </li>
           )}
         </ul>
       </div>

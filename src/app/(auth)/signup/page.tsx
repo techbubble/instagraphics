@@ -1,11 +1,5 @@
-import AuthForm from "@/components/AuthForm";
-import { signupAction } from "../actions";
+import { redirect } from "next/navigation";
 
-export default async function SignupPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ next?: string }>;
-}) {
-  const { next } = await searchParams;
-  return <AuthForm mode="signup" action={signupAction} next={next || "/"} />;
+export default function SignupPage() {
+  redirect("/login");
 }
