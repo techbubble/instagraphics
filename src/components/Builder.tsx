@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Template } from "@/lib/templates";
 import { defaultValues } from "@/lib/templates";
@@ -27,7 +27,6 @@ export default function Builder({ template }: { template: Template }) {
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const logoInputRef = useRef<HTMLInputElement>(null);
 
   const rendered = useMemo(
     () => renderTemplate(template.svg, brand, values),
@@ -40,21 +39,6 @@ export default function Builder({ template }: { template: Template }) {
 
   function setFont(slot: Slot, font: string) {
     setBrand((b) => ({ ...b, fonts: { ...b.fonts, [slot]: font } }));
-  }
-
-  function onLogoChange(file: File | null) {
-    if (!file) {
-      setBrand((b) => ({ ...b, logo: null }));
-      return;
-    }
-    if (file.size > 512 * 1024) {
-      setError("Logo must be under 512 KB.");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () =>
-      setBrand((b) => ({ ...b, logo: String(reader.result) }));
-    reader.readAsDataURL(file);
   }
 
   async function save() {
@@ -123,32 +107,6 @@ export default function Builder({ template }: { template: Template }) {
                 </select>
               </div>
             ))}
-          </div>
-          <div className="row g-3 mt-1 align-items-end">
-            <div className="col-md-4">
-              <label className="form-label small mb-1">Logo (PNG/JPG/SVG, optional)</label>
-              <input
-                ref={logoInputRef}
-                type="file"
-                className="form-control"
-                accept="image/png,image/jpeg,image/svg+xml"
-                onChange={(e) => onLogoChange(e.target.files?.[0] ?? null)}
-              />
-            </div>
-            {brand.logo && (
-              <div className="col-auto">
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary btn-sm"
-                  onClick={() => {
-                    if (logoInputRef.current) logoInputRef.current.value = "";
-                    onLogoChange(null);
-                  }}
-                >
-                  Remove logo
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </div>

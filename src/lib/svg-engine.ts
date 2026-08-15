@@ -5,21 +5,17 @@
 //   data-ig-stroke="primary|secondary|tertiary"  -> stroke is set to that color slot
 //   data-ig-font="primary|secondary|tertiary"    -> font-family is set to that font slot
 //   data-ig-text="<fieldKey>"                    -> text content bound to a form field
-//   data-ig-logo                                 -> <image> href replaced with the
-//                                                   uploaded logo (hidden when absent)
 
 export type Slot = "primary" | "secondary" | "tertiary";
 
 export type BrandKit = {
   colors: Record<Slot, string>;
   fonts: Record<Slot, string>;
-  logo: string | null; // data URL
 };
 
 export const DEFAULT_BRAND: BrandKit = {
   colors: { primary: "#0d6efd", secondary: "#6c757d", tertiary: "#ffc107" },
   fonts: { primary: "Arial", secondary: "Arial", tertiary: "Arial" },
-  logo: null,
 };
 
 export const FONT_CHOICES = [
@@ -39,18 +35,10 @@ function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function escapeAttr(s: string): string {
-  return escapeXml(s).replace(/"/g, "&quot;");
-}
-
 function setAttr(tag: string, attr: string, value: string): string {
   const re = new RegExp(`\\s${attr}="[^"]*"`);
   if (re.test(tag)) return tag.replace(re, ` ${attr}="${value}"`);
   return tag.replace(/(\s*\/?>)$/, ` ${attr}="${value}"$1`);
-}
-
-function removeAttr(tag: string, attr: string): string {
-  return tag.replace(new RegExp(`\\s${attr}="[^"]*"`), "");
 }
 
 const SLOT_RE = /^(primary|secondary|tertiary)$/;
@@ -72,14 +60,6 @@ export function renderTemplate(
     if (stroke) tag = setAttr(tag, "stroke", brand.colors[stroke]);
     const font = slotIn(tag, "ig-font");
     if (font) tag = setAttr(tag, "font-family", brand.fonts[font]);
-    if (/data-ig-logo=/.test(tag)) {
-      if (brand.logo) {
-        tag = setAttr(tag, "href", escapeAttr(brand.logo));
-        tag = removeAttr(tag, "display");
-      } else {
-        tag = setAttr(tag, "display", "none");
-      }
-    }
     return tag;
   });
 

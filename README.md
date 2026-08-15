@@ -1,6 +1,6 @@
 # Instagraphics
 
-Public-facing app for building branded infographics (SmartArt-style) from SVG templates. Users pick a layout, apply brand colors/fonts/logo, fill in text fields with a live preview, save to their account, and download as SVG or PNG. Downloads cost 1 credit; credits are $0.99 each via Stripe Checkout.
+Public-facing app for building branded infographics (SmartArt-style) from SVG templates. Users pick a layout, apply brand colors/fonts, fill in text fields with a live preview, save to their account, and download as SVG or PNG. Downloads cost 1 credit; credits are $0.99 each via Stripe Checkout.
 
 ## Stack
 
@@ -21,7 +21,6 @@ Templates live in `src/lib/templates.ts` as annotated SVG strings. Annotations:
 | `data-ig-stroke="..."` | `stroke` set to that color slot |
 | `data-ig-font="..."` | `font-family` set to that font slot |
 | `data-ig-text="<fieldKey>"` | text content bound to a form field |
-| `data-ig-logo` | `<image>` href replaced with uploaded logo; hidden when absent |
 
 `src/lib/svg-engine.ts` does string-based substitution (isomorphic — used for server-rendered previews and the live client preview). PNG export is client-side canvas at 2x.
 

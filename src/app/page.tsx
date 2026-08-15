@@ -15,7 +15,7 @@ export default function HomePage() {
       <div className="text-center pb-3">
         <h1 className="h3 fw-bold">Build branded infographics in seconds</h1>
         <p className="text-secondary">
-          Pick a layout, apply your colors, fonts, and logo, type your content, and download.
+          Pick a layout, apply your colors and fonts, type your content, and download.
         </p>
       </div>
       <HomeGallery tiles={tiles} />

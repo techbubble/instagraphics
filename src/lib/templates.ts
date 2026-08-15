@@ -14,8 +14,6 @@ export type Template = {
   svg: string;
 };
 
-const LOGO = `<image data-ig-logo="true" href="" x="656" y="24" width="114" height="56" preserveAspectRatio="xMaxYMin meet" display="none"/>`;
-
 function title(defaultText: string) {
   return `<text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">${defaultText}</text>`;
 }
@@ -46,7 +44,6 @@ ${title("Our Process")}
 <text data-ig-text="caption1" data-ig-font="tertiary" x="155" y="410" text-anchor="middle" font-size="16" fill="#495057">Define the goal</text>
 <text data-ig-text="caption2" data-ig-font="tertiary" x="360" y="410" text-anchor="middle" font-size="16" fill="#495057">Execute the work</text>
 <text data-ig-text="caption3" data-ig-font="tertiary" x="550" y="410" text-anchor="middle" font-size="16" fill="#495057">Ship and iterate</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -80,7 +77,6 @@ ${title("Improvement Cycle")}
 <text data-ig-text="item2" data-ig-font="secondary" x="560" y="363" text-anchor="middle" font-size="22" fill="#ffffff">Do</text>
 <text data-ig-text="item3" data-ig-font="secondary" x="400" y="518" text-anchor="middle" font-size="22" fill="#ffffff">Check</text>
 <text data-ig-text="item4" data-ig-font="secondary" x="240" y="363" text-anchor="middle" font-size="22" fill="#ffffff">Act</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -102,7 +98,6 @@ ${title("Strategy Pyramid")}
 <text data-ig-text="level1" data-ig-font="secondary" x="400" y="232" text-anchor="middle" font-size="20" fill="#ffffff">Vision</text>
 <text data-ig-text="level2" data-ig-font="secondary" x="400" y="322" text-anchor="middle" font-size="22" fill="#ffffff">Strategy</text>
 <text data-ig-text="level3" data-ig-font="secondary" x="400" y="440" text-anchor="middle" font-size="24" fill="#ffffff">Execution</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -123,7 +118,6 @@ ${title("Where We Win")}
 <text data-ig-text="left" data-ig-font="secondary" x="240" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Quality</text>
 <text data-ig-text="right" data-ig-font="secondary" x="560" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Speed</text>
 <text data-ig-text="middle" data-ig-font="secondary" x="400" y="348" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Value</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -148,7 +142,6 @@ ${title("Sales Funnel")}
 <text data-ig-text="stage2" data-ig-font="secondary" x="400" y="306" text-anchor="middle" font-size="21" fill="#ffffff">Interest</text>
 <text data-ig-text="stage3" data-ig-font="secondary" x="400" y="394" text-anchor="middle" font-size="20" fill="#ffffff">Decision</text>
 <text data-ig-text="stage4" data-ig-font="secondary" x="400" y="482" text-anchor="middle" font-size="18" fill="#ffffff">Action</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -182,7 +175,6 @@ ${title("Roadmap")}
 <text data-ig-text="d2" data-ig-font="tertiary" x="330" y="388" text-anchor="middle" font-size="16" fill="#495057">Q2</text>
 <text data-ig-text="d3" data-ig-font="tertiary" x="490" y="388" text-anchor="middle" font-size="16" fill="#495057">Q3</text>
 <text data-ig-text="d4" data-ig-font="tertiary" x="650" y="388" text-anchor="middle" font-size="16" fill="#495057">Q4</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -215,7 +207,6 @@ ${title("Key Priorities")}
 <text data-ig-text="item2" data-ig-font="secondary" x="235" y="286" font-size="22" fill="#ffffff">Delight customers</text>
 <text data-ig-text="item3" data-ig-font="secondary" x="235" y="378" font-size="22" fill="#ffffff">Reduce costs</text>
 <text data-ig-text="item4" data-ig-font="secondary" x="235" y="470" font-size="22" fill="#ffffff">Develop talent</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -244,7 +235,6 @@ ${title("Priority Matrix")}
 <text data-ig-text="q4" data-ig-font="secondary" x="547" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Money Pits</text>
 <text data-ig-text="xaxis" data-ig-font="tertiary" x="420" y="570" text-anchor="middle" font-size="17" fill="#495057">Effort</text>
 <text data-ig-text="yaxis" data-ig-font="tertiary" x="130" y="340" text-anchor="middle" font-size="17" fill="#495057" transform="rotate(-90 130 340)">Impact</text>
-${LOGO}
 </svg>`,
   },
   {
@@ -281,7 +271,6 @@ ${LOGO}
 <text data-ig-text="caption1" data-ig-font="tertiary" x="150" y="524" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
 <text data-ig-text="caption2" data-ig-font="tertiary" x="400" y="524" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
 <text data-ig-text="caption3" data-ig-font="tertiary" x="650" y="524" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
-${LOGO}
 </svg>`,
   },
 ];
