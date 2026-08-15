@@ -17,8 +17,12 @@ export async function GET(
   const sp = req.nextUrl.searchParams;
   const w = Math.min(1024, Math.max(64, Number(sp.get("w")) || 400));
   const brand = brandFromQuery(sp);
+  // Thumbnails may skip the checkerboard; larger renders always carry it.
+  const plain = sp.get("plain") === "1" && w <= 480;
   try {
-    const png = await renderPng(renderTemplate(template.svg, brand, {}), w);
+    const png = await renderPng(renderTemplate(template.svg, brand, {}), w, {
+      checker: !plain,
+    });
     return new NextResponse(new Uint8Array(png), {
       headers: {
         "Content-Type": "image/png",

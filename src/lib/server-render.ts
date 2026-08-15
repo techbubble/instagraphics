@@ -91,14 +91,21 @@ const CHECKER =
   '<rect x="12" y="12" width="12" height="12" fill="#dee2e6"/>' +
   '</pattern></defs><rect width="100%" height="100%" fill="url(#ig-checker)"/>';
 
-export async function renderPng(svg: string, width = 800): Promise<Buffer> {
+export async function renderPng(
+  svg: string,
+  width = 800,
+  opts: { checker?: boolean } = {}
+): Promise<Buffer> {
   const files = await fontFiles().catch(() => [] as string[]);
   const { Resvg } = await import("@resvg/resvg-js");
   let aliased = svg;
   for (const [real, alias] of Object.entries(SERVER_FONT_ALIASES)) {
     aliased = aliased.replaceAll(`font-family="${real}"`, `font-family="${alias}"`);
   }
-  const checkered = aliased.replace(/(<svg\b[^>]*>)/, `$1${CHECKER}`);
+  const checkered =
+    opts.checker === false
+      ? aliased
+      : aliased.replace(/(<svg\b[^>]*>)/, `$1${CHECKER}`);
   const resvg = new Resvg(checkered, {
     fitTo: { mode: "width", value: width },
     font: {

@@ -128,7 +128,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
                   <div className="ig-tile-preview border-bottom">
                     {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                     <img
-                      src={`/api/preview/${t.id}?w=400`}
+                      src={`/api/preview/${t.id}?w=400&plain=1`}
                       alt={t.title}
                       loading="lazy"
                       style={{ width: "100%", height: "auto", display: "block" }}

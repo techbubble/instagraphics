@@ -24,12 +24,13 @@ export async function GET(
   if (!rows[0]) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  const w = Math.min(
-    1024,
-    Math.max(64, Number(req.nextUrl.searchParams.get("w")) || 600)
-  );
+  const sp = req.nextUrl.searchParams;
+  const w = Math.min(1024, Math.max(64, Number(sp.get("w")) || 600));
+  // Small tiles may skip the checkerboard; anything larger keeps it so the
+  // clean asset only ships via the paid download.
+  const plain = sp.get("plain") === "1" && w <= 300;
   try {
-    const png = await renderPng(rows[0].svg, w);
+    const png = await renderPng(rows[0].svg, w, { checker: !plain });
     return new NextResponse(new Uint8Array(png), {
       headers: {
         "Content-Type": "image/png",
