@@ -594,7 +594,7 @@ export const TEMPLATES: Template[] = [
       title: "heading",
       item1: "left circle",
       item2: "right circle",
-      item3: "overlap",
+      other1: "overlap",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Where We Win")}
@@ -602,7 +602,7 @@ ${title("Where We Win")}
 <circle data-ig-fill="secondary" cx="485" cy="340" r="160" fill-opacity="0.75"/>
 <text data-ig-text="item1" data-ig-font="secondary" x="240" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Quality</text>
 <text data-ig-text="item2" data-ig-font="secondary" x="560" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Speed</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="348" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Value</text>
+<text data-ig-text="other1" data-ig-font="secondary" x="400" y="348" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Value</text>
 </svg>`,
   },
   {
