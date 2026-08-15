@@ -9,7 +9,7 @@ import {
   itemCount,
   type TemplateMeta,
 } from "@/lib/templates";
-import { BrandKit, ColorSlot, FontSlot } from "@/lib/svg-engine";
+import { BrandKit, ColorSlot, DEFAULT_BRAND, FontSlot } from "@/lib/svg-engine";
 import FontSelect from "@/components/FontSelect";
 import ColorSelect from "@/components/ColorSelect";
 
@@ -336,7 +336,23 @@ export default function Builder({
                 </div>
               ))}
 
-              <div className="fw-bold small mb-2">Colors</div>
+              <div className="d-flex justify-content-between align-items-baseline mb-2">
+                <span className="fw-bold small">Colors</span>
+                <button
+                  type="button"
+                  className="btn btn-link btn-sm p-0"
+                  style={{ fontSize: "0.75rem" }}
+                  onClick={() => {
+                    setBrand((b) => {
+                      const next = { ...b, colors: { ...DEFAULT_BRAND.colors } };
+                      queueSave({ brand: next });
+                      return next;
+                    });
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
               <div className="row g-2 mb-3">
                 {COLOR_SLOTS.map((slot) => (
                   <div className="col" key={`c-${slot}`}>
