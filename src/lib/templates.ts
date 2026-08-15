@@ -2421,18 +2421,19 @@ export const TEMPLATES: Template[] = [
       other1: "Summit",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-142.86 18.26) scale(1.6071)">
+<g transform="translate(-142.86 19.87) scale(1.6071)">
+
 <polygon data-ig-fill="secondary" points="400,130 680,530 120,530"/>
 <polygon data-ig-fill="tertiary" points="400,130 452,205 348,205"/>
 <line x1="400" y1="128" x2="400" y2="70" stroke="#495057" data-ig-stroke="accent" stroke-width="5"/>
 <polygon data-ig-fill="primary" points="400,70 456,88 400,106"/>
-<path d="M 230 530 Q 300 430 340 380 Q 390 320 400 220" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4" stroke-dasharray="10 8"/>
-<circle data-ig-fill="primary" cx="255" cy="495" r="13"/>
-<text data-ig-text="item1" data-ig-font="primary" x="231" y="501" text-anchor="end" font-size="18" font-weight="bold" fill="#212529">Foundations</text>
-<circle data-ig-fill="primary" cx="330" cy="390" r="13"/>
-<text data-ig-text="item2" data-ig-font="primary" x="306" y="396" text-anchor="end" font-size="18" font-weight="bold" fill="#212529">Momentum</text>
-<circle data-ig-fill="primary" cx="385" cy="285" r="13"/>
-<text data-ig-text="item3" data-ig-font="primary" x="361" y="291" text-anchor="end" font-size="18" font-weight="bold" fill="#212529">Final push</text>
+<path d="M 400 525 C 330 470 470 415 400 350 C 350 305 435 255 400 205" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4" stroke-dasharray="10 8"/>
+<circle data-ig-fill="primary" cx="388" cy="480" r="13"/>
+<text data-ig-text="item1" data-ig-font="primary" x="412" y="486" text-anchor="start" font-size="18" font-weight="bold" fill="#212529">Foundations</text>
+<circle data-ig-fill="primary" cx="420" cy="390" r="13"/>
+<text data-ig-text="item2" data-ig-font="primary" x="444" y="396" text-anchor="start" font-size="18" font-weight="bold" fill="#212529">Momentum</text>
+<circle data-ig-fill="primary" cx="392" cy="300" r="13"/>
+<text data-ig-text="item3" data-ig-font="primary" x="416" y="306" text-anchor="start" font-size="18" font-weight="bold" fill="#212529">Final push</text>
 <text data-ig-text="other1" data-ig-font="primary" x="470" y="92" text-anchor="start" font-size="20" font-weight="bold" fill="#212529">Market leader</text>
 </g>
 </svg>`,
@@ -2456,19 +2457,17 @@ export const TEMPLATES: Template[] = [
       item3: "Gear 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-289.75 -251.50) scale(2.2500)">
-<circle cx="260" cy="250" r="96" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="26" stroke-dasharray="16 12"/>
-<circle data-ig-fill="primary" cx="260" cy="250" r="88"/>
+<g transform="translate(-319.44 -264.81) scale(2.4337)">
+
+<polygon data-ig-fill="primary" points="356.0,250.0 368.2,258.2 365.4,275.7 351.3,279.7 337.7,306.4 342.7,320.2 330.2,332.7 316.4,327.7 289.7,341.3 285.7,355.4 268.2,358.2 260.0,346.0 230.3,341.3 218.8,350.4 203.0,342.3 203.6,327.7 182.3,306.4 167.7,307.0 159.6,291.2 168.7,279.7 164.0,250.0 151.8,241.8 154.6,224.3 168.7,220.3 182.3,193.6 177.3,179.8 189.8,167.3 203.6,172.3 230.3,158.7 234.3,144.6 251.8,141.8 260.0,154.0 289.7,158.7 301.2,149.6 317.0,157.7 316.4,172.3 337.7,193.6 352.3,193.0 360.4,208.8 351.3,220.3"/>
 <circle cx="260" cy="250" r="14" fill="#ffffff"/>
-<circle cx="462" cy="320" r="76" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="26" stroke-dasharray="16 12"/>
-<circle data-ig-fill="secondary" cx="462" cy="320" r="68"/>
-<circle cx="462" cy="320" r="14" fill="#ffffff"/>
-<circle cx="312" cy="452" r="62" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="26" stroke-dasharray="16 12"/>
-<circle data-ig-fill="tertiary" cx="312" cy="452" r="54"/>
-<circle cx="312" cy="452" r="14" fill="#ffffff"/>
-<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="260" y="288" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Strategy</text>
-<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="462" y="354" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Execution</text>
-<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="312" y="486" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Feedback</text>
+<polygon data-ig-fill="secondary" points="512.0,311.0 521.6,318.2 518.9,333.5 507.4,337.0 494.2,359.9 496.9,371.5 485.0,381.5 474.0,376.8 449.2,385.8 443.8,396.5 428.2,396.5 422.8,385.8 398.0,376.8 387.0,381.5 375.1,371.5 377.8,359.9 364.6,337.0 353.1,333.5 350.4,318.2 360.0,311.0 364.6,285.0 358.0,275.0 365.8,261.5 377.8,262.1 398.0,245.2 399.4,233.3 414.1,228.0 422.8,236.2 449.2,236.2 457.9,228.0 472.6,233.3 474.0,245.2 494.2,262.1 506.2,261.5 514.0,275.0 507.4,285.0"/>
+<circle cx="436" cy="311" r="14" fill="#ffffff"/>
+<polygon data-ig-fill="tertiary" points="365.0,417.0 372.7,423.6 370.0,437.6 360.3,440.7 346.8,460.8 347.7,471.0 335.8,478.9 326.7,474.3 303.0,479.0 296.4,486.7 282.4,484.0 279.3,474.3 259.2,460.8 249.0,461.7 241.1,449.8 245.7,440.7 241.0,417.0 233.3,410.4 236.0,396.4 245.7,393.3 259.2,373.2 258.3,363.0 270.2,355.1 279.3,359.7 303.0,355.0 309.6,347.3 323.6,350.0 326.7,359.7 346.8,373.2 357.0,372.3 364.9,384.2 360.3,393.3"/>
+<circle cx="303" cy="417" r="14" fill="#ffffff"/>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="260" y="292" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Strategy</text>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="436" y="353" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Execution</text>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="303" y="459" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Feedback</text>
 </g>
 </svg>`,
   },
