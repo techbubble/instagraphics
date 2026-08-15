@@ -250,14 +250,9 @@ export default function Builder({
 
   return (
     <>
-      <div className="mb-3 ig-fullbleed text-center">
-        <h1 className="h4 mb-0">{template.title}</h1>
-        <span className="small text-secondary">{template.description}</span>
-      </div>
-
       <div
         className="d-flex gap-3 align-items-stretch ig-fullbleed"
-        style={side ? { height: side } : undefined}
+        style={side ? { height: side + 64 } : undefined}
       >
         {fieldsOpen ? (
           <div className="card flex-shrink-0 d-flex flex-column h-100" style={{ width: 300 }}>
@@ -332,7 +327,11 @@ export default function Builder({
           </button>
         )}
 
-        <div ref={centerRef} className="flex-grow-1 d-flex justify-content-center">
+        <div ref={centerRef} className="flex-grow-1 d-flex flex-column align-items-center">
+          <div className="text-center mb-2" style={{ height: 56 }}>
+            <h1 className="h4 mb-0">{template.title}</h1>
+            <span className="small text-secondary">{template.description}</span>
+          </div>
           <div
             className="ig-preview border rounded position-relative overflow-hidden"
             style={{
@@ -359,7 +358,7 @@ export default function Builder({
               <button
                 className="btn btn-ig-save btn-lg px-5 shadow"
                 onClick={save}
-                disabled={saving}
+                disabled={saving || Object.keys(effective).length === 0}
               >
                 {!authed ? "Sign In" : saving ? "Saving..." : "Save"}
               </button>
