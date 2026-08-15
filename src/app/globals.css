@@ -21,6 +21,12 @@
   box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.15);
 }
 
+/* Break out of the page container to use the full viewport width. */
+.ig-fullbleed {
+  margin-left: calc(50% - 50vw + 1rem);
+  margin-right: calc(50% - 50vw + 1rem);
+}
+
 .btn-ig-save {
   --bs-btn-bg: #25d366;
   --bs-btn-border-color: #25d366;

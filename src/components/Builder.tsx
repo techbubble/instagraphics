@@ -221,7 +221,7 @@ export default function Builder({
         <span className="small text-secondary">{template.description}</span>
       </div>
 
-      <div className="d-flex gap-3 align-items-stretch">
+      <div className="d-flex gap-3 align-items-stretch ig-fullbleed">
         {fieldsOpen ? (
           <div className="card flex-shrink-0 d-flex flex-column" style={{ width: 300 }}>
             <div className="card-header d-flex justify-content-between align-items-center py-2">
