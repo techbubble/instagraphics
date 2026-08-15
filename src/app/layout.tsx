@@ -4,9 +4,40 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || "https://instagraphics.vercel.app";
+const DESCRIPTION =
+  "Build branded infographics in seconds. Pick a layout, apply your colors and fonts, type your content, and download as SVG or PNG.";
+
 export const metadata: Metadata = {
-  title: "Instagraphics",
-  description: "Build branded infographics in seconds.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Instagraphics",
+    template: "%s | Instagraphics",
+  },
+  description: DESCRIPTION,
+  openGraph: {
+    title: "Instagraphics",
+    description: DESCRIPTION,
+    url: "/",
+    siteName: "Instagraphics",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Instagraphics - build branded infographics in seconds",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Instagraphics",
+    description: DESCRIPTION,
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({
