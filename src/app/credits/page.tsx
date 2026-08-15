@@ -14,6 +14,9 @@ export default async function CreditsPage() {
           currently have <strong>{user.credits}</strong> credit
           {user.credits === 1 ? "" : "s"}.
         </p>
+        <div className="alert alert-warning border-warning fw-bold text-center" role="alert">
+          All credit purchases are final. No refunds for any reason.
+        </div>
         <BuyCredits />
       </div>
     </div>
