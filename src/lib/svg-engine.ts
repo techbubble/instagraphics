@@ -97,9 +97,13 @@ export function contrastColor(hex: string): string {
 export function renderTemplate(
   svgSource: string,
   brand: BrandKit,
-  values: Record<string, string>
+  values: Record<string, string>,
+  opts: { hideKeys?: string[] } = {}
 ): string {
+  const hide = new Set(opts.hideKeys ?? []);
   let out = svgSource.replace(/<[^>]+>/g, (tag) => {
+    const textKey = tag.match(/data-ig-text="([^"]+)"/)?.[1];
+    if (textKey && hide.has(textKey)) tag = setAttr(tag, "display", "none");
     const fill = colorSlotIn(tag, "ig-fill");
     if (fill) tag = setAttr(tag, "fill", brand.colors[fill]);
     const stroke = colorSlotIn(tag, "ig-stroke");

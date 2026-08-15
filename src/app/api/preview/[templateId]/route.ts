@@ -19,10 +19,14 @@ export async function GET(
   const brand = brandFromQuery(sp);
   // Thumbnails may skip the checkerboard; larger renders always carry it.
   const plain = sp.get("plain") === "1" && w <= 480;
+  // Titles are opt-in (t=1); by default the graphic renders alone.
+  const hideKeys = sp.get("t") === "1" ? [] : ["title"];
   try {
-    const png = await renderPng(renderTemplate(template.svg, brand, {}), w, {
-      checker: !plain,
-    });
+    const png = await renderPng(
+      renderTemplate(template.svg, brand, {}, { hideKeys }),
+      w,
+      { checker: !plain }
+    );
     return new NextResponse(new Uint8Array(png), {
       headers: {
         "Content-Type": "image/png",

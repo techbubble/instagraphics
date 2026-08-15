@@ -21,40 +21,6 @@ const SLOT_LABEL: Record<ColorSlot, string> = {
 
 type PrefsPatch = { brand?: BrandKit; values?: Record<string, string> };
 
-function HexInput({
-  value,
-  onCommit,
-  ariaLabel,
-}: {
-  value: string;
-  onCommit: (v: string) => void;
-  ariaLabel: string;
-}) {
-  const [draft, setDraft] = useState(value);
-  const [synced, setSynced] = useState(value);
-  if (value !== synced) {
-    // external change (swatch picker) — adopt it during render
-    setSynced(value);
-    setDraft(value);
-  }
-  return (
-    <input
-      className="form-control form-control-sm font-monospace"
-      value={draft}
-      maxLength={7}
-      spellCheck={false}
-      aria-label={ariaLabel}
-      onChange={(e) => {
-        const v = e.target.value;
-        setDraft(v);
-        const m = v.trim().match(/^#?([0-9a-fA-F]{6})$/);
-        if (m) onCommit(`#${m[1].toLowerCase()}`);
-      }}
-      onBlur={() => setDraft(value)}
-    />
-  );
-}
-
 function useDebounced<T>(value: T, ms: number): T {
   const [debounced, setDebounced] = useState(value);
   useEffect(() => {
@@ -80,6 +46,7 @@ export default function Builder({
   const [brand, setBrand] = useState<BrandKit>(initialBrand);
   const [values, setValues] = useState<Record<string, string>>(savedValues);
   const [fieldsOpen, setFieldsOpen] = useState(true);
+  const [showTitle, setShowTitle] = useState(savedValues.showTitle === "1");
   const [railSort, setRailSort] = useState<"category" | "name" | "count">("category");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,8 +65,9 @@ export default function Builder({
 
   // Live preview: debounced server render (PNG only — SVG stays server-side).
   const renderInput = useMemo(
-    () => JSON.stringify({ templateId: template.id, brand, values: effective }),
-    [template.id, brand, effective]
+    () =>
+      JSON.stringify({ templateId: template.id, brand, values: effective, showTitle }),
+    [template.id, brand, effective, showTitle]
   );
   const debouncedInput = useDebounced(renderInput, 400);
   const stale = renderInput !== debouncedInput;
@@ -226,6 +194,7 @@ export default function Builder({
           templateId: template.id,
           brand,
           values: effective,
+          showTitle,
         }),
       });
       if (res.status === 401) {
@@ -259,21 +228,14 @@ export default function Builder({
                 <label className="form-label small fw-bold mb-1">
                   {SLOT_LABEL[slot]} Color
                 </label>
-                <div className="input-group input-group-sm">
-                  <input
-                    type="color"
-                    className="form-control form-control-color"
-                    style={{ maxWidth: 44 }}
-                    value={brand.colors[slot]}
-                    onChange={(e) => setColor(slot, e.target.value)}
-                    aria-label={`${SLOT_LABEL[slot]} color picker`}
-                  />
-                  <HexInput
-                    value={brand.colors[slot]}
-                    onCommit={(v) => setColor(slot, v)}
-                    ariaLabel={`${SLOT_LABEL[slot]} color hex`}
-                  />
-                </div>
+                <input
+                  type="color"
+                  className="form-control form-control-color w-100"
+                  value={brand.colors[slot]}
+                  title={brand.colors[slot]}
+                  onChange={(e) => setColor(slot, e.target.value)}
+                  aria-label={`${SLOT_LABEL[slot]} color`}
+                />
               </div>
             ))}
             {SLOTS.map((slot) => (
@@ -311,26 +273,47 @@ export default function Builder({
               </button>
             </div>
             <div className="card-body flex-grow-1 overflow-auto">
-              {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => (
-                <div className={`mb-3 ${f.indent ? "ms-4" : ""}`} key={f.key}>
-                  <div className="d-flex justify-content-between align-items-baseline">
-                    <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
-                      {f.label}
-                    </label>
-                    <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
-                      {template.usage[f.key]}
-                    </span>
+              {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => {
+                const isTitle = f.key === "title";
+                return (
+                  <div className={`mb-3 ${f.indent ? "ms-4" : ""}`} key={f.key}>
+                    <div className="d-flex justify-content-between align-items-baseline">
+                      <div className="d-flex align-items-center gap-2">
+                        {isTitle && (
+                          <input
+                            type="checkbox"
+                            className="form-check-input mt-0"
+                            id="show-title"
+                            checked={showTitle}
+                            onChange={(e) => {
+                              setShowTitle(e.target.checked);
+                              queueSave({
+                                values: { showTitle: e.target.checked ? "1" : "0" },
+                              });
+                            }}
+                            aria-label="Include title on graphic"
+                          />
+                        )}
+                        <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
+                          {f.label}
+                        </label>
+                      </div>
+                      <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
+                        {isTitle && !showTitle ? "off" : template.usage[f.key]}
+                      </span>
+                    </div>
+                    <input
+                      id={`field-${f.key}`}
+                      className="form-control form-control-sm"
+                      value={values[f.key] ?? ""}
+                      placeholder={f.label}
+                      maxLength={f.maxLength}
+                      disabled={isTitle && !showTitle}
+                      onChange={(e) => setField(f.key, e.target.value)}
+                    />
                   </div>
-                  <input
-                    id={`field-${f.key}`}
-                    className="form-control form-control-sm"
-                    value={values[f.key] ?? ""}
-                    placeholder={f.label}
-                    maxLength={f.maxLength}
-                    onChange={(e) => setField(f.key, e.target.value)}
-                  />
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ) : (
@@ -423,7 +406,7 @@ export default function Builder({
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                     <img
-                      src={`/api/preview/${t.id}?w=220&plain=1&${brandQuery}`}
+                      src={`/api/preview/${t.id}?w=220&plain=1${showTitle ? "&t=1" : ""}&${brandQuery}`}
                       alt={t.title}
                       style={{ width: "100%", height: "auto", display: "block" }}
                       draggable={false}

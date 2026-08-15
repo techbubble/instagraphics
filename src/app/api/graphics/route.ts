@@ -13,7 +13,12 @@ export async function POST(req: NextRequest) {
   if (uid == null) {
     return NextResponse.json({ error: "Not signed in" }, { status: 401 });
   }
-  let body: { templateId?: string; brand?: unknown; values?: unknown };
+  let body: {
+    templateId?: string;
+    brand?: unknown;
+    values?: unknown;
+    showTitle?: unknown;
+  };
   try {
     body = await req.json();
   } catch {
@@ -24,7 +29,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
   const values = sanitizeValues(body.values);
-  const svg = renderTemplate(template.svg, sanitizeBrand(body.brand), values);
+  const svg = renderTemplate(template.svg, sanitizeBrand(body.brand), values, {
+    hideKeys: body.showTitle === true ? [] : ["title"],
+  });
   const title = (values.title || template.title).slice(0, 80);
   const rows = (await sql()`
     INSERT INTO graphics (user_id, template_id, title, svg)
