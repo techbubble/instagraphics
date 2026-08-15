@@ -16,7 +16,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const categories = useMemo(
-    () => [...new Set(tiles.map((t) => t.category))],
+    () => [...new Set(tiles.map((t) => t.category))].sort(),
     [tiles]
   );
 
