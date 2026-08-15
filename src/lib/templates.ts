@@ -2110,15 +2110,16 @@ export const TEMPLATES: Template[] = [
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-142.86 -78.40) scale(1.6071)">
 
+
 <line x1="200" y1="230" x2="600" y2="230" stroke="#495057" data-ig-stroke="accent" stroke-width="8"/>
 <rect data-ig-fill="accent" fill="#495057" x="392" y="230" width="16" height="292"/>
 <polygon data-ig-fill="accent" fill="#495057" points="330,520 470,520 500,556 300,556"/>
-<line x1="200" y1="230" x2="150" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="200" y1="230" x2="250" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="600" y1="230" x2="550" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="600" y1="230" x2="650" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<path d="M 125 300 A 75 40 0 0 0 275 300 Z" data-ig-fill="primary"/>
-<path d="M 525 300 A 75 40 0 0 0 675 300 Z" data-ig-fill="tertiary"/>
+<line x1="200" y1="230" x2="150" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="200" y1="230" x2="250" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="600" y1="230" x2="550" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="600" y1="230" x2="650" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<path d="M 125 445 A 75 40 0 0 0 275 445 Z" data-ig-fill="primary"/>
+<path d="M 525 445 A 75 40 0 0 0 675 445 Z" data-ig-fill="tertiary"/>
 <rect data-ig-fill="primary" x="120" y="120" width="160" height="56" rx="10"/>
 <rect data-ig-fill="tertiary" x="520" y="120" width="160" height="56" rx="10"/>
 <text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="200" y="154" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Build</text>
