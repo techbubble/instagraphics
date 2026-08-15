@@ -261,10 +261,6 @@ export default function Builder({
                   </div>
                 ))}
               </div>
-              <div className="small text-secondary mt-1">
-                Colors, fonts, and text are saved to your account and reused
-                on other graphics.
-              </div>
             </div>
           </div>
         </div>
