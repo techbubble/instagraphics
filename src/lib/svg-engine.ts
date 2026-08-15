@@ -5,6 +5,9 @@
 //   data-ig-stroke="primary|secondary|tertiary"  -> stroke is set to that color slot
 //   data-ig-font="primary|secondary|tertiary"    -> font-family is set to that font slot
 //   data-ig-text="<fieldKey>"                    -> text content bound to a form field
+//   data-ig-contrast="primary|secondary|tertiary"-> fill becomes black or white,
+//                                                   whichever contrasts with that
+//                                                   slot's current color
 
 export type Slot = "primary" | "secondary" | "tertiary";
 
@@ -68,6 +71,15 @@ function slotIn(tag: string, name: string): Slot | null {
   return m && SLOT_RE.test(m[1]) ? (m[1] as Slot) : null;
 }
 
+// YIQ luminance: readable black-or-white for text over a colored shape.
+export function contrastColor(hex: string): string {
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  return (r * 299 + g * 587 + b * 114) / 1000 >= 140 ? "#212529" : "#ffffff";
+}
+
 export function renderTemplate(
   svgSource: string,
   brand: BrandKit,
@@ -80,6 +92,8 @@ export function renderTemplate(
     if (stroke) tag = setAttr(tag, "stroke", brand.colors[stroke]);
     const font = slotIn(tag, "ig-font");
     if (font) tag = setAttr(tag, "font-family", brand.fonts[font]);
+    const contrast = slotIn(tag, "ig-contrast");
+    if (contrast) tag = setAttr(tag, "fill", contrastColor(brand.colors[contrast]));
     return tag;
   });
 

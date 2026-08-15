@@ -55,11 +55,11 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="primary" points="60,240 273,240 313,300 273,360 60,360"/>
 <polygon data-ig-fill="secondary" points="273,240 487,240 527,300 487,360 273,360 313,300"/>
 <polygon data-ig-fill="tertiary" points="487,240 700,240 740,300 700,360 487,360 527,300"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="187" y="308" text-anchor="middle" font-size="24" fill="#ffffff">Plan</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="187" y="308" text-anchor="middle" font-size="24" fill="#ffffff">Plan</text>
 <text data-ig-text="other1" data-ig-font="tertiary" x="187" y="410" text-anchor="middle" font-size="16" fill="#495057">Define the goal</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="400" y="308" text-anchor="middle" font-size="24" fill="#ffffff">Build</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="400" y="308" text-anchor="middle" font-size="24" fill="#ffffff">Build</text>
 <text data-ig-text="other2" data-ig-font="tertiary" x="400" y="410" text-anchor="middle" font-size="16" fill="#495057">Execute the work</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="613" y="308" text-anchor="middle" font-size="24" fill="#ffffff">Launch</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="613" y="308" text-anchor="middle" font-size="24" fill="#ffffff">Launch</text>
 <text data-ig-text="other3" data-ig-font="tertiary" x="613" y="410" text-anchor="middle" font-size="16" fill="#495057">Ship and iterate</text>
 </svg>`,
   },
@@ -82,10 +82,10 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="secondary" points="220,240 380,240 420,300 380,360 220,360 260,300"/>
 <polygon data-ig-fill="tertiary" points="380,240 540,240 580,300 540,360 380,360 420,300"/>
 <polygon data-ig-fill="primary" points="540,240 700,240 740,300 700,360 540,360 580,300"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="160" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Plan</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="320" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Build</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="480" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Launch</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="640" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Measure</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="160" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Plan</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="320" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Build</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="480" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Launch</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="640" y="307" text-anchor="middle" font-size="21" fill="#ffffff">Measure</text>
 </svg>`,
   },
   {
@@ -109,11 +109,11 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="tertiary" points="316,240 444,240 484,300 444,360 316,360 356,300"/>
 <polygon data-ig-fill="primary" points="444,240 572,240 612,300 572,360 444,360 484,300"/>
 <polygon data-ig-fill="secondary" points="572,240 700,240 740,300 700,360 572,360 612,300"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="144" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="272" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="528" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Measure</text>
-<text data-ig-text="item5" data-ig-font="secondary" x="656" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Iterate</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="144" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="272" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="528" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Measure</text>
+<text data-ig-contrast="secondary" data-ig-text="item5" data-ig-font="secondary" x="656" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Iterate</text>
 </svg>`,
   },
   {
@@ -141,9 +141,9 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="primary" cx="400" cy="195" r="78"/>
 <circle data-ig-fill="secondary" cx="530" cy="420" r="78"/>
 <circle data-ig-fill="tertiary" cx="270" cy="420" r="78"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="400" y="203" text-anchor="middle" font-size="24" fill="#ffffff">Plan</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="530" y="428" text-anchor="middle" font-size="24" fill="#ffffff">Build</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="270" y="428" text-anchor="middle" font-size="24" fill="#ffffff">Launch</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="203" text-anchor="middle" font-size="24" fill="#ffffff">Plan</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="530" y="428" text-anchor="middle" font-size="24" fill="#ffffff">Build</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="270" y="428" text-anchor="middle" font-size="24" fill="#ffffff">Launch</text>
 </svg>`,
   },
   {
@@ -174,10 +174,10 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="secondary" cx="550" cy="345" r="68"/>
 <circle data-ig-fill="tertiary" cx="400" cy="495" r="68"/>
 <circle data-ig-fill="primary" cx="250" cy="345" r="68"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="400" y="202" text-anchor="middle" font-size="22" fill="#ffffff">Plan</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="550" y="352" text-anchor="middle" font-size="22" fill="#ffffff">Build</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="502" text-anchor="middle" font-size="22" fill="#ffffff">Launch</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="250" y="352" text-anchor="middle" font-size="22" fill="#ffffff">Measure</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="202" text-anchor="middle" font-size="22" fill="#ffffff">Plan</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="550" y="352" text-anchor="middle" font-size="22" fill="#ffffff">Build</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="502" text-anchor="middle" font-size="22" fill="#ffffff">Launch</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="250" y="352" text-anchor="middle" font-size="22" fill="#ffffff">Measure</text>
 </svg>`,
   },
   {
@@ -211,11 +211,11 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="tertiary" cx="488" cy="466" r="60"/>
 <circle data-ig-fill="primary" cx="312" cy="466" r="60"/>
 <circle data-ig-fill="secondary" cx="257" cy="299" r="60"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="400" y="201" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="543" y="305" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="488" y="472" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="312" y="472" text-anchor="middle" font-size="18" fill="#ffffff">Measure</text>
-<text data-ig-text="item5" data-ig-font="secondary" x="257" y="305" text-anchor="middle" font-size="18" fill="#ffffff">Iterate</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="201" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="543" y="305" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="488" y="472" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="312" y="472" text-anchor="middle" font-size="18" fill="#ffffff">Measure</text>
+<text data-ig-contrast="secondary" data-ig-text="item5" data-ig-font="secondary" x="257" y="305" text-anchor="middle" font-size="18" fill="#ffffff">Iterate</text>
 </svg>`,
   },
   {
@@ -323,10 +323,10 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="primary" cx="330" cy="290" r="140" fill-opacity="0.7"/>
 <circle data-ig-fill="secondary" cx="470" cy="290" r="140" fill-opacity="0.7"/>
 <circle data-ig-fill="tertiary" cx="400" cy="410" r="140" fill-opacity="0.7"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="275" y="255" text-anchor="middle" font-size="22" fill="#ffffff">Design</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="525" y="255" text-anchor="middle" font-size="22" fill="#ffffff">Tech</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="490" text-anchor="middle" font-size="22" fill="#ffffff">Business</text>
-<text data-ig-text="other1" data-ig-font="secondary" x="400" y="338" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Sweet spot</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="275" y="255" text-anchor="middle" font-size="22" fill="#ffffff">Design</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="525" y="255" text-anchor="middle" font-size="22" fill="#ffffff">Tech</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="490" text-anchor="middle" font-size="22" fill="#ffffff">Business</text>
+<text data-ig-contrast="secondary" data-ig-text="other1" data-ig-font="secondary" x="400" y="338" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">Sweet spot</text>
 </svg>`,
   },
   {
@@ -344,11 +344,11 @@ export const TEMPLATES: Template[] = [
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Sales Funnel</text>
 <polygon data-ig-fill="primary" points="120,170 680,170 609,279 191,279"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="400" y="232" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="232" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
 <polygon data-ig-fill="secondary" points="196,287 604,287 536,393 264,393"/>
-<text data-ig-text="item2" data-ig-font="secondary" x="400" y="346" text-anchor="middle" font-size="19" fill="#ffffff">Interest</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="400" y="346" text-anchor="middle" font-size="19" fill="#ffffff">Interest</text>
 <polygon data-ig-fill="tertiary" points="269,401 531,401 460,510 340,510"/>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="460" text-anchor="middle" font-size="16" fill="#ffffff">Decision</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="460" text-anchor="middle" font-size="16" fill="#ffffff">Decision</text>
 </svg>`,
   },
   {
@@ -367,13 +367,13 @@ export const TEMPLATES: Template[] = [
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Sales Funnel</text>
 <polygon data-ig-fill="primary" points="120,170 680,170 628,251 172,251"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="400" y="218" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="218" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
 <polygon data-ig-fill="secondary" points="178,259 622,259 573,336 227,336"/>
-<text data-ig-text="item2" data-ig-font="secondary" x="400" y="304" text-anchor="middle" font-size="20" fill="#ffffff">Interest</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="400" y="304" text-anchor="middle" font-size="20" fill="#ffffff">Interest</text>
 <polygon data-ig-fill="tertiary" points="233,344 567,344 518,421 282,421"/>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="388" text-anchor="middle" font-size="18" fill="#ffffff">Consideration</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="388" text-anchor="middle" font-size="18" fill="#ffffff">Consideration</text>
 <polygon data-ig-fill="primary" points="288,429 512,429 460,510 340,510"/>
-<text data-ig-text="item4" data-ig-font="secondary" x="400" y="474" text-anchor="middle" font-size="16" fill="#ffffff">Decision</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="400" y="474" text-anchor="middle" font-size="16" fill="#ffffff">Decision</text>
 </svg>`,
   },
   {
@@ -393,15 +393,15 @@ export const TEMPLATES: Template[] = [
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Sales Funnel</text>
 <polygon data-ig-fill="primary" points="120,170 680,170 639,234 161,234"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="400" y="209" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="209" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
 <polygon data-ig-fill="secondary" points="167,242 633,242 595,302 205,302"/>
-<text data-ig-text="item2" data-ig-font="secondary" x="400" y="278" text-anchor="middle" font-size="20" fill="#ffffff">Interest</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="400" y="278" text-anchor="middle" font-size="20" fill="#ffffff">Interest</text>
 <polygon data-ig-fill="tertiary" points="211,310 589,310 551,370 249,370"/>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="346" text-anchor="middle" font-size="19" fill="#ffffff">Consideration</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="346" text-anchor="middle" font-size="19" fill="#ffffff">Consideration</text>
 <polygon data-ig-fill="primary" points="255,378 545,378 507,438 293,438"/>
-<text data-ig-text="item4" data-ig-font="secondary" x="400" y="414" text-anchor="middle" font-size="18" fill="#ffffff">Decision</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="400" y="414" text-anchor="middle" font-size="18" fill="#ffffff">Decision</text>
 <polygon data-ig-fill="secondary" points="299,446 501,446 460,510 340,510"/>
-<text data-ig-text="item5" data-ig-font="secondary" x="400" y="483" text-anchor="middle" font-size="16" fill="#ffffff">Action</text>
+<text data-ig-contrast="secondary" data-ig-text="item5" data-ig-font="secondary" x="400" y="483" text-anchor="middle" font-size="16" fill="#ffffff">Action</text>
 </svg>`,
   },
   {
@@ -508,20 +508,20 @@ export const TEMPLATES: Template[] = [
 <circle cx="150" cy="320" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="150" cy="320" r="88"/>
 <circle data-ig-fill="primary" cx="74" cy="238" r="26"/>
-<text data-ig-font="primary" x="74" y="249" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="150" y="328" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step one</text>
+<text data-ig-contrast="primary" data-ig-font="primary" x="74" y="249" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="150" y="328" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step one</text>
 <text data-ig-text="other1" data-ig-font="tertiary" x="150" y="470" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
 <circle cx="400" cy="320" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="secondary" cx="400" cy="320" r="88"/>
 <circle data-ig-fill="secondary" cx="324" cy="238" r="26"/>
-<text data-ig-font="primary" x="324" y="249" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="400" y="328" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step two</text>
+<text data-ig-contrast="secondary" data-ig-font="primary" x="324" y="249" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="400" y="328" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step two</text>
 <text data-ig-text="other2" data-ig-font="tertiary" x="400" y="470" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
 <circle cx="650" cy="320" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="tertiary" cx="650" cy="320" r="88"/>
 <circle data-ig-fill="tertiary" cx="574" cy="238" r="26"/>
-<text data-ig-font="primary" x="574" y="249" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="650" y="328" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step three</text>
+<text data-ig-contrast="tertiary" data-ig-font="primary" x="574" y="249" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="650" y="328" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step three</text>
 <text data-ig-text="other3" data-ig-font="tertiary" x="650" y="470" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
 </svg>`,
   },
@@ -543,23 +543,23 @@ export const TEMPLATES: Template[] = [
 <circle cx="130" cy="320" r="82" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="130" cy="320" r="69"/>
 <circle data-ig-fill="primary" cx="71" cy="256" r="21"/>
-<text data-ig-font="primary" x="71" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="130" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step one</text>
+<text data-ig-contrast="primary" data-ig-font="primary" x="71" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="130" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step one</text>
 <circle cx="310" cy="320" r="82" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="secondary" cx="310" cy="320" r="69"/>
 <circle data-ig-fill="secondary" cx="251" cy="256" r="21"/>
-<text data-ig-font="primary" x="251" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="310" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step two</text>
+<text data-ig-contrast="secondary" data-ig-font="primary" x="251" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="310" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step two</text>
 <circle cx="490" cy="320" r="82" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="tertiary" cx="490" cy="320" r="69"/>
 <circle data-ig-fill="tertiary" cx="431" cy="256" r="21"/>
-<text data-ig-font="primary" x="431" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="490" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step three</text>
+<text data-ig-contrast="tertiary" data-ig-font="primary" x="431" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="490" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step three</text>
 <circle cx="670" cy="320" r="82" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="670" cy="320" r="69"/>
 <circle data-ig-fill="primary" cx="611" cy="256" r="21"/>
-<text data-ig-font="primary" x="611" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">4</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="670" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step four</text>
+<text data-ig-contrast="primary" data-ig-font="primary" x="611" y="265" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">4</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="670" y="326" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Step four</text>
 </svg>`,
   },
   {
@@ -581,28 +581,28 @@ export const TEMPLATES: Template[] = [
 <circle cx="100" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="100" cy="320" r="55"/>
 <circle data-ig-fill="primary" cx="52" cy="269" r="17"/>
-<text data-ig-font="primary" x="52" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="100" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step one</text>
+<text data-ig-contrast="primary" data-ig-font="primary" x="52" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="100" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step one</text>
 <circle cx="250" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="secondary" cx="250" cy="320" r="55"/>
 <circle data-ig-fill="secondary" cx="202" cy="269" r="17"/>
-<text data-ig-font="primary" x="202" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="250" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step two</text>
+<text data-ig-contrast="secondary" data-ig-font="primary" x="202" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="250" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step two</text>
 <circle cx="400" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="tertiary" cx="400" cy="320" r="55"/>
 <circle data-ig-fill="tertiary" cx="352" cy="269" r="17"/>
-<text data-ig-font="primary" x="352" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="400" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step three</text>
+<text data-ig-contrast="tertiary" data-ig-font="primary" x="352" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="400" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step three</text>
 <circle cx="550" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="550" cy="320" r="55"/>
 <circle data-ig-fill="primary" cx="502" cy="269" r="17"/>
-<text data-ig-font="primary" x="502" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">4</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="550" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step four</text>
+<text data-ig-contrast="primary" data-ig-font="primary" x="502" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">4</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="550" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step four</text>
 <circle cx="700" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="secondary" cx="700" cy="320" r="55"/>
 <circle data-ig-fill="secondary" cx="652" cy="269" r="17"/>
-<text data-ig-font="primary" x="652" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
-<text data-ig-text="item5" data-ig-font="secondary" x="700" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step five</text>
+<text data-ig-contrast="secondary" data-ig-font="primary" x="652" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
+<text data-ig-contrast="secondary" data-ig-text="item5" data-ig-font="secondary" x="700" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step five</text>
 </svg>`,
   },
   {
@@ -621,9 +621,9 @@ export const TEMPLATES: Template[] = [
 ${title("Where We Win")}
 <circle data-ig-fill="primary" cx="315" cy="340" r="160" fill-opacity="0.75"/>
 <circle data-ig-fill="secondary" cx="485" cy="340" r="160" fill-opacity="0.75"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="240" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Quality</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="560" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Speed</text>
-<text data-ig-text="other1" data-ig-font="secondary" x="400" y="348" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Value</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="240" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Quality</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="560" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Speed</text>
+<text data-ig-contrast="secondary" data-ig-text="other1" data-ig-font="secondary" x="400" y="348" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Value</text>
 </svg>`,
   },
   {
@@ -646,12 +646,12 @@ ${title("Where We Win")}
 <circle data-ig-fill="tertiary" cx="185" cy="212" r="26"/>
 <circle data-ig-fill="tertiary" cx="185" cy="320" r="26"/>
 <circle data-ig-fill="tertiary" cx="185" cy="428" r="26"/>
-<text data-ig-font="secondary" x="185" y="221" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-font="secondary" x="185" y="329" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-font="secondary" x="185" y="437" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="235" y="221" font-size="24" fill="#ffffff">Grow revenue</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="235" y="329" font-size="24" fill="#ffffff">Delight customers</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="235" y="437" font-size="24" fill="#ffffff">Reduce costs</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="221" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="329" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="437" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="235" y="221" font-size="24" fill="#ffffff">Grow revenue</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="235" y="329" font-size="24" fill="#ffffff">Delight customers</text>
+<text data-ig-contrast="primary" data-ig-text="item3" data-ig-font="secondary" x="235" y="437" font-size="24" fill="#ffffff">Reduce costs</text>
 </svg>`,
   },
   {
@@ -677,14 +677,14 @@ ${title("Key Priorities")}
 <circle data-ig-fill="tertiary" cx="185" cy="278" r="24"/>
 <circle data-ig-fill="tertiary" cx="185" cy="370" r="24"/>
 <circle data-ig-fill="tertiary" cx="185" cy="462" r="24"/>
-<text data-ig-font="secondary" x="185" y="194" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-font="secondary" x="185" y="286" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-font="secondary" x="185" y="378" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-font="secondary" x="185" y="470" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">4</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="235" y="194" font-size="22" fill="#ffffff">Grow revenue</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="235" y="286" font-size="22" fill="#ffffff">Delight customers</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="235" y="378" font-size="22" fill="#ffffff">Reduce costs</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="235" y="470" font-size="22" fill="#ffffff">Develop talent</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="194" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="286" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="378" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="185" y="470" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">4</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="235" y="194" font-size="22" fill="#ffffff">Grow revenue</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="235" y="286" font-size="22" fill="#ffffff">Delight customers</text>
+<text data-ig-contrast="primary" data-ig-text="item3" data-ig-font="secondary" x="235" y="378" font-size="22" fill="#ffffff">Reduce costs</text>
+<text data-ig-contrast="secondary" data-ig-text="item4" data-ig-font="secondary" x="235" y="470" font-size="22" fill="#ffffff">Develop talent</text>
 </svg>`,
   },
   {
@@ -713,16 +713,16 @@ ${title("Key Priorities")}
 <circle data-ig-fill="tertiary" cx="180" cy="332" r="20"/>
 <circle data-ig-fill="tertiary" cx="180" cy="408" r="20"/>
 <circle data-ig-fill="tertiary" cx="180" cy="484" r="20"/>
-<text data-ig-font="secondary" x="180" y="187" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-font="secondary" x="180" y="263" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-font="secondary" x="180" y="339" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-font="secondary" x="180" y="415" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">4</text>
-<text data-ig-font="secondary" x="180" y="491" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">5</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="220" y="187" font-size="20" fill="#ffffff">Grow revenue</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="220" y="263" font-size="20" fill="#ffffff">Delight customers</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="220" y="339" font-size="20" fill="#ffffff">Reduce costs</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="220" y="415" font-size="20" fill="#ffffff">Develop talent</text>
-<text data-ig-text="item5" data-ig-font="secondary" x="220" y="491" font-size="20" fill="#ffffff">Expand markets</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="180" y="187" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">1</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="180" y="263" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">2</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="180" y="339" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">3</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="180" y="415" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">4</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="180" y="491" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">5</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="220" y="187" font-size="20" fill="#ffffff">Grow revenue</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="220" y="263" font-size="20" fill="#ffffff">Delight customers</text>
+<text data-ig-contrast="primary" data-ig-text="item3" data-ig-font="secondary" x="220" y="339" font-size="20" fill="#ffffff">Reduce costs</text>
+<text data-ig-contrast="secondary" data-ig-text="item4" data-ig-font="secondary" x="220" y="415" font-size="20" fill="#ffffff">Develop talent</text>
+<text data-ig-contrast="primary" data-ig-text="item5" data-ig-font="secondary" x="220" y="491" font-size="20" fill="#ffffff">Expand markets</text>
 </svg>`,
   },
   {
@@ -746,10 +746,10 @@ ${title("Priority Matrix")}
 <rect data-ig-fill="secondary" x="425" y="150" width="245" height="185" rx="8"/>
 <rect data-ig-fill="tertiary" x="170" y="345" width="245" height="185" rx="8"/>
 <rect data-ig-fill="primary" x="425" y="345" width="245" height="185" rx="8"/>
-<text data-ig-text="item1" data-ig-font="secondary" x="292" y="250" text-anchor="middle" font-size="22" fill="#ffffff">Quick Wins</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="547" y="250" text-anchor="middle" font-size="22" fill="#ffffff">Big Bets</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="292" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Fill-Ins</text>
-<text data-ig-text="item4" data-ig-font="secondary" x="547" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Money Pits</text>
+<text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="292" y="250" text-anchor="middle" font-size="22" fill="#ffffff">Quick Wins</text>
+<text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="547" y="250" text-anchor="middle" font-size="22" fill="#ffffff">Big Bets</text>
+<text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="292" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Fill-Ins</text>
+<text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="secondary" x="547" y="445" text-anchor="middle" font-size="22" fill="#ffffff">Money Pits</text>
 <text data-ig-text="other1" data-ig-font="tertiary" x="420" y="570" text-anchor="middle" font-size="17" fill="#495057">Effort</text>
 <text data-ig-text="other2" data-ig-font="tertiary" x="130" y="340" text-anchor="middle" font-size="17" fill="#495057" transform="rotate(-90 130 340)">Impact</text>
 </svg>`,
