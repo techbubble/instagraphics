@@ -10,7 +10,7 @@ export default async function Navbar() {
         <Link className="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="/">
           {/* eslint-disable-next-line @next/next/no-img-element -- app icon asset */}
           <img src="/icon.svg" width={28} height={28} alt="" />
-          Instagraphics
+          Instagraphic
         </Link>
         <ul className="navbar-nav me-auto">
           {user && (

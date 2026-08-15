@@ -5,22 +5,22 @@ import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://instagraphics.vercel.app";
+  process.env.NEXT_PUBLIC_BASE_URL || "https://www.instagraphic.app";
 const DESCRIPTION =
   "Build branded infographics in seconds. Pick a layout, apply your colors and fonts, type your content, and download as SVG or PNG.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Instagraphics",
-    template: "%s | Instagraphics",
+    default: "Instagraphic",
+    template: "%s | Instagraphic",
   },
   description: DESCRIPTION,
   openGraph: {
-    title: "Instagraphics",
+    title: "Instagraphic",
     description: DESCRIPTION,
     url: "/",
-    siteName: "Instagraphics",
+    siteName: "Instagraphic",
     type: "website",
     locale: "en_US",
     images: [
@@ -28,13 +28,13 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Instagraphics - build branded infographics in seconds",
+        alt: "Instagraphic - build branded infographics in seconds",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Instagraphics",
+    title: "Instagraphic",
     description: DESCRIPTION,
     images: ["/og.png"],
   },

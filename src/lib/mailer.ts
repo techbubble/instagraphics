@@ -20,7 +20,7 @@ export async function sendOtpEmail(email: string, code: string) {
   await transporter.sendMail({
     from: process.env.SMTP_FROM || process.env.SMTP_USER,
     to: email,
-    subject: `${code} is your Instagraphics sign-in code`,
-    text: `Your Instagraphics sign-in code is ${code}. It expires in 10 minutes.\n\nIf you did not request this, ignore this email.`,
+    subject: `${code} is your Instagraphic sign-in code`,
+    text: `Your Instagraphic sign-in code is ${code}. It expires in 10 minutes.\n\nIf you did not request this, ignore this email.`,
   });
 }
