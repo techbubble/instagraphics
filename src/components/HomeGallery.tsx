@@ -137,7 +137,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
                     />
                   </div>
                 </Link>
-                <div className="card-body py-2">
+                <div className="card-body py-2 bg-light rounded-bottom">
                   <div className="fw-semibold text-dark">
                     {t.title}{" "}
                     <Link
