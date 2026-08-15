@@ -7,7 +7,8 @@ import {
   itemCount,
   type TemplateMeta,
 } from "@/lib/templates";
-import { BrandKit, FONT_CHOICES, Slot } from "@/lib/svg-engine";
+import { BrandKit, Slot } from "@/lib/svg-engine";
+import FontSelect from "@/components/FontSelect";
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
 const SLOT_LABEL: Record<Slot, string> = {
@@ -17,6 +18,40 @@ const SLOT_LABEL: Record<Slot, string> = {
 };
 
 type PrefsPatch = { brand?: BrandKit; values?: Record<string, string> };
+
+function HexInput({
+  value,
+  onCommit,
+  ariaLabel,
+}: {
+  value: string;
+  onCommit: (v: string) => void;
+  ariaLabel: string;
+}) {
+  const [draft, setDraft] = useState(value);
+  const [synced, setSynced] = useState(value);
+  if (value !== synced) {
+    // external change (swatch picker) — adopt it during render
+    setSynced(value);
+    setDraft(value);
+  }
+  return (
+    <input
+      className="form-control form-control-sm font-monospace"
+      value={draft}
+      maxLength={7}
+      spellCheck={false}
+      aria-label={ariaLabel}
+      onChange={(e) => {
+        const v = e.target.value;
+        setDraft(v);
+        const m = v.trim().match(/^#?([0-9a-fA-F]{6})$/);
+        if (m) onCommit(`#${m[1].toLowerCase()}`);
+      }}
+      onBlur={() => setDraft(value)}
+    />
+  );
+}
 
 function useDebounced<T>(value: T, ms: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -221,13 +256,21 @@ export default function Builder({
                 <label className="form-label small fw-bold mb-1">
                   {SLOT_LABEL[slot]} Color
                 </label>
-                <input
-                  type="color"
-                  className="form-control form-control-color w-100"
-                  value={brand.colors[slot]}
-                  onChange={(e) => setColor(slot, e.target.value)}
-                  aria-label={`${SLOT_LABEL[slot]} color`}
-                />
+                <div className="input-group input-group-sm">
+                  <input
+                    type="color"
+                    className="form-control form-control-color"
+                    style={{ maxWidth: 44 }}
+                    value={brand.colors[slot]}
+                    onChange={(e) => setColor(slot, e.target.value)}
+                    aria-label={`${SLOT_LABEL[slot]} color picker`}
+                  />
+                  <HexInput
+                    value={brand.colors[slot]}
+                    onCommit={(v) => setColor(slot, v)}
+                    ariaLabel={`${SLOT_LABEL[slot]} color hex`}
+                  />
+                </div>
               </div>
             ))}
             {SLOTS.map((slot) => (
@@ -235,19 +278,11 @@ export default function Builder({
                 <label className="form-label small fw-bold mb-1">
                   {SLOT_LABEL[slot]} Font
                 </label>
-                <select
-                  className="form-select form-select-sm"
+                <FontSelect
                   value={brand.fonts[slot]}
-                  onChange={(e) => setFont(slot, e.target.value)}
-                  aria-label={`${SLOT_LABEL[slot]} font`}
-                  style={{ fontFamily: brand.fonts[slot] }}
-                >
-                  {FONT_CHOICES.map((f) => (
-                    <option key={f} value={f} style={{ fontFamily: f }}>
-                      {f}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(f) => setFont(slot, f)}
+                  ariaLabel={`${SLOT_LABEL[slot]} font`}
+                />
               </div>
             ))}
           </div>

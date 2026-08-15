@@ -15,8 +15,28 @@ import {
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
 
-// Fetch the Google font TTFs once per instance and cache them in /tmp so
-// resvg can shape text with the same fonts the client previews use.
+// Classic fonts are not installed on the server, so previews substitute
+// metric-compatible (or visually close) open fonts. Downloaded SVGs keep
+// the real family name and render natively on the user's machine.
+const SERVER_FONT_ALIASES: Record<string, string> = {
+  Arial: "Arimo",
+  Helvetica: "Arimo",
+  Verdana: "Open Sans",
+  "Trebuchet MS": "Fira Sans",
+  Georgia: "Gelasio",
+  "Times New Roman": "Tinos",
+  Palatino: "PT Serif",
+  Garamond: "EB Garamond",
+  "Courier New": "Cousine",
+  Impact: "Anton",
+};
+
+const SERVER_FONT_FAMILIES = [
+  ...new Set([...GOOGLE_FONTS, ...Object.values(SERVER_FONT_ALIASES)]),
+];
+
+// Fetch the font TTFs once per instance and cache them in /tmp so resvg
+// can shape text with the same fonts the client previews use.
 let fontsPromise: Promise<string[]> | null = null;
 
 export function fontFiles(): Promise<string[]> {
@@ -24,7 +44,7 @@ export function fontFiles(): Promise<string[]> {
     fontsPromise = (async () => {
       const dir = path.join(os.tmpdir(), "ig-fonts");
       await mkdir(dir, { recursive: true });
-      const query = GOOGLE_FONTS.map(
+      const query = SERVER_FONT_FAMILIES.map(
         (f) => `family=${f.replace(/ /g, "+")}:wght@400;700`
       ).join("&");
       // An ancient UA makes fonts.googleapis.com serve TTF, which resvg reads.
@@ -74,7 +94,11 @@ const CHECKER =
 export async function renderPng(svg: string, width = 800): Promise<Buffer> {
   const files = await fontFiles().catch(() => [] as string[]);
   const { Resvg } = await import("@resvg/resvg-js");
-  const checkered = svg.replace(/(<svg\b[^>]*>)/, `$1${CHECKER}`);
+  let aliased = svg;
+  for (const [real, alias] of Object.entries(SERVER_FONT_ALIASES)) {
+    aliased = aliased.replaceAll(`font-family="${real}"`, `font-family="${alias}"`);
+  }
+  const checkered = aliased.replace(/(<svg\b[^>]*>)/, `$1${CHECKER}`);
   const resvg = new Resvg(checkered, {
     fitTo: { mode: "width", value: width },
     font: {

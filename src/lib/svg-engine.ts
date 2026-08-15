@@ -18,9 +18,24 @@ export const DEFAULT_BRAND: BrandKit = {
   fonts: { primary: "Roboto", secondary: "Roboto", tertiary: "Roboto" },
 };
 
+// Classic web-safe fonts: present on end-user machines, so downloads render
+// natively. Server previews substitute metric-compatible open fonts (see
+// server-render.ts).
+export const SYSTEM_FONTS = [
+  "Arial",
+  "Helvetica",
+  "Verdana",
+  "Trebuchet MS",
+  "Georgia",
+  "Times New Roman",
+  "Palatino",
+  "Garamond",
+  "Courier New",
+  "Impact",
+];
+
 // Loaded via a stylesheet link in the root layout; embedded as data URIs
-// into downloaded/rasterized SVGs by embedGoogleFonts(). Google fonts only,
-// so server-side rasterization renders identically to the browser.
+// into downloaded/rasterized SVGs by embedGoogleFonts().
 export const GOOGLE_FONTS = [
   "Lato",
   "Merriweather",
@@ -34,7 +49,7 @@ export const GOOGLE_FONTS = [
   "Roboto",
 ];
 
-export const FONT_CHOICES = [...GOOGLE_FONTS];
+export const FONT_CHOICES = [...SYSTEM_FONTS, ...GOOGLE_FONTS];
 
 function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
