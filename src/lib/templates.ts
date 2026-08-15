@@ -24,6 +24,7 @@ export type Template = {
   id: string;
   title: string;
   category: string;
+  items: number; // item slots on the graphic; drives the "#" sort
   description: string;
   usage: Partial<Record<string, string>>;
   svg: string;
@@ -38,6 +39,7 @@ export const TEMPLATES: Template[] = [
     id: "process-arrow-3",
     title: "Process Arrows (3 steps)",
     category: "Process",
+    items: 3,
     description: "3 chevron arrows showing a left-to-right process.",
     usage: {
       title: "heading",
@@ -65,6 +67,7 @@ export const TEMPLATES: Template[] = [
     id: "process-arrow-4",
     title: "Process Arrows (4 steps)",
     category: "Process",
+    items: 4,
     description: "4 chevron arrows showing a left-to-right process.",
     usage: {
       title: "heading",
@@ -89,6 +92,7 @@ export const TEMPLATES: Template[] = [
     id: "process-arrow-5",
     title: "Process Arrows (5 steps)",
     category: "Process",
+    items: 5,
     description: "5 chevron arrows showing a left-to-right process.",
     usage: {
       title: "heading",
@@ -116,6 +120,7 @@ export const TEMPLATES: Template[] = [
     id: "cycle-3",
     title: "Cycle (3 parts)",
     category: "Cycle",
+    items: 3,
     description: "3 stages arranged in a continuous circular flow.",
     usage: {
       title: "heading",
@@ -145,6 +150,7 @@ export const TEMPLATES: Template[] = [
     id: "cycle-4",
     title: "Cycle (4 parts)",
     category: "Cycle",
+    items: 4,
     description: "4 stages arranged in a continuous circular flow.",
     usage: {
       title: "heading",
@@ -178,6 +184,7 @@ export const TEMPLATES: Template[] = [
     id: "cycle-5",
     title: "Cycle (5 parts)",
     category: "Cycle",
+    items: 5,
     description: "5 stages arranged in a continuous circular flow.",
     usage: {
       title: "heading",
@@ -215,6 +222,7 @@ export const TEMPLATES: Template[] = [
     id: "pyramid-3",
     title: "Pyramid (3 levels)",
     category: "Hierarchy",
+    items: 3,
     description: "3 stacked levels from broad base to narrow peak.",
     usage: {
       title: "heading",
@@ -239,6 +247,7 @@ export const TEMPLATES: Template[] = [
     id: "pyramid-4",
     title: "Pyramid (4 levels)",
     category: "Hierarchy",
+    items: 4,
     description: "4 stacked levels from broad base to narrow peak.",
     usage: {
       title: "heading",
@@ -267,6 +276,7 @@ export const TEMPLATES: Template[] = [
     id: "pyramid-5",
     title: "Pyramid (5 levels)",
     category: "Hierarchy",
+    items: 5,
     description: "5 stacked levels from broad base to narrow peak.",
     usage: {
       title: "heading",
@@ -299,6 +309,7 @@ export const TEMPLATES: Template[] = [
     id: "venn-3",
     title: "Venn (3 circles)",
     category: "Relationship",
+    items: 3,
     description: "Three overlapping circles with a shared center.",
     usage: {
       title: "heading",
@@ -322,6 +333,7 @@ export const TEMPLATES: Template[] = [
     id: "funnel-3",
     title: "Funnel (3 stages)",
     category: "Process",
+    items: 3,
     description: "3 narrowing stages from awareness to action.",
     usage: {
       title: "heading",
@@ -343,6 +355,7 @@ export const TEMPLATES: Template[] = [
     id: "funnel-4",
     title: "Funnel (4 stages)",
     category: "Process",
+    items: 4,
     description: "4 narrowing stages from awareness to action.",
     usage: {
       title: "heading",
@@ -367,6 +380,7 @@ export const TEMPLATES: Template[] = [
     id: "funnel-5",
     title: "Funnel (5 stages)",
     category: "Process",
+    items: 5,
     description: "5 narrowing stages from awareness to action.",
     usage: {
       title: "heading",
@@ -394,6 +408,7 @@ export const TEMPLATES: Template[] = [
     id: "timeline-3",
     title: "Timeline (3 milestones)",
     category: "Timeline",
+    items: 3,
     description: "Horizontal timeline with 3 milestones.",
     usage: {
       title: "heading",
@@ -418,6 +433,7 @@ export const TEMPLATES: Template[] = [
     id: "timeline-4",
     title: "Timeline (4 milestones)",
     category: "Timeline",
+    items: 4,
     description: "Horizontal timeline with 4 milestones.",
     usage: {
       title: "heading",
@@ -445,6 +461,7 @@ export const TEMPLATES: Template[] = [
     id: "timeline-5",
     title: "Timeline (5 milestones)",
     category: "Timeline",
+    items: 5,
     description: "Horizontal timeline with 5 milestones.",
     usage: {
       title: "heading",
@@ -475,6 +492,7 @@ export const TEMPLATES: Template[] = [
     id: "steps-3",
     title: "Step Circles (3 steps)",
     category: "Process",
+    items: 3,
     description: "3 numbered circles with step labels.",
     usage: {
       title: "heading",
@@ -511,6 +529,7 @@ export const TEMPLATES: Template[] = [
     id: "steps-4",
     title: "Step Circles (4 steps)",
     category: "Process",
+    items: 4,
     description: "4 numbered circles with step labels.",
     usage: {
       title: "heading",
@@ -547,6 +566,7 @@ export const TEMPLATES: Template[] = [
     id: "steps-5",
     title: "Step Circles (5 steps)",
     category: "Process",
+    items: 5,
     description: "5 numbered circles with step labels.",
     usage: {
       title: "heading",
@@ -589,6 +609,7 @@ export const TEMPLATES: Template[] = [
     id: "venn-2",
     title: "Venn (2 circles)",
     category: "Relationship",
+    items: 2,
     description: "Two overlapping circles with a shared middle value.",
     usage: {
       title: "heading",
@@ -609,6 +630,7 @@ ${title("Where We Win")}
     id: "list-3",
     title: "Numbered List (3 items)",
     category: "List",
+    items: 3,
     description: "Three numbered items in stacked bars.",
     usage: {
       title: "heading",
@@ -636,6 +658,7 @@ ${title("Where We Win")}
     id: "list-4",
     title: "Numbered List (4 items)",
     category: "List",
+    items: 4,
     description: "Four numbered items in stacked bars.",
     usage: {
       title: "heading",
@@ -668,6 +691,7 @@ ${title("Key Priorities")}
     id: "list-5",
     title: "Numbered List (5 items)",
     category: "List",
+    items: 5,
     description: "Five numbered items in stacked bars.",
     usage: {
       title: "heading",
@@ -705,6 +729,7 @@ ${title("Key Priorities")}
     id: "matrix-2x2",
     title: "2x2 Matrix",
     category: "Comparison",
+    items: 4,
     description: "Four quadrants with axis labels.",
     usage: {
       title: "heading",
@@ -737,6 +762,16 @@ export function getTemplate(id: string): Template | undefined {
   return TEMPLATES.find((t) => t.id === id);
 }
 
-export function itemCount(t: Template): number {
-  return Object.keys(t.usage).filter((k) => k.startsWith("item")).length;
+// Client-safe template metadata: everything except the SVG source, which
+// stays server-side (previews are delivered as rendered PNGs).
+export type TemplateMeta = Omit<Template, "svg">;
+
+export function toMeta(t: Template): TemplateMeta {
+  const meta: TemplateMeta & { svg?: string } = { ...t };
+  delete meta.svg;
+  return meta;
+}
+
+export function itemCount(t: TemplateMeta): number {
+  return t.items;
 }

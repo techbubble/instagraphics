@@ -3,16 +3,15 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import DownloadButtons from "@/components/DownloadButtons";
-import SvgImage from "@/components/SvgImage";
 
 export default async function MyGraphicsPage() {
   const user = await currentUser();
   if (!user) redirect("/login?next=%2Fgraphics");
   const rows = (await sql()`
-    SELECT id, title, svg, created_at FROM graphics
+    SELECT id, title, created_at FROM graphics
     WHERE user_id = ${user.id}
     ORDER BY created_at DESC
-  `) as { id: number; title: string; svg: string; created_at: string }[];
+  `) as { id: number; title: string; created_at: string }[];
 
   return (
     <>
@@ -32,7 +31,14 @@ export default async function MyGraphicsPage() {
             <div key={g.id} className="col-sm-6 col-md-4 col-lg-3">
               <div className="card ig-tile h-100">
                 <div className="ig-tile-preview border-bottom">
-                  <SvgImage svg={g.svg} alt={g.title} />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
+                  <img
+                    src={`/api/graphics/${g.id}/preview?w=400`}
+                    alt={g.title}
+                    loading="lazy"
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                    draggable={false}
+                  />
                 </div>
                 <div className="card-body py-2">
                   <div className="fw-semibold">{g.title}</div>

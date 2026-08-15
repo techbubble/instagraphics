@@ -2,14 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { UNIVERSAL_FIELDS, itemCount, type Template } from "@/lib/templates";
-import SvgImage from "@/components/SvgImage";
 import {
-  BrandKit,
-  FONT_CHOICES,
-  Slot,
-  renderTemplate,
-} from "@/lib/svg-engine";
+  UNIVERSAL_FIELDS,
+  itemCount,
+  type TemplateMeta,
+} from "@/lib/templates";
+import { BrandKit, FONT_CHOICES, Slot } from "@/lib/svg-engine";
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
 const SLOT_LABEL: Record<Slot, string> = {
@@ -20,13 +18,22 @@ const SLOT_LABEL: Record<Slot, string> = {
 
 type PrefsPatch = { brand?: BrandKit; values?: Record<string, string> };
 
+function useDebounced<T>(value: T, ms: number): T {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), ms);
+    return () => clearTimeout(t);
+  }, [value, ms]);
+  return debounced;
+}
+
 export default function Builder({
   templates,
   currentId,
   initialBrand,
   savedValues,
 }: {
-  templates: Template[];
+  templates: TemplateMeta[];
   currentId: string;
   initialBrand: BrandKit;
   savedValues: Record<string, string>;
@@ -39,11 +46,11 @@ export default function Builder({
   const [railSort, setRailSort] = useState<"category" | "name" | "count">("category");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
 
-  // Non-empty saved/typed values override the template's authored text;
-  // empty fields leave the authored placeholder in place.
+  // Non-empty values override the template's authored placeholder text.
   const effective = useMemo(
     () =>
       Object.fromEntries(
@@ -52,10 +59,47 @@ export default function Builder({
     [values]
   );
 
-  const rendered = useMemo(
-    () => renderTemplate(template.svg, brand, effective),
-    [template.svg, brand, effective]
+  // Live preview: debounced server render (PNG only — SVG stays server-side).
+  const renderInput = useMemo(
+    () => JSON.stringify({ templateId: template.id, brand, values: effective }),
+    [template.id, brand, effective]
   );
+  const debouncedInput = useDebounced(renderInput, 400);
+  const stale = renderInput !== debouncedInput;
+  const renderSeq = useRef(0);
+  useEffect(() => {
+    const seq = ++renderSeq.current;
+    fetch("/api/render", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: debouncedInput,
+    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error();
+        const blob = await res.blob();
+        if (seq !== renderSeq.current) return;
+        setPreviewUrl((prev) => {
+          if (prev) URL.revokeObjectURL(prev);
+          return URL.createObjectURL(blob);
+        });
+      })
+      .catch(() => {});
+  }, [debouncedInput]);
+
+  // Rail thumbnails re-render only after brand settles.
+  const debouncedBrand = useDebounced(brand, 800);
+  const brandQuery = useMemo(() => {
+    const b = debouncedBrand;
+    const p = new URLSearchParams({
+      pc: b.colors.primary.slice(1),
+      sc: b.colors.secondary.slice(1),
+      tc: b.colors.tertiary.slice(1),
+      pf: b.fonts.primary,
+      sf: b.fonts.secondary,
+      tf: b.fonts.tertiary,
+    });
+    return p.toString();
+  }, [debouncedBrand]);
 
   // Debounced auto-save of brand + changed field values.
   const pending = useRef<PrefsPatch>({});
@@ -123,7 +167,7 @@ export default function Builder({
           : a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
     );
     if (railSort !== "category") return [{ category: null as string | null, items: sorted }];
-    const groups: { category: string | null; items: Template[] }[] = [];
+    const groups: { category: string | null; items: TemplateMeta[] }[] = [];
     for (const t of sorted) {
       const g = groups[groups.length - 1];
       if (g && g.category === t.category) g.items.push(t);
@@ -142,8 +186,8 @@ export default function Builder({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           templateId: template.id,
-          title: effective.title || template.title,
-          svg: rendered,
+          brand,
+          values: effective,
         }),
       });
       if (res.status === 401) {
@@ -164,17 +208,9 @@ export default function Builder({
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <h1 className="h4 mb-0">{template.title}</h1>
-          <span className="small text-secondary">{template.description}</span>
-        </div>
-        <div className="d-flex align-items-center gap-2">
-          {error && <span className="small text-danger">{error}</span>}
-          <button className="btn btn-primary" onClick={save} disabled={saving}>
-            {saving ? "Saving..." : "Save"}
-          </button>
-        </div>
+      <div className="mb-3">
+        <h1 className="h4 mb-0">{template.title}</h1>
+        <span className="small text-secondary">{template.description}</span>
       </div>
 
       <div className="card mb-3">
@@ -270,8 +306,33 @@ export default function Builder({
           </button>
         )}
 
-        <div className="ig-preview border rounded p-2 flex-grow-1">
-          <SvgImage svg={rendered} alt={template.title} />
+        <div className="flex-grow-1">
+          <div
+            className="ig-preview border rounded p-2"
+            style={{ opacity: stale ? 0.7 : 1 }}
+          >
+            {previewUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element -- blob URL
+              <img
+                src={previewUrl}
+                alt={template.title}
+                style={{ width: "100%", height: "auto", display: "block" }}
+                draggable={false}
+              />
+            ) : (
+              <div style={{ width: "100%", aspectRatio: "4 / 3" }} />
+            )}
+          </div>
+          <div className="text-center mt-3">
+            {error && <div className="small text-danger mb-2">{error}</div>}
+            <button
+              className="btn btn-success btn-lg px-5"
+              onClick={save}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save"}
+            </button>
+          </div>
         </div>
 
         <div className="flex-shrink-0" style={{ width: 120 }}>
@@ -322,9 +383,13 @@ export default function Builder({
                       t.id === template.id ? "border-primary border-2" : ""
                     }`}
                   >
-                    <div className="ig-tile-preview">
-                      <SvgImage svg={renderTemplate(t.svg, brand, effective)} alt={t.title} />
-                    </div>
+                    {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
+                    <img
+                      src={`/api/preview/${t.id}?w=220&${brandQuery}`}
+                      alt={t.title}
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                      draggable={false}
+                    />
                   </button>
                 ))}
               </div>

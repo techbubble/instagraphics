@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import SvgImage from "@/components/SvgImage";
 
 type Tile = {
   id: string;
@@ -10,7 +9,6 @@ type Tile = {
   category: string;
   description: string;
   itemCount: number;
-  preview: string;
 };
 
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
@@ -128,7 +126,14 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
               <Link href={`/build/${t.id}${catsQuery}`} className="text-decoration-none">
                 <div className="card ig-tile h-100">
                   <div className="ig-tile-preview border-bottom">
-                    <SvgImage svg={t.preview} alt={t.title} />
+                    {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
+                    <img
+                      src={`/api/preview/${t.id}?w=400`}
+                      alt={t.title}
+                      loading="lazy"
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                      draggable={false}
+                    />
                   </div>
                   <div className="card-body py-2">
                     <div className="fw-semibold text-dark">{t.title}</div>

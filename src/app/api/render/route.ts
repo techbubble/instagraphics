@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sessionUserId } from "@/lib/auth";
-import { sql } from "@/lib/db";
 import { getTemplate } from "@/lib/templates";
 import { renderTemplate } from "@/lib/svg-engine";
-import { sanitizeBrand, sanitizeValues } from "@/lib/server-render";
+import { renderPng, sanitizeBrand, sanitizeValues } from "@/lib/server-render";
 
-// Save: the client sends brand + values only; the SVG is rendered and
-// stored server-side, so unrendered template source and the final SVG
-// never reach the browser pre-payment.
+// Live builder preview: brand + values in, PNG out. Never returns SVG.
 export async function POST(req: NextRequest) {
   const uid = await sessionUserId();
   if (uid == null) {
@@ -23,13 +20,17 @@ export async function POST(req: NextRequest) {
   if (!template) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
-  const values = sanitizeValues(body.values);
-  const svg = renderTemplate(template.svg, sanitizeBrand(body.brand), values);
-  const title = (values.title || template.title).slice(0, 80);
-  const rows = (await sql()`
-    INSERT INTO graphics (user_id, template_id, title, svg)
-    VALUES (${uid}, ${template.id}, ${title}, ${svg})
-    RETURNING id
-  `) as { id: number }[];
-  return NextResponse.json({ id: Number(rows[0].id) });
+  const svg = renderTemplate(
+    template.svg,
+    sanitizeBrand(body.brand),
+    sanitizeValues(body.values)
+  );
+  try {
+    const png = await renderPng(svg, 1024);
+    return new NextResponse(new Uint8Array(png), {
+      headers: { "Content-Type": "image/png", "Cache-Control": "no-store" },
+    });
+  } catch {
+    return NextResponse.json({ error: "Render failed" }, { status: 500 });
+  }
 }

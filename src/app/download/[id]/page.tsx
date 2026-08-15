@@ -3,7 +3,6 @@ import { notFound, redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import DownloadButtons from "@/components/DownloadButtons";
-import SvgImage from "@/components/SvgImage";
 
 export default async function DownloadPage({
   params,
@@ -16,9 +15,9 @@ export default async function DownloadPage({
   const graphicId = Number(id);
   if (!Number.isInteger(graphicId)) notFound();
   const rows = (await sql()`
-    SELECT id, title, svg FROM graphics
+    SELECT id, title FROM graphics
     WHERE id = ${graphicId} AND user_id = ${user.id}
-  `) as { id: number; title: string; svg: string }[];
+  `) as { id: number; title: string }[];
   const graphic = rows[0];
   if (!graphic) notFound();
 
@@ -26,7 +25,13 @@ export default async function DownloadPage({
     <div className="row g-4">
       <div className="col-lg-8">
         <div className="ig-preview border rounded p-2">
-          <SvgImage svg={graphic.svg} alt={graphic.title} />
+          {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
+          <img
+            src={`/api/graphics/${graphic.id}/preview?w=1000`}
+            alt={graphic.title}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            draggable={false}
+          />
         </div>
       </div>
       <div className="col-lg-4">

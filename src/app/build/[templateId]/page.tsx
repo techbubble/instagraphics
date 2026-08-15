@@ -1,5 +1,5 @@
 import { notFound, redirect } from "next/navigation";
-import { TEMPLATES, getTemplate } from "@/lib/templates";
+import { TEMPLATES, getTemplate, toMeta } from "@/lib/templates";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import { BrandKit, DEFAULT_BRAND, FONT_CHOICES, Slot } from "@/lib/svg-engine";
@@ -56,7 +56,7 @@ export default async function BuildPage({
 
   return (
     <Builder
-      templates={rail}
+      templates={rail.map(toMeta)}
       currentId={template.id}
       initialBrand={brand}
       savedValues={savedValues}

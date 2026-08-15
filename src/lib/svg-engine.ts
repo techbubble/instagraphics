@@ -15,24 +15,12 @@ export type BrandKit = {
 
 export const DEFAULT_BRAND: BrandKit = {
   colors: { primary: "#0d6efd", secondary: "#6c757d", tertiary: "#ffc107" },
-  fonts: { primary: "Arial", secondary: "Arial", tertiary: "Arial" },
+  fonts: { primary: "Roboto", secondary: "Roboto", tertiary: "Roboto" },
 };
 
-export const SYSTEM_FONTS = [
-  "Arial",
-  "Helvetica",
-  "Verdana",
-  "Trebuchet MS",
-  "Georgia",
-  "Times New Roman",
-  "Palatino",
-  "Garamond",
-  "Courier New",
-  "Impact",
-];
-
 // Loaded via a stylesheet link in the root layout; embedded as data URIs
-// into downloaded/rasterized SVGs by embedGoogleFonts().
+// into downloaded/rasterized SVGs by embedGoogleFonts(). Google fonts only,
+// so server-side rasterization renders identically to the browser.
 export const GOOGLE_FONTS = [
   "Lato",
   "Merriweather",
@@ -46,7 +34,7 @@ export const GOOGLE_FONTS = [
   "Roboto",
 ];
 
-export const FONT_CHOICES = [...SYSTEM_FONTS, ...GOOGLE_FONTS].sort();
+export const FONT_CHOICES = [...GOOGLE_FONTS];
 
 function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
