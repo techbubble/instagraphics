@@ -221,37 +221,51 @@ export default function Builder({
         <span className="small text-secondary">{template.description}</span>
       </div>
 
-      <div className="card mb-3">
-        <div className="card-body py-2">
-          <div className="row g-2 align-items-end">
-            {COLOR_SLOTS.map((slot) => (
-              <div className="col-6 col-md-3 col-xl" key={`c-${slot}`}>
-                <label className="form-label small fw-bold mb-1">
-                  {SLOT_LABEL[slot]} Color
-                </label>
-                <ColorSelect
-                  value={brand.colors[slot]}
-                  onChange={(c) => setColor(slot, c)}
-                  ariaLabel={`${SLOT_LABEL[slot]} color`}
-                />
+      <div className="row g-3 mb-3">
+        <div className="col-md-5">
+          <div className="card h-100">
+            <div className="card-header py-2 fw-bold">Colors</div>
+            <div className="card-body py-2">
+              <div className="row g-2">
+                {COLOR_SLOTS.map((slot) => (
+                  <div className="col-3" key={`c-${slot}`}>
+                    <label className="form-label small fw-bold mb-1">
+                      {SLOT_LABEL[slot]}
+                    </label>
+                    <ColorSelect
+                      value={brand.colors[slot]}
+                      onChange={(c) => setColor(slot, c)}
+                      ariaLabel={`${SLOT_LABEL[slot]} color`}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-            {SLOTS.map((slot) => (
-              <div className="col-6 col-md-4 col-xl" key={`f-${slot}`}>
-                <label className="form-label small fw-bold mb-1">
-                  {SLOT_LABEL[slot]} Font
-                </label>
-                <FontSelect
-                  value={brand.fonts[slot]}
-                  onChange={(f) => setFont(slot, f)}
-                  ariaLabel={`${SLOT_LABEL[slot]} font`}
-                />
-              </div>
-            ))}
+            </div>
           </div>
-          <div className="small text-secondary mt-1">
-            Colors, fonts, and text are saved to your account and reused on
-            other graphics.
+        </div>
+        <div className="col-md-7">
+          <div className="card h-100">
+            <div className="card-header py-2 fw-bold">Fonts</div>
+            <div className="card-body py-2">
+              <div className="row g-2">
+                {SLOTS.map((slot) => (
+                  <div className="col-4" key={`f-${slot}`}>
+                    <label className="form-label small fw-bold mb-1">
+                      {SLOT_LABEL[slot]}
+                    </label>
+                    <FontSelect
+                      value={brand.fonts[slot]}
+                      onChange={(f) => setFont(slot, f)}
+                      ariaLabel={`${SLOT_LABEL[slot]} font`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="small text-secondary mt-1">
+                Colors, fonts, and text are saved to your account and reused
+                on other graphics.
+              </div>
+            </div>
           </div>
         </div>
       </div>
