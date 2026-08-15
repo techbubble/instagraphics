@@ -1096,11 +1096,11 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-100.00 -16.28) scale(1.5000)">
-<rect data-ig-fill="secondary" x="100" y="180" width="280" height="280" rx="14"/>
+<rect data-ig-fill="tertiary" x="100" y="180" width="280" height="280" rx="14"/>
 <rect data-ig-fill="primary" x="420" y="180" width="280" height="280" rx="14"/>
-<text data-ig-contrast="secondary" data-ig-font="secondary" x="240" y="220" text-anchor="middle" font-size="17" font-weight="bold" fill="#495057">BEFORE</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="240" y="220" text-anchor="middle" font-size="17" font-weight="bold" fill="#495057">BEFORE</text>
 <text data-ig-contrast="primary" data-ig-font="secondary" x="560" y="220" text-anchor="middle" font-size="17" font-weight="bold" fill="#495057">AFTER</text>
-<text data-ig-text="item1" data-ig-contrast="secondary" data-ig-font="primary" x="240" y="330" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Manual process</text>
+<text data-ig-text="item1" data-ig-contrast="tertiary" data-ig-font="primary" x="240" y="330" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Manual process</text>
 <text data-ig-text="item2" data-ig-contrast="primary" data-ig-font="primary" x="560" y="330" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Automated flow</text>
 <line x1="372" y1="320" x2="412" y2="320" stroke="#495057" data-ig-stroke="accent" stroke-width="6"/><polygon data-ig-fill="accent" fill="#495057" points="428,320 412,311 412,329"/>
 <text data-ig-text="other1" data-ig-font="secondary" x="240" y="505" text-anchor="middle" font-size="17" fill="#212529">12 hours per week</text>
@@ -1461,8 +1461,8 @@ export const TEMPLATES: Template[] = [
 <rect data-ig-fill="tertiary" x="90" y="280" width="210" height="76" rx="10"/>
 <text data-ig-text="item2" data-ig-contrast="tertiary" data-ig-font="primary" x="195" y="325" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Slow tooling</text>
 
-<rect data-ig-fill="primary" x="90" y="400" width="210" height="76" rx="10"/>
-<text data-ig-text="item3" data-ig-contrast="primary" data-ig-font="primary" x="195" y="445" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Manual work</text>
+<rect data-ig-fill="quaternary" x="90" y="400" width="210" height="76" rx="10"/>
+<text data-ig-text="item3" data-ig-contrast="quaternary" data-ig-font="primary" x="195" y="445" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Manual work</text>
 
 <line x1="305" y1="198" x2="454" y2="269" stroke="#495057" data-ig-stroke="accent" stroke-width="5"/><polygon data-ig-fill="accent" fill="#495057" points="468,276 450,277 457,261"/><line x1="305" y1="318" x2="452" y2="318" stroke="#495057" data-ig-stroke="accent" stroke-width="5"/><polygon data-ig-fill="accent" fill="#495057" points="468,318 452,327 452,309"/><line x1="305" y1="438" x2="454" y2="367" stroke="#495057" data-ig-stroke="accent" stroke-width="5"/><polygon data-ig-fill="accent" fill="#495057" points="468,360 457,375 450,359"/>
 <rect data-ig-fill="primary" x="480" y="238" width="230" height="160" rx="14"/>
@@ -1676,8 +1676,8 @@ export const TEMPLATES: Template[] = [
 <line x1="400" y1="310" x2="400" y2="95" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
 <line x1="400" y1="310" x2="586" y2="418" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
 <line x1="400" y1="310" x2="214" y2="418" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<circle data-ig-fill="primary" cx="400" cy="310" r="84"/>
-<text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="primary" x="400" y="317" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Ecosystem</text>
+<circle data-ig-fill="accent" cx="400" cy="310" r="84"/>
+<text data-ig-text="other1" data-ig-contrast="accent" data-ig-font="primary" x="400" y="317" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Ecosystem</text>
 <circle data-ig-fill="secondary" cx="400" cy="95" r="62"/>
 <text data-ig-text="item1" data-ig-contrast="secondary" data-ig-font="primary" x="400" y="101" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Apps</text>
 <circle data-ig-fill="tertiary" cx="586" cy="418" r="62"/>
@@ -1715,8 +1715,8 @@ export const TEMPLATES: Template[] = [
 <line x1="400" y1="310" x2="615" y2="310" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
 <line x1="400" y1="310" x2="400" y2="525" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
 <line x1="400" y1="310" x2="185" y2="310" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<circle data-ig-fill="primary" cx="400" cy="310" r="84"/>
-<text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="primary" x="400" y="317" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Ecosystem</text>
+<circle data-ig-fill="accent" cx="400" cy="310" r="84"/>
+<text data-ig-text="other1" data-ig-contrast="accent" data-ig-font="primary" x="400" y="317" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Ecosystem</text>
 <circle data-ig-fill="secondary" cx="400" cy="95" r="58"/>
 <text data-ig-text="item1" data-ig-contrast="secondary" data-ig-font="primary" x="400" y="101" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Apps</text>
 <circle data-ig-fill="tertiary" cx="615" cy="310" r="58"/>
@@ -1759,8 +1759,8 @@ export const TEMPLATES: Template[] = [
 <line x1="400" y1="310" x2="526" y2="484" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
 <line x1="400" y1="310" x2="274" y2="484" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
 <line x1="400" y1="310" x2="196" y2="244" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<circle data-ig-fill="primary" cx="400" cy="310" r="84"/>
-<text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="primary" x="400" y="317" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Ecosystem</text>
+<circle data-ig-fill="accent" cx="400" cy="310" r="84"/>
+<text data-ig-text="other1" data-ig-contrast="accent" data-ig-font="primary" x="400" y="317" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">Ecosystem</text>
 <circle data-ig-fill="secondary" cx="400" cy="95" r="52"/>
 <text data-ig-text="item1" data-ig-contrast="secondary" data-ig-font="primary" x="400" y="101" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Apps</text>
 <circle data-ig-fill="tertiary" cx="604" cy="244" r="52"/>
@@ -2109,15 +2109,16 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-142.86 -78.40) scale(1.6071)">
+
 <line x1="200" y1="230" x2="600" y2="230" stroke="#495057" data-ig-stroke="accent" stroke-width="8"/>
-<rect data-ig-fill="accent" fill="#495057" x="392" y="230" width="16" height="250"/>
+<rect data-ig-fill="accent" fill="#495057" x="392" y="230" width="16" height="292"/>
 <polygon data-ig-fill="accent" fill="#495057" points="330,520 470,520 500,556 300,556"/>
-<line x1="200" y1="230" x2="160" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="200" y1="230" x2="240" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="600" y1="230" x2="560" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="600" y1="230" x2="640" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<path d="M 140 300 A 62 34 0 0 0 260 300 Z" data-ig-fill="primary"/>
-<path d="M 540 300 A 62 34 0 0 0 660 300 Z" data-ig-fill="tertiary"/>
+<line x1="200" y1="230" x2="150" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="200" y1="230" x2="250" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="600" y1="230" x2="550" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<line x1="600" y1="230" x2="650" y2="300" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<path d="M 125 300 A 75 40 0 0 0 275 300 Z" data-ig-fill="primary"/>
+<path d="M 525 300 A 75 40 0 0 0 675 300 Z" data-ig-fill="tertiary"/>
 <rect data-ig-fill="primary" x="120" y="120" width="160" height="56" rx="10"/>
 <rect data-ig-fill="tertiary" x="520" y="120" width="160" height="56" rx="10"/>
 <text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="200" y="154" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Build</text>
@@ -2147,13 +2148,14 @@ export const TEMPLATES: Template[] = [
       other1: "Reading",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-169.95 -43.09) scale(1.6854)">
+<g transform="translate(-81.04 54.55) scale(1.4636)">
+
 <path d="M 180 422 A 220 220 0 0 1 277 248" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="46" stroke-linecap="butt"/>
-<text data-ig-text="item1" data-ig-font="primary" x="162" y="298" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Starting</text>
+<text data-ig-text="item1" data-ig-font="primary" x="134" y="282" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Starting</text>
 <path d="M 297 236 A 220 220 0 0 1 496 232" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="46" stroke-linecap="butt"/>
-<text data-ig-text="item2" data-ig-font="primary" x="395" y="158" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Developing</text>
+<text data-ig-text="item2" data-ig-font="primary" x="394" y="126" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Developing</text>
 <path d="M 517 243 A 220 220 0 0 1 619 415" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="46" stroke-linecap="butt"/>
-<text data-ig-text="item3" data-ig-font="primary" x="633" y="290" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Leading</text>
+<text data-ig-text="item3" data-ig-font="primary" x="660" y="274" text-anchor="middle" font-size="24" font-weight="bold" fill="#212529">Leading</text>
 <polygon data-ig-fill="accent" fill="#495057" points="528,330 390,422 408,440"/>
 <circle data-ig-fill="accent" fill="#495057" cx="400" cy="430" r="20"/>
 <text data-ig-text="other1" data-ig-font="primary" x="400" y="494" text-anchor="middle" font-size="28" font-weight="bold" fill="#212529">Maturity: Developing</text>
