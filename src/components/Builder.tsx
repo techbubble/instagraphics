@@ -9,6 +9,7 @@ import {
 } from "@/lib/templates";
 import { BrandKit, ColorSlot, Slot } from "@/lib/svg-engine";
 import FontSelect from "@/components/FontSelect";
+import ColorSelect from "@/components/ColorSelect";
 
 const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
 const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
@@ -228,13 +229,10 @@ export default function Builder({
                 <label className="form-label small fw-bold mb-1">
                   {SLOT_LABEL[slot]} Color
                 </label>
-                <input
-                  type="color"
-                  className="form-control form-control-color w-100"
+                <ColorSelect
                   value={brand.colors[slot]}
-                  title={brand.colors[slot]}
-                  onChange={(e) => setColor(slot, e.target.value)}
-                  aria-label={`${SLOT_LABEL[slot]} color`}
+                  onChange={(c) => setColor(slot, c)}
+                  ariaLabel={`${SLOT_LABEL[slot]} color`}
                 />
               </div>
             ))}
