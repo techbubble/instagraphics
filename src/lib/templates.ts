@@ -27,6 +27,7 @@ export type Template = {
   description: string;
   about: string; // longer copy for the template's landing page
   usage: Partial<Record<string, string>>;
+  labels: Partial<Record<string, string>>; // contextual field labels (fall back to universal)
   svg: string;
 };
 
@@ -45,6 +46,14 @@ export const TEMPLATES: Template[] = [
       other1: "below arrow 1",
       other2: "below arrow 2",
       other3: "below arrow 3",
+    },
+    labels: {
+      item1: "Step 1",
+      item2: "Step 2",
+      item3: "Step 3",
+      other1: "Caption 1",
+      other2: "Caption 2",
+      other3: "Caption 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-29.41 67.62) scale(1.3235)">
@@ -73,6 +82,12 @@ export const TEMPLATES: Template[] = [
       item3: "arrow 3",
       item4: "arrow 4",
     },
+    labels: {
+      item1: "Step 1",
+      item2: "Step 2",
+      item3: "Step 3",
+      item4: "Step 4",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-29.41 102.94) scale(1.3235)">
 <polygon data-ig-fill="primary" points="60,240 220,240 260,300 220,360 60,360"/>
@@ -100,6 +115,13 @@ export const TEMPLATES: Template[] = [
       item4: "arrow 4",
       item5: "arrow 5",
     },
+    labels: {
+      item1: "Step 1",
+      item2: "Step 2",
+      item3: "Step 3",
+      item4: "Step 4",
+      item5: "Step 5",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-29.41 102.94) scale(1.3235)">
 <polygon data-ig-fill="primary" points="60,240 188,240 228,300 188,360 60,360"/>
@@ -126,6 +148,11 @@ export const TEMPLATES: Template[] = [
       item1: "1st circle",
       item2: "2nd circle",
       item3: "3rd circle",
+    },
+    labels: {
+      item1: "Stage 1",
+      item2: "Stage 2",
+      item3: "Stage 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-365.38 -165.26) scale(2.1635)">
@@ -156,6 +183,12 @@ export const TEMPLATES: Template[] = [
       item2: "2nd circle",
       item3: "3rd circle",
       item4: "4th circle",
+    },
+    labels: {
+      item1: "Stage 1",
+      item2: "Stage 2",
+      item3: "Stage 3",
+      item4: "Stage 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-325.69 -212.16) scale(2.0642)">
@@ -191,6 +224,13 @@ export const TEMPLATES: Template[] = [
       item3: "3rd circle",
       item4: "4th circle",
       item5: "5th circle",
+    },
+    labels: {
+      item1: "Stage 1",
+      item2: "Stage 2",
+      item3: "Stage 3",
+      item4: "Stage 4",
+      item5: "Stage 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-409.09 -251.14) scale(2.2727)">
@@ -229,6 +269,11 @@ export const TEMPLATES: Template[] = [
       item2: "second level",
       item3: "base level",
     },
+    labels: {
+      item1: "Level 1",
+      item2: "Level 2",
+      item3: "Level 3",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-61.25 2.57) scale(1.5892)">
 <polygon data-ig-fill="primary" points="300,140 374,251 226,251"/>
@@ -255,6 +300,12 @@ export const TEMPLATES: Template[] = [
       item2: "second level",
       item3: "third level",
       item4: "base level",
+    },
+    labels: {
+      item1: "Level 1",
+      item2: "Level 2",
+      item3: "Level 3",
+      item4: "Level 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-56.95 21.78) scale(1.5279)">
@@ -286,6 +337,13 @@ export const TEMPLATES: Template[] = [
       item3: "third level",
       item4: "fourth level",
       item5: "base level",
+    },
+    labels: {
+      item1: "Level 1",
+      item2: "Level 2",
+      item3: "Level 3",
+      item4: "Level 4",
+      item5: "Level 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-56.65 23.11) scale(1.5236)">
@@ -320,6 +378,12 @@ export const TEMPLATES: Template[] = [
       item3: "bottom circle",
       other1: "center overlap",
     },
+    labels: {
+      item1: "1st Circle",
+      item2: "2nd Circle",
+      item3: "3rd Circle",
+      other1: "Center",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-357.14 -250.00) scale(2.1429)">
 <circle data-ig-fill="primary" cx="330" cy="290" r="140" fill-opacity="0.7"/>
@@ -344,6 +408,11 @@ export const TEMPLATES: Template[] = [
       item2: "second band",
       item3: "narrowest band",
     },
+    labels: {
+      item1: "Stage 1",
+      item2: "Stage 2",
+      item3: "Stage 3",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-142.86 -46.43) scale(1.6071)">
 <polygon data-ig-fill="primary" points="120,170 680,170 609,279 191,279"/>
@@ -367,6 +436,12 @@ export const TEMPLATES: Template[] = [
       item2: "second band",
       item3: "third band",
       item4: "narrowest band",
+    },
+    labels: {
+      item1: "Stage 1",
+      item2: "Stage 2",
+      item3: "Stage 3",
+      item4: "Stage 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-142.86 -46.43) scale(1.6071)">
@@ -394,6 +469,13 @@ export const TEMPLATES: Template[] = [
       item3: "third band",
       item4: "fourth band",
       item5: "narrowest band",
+    },
+    labels: {
+      item1: "Stage 1",
+      item2: "Stage 2",
+      item3: "Stage 3",
+      item4: "Stage 4",
+      item5: "Stage 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-142.86 -46.43) scale(1.6071)">
@@ -423,6 +505,12 @@ export const TEMPLATES: Template[] = [
       item3: "milestone 3",
       other1: "subtitle below line",
     },
+    labels: {
+      item1: "Milestone 1",
+      item2: "Milestone 2",
+      item3: "Milestone 3",
+      other1: "Subtitle",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-59.01 34.87) scale(1.3975)">
 <line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
@@ -449,6 +537,13 @@ export const TEMPLATES: Template[] = [
       item3: "milestone 3",
       item4: "milestone 4",
       other1: "subtitle below line",
+    },
+    labels: {
+      item1: "Milestone 1",
+      item2: "Milestone 2",
+      item3: "Milestone 3",
+      item4: "Milestone 4",
+      other1: "Subtitle",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-59.01 34.87) scale(1.3975)">
@@ -479,6 +574,14 @@ export const TEMPLATES: Template[] = [
       item4: "milestone 4",
       item5: "milestone 5",
       other1: "subtitle below line",
+    },
+    labels: {
+      item1: "Milestone 1",
+      item2: "Milestone 2",
+      item3: "Milestone 3",
+      item4: "Milestone 4",
+      item5: "Milestone 5",
+      other1: "Subtitle",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-59.01 33.35) scale(1.3975)">
@@ -511,6 +614,14 @@ export const TEMPLATES: Template[] = [
       other1: "under step 1",
       other2: "under step 2",
       other3: "under step 3",
+    },
+    labels: {
+      item1: "Step 1",
+      item2: "Step 2",
+      item3: "Step 3",
+      other1: "Caption 1",
+      other2: "Caption 2",
+      other3: "Caption 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-4.91 67.31) scale(1.2623)">
@@ -547,6 +658,12 @@ export const TEMPLATES: Template[] = [
       item2: "step 2 circle",
       item3: "step 3 circle",
       item4: "step 4 circle",
+    },
+    labels: {
+      item1: "Step 1",
+      item2: "Step 2",
+      item3: "Step 3",
+      item4: "Step 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-9.19 93.60) scale(1.2730)">
@@ -586,6 +703,13 @@ export const TEMPLATES: Template[] = [
       item3: "step 3 circle",
       item4: "step 4 circle",
       item5: "step 5 circle",
+    },
+    labels: {
+      item1: "Step 1",
+      item2: "Step 2",
+      item3: "Step 3",
+      item4: "Step 4",
+      item5: "Step 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(10.20 108.47) scale(1.2245)">
@@ -629,6 +753,11 @@ export const TEMPLATES: Template[] = [
       item2: "right circle",
       other1: "overlap",
     },
+    labels: {
+      item1: "Left Circle",
+      item2: "Right Circle",
+      other1: "Overlap",
+    },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-234.69 -124.49) scale(1.8367)">
 <circle data-ig-fill="primary" cx="315" cy="340" r="160" fill-opacity="0.75"/>
@@ -650,6 +779,11 @@ export const TEMPLATES: Template[] = [
       item1: "bar 1",
       item2: "bar 2",
       item3: "bar 3",
+    },
+    labels: {
+      item1: "Item 1",
+      item2: "Item 2",
+      item3: "Item 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-192.31 -53.85) scale(1.7308)">
@@ -680,6 +814,12 @@ export const TEMPLATES: Template[] = [
       item2: "bar 2",
       item3: "bar 3",
       item4: "bar 4",
+    },
+    labels: {
+      item1: "Item 1",
+      item2: "Item 2",
+      item3: "Item 3",
+      item4: "Item 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-192.31 -60.77) scale(1.7308)">
@@ -715,6 +855,13 @@ export const TEMPLATES: Template[] = [
       item3: "bar 3",
       item4: "bar 4",
       item5: "bar 5",
+    },
+    labels: {
+      item1: "Item 1",
+      item2: "Item 2",
+      item3: "Item 3",
+      item4: "Item 4",
+      item5: "Item 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-192.31 -74.62) scale(1.7308)">
@@ -755,6 +902,14 @@ export const TEMPLATES: Template[] = [
       item4: "bottom-right cell",
       other1: "bottom axis",
       other2: "left axis",
+    },
+    labels: {
+      item1: "Top Left",
+      item2: "Top Right",
+      item3: "Bottom Left",
+      item4: "Bottom Right",
+      other1: "X-Axis Label",
+      other2: "Y-Axis Label",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-142.06 -86.94) scale(1.6299)">

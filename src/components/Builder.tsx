@@ -272,7 +272,7 @@ export default function Builder({
                 <div className="mb-3" key={f.key}>
                   <div className="d-flex justify-content-between align-items-baseline">
                     <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
-                      {f.label}
+                      {template.labels[f.key] ?? f.label}
                     </label>
                     <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
                       {template.usage[f.key]}
