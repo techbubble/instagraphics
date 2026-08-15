@@ -1326,20 +1326,21 @@ export const TEMPLATES: Template[] = [
       item3: "Stop 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-66.17 0.34) scale(1.3667)">
+<g transform="translate(-69.43 -13.71) scale(1.4051)">
+
 
 
 <path d="M 100 540 Q 420 540 700 160" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="30" stroke-linecap="round"/>
 <path d="M 100 540 Q 420 540 700 160" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="14 12" stroke-linecap="round"/>
 <circle data-ig-fill="primary" cx="151" cy="538" r="24"/>
 <text data-ig-contrast="primary" data-ig-font="primary" x="151" y="545" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-text="item1" data-ig-font="primary" x="199" y="586" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Research</text>
+<text data-ig-text="item1" data-ig-font="primary" x="181" y="586" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Research</text>
 <circle data-ig-fill="secondary" cx="410" cy="445" r="24"/>
 <text data-ig-contrast="secondary" data-ig-font="primary" x="410" y="452" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-text="item2" data-ig-font="primary" x="458" y="493" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Prototype</text>
+<text data-ig-text="item2" data-ig-font="primary" x="440" y="493" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Prototype</text>
 <circle data-ig-fill="tertiary" cx="655" cy="218" r="24"/>
 <text data-ig-contrast="tertiary" data-ig-font="primary" x="655" y="225" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item3" data-ig-font="primary" x="703" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Beta</text>
+<text data-ig-text="item3" data-ig-font="primary" x="685" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Beta</text>
 </g>
 </svg>`,
   },
@@ -1364,23 +1365,24 @@ export const TEMPLATES: Template[] = [
       item4: "Stop 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-61.80 19.13) scale(1.3153)">
+<g transform="translate(-64.82 6.14) scale(1.3508)">
+
 
 
 <path d="M 100 540 Q 420 540 700 160" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="30" stroke-linecap="round"/>
 <path d="M 100 540 Q 420 540 700 160" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="14 12" stroke-linecap="round"/>
 <circle data-ig-fill="primary" cx="151" cy="538" r="24"/>
 <text data-ig-contrast="primary" data-ig-font="primary" x="151" y="545" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-text="item1" data-ig-font="primary" x="199" y="586" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Research</text>
+<text data-ig-text="item1" data-ig-font="primary" x="181" y="586" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Research</text>
 <circle data-ig-fill="secondary" cx="325" cy="491" r="24"/>
 <text data-ig-contrast="secondary" data-ig-font="primary" x="325" y="498" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-text="item2" data-ig-font="primary" x="373" y="539" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Prototype</text>
+<text data-ig-text="item2" data-ig-font="primary" x="355" y="539" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Prototype</text>
 <circle data-ig-fill="tertiary" cx="493" cy="384" r="24"/>
 <text data-ig-contrast="tertiary" data-ig-font="primary" x="493" y="391" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item3" data-ig-font="primary" x="541" y="432" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Beta</text>
+<text data-ig-text="item3" data-ig-font="primary" x="523" y="432" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Beta</text>
 <circle data-ig-fill="primary" cx="655" cy="218" r="24"/>
 <text data-ig-contrast="primary" data-ig-font="primary" x="655" y="225" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">4</text>
-<text data-ig-text="item4" data-ig-font="primary" x="703" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Launch</text>
+<text data-ig-text="item4" data-ig-font="primary" x="685" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Launch</text>
 </g>
 </svg>`,
   },
@@ -1407,26 +1409,27 @@ export const TEMPLATES: Template[] = [
       item5: "Stop 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-64.71 6.60) scale(1.3495)">
+<g transform="translate(-67.89 -7.08) scale(1.3869)">
+
 
 
 <path d="M 100 540 Q 420 540 700 160" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="30" stroke-linecap="round"/>
 <path d="M 100 540 Q 420 540 700 160" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="14 12" stroke-linecap="round"/>
 <circle data-ig-fill="primary" cx="151" cy="538" r="24"/>
 <text data-ig-contrast="primary" data-ig-font="primary" x="151" y="545" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">1</text>
-<text data-ig-text="item1" data-ig-font="primary" x="199" y="586" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Research</text>
+<text data-ig-text="item1" data-ig-font="primary" x="181" y="586" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Research</text>
 <circle data-ig-fill="secondary" cx="282" cy="508" r="24"/>
 <text data-ig-contrast="secondary" data-ig-font="primary" x="282" y="515" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">2</text>
-<text data-ig-text="item2" data-ig-font="primary" x="330" y="556" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Prototype</text>
+<text data-ig-text="item2" data-ig-font="primary" x="312" y="556" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Prototype</text>
 <circle data-ig-fill="tertiary" cx="410" cy="445" r="24"/>
 <text data-ig-contrast="tertiary" data-ig-font="primary" x="410" y="452" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item3" data-ig-font="primary" x="458" y="493" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Beta</text>
+<text data-ig-text="item3" data-ig-font="primary" x="440" y="493" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Beta</text>
 <circle data-ig-fill="primary" cx="534" cy="348" r="24"/>
 <text data-ig-contrast="primary" data-ig-font="primary" x="534" y="355" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">4</text>
-<text data-ig-text="item4" data-ig-font="primary" x="582" y="396" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Launch</text>
+<text data-ig-text="item4" data-ig-font="primary" x="564" y="396" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Launch</text>
 <circle data-ig-fill="secondary" cx="655" cy="218" r="24"/>
 <text data-ig-contrast="secondary" data-ig-font="primary" x="655" y="225" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
-<text data-ig-text="item5" data-ig-font="primary" x="703" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Scale</text>
+<text data-ig-text="item5" data-ig-font="primary" x="685" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Scale</text>
 </g>
 </svg>`,
   },
