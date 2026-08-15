@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Template } from "@/lib/templates";
+import { UNIVERSAL_FIELDS, type Template } from "@/lib/templates";
 import {
   BrandKit,
   FONT_CHOICES,
@@ -41,12 +41,15 @@ export default function Builder({
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
 
-  // Effective value for a field: user's saved/typed value, else default.
-  const effective = useMemo(() => {
-    const out: Record<string, string> = {};
-    for (const f of template.fields) out[f.key] = values[f.key] ?? f.default;
-    return out;
-  }, [template, values]);
+  // Non-empty saved/typed values override the template's authored text;
+  // empty fields leave the authored placeholder in place.
+  const effective = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(values).filter(([, v]) => v.trim() !== "")
+      ),
+    [values]
+  );
 
   const rendered = useMemo(
     () => renderTemplate(template.svg, brand, effective),
@@ -231,30 +234,35 @@ export default function Builder({
               </button>
             </div>
             <div className="card-body">
-              {template.fields.map((f) => (
-                <div
-                  className={`mb-3 ${f.indent ? "ms-3" : ""}`}
-                  key={f.key}
-                >
-                  <div className="d-flex justify-content-between align-items-baseline">
-                    <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
-                      {f.label}
-                    </label>
-                    {f.usage && (
-                      <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
-                        {f.usage}
+              {UNIVERSAL_FIELDS.map((f) => {
+                const usage = template.usage[f.key];
+                return (
+                  <div
+                    className={`mb-3 ${f.indent ? "ms-3" : ""}`}
+                    key={f.key}
+                  >
+                    <div className="d-flex justify-content-between align-items-baseline">
+                      <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
+                        {f.label}
+                      </label>
+                      <span
+                        className={usage ? "text-secondary" : "text-secondary opacity-50 fst-italic"}
+                        style={{ fontSize: "0.72rem" }}
+                      >
+                        {usage ?? "not used"}
                       </span>
-                    )}
+                    </div>
+                    <input
+                      id={`field-${f.key}`}
+                      className="form-control form-control-sm"
+                      value={values[f.key] ?? ""}
+                      placeholder={f.label}
+                      maxLength={f.maxLength}
+                      onChange={(e) => setField(f.key, e.target.value)}
+                    />
                   </div>
-                  <input
-                    id={`field-${f.key}`}
-                    className="form-control form-control-sm"
-                    value={values[f.key] ?? f.default}
-                    maxLength={f.maxLength}
-                    onChange={(e) => setField(f.key, e.target.value)}
-                  />
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ) : (
@@ -269,7 +277,7 @@ export default function Builder({
         )}
 
         <div
-          className="ig-preview border rounded p-2 bg-white flex-grow-1"
+          className="ig-preview border rounded p-2 flex-grow-1"
           dangerouslySetInnerHTML={{ __html: rendered }}
         />
 
@@ -315,13 +323,7 @@ export default function Builder({
                     <div
                       className="ig-tile-preview"
                       dangerouslySetInnerHTML={{
-                        __html: renderTemplate(
-                          t.svg,
-                          brand,
-                          Object.fromEntries(
-                            t.fields.map((f) => [f.key, values[f.key] ?? f.default])
-                          )
-                        ),
+                        __html: renderTemplate(t.svg, brand, effective),
                       }}
                     />
                   </button>

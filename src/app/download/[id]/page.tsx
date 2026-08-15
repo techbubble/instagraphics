@@ -25,7 +25,7 @@ export default async function DownloadPage({
     <div className="row g-4">
       <div className="col-lg-8">
         <div
-          className="ig-preview border rounded p-2 bg-white"
+          className="ig-preview border rounded p-2"
           dangerouslySetInnerHTML={{ __html: graphic.svg }}
         />
       </div>

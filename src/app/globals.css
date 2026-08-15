@@ -10,6 +10,18 @@
   display: block;
 }
 
+/* Photoshop-style transparency checkerboard behind previews, so on-screen
+   renders are visibly not production-ready screenshots. */
+.ig-preview {
+  background-image: conic-gradient(
+    #dee2e6 25%,
+    #ffffff 0 50%,
+    #dee2e6 0 75%,
+    #ffffff 0
+  );
+  background-size: 24px 24px;
+}
+
 .ig-tile {
   transition: box-shadow 0.15s ease-in-out;
 }
