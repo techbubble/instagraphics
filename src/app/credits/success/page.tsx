@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import { stripe, fulfillCheckoutSession } from "@/lib/stripe";
+import RefreshOnMount from "@/components/RefreshOnMount";
 
 // Webhook-independent fulfillment fallback: verify the session with
 // Stripe directly and credit idempotently.
@@ -34,6 +35,7 @@ export default async function CreditsSuccessPage({
 
   return (
     <div className="row justify-content-center text-center">
+      <RefreshOnMount />
       <div className="col-md-6">
         {ok ? (
           <>
