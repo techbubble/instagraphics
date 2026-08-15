@@ -1,4 +1,10 @@
-import { TEMPLATES, familyDefault, familyTitle, toMeta } from "@/lib/templates";
+import {
+  FAMILY_DESCRIPTIONS,
+  TEMPLATES,
+  familyDefault,
+  familyTitle,
+  toMeta,
+} from "@/lib/templates";
 import HomeGallery from "@/components/HomeGallery";
 
 export default function HomePage() {
@@ -14,7 +20,10 @@ export default function HomePage() {
       family: def.family,
       title: familyTitle(def),
       category: def.category,
-      description: def.description,
+      description:
+        variants.length > 1
+          ? FAMILY_DESCRIPTIONS[def.family] ?? def.description
+          : def.description,
       defaultId: def.id,
       rev: def.rev,
       itemCount: def.items,

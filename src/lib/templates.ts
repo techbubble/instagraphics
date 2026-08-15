@@ -994,3 +994,16 @@ export function familyDefault<T extends { items: number }>(variants: T[]): T {
     (a, b) => Math.abs(a.items - 4) - Math.abs(b.items - 4) || b.items - a.items
   )[0];
 }
+
+// Count-neutral family descriptions for grouped tiles (variant pills pick
+// the item count).
+export const FAMILY_DESCRIPTIONS: Record<string, string> = {
+  "process-arrow": "Multiple chevron arrows (user-defined) showing a left-to-right process.",
+  cycle: "Multiple stages (user-defined) arranged in a continuous circular flow.",
+  pyramid: "Multiple stacked levels (user-defined) from broad base to narrow peak.",
+  venn: "Overlapping circles (2 or 3, user-defined) with a shared center.",
+  funnel: "Multiple narrowing stages (user-defined) from awareness to action.",
+  timeline: "Horizontal timeline with multiple milestones (user-defined).",
+  steps: "Multiple numbered circles (user-defined) with step labels.",
+  list: "Multiple numbered items (user-defined) in stacked bars.",
+};
