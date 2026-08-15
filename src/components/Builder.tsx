@@ -51,6 +51,23 @@ export default function Builder({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [side, setSide] = useState<number | null>(null);
+  const centerRef = useRef<HTMLDivElement>(null);
+
+  // The square graphic area dictates the row height; side panels scroll.
+  useEffect(() => {
+    const el = centerRef.current;
+    if (!el) return;
+    const measure = () =>
+      setSide(Math.min(el.clientWidth, window.innerHeight - 200));
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [fieldsOpen]);
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
 
@@ -203,9 +220,12 @@ export default function Builder({
         <span className="small text-secondary">{template.description}</span>
       </div>
 
-      <div className="d-flex gap-3 align-items-stretch ig-fullbleed">
+      <div
+        className="d-flex gap-3 align-items-stretch ig-fullbleed"
+        style={side ? { height: side } : undefined}
+      >
         {fieldsOpen ? (
-          <div className="card flex-shrink-0 d-flex flex-column" style={{ width: 300 }}>
+          <div className="card flex-shrink-0 d-flex flex-column h-100" style={{ width: 300 }}>
             <div className="card-header d-flex justify-content-between align-items-center py-2">
               <span className="fw-bold">Content</span>
               <button
@@ -278,36 +298,42 @@ export default function Builder({
           </button>
         )}
 
-        <div className="flex-grow-1">
+        <div ref={centerRef} className="flex-grow-1 d-flex justify-content-center">
           <div
-            className="ig-preview border rounded p-2"
-            style={{ opacity: stale ? 0.7 : 1 }}
+            className="ig-preview border rounded position-relative overflow-hidden"
+            style={{
+              width: side ?? "100%",
+              height: side ?? "auto",
+              opacity: stale ? 0.7 : 1,
+            }}
           >
-            {previewUrl ? (
+            {previewUrl && (
               // eslint-disable-next-line @next/next/no-img-element -- blob URL
               <img
                 src={previewUrl}
                 alt={template.title}
-                style={{ width: "100%", height: "auto", display: "block" }}
+                style={{ width: "100%", height: "100%", display: "block" }}
                 draggable={false}
               />
-            ) : (
-              <div style={{ width: "100%", aspectRatio: "4 / 3" }} />
             )}
-          </div>
-          <div className="text-center mt-3">
-            {error && <div className="small text-danger mb-2">{error}</div>}
-            <button
-              className="btn btn-ig-save btn-lg px-5"
-              onClick={save}
-              disabled={saving}
-            >
-              {saving ? "Saving..." : "Save"}
-            </button>
+            <div className="position-absolute bottom-0 end-0 m-3 text-end">
+              {error && (
+                <div className="small text-danger bg-white rounded px-2 py-1 mb-2">
+                  {error}
+                </div>
+              )}
+              <button
+                className="btn btn-ig-save btn-lg px-5 shadow"
+                onClick={save}
+                disabled={saving}
+              >
+                {saving ? "Saving..." : "Save"}
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="flex-shrink-0 d-flex flex-column" style={{ width: 120 }}>
+        <div className="flex-shrink-0 d-flex flex-column h-100" style={{ width: 120 }}>
           <div className="d-flex justify-content-center mb-2">
             <div className="btn-group btn-group-sm" role="group" aria-label="Sort thumbnails">
               <button

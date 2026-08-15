@@ -20,10 +20,21 @@ export async function POST(req: NextRequest) {
   if (!template) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
-  const svg = renderTemplate(
+  let svg = renderTemplate(
     template.svg,
     sanitizeBrand(body.brand),
     sanitizeValues(body.values)
+  );
+  // Square canvas: pad the viewBox so the builder preview (and its baked
+  // checkerboard) fills a square area with the graphic centered.
+  svg = svg.replace(
+    /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/,
+    (_m, x, y, w, h) => {
+      const side = Math.max(Number(w), Number(h));
+      const nx = Number(x) - (side - Number(w)) / 2;
+      const ny = Number(y) - (side - Number(h)) / 2;
+      return `viewBox="${nx} ${ny} ${side} ${side}"`;
+    }
   );
   try {
     const png = await renderPng(svg, 1024);
