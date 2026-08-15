@@ -1,6 +1,7 @@
 "use server";
 
 import { createHash, randomInt, timingSafeEqual } from "node:crypto";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { sql } from "@/lib/db";
 import { createSession, destroySession } from "@/lib/auth";
@@ -119,10 +120,12 @@ async function verifyCodeAction(
     RETURNING id
   `) as { id: number }[];
   await createSession(users[0].id);
+  revalidatePath("/", "layout");
   redirect(nextPath(form));
 }
 
 export async function logoutAction() {
   await destroySession();
+  revalidatePath("/", "layout");
   redirect("/");
 }
