@@ -13,11 +13,6 @@ export default async function Navbar() {
           Instagraphics
         </Link>
         <ul className="navbar-nav me-auto">
-          <li className="nav-item">
-            <Link className="nav-link" href="/">
-              Templates
-            </Link>
-          </li>
           {user && (
             <li className="nav-item">
               <Link className="nav-link" href="/graphics">
