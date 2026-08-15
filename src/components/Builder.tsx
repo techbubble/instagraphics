@@ -385,7 +385,7 @@ export default function Builder({
                     <img
                       src={`/api/preview/${t.id}?w=220&plain=1&v=${t.rev}`}
                       alt={t.title}
-                      style={{ width: "100%", height: "auto", display: "block" }}
+                      style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "contain", display: "block" }}
                       draggable={false}
                     />
                   </button>

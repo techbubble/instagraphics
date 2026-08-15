@@ -132,7 +132,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
                       src={`/api/preview/${t.id}?w=400&plain=1&v=${t.rev}`}
                       alt={t.title}
                       loading="lazy"
-                      style={{ width: "100%", height: "auto", display: "block" }}
+                      style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "contain", display: "block" }}
                       draggable={false}
                     />
                   </div>

@@ -44,7 +44,7 @@ export const TEMPLATES: Template[] = [
       other2: "below arrow 2",
       other3: "below arrow 3",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="46 226 708 201" font-family="Arial">
 <polygon data-ig-fill="primary" points="60,240 273,240 313,300 273,360 60,360"/>
 <polygon data-ig-fill="secondary" points="273,240 487,240 527,300 487,360 273,360 313,300"/>
 <polygon data-ig-fill="tertiary" points="487,240 700,240 740,300 700,360 487,360 527,300"/>
@@ -68,7 +68,7 @@ export const TEMPLATES: Template[] = [
       item3: "arrow 3",
       item4: "arrow 4",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="46 226 708 148" font-family="Arial">
 <polygon data-ig-fill="primary" points="60,240 220,240 260,300 220,360 60,360"/>
 <polygon data-ig-fill="secondary" points="220,240 380,240 420,300 380,360 220,360 260,300"/>
 <polygon data-ig-fill="tertiary" points="380,240 540,240 580,300 540,360 380,360 420,300"/>
@@ -92,7 +92,7 @@ export const TEMPLATES: Template[] = [
       item4: "arrow 4",
       item5: "arrow 5",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="46 226 708 148" font-family="Arial">
 <polygon data-ig-fill="primary" points="60,240 188,240 228,300 188,360 60,360"/>
 <polygon data-ig-fill="secondary" points="188,240 316,240 356,300 316,360 188,360 228,300"/>
 <polygon data-ig-fill="tertiary" points="316,240 444,240 484,300 444,360 316,360 356,300"/>
@@ -116,7 +116,7 @@ export const TEMPLATES: Template[] = [
       item2: "2nd circle",
       item3: "3rd circle",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="178 103 444 409" font-family="Arial">
 <path d="M 486 222 A 150 150 0 0 1 547 315" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <polygon data-ig-fill="accent" fill="#495057" points="549,333 538,317 556,313"/>
 <path d="M 464 481 A 150 150 0 0 1 353 487" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
@@ -143,7 +143,7 @@ export const TEMPLATES: Template[] = [
       item3: "3rd circle",
       item4: "4th circle",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="168 113 464 464" font-family="Arial">
 <path d="M 476 216 A 150 150 0 0 1 519 254" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <polygon data-ig-fill="accent" fill="#495057" points="529,269 512,260 527,249"/>
 <path d="M 529 421 A 150 150 0 0 1 491 464" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
@@ -175,7 +175,7 @@ export const TEMPLATES: Template[] = [
       item4: "4th circle",
       item5: "5th circle",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="188 126 424 409" font-family="Arial">
 <path d="M 463 209 A 150 150 0 0 1 497 230" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <polygon data-ig-fill="accent" fill="#495057" points="510,243 491,237 503,224"/>
 <path d="M 549 363 A 150 150 0 0 1 539 402" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
@@ -209,7 +209,7 @@ export const TEMPLATES: Template[] = [
       item2: "second level",
       item3: "base level",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 126 594 374" font-family="Arial">
 <polygon data-ig-fill="primary" points="300,140 374,251 226,251"/>
 <polygon data-ig-fill="secondary" points="221,259 379,259 451,367 149,367"/>
 <polygon data-ig-fill="tertiary" points="144,375 456,375 530,486 70,486"/>
@@ -233,7 +233,7 @@ export const TEMPLATES: Template[] = [
       item3: "third level",
       item4: "base level",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 126 617 374" font-family="Arial">
 <polygon data-ig-fill="primary" points="300,140 355,222 245,222"/>
 <polygon data-ig-fill="secondary" points="240,230 360,230 412,309 188,309"/>
 <polygon data-ig-fill="tertiary" points="182,317 418,317 470,396 130,396"/>
@@ -261,7 +261,7 @@ export const TEMPLATES: Template[] = [
       item4: "fourth level",
       item5: "base level",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 126 619 374" font-family="Arial">
 <polygon data-ig-fill="primary" points="300,140 343,205 257,205"/>
 <polygon data-ig-fill="secondary" points="251,213 349,213 389,274 211,274"/>
 <polygon data-ig-fill="tertiary" points="205,282 395,282 435,344 165,344"/>
@@ -291,7 +291,7 @@ export const TEMPLATES: Template[] = [
       item3: "bottom circle",
       other1: "center overlap",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="176 136 448 428" font-family="Arial">
 <circle data-ig-fill="primary" cx="330" cy="290" r="140" fill-opacity="0.7"/>
 <circle data-ig-fill="secondary" cx="470" cy="290" r="140" fill-opacity="0.7"/>
 <circle data-ig-fill="tertiary" cx="400" cy="410" r="140" fill-opacity="0.7"/>
@@ -312,7 +312,7 @@ export const TEMPLATES: Template[] = [
       item2: "second band",
       item3: "narrowest band",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="106 156 588 368" font-family="Arial">
 <polygon data-ig-fill="primary" points="120,170 680,170 609,279 191,279"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="400" y="232" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
 <polygon data-ig-fill="secondary" points="196,287 604,287 536,393 264,393"/>
@@ -333,7 +333,7 @@ export const TEMPLATES: Template[] = [
       item3: "third band",
       item4: "narrowest band",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="106 156 588 368" font-family="Arial">
 <polygon data-ig-fill="primary" points="120,170 680,170 628,251 172,251"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="400" y="218" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
 <polygon data-ig-fill="secondary" points="178,259 622,259 573,336 227,336"/>
@@ -357,7 +357,7 @@ export const TEMPLATES: Template[] = [
       item4: "fourth band",
       item5: "narrowest band",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="106 156 588 368" font-family="Arial">
 <polygon data-ig-fill="primary" points="120,170 680,170 639,234 161,234"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="400" y="209" text-anchor="middle" font-size="22" fill="#ffffff">Awareness</text>
 <polygon data-ig-fill="secondary" points="167,242 633,242 595,302 205,302"/>
@@ -382,7 +382,7 @@ export const TEMPLATES: Template[] = [
       item3: "milestone 3",
       other1: "subtitle below line",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="64 251 672 163" font-family="Arial">
 <line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <circle data-ig-fill="primary" cx="150" cy="330" r="18"/>
 <circle data-ig-fill="secondary" cx="400" cy="330" r="18"/>
@@ -406,7 +406,7 @@ export const TEMPLATES: Template[] = [
       item4: "milestone 4",
       other1: "subtitle below line",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="64 251 672 163" font-family="Arial">
 <line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <circle data-ig-fill="primary" cx="150" cy="330" r="18"/>
 <circle data-ig-fill="secondary" cx="317" cy="330" r="18"/>
@@ -433,7 +433,7 @@ export const TEMPLATES: Template[] = [
       item5: "milestone 5",
       other1: "subtitle below line",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="64 254 672 161" font-family="Arial">
 <line x1="80" y1="330" x2="720" y2="330" stroke="#495057" data-ig-stroke="accent" stroke-width="4"/>
 <circle data-ig-fill="primary" cx="150" cy="330" r="16"/>
 <circle data-ig-fill="secondary" cx="275" cy="330" r="16"/>
@@ -462,7 +462,7 @@ export const TEMPLATES: Template[] = [
       other2: "under step 2",
       other3: "under step 3",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 198 741 290" font-family="Arial">
 <circle cx="150" cy="320" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="150" cy="320" r="88"/>
 <circle data-ig-fill="primary" cx="74" cy="238" r="26"/>
@@ -495,7 +495,7 @@ export const TEMPLATES: Template[] = [
       item3: "step 3 circle",
       item4: "step 4 circle",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="33 221 735 197" font-family="Arial">
 <circle cx="130" cy="320" r="82" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="130" cy="320" r="69"/>
 <circle data-ig-fill="primary" cx="71" cy="256" r="21"/>
@@ -531,7 +531,7 @@ export const TEMPLATES: Template[] = [
       item4: "step 4 circle",
       item5: "step 5 circle",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="19 238 763 164" font-family="Arial">
 <circle cx="100" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
 <circle data-ig-fill="primary" cx="100" cy="320" r="55"/>
 <circle data-ig-fill="primary" cx="52" cy="269" r="17"/>
@@ -570,7 +570,7 @@ export const TEMPLATES: Template[] = [
       item2: "right circle",
       other1: "overlap",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="141 166 518 348" font-family="Arial">
 <circle data-ig-fill="primary" cx="315" cy="340" r="160" fill-opacity="0.75"/>
 <circle data-ig-fill="secondary" cx="485" cy="340" r="160" fill-opacity="0.75"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="240" y="348" text-anchor="middle" font-size="24" fill="#ffffff">Quality</text>
@@ -589,7 +589,7 @@ export const TEMPLATES: Template[] = [
       item2: "bar 2",
       item3: "bar 3",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="126 156 548 328" font-family="Arial">
 <rect data-ig-fill="primary" x="140" y="170" width="520" height="84" rx="12"/>
 <rect data-ig-fill="secondary" x="140" y="278" width="520" height="84" rx="12"/>
 <rect data-ig-fill="primary" x="140" y="386" width="520" height="84" rx="12"/>
@@ -616,7 +616,7 @@ export const TEMPLATES: Template[] = [
       item3: "bar 3",
       item4: "bar 4",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="126 136 548 376" font-family="Arial">
 <rect data-ig-fill="primary" x="140" y="150" width="520" height="72" rx="12"/>
 <rect data-ig-fill="secondary" x="140" y="242" width="520" height="72" rx="12"/>
 <rect data-ig-fill="primary" x="140" y="334" width="520" height="72" rx="12"/>
@@ -648,7 +648,7 @@ export const TEMPLATES: Template[] = [
       item4: "bar 4",
       item5: "bar 5",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="126 136 548 392" font-family="Arial">
 <rect data-ig-fill="primary" x="140" y="150" width="520" height="60" rx="10"/>
 <rect data-ig-fill="secondary" x="140" y="226" width="520" height="60" rx="10"/>
 <rect data-ig-fill="primary" x="140" y="302" width="520" height="60" rx="10"/>
@@ -685,7 +685,7 @@ export const TEMPLATES: Template[] = [
       other1: "bottom axis",
       other2: "left axis",
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 112 800 488" font-family="Arial">
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="104 136 580 448" font-family="Arial">
 <rect data-ig-fill="primary" x="170" y="150" width="245" height="185" rx="8"/>
 <rect data-ig-fill="secondary" x="425" y="150" width="245" height="185" rx="8"/>
 <rect data-ig-fill="tertiary" x="170" y="345" width="245" height="185" rx="8"/>
