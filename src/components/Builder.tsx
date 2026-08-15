@@ -215,7 +215,7 @@ export default function Builder({
 
   return (
     <>
-      <div className="mb-3">
+      <div className="mb-3 ig-fullbleed">
         <h1 className="h4 mb-0">{template.title}</h1>
         <span className="small text-secondary">{template.description}</span>
       </div>
