@@ -101,7 +101,12 @@ export function renderTemplate(
   opts: { hideKeys?: string[] } = {}
 ): string {
   const hide = new Set(opts.hideKeys ?? []);
-  let out = svgSource.replace(/<[^>]+>/g, (tag) => {
+  let src = svgSource;
+  if (hide.has("title")) {
+    // Crop the empty title band so the graphic fills the canvas.
+    src = src.replace('viewBox="0 0 800 600"', 'viewBox="0 112 800 488"');
+  }
+  let out = src.replace(/<[^>]+>/g, (tag) => {
     const textKey = tag.match(/data-ig-text="([^"]+)"/)?.[1];
     if (textKey && hide.has(textKey)) tag = setAttr(tag, "display", "none");
     const fill = colorSlotIn(tag, "ig-fill");

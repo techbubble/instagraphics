@@ -8,6 +8,7 @@ export default function HomePage() {
     category: t.category,
     description: t.description,
     itemCount: itemCount(t),
+    rev: t.rev,
   }));
   return (
     <>

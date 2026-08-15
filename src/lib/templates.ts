@@ -760,11 +760,21 @@ export function getTemplate(id: string): Template | undefined {
 }
 
 // Client-safe template metadata: everything except the SVG source, which
-// stays server-side (previews are delivered as rendered PNGs).
-export type TemplateMeta = Omit<Template, "svg">;
+// stays server-side (previews are delivered as rendered PNGs). `rev` is a
+// content hash of the SVG used to cache-bust preview URLs.
+export type TemplateMeta = Omit<Template, "svg"> & { rev: string };
+
+function svgRev(svg: string): string {
+  let h = 5381;
+  for (let i = 0; i < svg.length; i++) h = ((h * 33) ^ svg.charCodeAt(i)) >>> 0;
+  return h.toString(36);
+}
 
 export function toMeta(t: Template): TemplateMeta {
-  const meta: TemplateMeta & { svg?: string } = { ...t };
+  const meta: (Omit<Template, "svg"> & { svg?: string; rev: string }) = {
+    ...t,
+    rev: svgRev(t.svg),
+  };
   delete meta.svg;
   return meta;
 }

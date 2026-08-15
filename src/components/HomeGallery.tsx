@@ -9,6 +9,7 @@ type Tile = {
   category: string;
   description: string;
   itemCount: number;
+  rev: string;
 };
 
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
@@ -128,7 +129,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
                   <div className="ig-tile-preview border-bottom">
                     {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                     <img
-                      src={`/api/preview/${t.id}?w=400&plain=1`}
+                      src={`/api/preview/${t.id}?w=400&plain=1&v=${t.rev}`}
                       alt={t.title}
                       loading="lazy"
                       style={{ width: "100%", height: "auto", display: "block" }}

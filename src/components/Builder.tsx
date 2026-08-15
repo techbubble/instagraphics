@@ -406,7 +406,7 @@ export default function Builder({
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                     <img
-                      src={`/api/preview/${t.id}?w=220&plain=1${showTitle ? "&t=1" : ""}&${brandQuery}`}
+                      src={`/api/preview/${t.id}?w=220&plain=1&v=${t.rev}${showTitle ? "&t=1" : ""}&${brandQuery}`}
                       alt={t.title}
                       style={{ width: "100%", height: "auto", display: "block" }}
                       draggable={false}
