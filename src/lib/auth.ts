@@ -18,7 +18,8 @@ export type SessionUser = {
 };
 
 export async function createSession(userId: number) {
-  const token = await new SignJWT({ uid: userId })
+  // Neon returns BIGINT columns as strings; normalize before signing.
+  const token = await new SignJWT({ uid: Number(userId) })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("30d")
@@ -44,7 +45,8 @@ export async function sessionUserId(): Promise<number | null> {
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, secret());
-    return typeof payload.uid === "number" ? payload.uid : null;
+    const uid = Number(payload.uid);
+    return Number.isInteger(uid) && uid > 0 ? uid : null;
   } catch {
     return null;
   }
@@ -56,5 +58,6 @@ export async function currentUser(): Promise<SessionUser | null> {
   const rows = (await sql()`
     SELECT id, email, name, credits FROM users WHERE id = ${uid}
   `) as SessionUser[];
-  return rows[0] ?? null;
+  if (!rows[0]) return null;
+  return { ...rows[0], id: Number(rows[0].id), credits: Number(rows[0].credits) };
 }
