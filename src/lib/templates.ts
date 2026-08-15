@@ -130,14 +130,14 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <defs>
-<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
 <path d="M 0 0 L 10 5 L 0 10 z" fill="#6c757d" data-ig-fill="secondary"/>
 </marker>
 </defs>
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Improvement Cycle</text>
-<path d="M 488 224 Q 553 256 549 330" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 461 482 Q 400 522 339 482" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 251 330 Q 247 256 312 224" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 484 221 A 150 150 0 0 1 548 322" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 465 480 A 150 150 0 0 1 346 485" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 250 334 A 150 150 0 0 1 306 228" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
 <circle data-ig-fill="primary" cx="400" cy="195" r="78"/>
 <circle data-ig-fill="secondary" cx="530" cy="420" r="78"/>
 <circle data-ig-fill="tertiary" cx="270" cy="420" r="78"/>
@@ -161,15 +161,15 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <defs>
-<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
 <path d="M 0 0 L 10 5 L 0 10 z" fill="#6c757d" data-ig-fill="secondary"/>
 </marker>
 </defs>
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Improvement Cycle</text>
-<path d="M 480 218 Q 525 220 527 265" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 527 425 Q 525 470 480 472" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 320 472 Q 275 470 273 425" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 273 265 Q 275 220 320 218" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 475 215 A 150 150 0 0 1 524 260" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 530 420 A 150 150 0 0 1 485 469" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 325 475 A 150 150 0 0 1 276 430" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 270 270 A 150 150 0 0 1 315 221" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
 <circle data-ig-fill="primary" cx="400" cy="195" r="68"/>
 <circle data-ig-fill="secondary" cx="550" cy="345" r="68"/>
 <circle data-ig-fill="tertiary" cx="400" cy="495" r="68"/>
@@ -196,21 +196,21 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <defs>
-<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<marker id="cyc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
 <path d="M 0 0 L 10 5 L 0 10 z" fill="#6c757d" data-ig-fill="secondary"/>
 </marker>
 </defs>
 <text data-ig-text="title" data-ig-font="primary" x="400" y="84" text-anchor="middle" font-size="34" font-weight="bold" fill="#212529">Improvement Cycle</text>
-<path d="M 473 214 Q 504 202 502 235" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 547 374 Q 568 400 536 408" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 418 494 Q 400 522 382 494" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 264 408 Q 232 400 253 374" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<path d="M 298 235 Q 296 202 327 214" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
-<circle data-ig-fill="primary" cx="400" cy="195" r="60"/>
-<circle data-ig-fill="secondary" cx="543" cy="299" r="60"/>
-<circle data-ig-fill="tertiary" cx="488" cy="466" r="60"/>
-<circle data-ig-fill="primary" cx="312" cy="466" r="60"/>
-<circle data-ig-fill="secondary" cx="257" cy="299" r="60"/>
+<path d="M 462 208 A 150 150 0 0 1 505 237" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 549 362 A 150 150 0 0 1 535 411" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 430 492 A 150 150 0 0 1 379 493" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 270 419 A 150 150 0 0 1 252 371" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<path d="M 289 244 A 150 150 0 0 1 330 212" fill="none" stroke="#6c757d" data-ig-stroke="secondary" stroke-width="4" marker-end="url(#cyc-arrow)"/>
+<circle data-ig-fill="primary" cx="400" cy="195" r="55"/>
+<circle data-ig-fill="secondary" cx="543" cy="299" r="55"/>
+<circle data-ig-fill="tertiary" cx="488" cy="466" r="55"/>
+<circle data-ig-fill="primary" cx="312" cy="466" r="55"/>
+<circle data-ig-fill="secondary" cx="257" cy="299" r="55"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="secondary" x="400" y="201" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
 <text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="secondary" x="543" y="305" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
 <text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="secondary" x="488" y="472" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
