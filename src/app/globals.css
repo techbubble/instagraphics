@@ -30,6 +30,21 @@
   box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.15);
 }
 
+.btn-ig-save {
+  --bs-btn-bg: #25d366;
+  --bs-btn-border-color: #25d366;
+  --bs-btn-color: #ffffff;
+  --bs-btn-hover-bg: #1da851;
+  --bs-btn-hover-border-color: #1da851;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: #128c7e;
+  --bs-btn-active-border-color: #128c7e;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-disabled-bg: #25d366;
+  --bs-btn-disabled-border-color: #25d366;
+  --bs-btn-disabled-color: #ffffff;
+}
+
 .ig-thumb {
   cursor: pointer;
   overflow: hidden;

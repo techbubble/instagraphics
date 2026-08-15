@@ -326,7 +326,7 @@ export default function Builder({
           <div className="text-center mt-3">
             {error && <div className="small text-danger mb-2">{error}</div>}
             <button
-              className="btn btn-success btn-lg px-5"
+              className="btn btn-ig-save btn-lg px-5"
               onClick={save}
               disabled={saving}
             >
