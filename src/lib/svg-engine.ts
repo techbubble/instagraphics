@@ -24,9 +24,9 @@ export type BrandKit = {
 export const DEFAULT_BRAND: BrandKit = {
   colors: {
     primary: "#0d6efd",
-    secondary: "#6c757d",
+    secondary: "#e251f5",
     tertiary: "#ffc107",
-    quaternary: "#dc3545",
+    quaternary: "#f55151",
     accent: "#495057",
   },
   fonts: { primary: "Roboto", secondary: "Roboto" },
