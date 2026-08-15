@@ -132,7 +132,7 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="secondary" points="188,240 316,240 356,300 316,360 188,360 228,300"/>
 <polygon data-ig-fill="tertiary" points="316,240 444,240 484,300 444,360 316,360 356,300"/>
 <polygon data-ig-fill="quaternary" points="444,240 572,240 612,300 572,360 444,360 484,300"/>
-<polygon data-ig-fill="primary" points="572,240 700,240 740,300 700,360 572,360 612,300"/>
+<polygon data-ig-fill="accent" points="572,240 700,240 740,300 700,360 572,360 612,300"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="144" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
 <text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="primary" x="272" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
 <text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="primary" x="400" y="306" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
@@ -255,7 +255,7 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="secondary" cx="543" cy="299" r="55"/>
 <circle data-ig-fill="tertiary" cx="488" cy="466" r="55"/>
 <circle data-ig-fill="quaternary" cx="312" cy="466" r="55"/>
-<circle data-ig-fill="primary" cx="257" cy="299" r="55"/>
+<circle data-ig-fill="accent" cx="257" cy="299" r="55"/>
 <text data-ig-contrast="primary" data-ig-text="item1" data-ig-font="primary" x="400" y="201" text-anchor="middle" font-size="18" fill="#ffffff">Plan</text>
 <text data-ig-contrast="secondary" data-ig-text="item2" data-ig-font="primary" x="543" y="305" text-anchor="middle" font-size="18" fill="#ffffff">Build</text>
 <text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="primary" x="488" y="472" text-anchor="middle" font-size="18" fill="#ffffff">Launch</text>
@@ -361,7 +361,7 @@ export const TEMPLATES: Template[] = [
 <polygon data-ig-fill="secondary" points="251,213 349,213 389,274 211,274"/>
 <polygon data-ig-fill="tertiary" points="205,282 395,282 435,344 165,344"/>
 <polygon data-ig-fill="quaternary" points="159,352 441,352 481,413 119,413"/>
-<polygon data-ig-fill="primary" points="113,421 487,421 530,486 70,486"/>
+<polygon data-ig-fill="accent" points="113,421 487,421 530,486 70,486"/>
 <line x1="332" y1="173" x2="550" y2="173" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
 <text data-ig-text="item1" data-ig-font="primary" x="562" y="180" font-size="20" fill="#223333">Vision</text>
 <line x1="379" y1="244" x2="550" y2="244" stroke="#495057" stroke-width="2" data-ig-stroke="accent"/>
@@ -501,7 +501,7 @@ export const TEMPLATES: Template[] = [
 <text data-ig-contrast="tertiary" data-ig-text="item3" data-ig-font="primary" x="400" y="346" text-anchor="middle" font-size="19" fill="#ffffff">Consideration</text>
 <polygon data-ig-fill="quaternary" points="255,378 545,378 507,438 293,438"/>
 <text data-ig-contrast="primary" data-ig-text="item4" data-ig-font="primary" x="400" y="414" text-anchor="middle" font-size="18" fill="#ffffff">Decision</text>
-<polygon data-ig-fill="primary" points="299,446 501,446 460,510 340,510"/>
+<polygon data-ig-fill="accent" points="299,446 501,446 460,510 340,510"/>
 <text data-ig-contrast="secondary" data-ig-text="item5" data-ig-font="primary" x="400" y="483" text-anchor="middle" font-size="16" fill="#ffffff">Action</text>
 </g>
 </svg>`,
@@ -607,7 +607,7 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="secondary" cx="275" cy="330" r="16"/>
 <circle data-ig-fill="tertiary" cx="400" cy="330" r="16"/>
 <circle data-ig-fill="quaternary" cx="525" cy="330" r="16"/>
-<circle data-ig-fill="primary" cx="650" cy="330" r="16"/>
+<circle data-ig-fill="accent" cx="650" cy="330" r="16"/>
 <text data-ig-text="item1" data-ig-font="primary" x="150" y="280" text-anchor="middle" font-size="17" fill="#212529">Kickoff</text>
 <text data-ig-text="item2" data-ig-font="primary" x="275" y="280" text-anchor="middle" font-size="17" fill="#212529">Alpha</text>
 <text data-ig-text="item3" data-ig-font="primary" x="400" y="280" text-anchor="middle" font-size="17" fill="#212529">Beta</text>
@@ -754,10 +754,10 @@ export const TEMPLATES: Template[] = [
 <text data-ig-contrast="quaternary" data-ig-font="primary" x="502" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">4</text>
 <text data-ig-contrast="quaternary" data-ig-text="item4" data-ig-font="primary" x="550" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step four</text>
 <circle cx="700" cy="320" r="66" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
-<circle data-ig-fill="primary" cx="700" cy="320" r="55"/>
-<circle data-ig-fill="primary" cx="652" cy="269" r="17"/>
-<text data-ig-contrast="primary" data-ig-font="primary" x="652" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
-<text data-ig-contrast="primary" data-ig-text="item5" data-ig-font="primary" x="700" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step five</text>
+<circle data-ig-fill="accent" cx="700" cy="320" r="55"/>
+<circle data-ig-fill="accent" cx="652" cy="269" r="17"/>
+<text data-ig-contrast="accent" data-ig-font="primary" x="652" y="276" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
+<text data-ig-contrast="accent" data-ig-text="item5" data-ig-font="primary" x="700" y="325" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Step five</text>
 </g>
 </svg>`,
   },
@@ -893,7 +893,7 @@ export const TEMPLATES: Template[] = [
 <rect data-ig-fill="secondary" x="140" y="226" width="520" height="60" rx="10"/>
 <rect data-ig-fill="tertiary" x="140" y="302" width="520" height="60" rx="10"/>
 <rect data-ig-fill="quaternary" x="140" y="378" width="520" height="60" rx="10"/>
-<rect data-ig-fill="primary" x="140" y="454" width="520" height="60" rx="10"/>
+<rect data-ig-fill="accent" x="140" y="454" width="520" height="60" rx="10"/>
 <circle data-ig-fill="accent" cx="180" cy="180" r="20"/>
 <circle data-ig-fill="accent" cx="180" cy="256" r="20"/>
 <circle data-ig-fill="accent" cx="180" cy="332" r="20"/>
@@ -1068,8 +1068,8 @@ export const TEMPLATES: Template[] = [
 <text data-ig-text="item3" data-ig-contrast="quaternary" data-ig-font="primary" x="538" y="507" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Marketing</text>
 <rect data-ig-fill="primary" x="174" y="468" width="176" height="64" rx="10"/>
 <text data-ig-text="item4" data-ig-contrast="primary" data-ig-font="primary" x="262" y="507" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Partners</text>
-<rect data-ig-fill="secondary" x="89" y="205" width="176" height="64" rx="10"/>
-<text data-ig-text="item5" data-ig-contrast="secondary" data-ig-font="primary" x="177" y="244" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Community</text>
+<rect data-ig-fill="accent" x="89" y="205" width="176" height="64" rx="10"/>
+<text data-ig-text="item5" data-ig-contrast="accent" data-ig-font="primary" x="177" y="244" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Community</text>
 <text data-ig-text="other1" data-ig-contrast="primary" data-ig-font="primary" x="400" y="318" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">Core Product</text>
 </g>
 </svg>`,
@@ -1427,8 +1427,8 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="quaternary" cx="534" cy="348" r="24"/>
 <text data-ig-contrast="quaternary" data-ig-font="primary" x="534" y="355" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">4</text>
 <text data-ig-text="item4" data-ig-font="primary" x="564" y="396" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Launch</text>
-<circle data-ig-fill="primary" cx="655" cy="218" r="24"/>
-<text data-ig-contrast="primary" data-ig-font="primary" x="655" y="225" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
+<circle data-ig-fill="accent" cx="655" cy="218" r="24"/>
+<text data-ig-contrast="accent" data-ig-font="primary" x="655" y="225" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">5</text>
 <text data-ig-text="item5" data-ig-font="primary" x="685" y="266" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Scale</text>
 </g>
 </svg>`,
@@ -1618,12 +1618,12 @@ export const TEMPLATES: Template[] = [
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-287.50 -180.63) scale(1.8750)">
-<polygon data-ig-fill="primary" points="180,520 620,520 660,498 220,498"/>
+<polygon data-ig-fill="accent" points="180,520 620,520 660,498 220,498"/>
 <polygon points="180,520 620,520 660,498 220,498" fill="#000000" fill-opacity="0.18"/>
-<rect data-ig-fill="primary" x="180" y="520" width="440" height="60"/>
-<polygon data-ig-fill="primary" points="620,520 660,498 660,558 620,580"/>
+<rect data-ig-fill="accent" x="180" y="520" width="440" height="60"/>
+<polygon data-ig-fill="accent" points="620,520 660,498 660,558 620,580"/>
 <polygon points="620,520 660,498 660,558 620,580" fill="#000000" fill-opacity="0.30"/>
-<text data-ig-text="item5" data-ig-contrast="primary" data-ig-font="primary" x="400" y="557" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Infrastructure</text>
+<text data-ig-text="item5" data-ig-contrast="accent" data-ig-font="primary" x="400" y="557" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffffff">Infrastructure</text>
 <polygon data-ig-fill="quaternary" points="180,432 620,432 660,410 220,410"/>
 <polygon points="180,432 620,432 660,410 220,410" fill="#000000" fill-opacity="0.18"/>
 <rect data-ig-fill="quaternary" x="180" y="432" width="440" height="60"/>
@@ -1769,8 +1769,8 @@ export const TEMPLATES: Template[] = [
 <text data-ig-text="item3" data-ig-contrast="quaternary" data-ig-font="primary" x="526" y="490" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Partners</text>
 <circle data-ig-fill="primary" cx="274" cy="484" r="52"/>
 <text data-ig-text="item4" data-ig-contrast="primary" data-ig-font="primary" x="274" y="490" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Devices</text>
-<circle data-ig-fill="secondary" cx="196" cy="244" r="52"/>
-<text data-ig-text="item5" data-ig-contrast="secondary" data-ig-font="primary" x="196" y="250" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Data</text>
+<circle data-ig-fill="accent" cx="196" cy="244" r="52"/>
+<text data-ig-text="item5" data-ig-contrast="accent" data-ig-font="primary" x="196" y="250" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Data</text>
 </g>
 </svg>`,
   },
@@ -1868,8 +1868,8 @@ export const TEMPLATES: Template[] = [
 <text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="397" y="346" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Master</text>
 <rect data-ig-fill="quaternary" x="462" y="248" width="118" height="272"/>
 <text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="521" y="278" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Teach</text>
-<rect data-ig-fill="primary" x="586" y="180" width="118" height="340"/>
-<text data-ig-text="item5" data-ig-contrast="primary" data-ig-font="primary" x="645" y="210" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Lead</text>
+<rect data-ig-fill="accent" x="586" y="180" width="118" height="340"/>
+<text data-ig-text="item5" data-ig-contrast="accent" data-ig-font="primary" x="645" y="210" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Lead</text>
 </g>
 </svg>`,
   },
@@ -2003,7 +2003,7 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="secondary" cx="320" cy="330" r="180"/>
 <circle data-ig-fill="tertiary" cx="320" cy="330" r="135"/>
 <circle data-ig-fill="quaternary" cx="320" cy="330" r="90"/>
-<circle data-ig-fill="primary" cx="320" cy="330" r="45"/>
+<circle data-ig-fill="accent" cx="320" cy="330" r="45"/>
 <line x1="320" y1="128" x2="620" y2="128" stroke="#495057" data-ig-stroke="accent" stroke-width="2"/>
 <text data-ig-text="item1" data-ig-font="primary" x="632" y="134" text-anchor="start" font-size="19" font-weight="bold" fill="#212529">Market</text>
 <line x1="320" y1="172" x2="620" y2="172" stroke="#495057" data-ig-stroke="accent" stroke-width="2"/>
@@ -2392,9 +2392,9 @@ export const TEMPLATES: Template[] = [
 <rect data-ig-fill="quaternary" x="430" y="395" width="230" height="62" rx="10"/>
 <text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="545" y="433" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Global launch</text>
 <line x1="370" y1="518" x2="400" y2="518" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<circle data-ig-fill="primary" cx="400" cy="518" r="13"/>
-<rect data-ig-fill="primary" x="140" y="487" width="230" height="62" rx="10"/>
-<text data-ig-text="item5" data-ig-contrast="primary" data-ig-font="primary" x="255" y="525" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">IPO</text>
+<circle data-ig-fill="accent" cx="400" cy="518" r="13"/>
+<rect data-ig-fill="accent" x="140" y="487" width="230" height="62" rx="10"/>
+<text data-ig-text="item5" data-ig-contrast="accent" data-ig-font="primary" x="255" y="525" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">IPO</text>
 </g>
 </svg>`,
   },
@@ -2502,8 +2502,8 @@ export const TEMPLATES: Template[] = [
 <text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="534" y="247" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Test</text>
 <polygon data-ig-fill="quaternary" points="399,394 333,432 267,394 267,318 333,280 399,318"/>
 <text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="333" y="363" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Ship</text>
-<polygon data-ig-fill="primary" points="533,394 467,432 401,394 401,318 467,280 533,318"/>
-<text data-ig-text="item5" data-ig-contrast="primary" data-ig-font="primary" x="467" y="363" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Learn</text>
+<polygon data-ig-fill="accent" points="533,394 467,432 401,394 401,318 467,280 533,318"/>
+<text data-ig-text="item5" data-ig-contrast="accent" data-ig-font="primary" x="467" y="363" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">Learn</text>
 </g>
 </svg>`,
   },
@@ -2748,7 +2748,7 @@ export const TEMPLATES: Template[] = [
 <circle data-ig-fill="quaternary" cx="180" cy="420" r="24"/>
 <path d="M 168 420 L 177 429 L 193 411" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
 <text data-ig-text="item4" data-ig-font="primary" x="228" y="428" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">Secure by default</text>
-<circle data-ig-fill="primary" cx="180" cy="510" r="24"/>
+<circle data-ig-fill="accent" cx="180" cy="510" r="24"/>
 <path d="M 168 510 L 177 519 L 193 501" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
 <text data-ig-text="item5" data-ig-font="primary" x="228" y="518" text-anchor="start" font-size="22" font-weight="bold" fill="#212529">24/7 support</text>
 </g>
