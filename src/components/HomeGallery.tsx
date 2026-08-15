@@ -8,6 +8,7 @@ type Tile = {
   title: string;
   category: string;
   description: string;
+  keywords: string;
   defaultId: string;
   rev: string;
   itemCount: number;
@@ -39,7 +40,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
       .filter((t) => {
         if (selected.size > 0 && !selected.has(t.category)) return false;
         if (!q) return true;
-        return [t.title, t.category, t.description].some((s) =>
+        return [t.title, t.category, t.description, t.keywords].some((s) =>
           s.toLowerCase().includes(q)
         );
       });

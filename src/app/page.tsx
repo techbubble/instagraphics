@@ -24,6 +24,7 @@ export default function HomePage() {
         variants.length > 1
           ? FAMILY_DESCRIPTIONS[def.family] ?? def.description
           : def.description,
+      keywords: def.about,
       defaultId: def.id,
       rev: def.rev,
       itemCount: def.items,
