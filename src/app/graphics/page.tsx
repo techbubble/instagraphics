@@ -16,12 +16,7 @@ export default async function MyGraphicsPage() {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="h3 mb-0">My Graphics</h1>
-        <span className="text-secondary small">
-          {user.credits} credit{user.credits === 1 ? "" : "s"} &middot; 1 credit unlocks a graphic
-        </span>
-      </div>
+      <h1 className="h3 mb-4">My Graphics</h1>
       {rows.length === 0 ? (
         <p className="text-secondary">
           Nothing here yet. <Link href="/">Pick a layout</Link> to build your first graphic.
