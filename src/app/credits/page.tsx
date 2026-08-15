@@ -16,9 +16,9 @@ export default async function CreditsPage() {
         </p>
         <div className="alert alert-warning border-warning text-center" role="alert">
           <div className="fw-bold text-uppercase">Refund Policy</div>
-          All credit purchases are final and non-refundable. By completing a
-          purchase, you acknowledge and agree that no refunds, credits, or
-          exchanges will be issued for any reason.
+          All credit purchases are final and non-refundable. By completing
+          a purchase, you acknowledge and agree that no refunds, credits,
+          or exchanges will be issued.
         </div>
         <BuyCredits />
       </div>
