@@ -262,23 +262,23 @@ ${title("Priority Matrix")}
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" data-ig-fill="primary" x="400" y="100" text-anchor="middle" font-size="52" font-weight="bold" fill="#0d6efd">How to use</text>
 <circle cx="150" cy="330" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
-<circle data-ig-fill="primary" cx="150" cy="330" r="88" fill-opacity="0.15"/>
+<circle data-ig-fill="primary" cx="150" cy="330" r="88"/>
 <circle data-ig-fill="primary" cx="72" cy="248" r="26"/>
 <text data-ig-font="primary" x="72" y="259" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">1</text>
 <circle cx="400" cy="330" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
-<circle data-ig-fill="secondary" cx="400" cy="330" r="88" fill-opacity="0.15"/>
+<circle data-ig-fill="secondary" cx="400" cy="330" r="88"/>
 <circle data-ig-fill="secondary" cx="322" cy="248" r="26"/>
 <text data-ig-font="primary" x="322" y="259" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">2</text>
 <circle cx="650" cy="330" r="105" fill="#ffffff" stroke="#d8dee2" stroke-width="3"/>
-<circle data-ig-fill="tertiary" cx="650" cy="330" r="88" fill-opacity="0.15"/>
+<circle data-ig-fill="tertiary" cx="650" cy="330" r="88"/>
 <circle data-ig-fill="tertiary" cx="572" cy="248" r="26"/>
 <text data-ig-font="primary" x="572" y="259" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff">3</text>
-<text data-ig-text="item1" data-ig-font="secondary" x="150" y="488" text-anchor="middle" font-size="28" font-weight="bold" fill="#223333">Step one</text>
-<text data-ig-text="item2" data-ig-font="secondary" x="400" y="488" text-anchor="middle" font-size="28" font-weight="bold" fill="#223333">Step two</text>
-<text data-ig-text="item3" data-ig-font="secondary" x="650" y="488" text-anchor="middle" font-size="28" font-weight="bold" fill="#223333">Step three</text>
-<text data-ig-text="other1" data-ig-font="tertiary" x="150" y="524" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
-<text data-ig-text="other2" data-ig-font="tertiary" x="400" y="524" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
-<text data-ig-text="other3" data-ig-font="tertiary" x="650" y="524" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
+<text data-ig-text="item1" data-ig-font="secondary" x="150" y="340" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step one</text>
+<text data-ig-text="item2" data-ig-font="secondary" x="400" y="340" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step two</text>
+<text data-ig-text="item3" data-ig-font="secondary" x="650" y="340" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Step three</text>
+<text data-ig-text="other1" data-ig-font="tertiary" x="150" y="478" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
+<text data-ig-text="other2" data-ig-font="tertiary" x="400" y="478" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
+<text data-ig-text="other3" data-ig-font="tertiary" x="650" y="478" text-anchor="middle" font-size="18" fill="#556666">Short caption here</text>
 </svg>`,
   },
 ];
