@@ -36,11 +36,13 @@ export default function Builder({
   currentId,
   initialBrand,
   savedValues,
+  authed,
 }: {
   templates: TemplateMeta[];
   currentId: string;
   initialBrand: BrandKit;
   savedValues: Record<string, string>;
+  authed: boolean;
 }) {
   const router = useRouter();
   const [templateId, setTemplateId] = useState(currentId);
@@ -70,6 +72,7 @@ export default function Builder({
   }, [fieldsOpen]);
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
+
 
   // Non-empty values override the template's authored placeholder text.
   const effective = useMemo(
@@ -126,6 +129,7 @@ export default function Builder({
   }, []);
   const queueSave = useCallback(
     (patch: PrefsPatch) => {
+      if (!authed) return;
       pending.current = {
         brand: patch.brand ?? pending.current.brand,
         values: { ...pending.current.values, ...patch.values },
@@ -133,9 +137,36 @@ export default function Builder({
       if (timer.current) clearTimeout(timer.current);
       timer.current = setTimeout(flush, 600);
     },
-    [flush]
+    [flush, authed]
   );
   useEffect(() => flush, [flush]); // flush on unmount
+
+  // Anonymous work lives in localStorage; it becomes account data on sign-in.
+  useEffect(() => {
+    if (authed) return;
+    window.localStorage.setItem("ig-local", JSON.stringify({ brand, values }));
+  }, [authed, brand, values]);
+
+  useEffect(() => {
+    const raw = window.localStorage.getItem("ig-local");
+    if (!raw) return;
+    let local: { brand?: BrandKit; values?: Record<string, string> } | null = null;
+    try {
+      local = JSON.parse(raw);
+    } catch {
+      return;
+    }
+    const t = setTimeout(() => {
+      if (local?.brand) setBrand(local.brand);
+      if (local?.values) setValues((v) => ({ ...v, ...local.values }));
+      if (authed) {
+        queueSave({ brand: local?.brand, values: local?.values });
+        window.localStorage.removeItem("ig-local");
+      }
+    }, 0);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function setColor(slot: ColorSlot, color: string) {
     setBrand((b) => {
@@ -184,6 +215,10 @@ export default function Builder({
   }, [templates, railSort]);
 
   async function save() {
+    if (!authed) {
+      router.push(`/login?next=${encodeURIComponent(`/publish/${template.id}`)}`);
+      return;
+    }
     setSaving(true);
     setError(null);
     flush();
@@ -252,7 +287,6 @@ export default function Builder({
                     id={`field-${f.key}`}
                     className="form-control form-control-sm"
                     value={values[f.key] ?? ""}
-                    placeholder={f.label}
                     maxLength={f.maxLength}
                     onChange={(e) => setField(f.key, e.target.value)}
                   />
@@ -327,7 +361,7 @@ export default function Builder({
                 onClick={save}
                 disabled={saving}
               >
-                {saving ? "Saving..." : "Save"}
+                {!authed ? "Sign In" : saving ? "Saving..." : "Save"}
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { TEMPLATES, getTemplate, toMeta } from "@/lib/templates";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
@@ -43,11 +43,11 @@ export default async function BuildPage({
   const template = getTemplate(templateId);
   if (!template) notFound();
   const user = await currentUser();
-  if (!user) redirect(`/login?next=${encodeURIComponent(`/publish/${templateId}`)}`);
-
-  const rows = (await sql()`
-    SELECT brand, field_values FROM preferences WHERE user_id = ${user.id}
-  `) as { brand: unknown; field_values: Record<string, string> }[];
+  const rows = user
+    ? ((await sql()`
+        SELECT brand, field_values FROM preferences WHERE user_id = ${user.id}
+      `) as { brand: unknown; field_values: Record<string, string> }[])
+    : [];
   const brand = mergeBrand(rows[0]?.brand);
   const savedValues = rows[0]?.field_values ?? {};
 
@@ -63,6 +63,7 @@ export default async function BuildPage({
       currentId={template.id}
       initialBrand={brand}
       savedValues={savedValues}
+      authed={!!user}
     />
   );
 }

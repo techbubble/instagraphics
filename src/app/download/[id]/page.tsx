@@ -43,10 +43,9 @@ export default async function DownloadPage({
         {graphic.paid_at || user.credits > 0 ? (
           <DownloadButtons graphicId={graphic.id} paid={!!graphic.paid_at} size="lg" goToLibrary />
         ) : (
-          <div className="alert alert-warning">
-            You are out of credits.{" "}
-            <Link href="/credits">Buy credits</Link> to download.
-          </div>
+          <Link href="/credits" className="btn btn-warning btn-lg px-4">
+            Buy Credits
+          </Link>
         )}
       </div>
     </div>

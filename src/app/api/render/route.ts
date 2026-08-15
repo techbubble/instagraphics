@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sessionUserId } from "@/lib/auth";
 import { getTemplate } from "@/lib/templates";
 import { renderTemplate } from "@/lib/svg-engine";
 import { renderPng, sanitizeBrand, sanitizeValues } from "@/lib/server-render";
 
 // Live builder preview: brand + values in, PNG out. Never returns SVG.
+// Anonymous access is fine — output is always checkered.
 export async function POST(req: NextRequest) {
-  const uid = await sessionUserId();
-  if (uid == null) {
-    return NextResponse.json({ error: "Not signed in" }, { status: 401 });
-  }
   let body: { templateId?: string; brand?: unknown; values?: unknown };
   try {
     body = await req.json();
