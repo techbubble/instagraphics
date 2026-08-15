@@ -12,8 +12,8 @@ export default function HomePage() {
   }));
   return (
     <>
-      <div className="text-center py-4">
-        <h1 className="fw-bold">Build branded infographics in seconds</h1>
+      <div className="text-center pb-3">
+        <h1 className="h3 fw-bold">Build branded infographics in seconds</h1>
         <p className="text-secondary">
           Pick a layout, apply your colors, fonts, and logo, type your content, and download.
         </p>

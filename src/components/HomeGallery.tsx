@@ -13,27 +13,42 @@ type Tile = {
 
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+
+  const categories = useMemo(
+    () => [...new Set(tiles.map((t) => t.category))],
+    [tiles]
+  );
+
+  function toggle(cat: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat);
+      else next.add(cat);
+      return next;
+    });
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return tiles;
-    return tiles.filter((t) =>
-      [t.title, t.category, t.description].some((s) => s.toLowerCase().includes(q))
-    );
-  }, [tiles, query]);
+    return tiles.filter((t) => {
+      if (selected.size > 0 && !selected.has(t.category)) return false;
+      if (!q) return true;
+      return [t.title, t.category, t.description].some((s) =>
+        s.toLowerCase().includes(q)
+      );
+    });
+  }, [tiles, query, selected]);
 
-  const categories = useMemo(
-    () => [...new Set(filtered.map((t) => t.category))],
-    [filtered]
-  );
+  const allActive = selected.size === 0;
 
   return (
     <>
-      <div className="row justify-content-center mb-4">
+      <div className="row justify-content-center mb-3">
         <div className="col-md-6">
           <input
             type="search"
-            className="form-control form-control-lg"
+            className="form-control"
             placeholder="Search layouts..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -41,34 +56,52 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
           />
         </div>
       </div>
-      {filtered.length === 0 && (
-        <p className="text-center text-secondary">No layouts match your search.</p>
-      )}
-      {categories.map((cat) => (
-        <section key={cat} className="mb-5">
-          <h2 className="h5 border-bottom pb-2 mb-3">{cat}</h2>
-          <div className="row g-4">
-            {filtered
-              .filter((t) => t.category === cat)
-              .map((t) => (
-                <div key={t.id} className="col-sm-6 col-md-4 col-lg-3">
-                  <Link href={`/build/${t.id}`} className="text-decoration-none">
-                    <div className="card ig-tile h-100">
-                      <div
-                        className="ig-tile-preview border-bottom"
-                        dangerouslySetInnerHTML={{ __html: t.preview }}
-                      />
-                      <div className="card-body py-2">
-                        <div className="fw-semibold text-dark">{t.title}</div>
-                        <div className="small text-secondary">{t.description}</div>
-                      </div>
-                    </div>
-                  </Link>
+      <div className="d-flex flex-wrap gap-2 justify-content-center mb-4">
+        <button
+          type="button"
+          className={`btn btn-sm rounded-pill ${allActive ? "btn-primary" : "btn-outline-primary"}`}
+          aria-pressed={allActive}
+          onClick={() => setSelected(new Set())}
+        >
+          All
+        </button>
+        {categories.map((cat) => {
+          const active = selected.has(cat);
+          return (
+            <button
+              key={cat}
+              type="button"
+              className={`btn btn-sm rounded-pill ${active ? "btn-primary" : "btn-outline-primary"}`}
+              aria-pressed={active}
+              onClick={() => toggle(cat)}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+      {filtered.length === 0 ? (
+        <p className="text-center text-secondary">No layouts match.</p>
+      ) : (
+        <div className="row g-4">
+          {filtered.map((t) => (
+            <div key={t.id} className="col-sm-6 col-md-4 col-lg-3">
+              <Link href={`/build/${t.id}`} className="text-decoration-none">
+                <div className="card ig-tile h-100">
+                  <div
+                    className="ig-tile-preview border-bottom"
+                    dangerouslySetInnerHTML={{ __html: t.preview }}
+                  />
+                  <div className="card-body py-2">
+                    <div className="fw-semibold text-dark">{t.title}</div>
+                    <div className="small text-secondary">{t.description}</div>
+                  </div>
                 </div>
-              ))}
-          </div>
-        </section>
-      ))}
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
