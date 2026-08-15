@@ -14,6 +14,7 @@ type Tile = {
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [sortBy, setSortBy] = useState<"name" | "category">("name");
 
   const categories = useMemo(
     () => [...new Set(tiles.map((t) => t.category))].sort(),
@@ -32,7 +33,11 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return [...tiles]
-      .sort((a, b) => a.title.localeCompare(b.title))
+      .sort((a, b) =>
+        sortBy === "category"
+          ? a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
+          : a.title.localeCompare(b.title)
+      )
       .filter((t) => {
       if (selected.size > 0 && !selected.has(t.category)) return false;
         if (!q) return true;
@@ -40,7 +45,10 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
           s.toLowerCase().includes(q)
         );
       });
-  }, [tiles, query, selected]);
+  }, [tiles, query, selected, sortBy]);
+
+  const catsQuery =
+    selected.size > 0 ? `?cats=${encodeURIComponent([...selected].join(","))}` : "";
 
   const allActive = selected.size === 0;
 
@@ -81,6 +89,23 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
             </button>
           );
         })}
+        <span className="vr mx-1" />
+        <div className="btn-group btn-group-sm" role="group" aria-label="Sort by">
+          <button
+            type="button"
+            className={`btn ${sortBy === "name" ? "btn-secondary" : "btn-outline-secondary"}`}
+            onClick={() => setSortBy("name")}
+          >
+            Name
+          </button>
+          <button
+            type="button"
+            className={`btn ${sortBy === "category" ? "btn-secondary" : "btn-outline-secondary"}`}
+            onClick={() => setSortBy("category")}
+          >
+            Category
+          </button>
+        </div>
       </div>
       {filtered.length === 0 ? (
         <p className="text-center text-secondary">No layouts match.</p>
@@ -88,7 +113,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
         <div className="row g-4">
           {filtered.map((t) => (
             <div key={t.id} className="col-sm-6 col-md-4 col-lg-3">
-              <Link href={`/build/${t.id}`} className="text-decoration-none">
+              <Link href={`/build/${t.id}${catsQuery}`} className="text-decoration-none">
                 <div className="card ig-tile h-100">
                   <div
                     className="ig-tile-preview border-bottom"

@@ -18,7 +18,7 @@ export const DEFAULT_BRAND: BrandKit = {
   fonts: { primary: "Arial", secondary: "Arial", tertiary: "Arial" },
 };
 
-export const FONT_CHOICES = [
+export const SYSTEM_FONTS = [
   "Arial",
   "Helvetica",
   "Verdana",
@@ -30,6 +30,23 @@ export const FONT_CHOICES = [
   "Courier New",
   "Impact",
 ];
+
+// Loaded via a stylesheet link in the root layout; embedded as data URIs
+// into downloaded/rasterized SVGs by embedGoogleFonts().
+export const GOOGLE_FONTS = [
+  "Lato",
+  "Merriweather",
+  "Montserrat",
+  "Nunito",
+  "Open Sans",
+  "Oswald",
+  "Playfair Display",
+  "Poppins",
+  "Raleway",
+  "Roboto",
+];
+
+export const FONT_CHOICES = [...SYSTEM_FONTS, ...GOOGLE_FONTS].sort();
 
 function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -75,6 +92,44 @@ export function renderTemplate(
 }
 
 // ---- Browser-only helpers ----
+
+function bufToBase64(buf: ArrayBuffer): string {
+  const bytes = new Uint8Array(buf);
+  let bin = "";
+  const CHUNK = 0x8000;
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    bin += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
+  }
+  return btoa(bin);
+}
+
+// Inline any Google fonts referenced by the SVG as data-URI @font-face
+// rules, so downloaded SVGs and canvas-rasterized PNGs render the chosen
+// fonts without network access.
+export async function embedGoogleFonts(svg: string): Promise<string> {
+  const used = new Set<string>();
+  for (const m of svg.matchAll(/font-family="([^"]+)"/g)) used.add(m[1]);
+  const families = GOOGLE_FONTS.filter((f) => used.has(f));
+  if (families.length === 0) return svg;
+  try {
+    const query = families
+      .map((f) => `family=${f.replace(/ /g, "+")}:wght@400;700`)
+      .join("&");
+    let css = await (
+      await fetch(`https://fonts.googleapis.com/css2?${query}&display=swap`)
+    ).text();
+    const urls = [...new Set([...css.matchAll(/url\((https:[^)]+)\)/g)].map((m) => m[1]))];
+    await Promise.all(
+      urls.map(async (u) => {
+        const buf = await (await fetch(u)).arrayBuffer();
+        css = css.replaceAll(u, `data:font/woff2;base64,${bufToBase64(buf)}`);
+      })
+    );
+    return svg.replace(/(<svg\b[^>]*>)/, `$1<style>${css}</style>`);
+  } catch {
+    return svg; // download still works, viewer falls back to default fonts
+  }
+}
 
 // Rasterize a rendered SVG string to a PNG blob at 2x scale.
 export async function svgToPngBlob(svgString: string): Promise<Blob> {

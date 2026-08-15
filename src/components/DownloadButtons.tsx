@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { svgToPngBlob, triggerDownload } from "@/lib/svg-engine";
+import { embedGoogleFonts, svgToPngBlob, triggerDownload } from "@/lib/svg-engine";
 
 function slugify(s: string): string {
   return (
@@ -45,10 +45,11 @@ export default function DownloadButtons({
       }
       const { svg, title } = await res.json();
       const name = slugify(title);
+      const embedded = await embedGoogleFonts(svg);
       if (format === "svg") {
-        triggerDownload(new Blob([svg], { type: "image/svg+xml" }), `${name}.svg`);
+        triggerDownload(new Blob([embedded], { type: "image/svg+xml" }), `${name}.svg`);
       } else {
-        triggerDownload(await svgToPngBlob(svg), `${name}.png`);
+        triggerDownload(await svgToPngBlob(embedded), `${name}.png`);
       }
       router.refresh();
     } catch {

@@ -17,3 +17,12 @@
 .ig-tile:hover {
   box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.15);
 }
+
+.ig-thumb {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ig-thumb:hover {
+  box-shadow: 0 0.25rem 0.5rem rgba(13, 110, 253, 0.25);
+}

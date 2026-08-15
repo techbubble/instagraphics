@@ -3,6 +3,8 @@ export type TemplateField = {
   label: string;
   default: string;
   maxLength?: number;
+  usage?: string; // where on the graphic this text lands
+  indent?: boolean; // render nested under the preceding top-level field
 };
 
 export type Template = {
@@ -25,13 +27,13 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     description: "Three chevron arrows showing a left-to-right process.",
     fields: [
-      { key: "title", label: "Title", default: "Our Process", maxLength: 40 },
-      { key: "step1", label: "Step 1", default: "Plan", maxLength: 16 },
-      { key: "step2", label: "Step 2", default: "Build", maxLength: 16 },
-      { key: "step3", label: "Step 3", default: "Launch", maxLength: 16 },
-      { key: "caption1", label: "Caption 1", default: "Define the goal", maxLength: 28 },
-      { key: "caption2", label: "Caption 2", default: "Execute the work", maxLength: 28 },
-      { key: "caption3", label: "Caption 3", default: "Ship and iterate", maxLength: 28 },
+      { key: "title", label: "Title", default: "Our Process", maxLength: 40, usage: "heading" },
+      { key: "step1", label: "Step 1", default: "Plan", maxLength: 16, usage: "arrow 1", indent: true },
+      { key: "step2", label: "Step 2", default: "Build", maxLength: 16, usage: "arrow 2", indent: true },
+      { key: "step3", label: "Step 3", default: "Launch", maxLength: 16, usage: "arrow 3", indent: true },
+      { key: "caption1", label: "Caption 1", default: "Define the goal", maxLength: 28, usage: "below arrow 1", indent: true },
+      { key: "caption2", label: "Caption 2", default: "Execute the work", maxLength: 28, usage: "below arrow 2", indent: true },
+      { key: "caption3", label: "Caption 3", default: "Ship and iterate", maxLength: 28, usage: "below arrow 3", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Our Process")}
@@ -52,11 +54,11 @@ ${title("Our Process")}
     category: "Cycle",
     description: "Four stages arranged in a continuous circular flow.",
     fields: [
-      { key: "title", label: "Title", default: "Improvement Cycle", maxLength: 40 },
-      { key: "item1", label: "Stage 1", default: "Plan", maxLength: 12 },
-      { key: "item2", label: "Stage 2", default: "Do", maxLength: 12 },
-      { key: "item3", label: "Stage 3", default: "Check", maxLength: 12 },
-      { key: "item4", label: "Stage 4", default: "Act", maxLength: 12 },
+      { key: "title", label: "Title", default: "Improvement Cycle", maxLength: 40, usage: "heading" },
+      { key: "item1", label: "Stage 1", default: "Plan", maxLength: 12, usage: "top circle", indent: true },
+      { key: "item2", label: "Stage 2", default: "Do", maxLength: 12, usage: "right circle", indent: true },
+      { key: "item3", label: "Stage 3", default: "Check", maxLength: 12, usage: "bottom circle", indent: true },
+      { key: "item4", label: "Stage 4", default: "Act", maxLength: 12, usage: "left circle", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <defs>
@@ -85,10 +87,10 @@ ${title("Improvement Cycle")}
     category: "Hierarchy",
     description: "Three stacked levels from broad base to narrow peak.",
     fields: [
-      { key: "title", label: "Title", default: "Strategy Pyramid", maxLength: 40 },
-      { key: "level1", label: "Top Level", default: "Vision", maxLength: 14 },
-      { key: "level2", label: "Middle Level", default: "Strategy", maxLength: 20 },
-      { key: "level3", label: "Base Level", default: "Execution", maxLength: 26 },
+      { key: "title", label: "Title", default: "Strategy Pyramid", maxLength: 40, usage: "heading" },
+      { key: "level1", label: "Top Level", default: "Vision", maxLength: 14, usage: "peak", indent: true },
+      { key: "level2", label: "Middle Level", default: "Strategy", maxLength: 20, usage: "middle band", indent: true },
+      { key: "level3", label: "Base Level", default: "Execution", maxLength: 26, usage: "base band", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Strategy Pyramid")}
@@ -106,10 +108,10 @@ ${title("Strategy Pyramid")}
     category: "Relationship",
     description: "Two overlapping circles with a shared middle value.",
     fields: [
-      { key: "title", label: "Title", default: "Where We Win", maxLength: 40 },
-      { key: "left", label: "Left Circle", default: "Quality", maxLength: 14 },
-      { key: "right", label: "Right Circle", default: "Speed", maxLength: 14 },
-      { key: "middle", label: "Overlap", default: "Value", maxLength: 12 },
+      { key: "title", label: "Title", default: "Where We Win", maxLength: 40, usage: "heading" },
+      { key: "left", label: "Left Circle", default: "Quality", maxLength: 14, usage: "left circle", indent: true },
+      { key: "right", label: "Right Circle", default: "Speed", maxLength: 14, usage: "right circle", indent: true },
+      { key: "middle", label: "Overlap", default: "Value", maxLength: 12, usage: "overlap", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Where We Win")}
@@ -126,11 +128,11 @@ ${title("Where We Win")}
     category: "Process",
     description: "Four narrowing stages from awareness to action.",
     fields: [
-      { key: "title", label: "Title", default: "Sales Funnel", maxLength: 40 },
-      { key: "stage1", label: "Stage 1", default: "Awareness", maxLength: 22 },
-      { key: "stage2", label: "Stage 2", default: "Interest", maxLength: 18 },
-      { key: "stage3", label: "Stage 3", default: "Decision", maxLength: 14 },
-      { key: "stage4", label: "Stage 4", default: "Action", maxLength: 10 },
+      { key: "title", label: "Title", default: "Sales Funnel", maxLength: 40, usage: "heading" },
+      { key: "stage1", label: "Stage 1", default: "Awareness", maxLength: 22, usage: "widest band", indent: true },
+      { key: "stage2", label: "Stage 2", default: "Interest", maxLength: 18, usage: "second band", indent: true },
+      { key: "stage3", label: "Stage 3", default: "Decision", maxLength: 14, usage: "third band", indent: true },
+      { key: "stage4", label: "Stage 4", default: "Action", maxLength: 10, usage: "narrowest band", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Sales Funnel")}
@@ -150,15 +152,15 @@ ${title("Sales Funnel")}
     category: "Timeline",
     description: "Horizontal timeline with four dated milestones.",
     fields: [
-      { key: "title", label: "Title", default: "Roadmap", maxLength: 40 },
-      { key: "m1", label: "Milestone 1", default: "Kickoff", maxLength: 14 },
-      { key: "m2", label: "Milestone 2", default: "Alpha", maxLength: 14 },
-      { key: "m3", label: "Milestone 3", default: "Beta", maxLength: 14 },
-      { key: "m4", label: "Milestone 4", default: "Launch", maxLength: 14 },
-      { key: "d1", label: "Date 1", default: "Q1", maxLength: 12 },
-      { key: "d2", label: "Date 2", default: "Q2", maxLength: 12 },
-      { key: "d3", label: "Date 3", default: "Q3", maxLength: 12 },
-      { key: "d4", label: "Date 4", default: "Q4", maxLength: 12 },
+      { key: "title", label: "Title", default: "Roadmap", maxLength: 40, usage: "heading" },
+      { key: "m1", label: "Milestone 1", default: "Kickoff", maxLength: 14, usage: "milestone 1", indent: true },
+      { key: "m2", label: "Milestone 2", default: "Alpha", maxLength: 14, usage: "milestone 2", indent: true },
+      { key: "m3", label: "Milestone 3", default: "Beta", maxLength: 14, usage: "milestone 3", indent: true },
+      { key: "m4", label: "Milestone 4", default: "Launch", maxLength: 14, usage: "milestone 4", indent: true },
+      { key: "d1", label: "Date 1", default: "Q1", maxLength: 12, usage: "under milestone 1", indent: true },
+      { key: "d2", label: "Date 2", default: "Q2", maxLength: 12, usage: "under milestone 2", indent: true },
+      { key: "d3", label: "Date 3", default: "Q3", maxLength: 12, usage: "under milestone 3", indent: true },
+      { key: "d4", label: "Date 4", default: "Q4", maxLength: 12, usage: "under milestone 4", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Roadmap")}
@@ -183,11 +185,11 @@ ${title("Roadmap")}
     category: "List",
     description: "Four numbered items in stacked bars.",
     fields: [
-      { key: "title", label: "Title", default: "Key Priorities", maxLength: 40 },
-      { key: "item1", label: "Item 1", default: "Grow revenue", maxLength: 34 },
-      { key: "item2", label: "Item 2", default: "Delight customers", maxLength: 34 },
-      { key: "item3", label: "Item 3", default: "Reduce costs", maxLength: 34 },
-      { key: "item4", label: "Item 4", default: "Develop talent", maxLength: 34 },
+      { key: "title", label: "Title", default: "Key Priorities", maxLength: 40, usage: "heading" },
+      { key: "item1", label: "Item 1", default: "Grow revenue", maxLength: 34, usage: "bar 1", indent: true },
+      { key: "item2", label: "Item 2", default: "Delight customers", maxLength: 34, usage: "bar 2", indent: true },
+      { key: "item3", label: "Item 3", default: "Reduce costs", maxLength: 34, usage: "bar 3", indent: true },
+      { key: "item4", label: "Item 4", default: "Develop talent", maxLength: 34, usage: "bar 4", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Key Priorities")}
@@ -215,13 +217,13 @@ ${title("Key Priorities")}
     category: "Comparison",
     description: "Four quadrants with axis labels.",
     fields: [
-      { key: "title", label: "Title", default: "Priority Matrix", maxLength: 40 },
-      { key: "q1", label: "Top Left", default: "Quick Wins", maxLength: 18 },
-      { key: "q2", label: "Top Right", default: "Big Bets", maxLength: 18 },
-      { key: "q3", label: "Bottom Left", default: "Fill-Ins", maxLength: 18 },
-      { key: "q4", label: "Bottom Right", default: "Money Pits", maxLength: 18 },
-      { key: "xaxis", label: "X-Axis Label", default: "Effort", maxLength: 20 },
-      { key: "yaxis", label: "Y-Axis Label", default: "Impact", maxLength: 20 },
+      { key: "title", label: "Title", default: "Priority Matrix", maxLength: 40, usage: "heading" },
+      { key: "q1", label: "Top Left", default: "Quick Wins", maxLength: 18, usage: "top-left cell", indent: true },
+      { key: "q2", label: "Top Right", default: "Big Bets", maxLength: 18, usage: "top-right cell", indent: true },
+      { key: "q3", label: "Bottom Left", default: "Fill-Ins", maxLength: 18, usage: "bottom-left cell", indent: true },
+      { key: "q4", label: "Bottom Right", default: "Money Pits", maxLength: 18, usage: "bottom-right cell", indent: true },
+      { key: "xaxis", label: "X-Axis Label", default: "Effort", maxLength: 20, usage: "bottom axis" },
+      { key: "yaxis", label: "Y-Axis Label", default: "Impact", maxLength: 20, usage: "left axis" },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 ${title("Priority Matrix")}
@@ -243,13 +245,13 @@ ${title("Priority Matrix")}
     category: "Process",
     description: "Three numbered circles with step titles and captions.",
     fields: [
-      { key: "title", label: "Title", default: "How to use", maxLength: 40 },
-      { key: "step1", label: "Step 1 Title", default: "Step one", maxLength: 16 },
-      { key: "step2", label: "Step 2 Title", default: "Step two", maxLength: 16 },
-      { key: "step3", label: "Step 3 Title", default: "Step three", maxLength: 16 },
-      { key: "caption1", label: "Step 1 Caption", default: "Short caption here", maxLength: 26 },
-      { key: "caption2", label: "Step 2 Caption", default: "Short caption here", maxLength: 26 },
-      { key: "caption3", label: "Step 3 Caption", default: "Short caption here", maxLength: 26 },
+      { key: "title", label: "Title", default: "How to use", maxLength: 40, usage: "heading" },
+      { key: "step1", label: "Step 1 Title", default: "Step one", maxLength: 16, usage: "step 1 title", indent: true },
+      { key: "step2", label: "Step 2 Title", default: "Step two", maxLength: 16, usage: "step 2 title", indent: true },
+      { key: "step3", label: "Step 3 Title", default: "Step three", maxLength: 16, usage: "step 3 title", indent: true },
+      { key: "caption1", label: "Step 1 Caption", default: "Short caption here", maxLength: 26, usage: "under step 1", indent: true },
+      { key: "caption2", label: "Step 2 Caption", default: "Short caption here", maxLength: 26, usage: "under step 2", indent: true },
+      { key: "caption3", label: "Step 3 Caption", default: "Short caption here", maxLength: 26, usage: "under step 3", indent: true },
     ],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Arial">
 <text data-ig-text="title" data-ig-font="primary" data-ig-fill="primary" x="400" y="100" text-anchor="middle" font-size="52" font-weight="bold" fill="#0d6efd">How to use</text>

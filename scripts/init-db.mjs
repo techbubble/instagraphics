@@ -13,8 +13,15 @@ const statements = [
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
     name TEXT NOT NULL DEFAULT '',
-    credits INTEGER NOT NULL DEFAULT 0,
+    credits INTEGER NOT NULL DEFAULT 1,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  )`,
+  `ALTER TABLE users ALTER COLUMN credits SET DEFAULT 1`,
+  `CREATE TABLE IF NOT EXISTS preferences (
+    user_id BIGINT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    brand JSONB NOT NULL DEFAULT '{}',
+    field_values JSONB NOT NULL DEFAULT '{}',
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
   `CREATE TABLE IF NOT EXISTS login_codes (
     email TEXT PRIMARY KEY,
