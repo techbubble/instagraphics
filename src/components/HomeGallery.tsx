@@ -17,7 +17,6 @@ type Tile = {
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [sortBy, setSortBy] = useState<"name" | "category" | "count">("name");
 
   const categories = useMemo(
     () => [...new Set(tiles.map((t) => t.category))].sort(),
@@ -36,13 +35,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return [...tiles]
-      .sort((a, b) =>
-        sortBy === "category"
-          ? a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
-          : sortBy === "count"
-            ? a.itemCount - b.itemCount || a.title.localeCompare(b.title)
-            : a.title.localeCompare(b.title)
-      )
+      .sort((a, b) => a.title.localeCompare(b.title))
       .filter((t) => {
         if (selected.size > 0 && !selected.has(t.category)) return false;
         if (!q) return true;
@@ -50,7 +43,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
           s.toLowerCase().includes(q)
         );
       });
-  }, [tiles, query, selected, sortBy]);
+  }, [tiles, query, selected]);
 
   const catsQuery =
     selected.size > 0 ? `?cats=${encodeURIComponent([...selected].join(","))}` : "";
@@ -92,31 +85,6 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
             </button>
           );
         })}
-        <span className="vr mx-1" />
-        <div className="btn-group btn-group-sm" role="group" aria-label="Sort by">
-          <button
-            type="button"
-            className={`btn ${sortBy === "name" ? "btn-secondary" : "btn-outline-secondary"}`}
-            onClick={() => setSortBy("name")}
-          >
-            Name
-          </button>
-          <button
-            type="button"
-            className={`btn ${sortBy === "category" ? "btn-secondary" : "btn-outline-secondary"}`}
-            onClick={() => setSortBy("category")}
-          >
-            Category
-          </button>
-          <button
-            type="button"
-            className={`btn ${sortBy === "count" ? "btn-secondary" : "btn-outline-secondary"}`}
-            title="Sort by number of items"
-            onClick={() => setSortBy("count")}
-          >
-            #
-          </button>
-        </div>
       </div>
       {filtered.length === 0 ? (
         <p className="text-center text-secondary">No layouts match.</p>
