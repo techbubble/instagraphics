@@ -86,12 +86,19 @@ export function fontFiles(): Promise<string[]> {
 // Bake a Photoshop-style transparency checkerboard into every preview PNG,
 // so saved/screenshotted previews are visibly not production assets. The
 // clean SVG is only released by the paid download endpoint.
-const CHECKER =
-  '<defs><pattern id="ig-checker" width="24" height="24" patternUnits="userSpaceOnUse">' +
-  '<rect width="24" height="24" fill="#ffffff"/>' +
-  '<rect width="12" height="12" fill="#dee2e6"/>' +
-  '<rect x="12" y="12" width="12" height="12" fill="#dee2e6"/>' +
-  '</pattern></defs><rect width="100%" height="100%" fill="url(#ig-checker)"/>';
+// The backdrop rect must cover the viewBox explicitly — a 100%/100% rect
+// starts at user-space origin and misses cropped (non-zero min-y) views.
+function checkerMarkup(svg: string): string {
+  const vb = svg.match(/viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/);
+  const [x, y, w, h] = vb ? [vb[1], vb[2], vb[3], vb[4]] : ["0", "0", "800", "600"];
+  return (
+    '<defs><pattern id="ig-checker" width="24" height="24" patternUnits="userSpaceOnUse">' +
+    '<rect width="24" height="24" fill="#ffffff"/>' +
+    '<rect width="12" height="12" fill="#dee2e6"/>' +
+    '<rect x="12" y="12" width="12" height="12" fill="#dee2e6"/>' +
+    `</pattern></defs><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#ig-checker)"/>`
+  );
+}
 
 export async function renderPng(
   svg: string,
@@ -107,7 +114,7 @@ export async function renderPng(
   const checkered =
     opts.checker === false
       ? aliased
-      : aliased.replace(/(<svg\b[^>]*>)/, `$1${CHECKER}`);
+      : aliased.replace(/(<svg\b[^>]*>)/, `$1${checkerMarkup(aliased)}`);
   const resvg = new Resvg(checkered, {
     fitTo: { mode: "width", value: width },
     font: {
