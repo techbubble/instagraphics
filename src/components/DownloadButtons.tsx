@@ -17,10 +17,12 @@ export default function DownloadButtons({
   graphicId,
   paid,
   size = "sm",
+  goToLibrary = false,
 }: {
   graphicId: number;
   paid: boolean;
   size?: "sm" | "lg";
+  goToLibrary?: boolean;
 }) {
   const router = useRouter();
   const [format, setFormat] = useState<"svg" | "png">("svg");
@@ -55,6 +57,10 @@ export default function DownloadButtons({
         triggerDownload(new Blob([embedded], { type: "image/svg+xml" }), `${name}.svg`);
       } else {
         triggerDownload(await svgToPngBlob(embedded, { background: null }), `${name}.png`);
+      }
+      if (goToLibrary) {
+        router.push("/graphics");
+        return;
       }
       router.refresh();
     } catch {

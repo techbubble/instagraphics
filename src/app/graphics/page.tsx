@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import DownloadButtons from "@/components/DownloadButtons";
+import DeleteGraphicButton from "@/components/DeleteGraphicButton";
 
 export default async function MyGraphicsPage() {
   const user = await currentUser();
@@ -29,7 +30,12 @@ export default async function MyGraphicsPage() {
         <div className="row g-4">
           {rows.map((g) => (
             <div key={g.id} className="col-sm-6 col-md-4 col-lg-3">
-              <div className="card ig-tile h-100">
+              <div className="card ig-tile h-100 position-relative">
+                {!g.paid_at && (
+                  <div className="position-absolute top-0 end-0 m-1" style={{ zIndex: 2 }}>
+                    <DeleteGraphicButton graphicId={g.id} />
+                  </div>
+                )}
                 <div className="ig-tile-preview border-bottom">
                   {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                   <img

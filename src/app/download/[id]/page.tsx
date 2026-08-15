@@ -41,7 +41,7 @@ export default async function DownloadPage({
           transparent background &mdash; ready to drop into any document.
         </div>
         {graphic.paid_at || user.credits > 0 ? (
-          <DownloadButtons graphicId={graphic.id} paid={!!graphic.paid_at} size="lg" />
+          <DownloadButtons graphicId={graphic.id} paid={!!graphic.paid_at} size="lg" goToLibrary />
         ) : (
           <div className="alert alert-warning">
             You are out of credits.{" "}
