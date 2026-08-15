@@ -79,7 +79,7 @@ export default function DownloadButtons({
           disabled={busy}
           onClick={download}
         >
-          {busy ? "..." : paid ? "Download" : "Download (1 credit)"}
+          {paid ? "Download" : "Download (1 credit)"}
         </button>
         <select
           className="form-select flex-grow-0 w-auto"
