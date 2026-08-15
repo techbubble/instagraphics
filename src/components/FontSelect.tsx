@@ -55,14 +55,15 @@ export default function FontSelect({
                 <button
                   key={f}
                   type="button"
-                  className={`dropdown-item py-1 ${f === value ? "active" : ""}`}
-                  style={{ fontFamily: f }}
+                  className={`dropdown-item py-1 d-flex justify-content-between align-items-baseline ${f === value ? "active" : ""}`}
+                  style={{ fontFamily: f, fontSize: "1.05rem" }}
                   onClick={() => {
                     onChange(f);
                     setOpen(false);
                   }}
                 >
-                  {f}
+                  <span>{f}</span>
+                  <span className="ms-3">Aa Bb 123</span>
                 </button>
               ))}
             </div>
