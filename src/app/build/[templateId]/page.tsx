@@ -2,10 +2,10 @@ import { notFound, redirect } from "next/navigation";
 import { TEMPLATES, getTemplate, toMeta } from "@/lib/templates";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
-import { BrandKit, ColorSlot, DEFAULT_BRAND, FONT_CHOICES, Slot } from "@/lib/svg-engine";
+import { BrandKit, ColorSlot, DEFAULT_BRAND, FONT_CHOICES, FontSlot } from "@/lib/svg-engine";
 import Builder from "@/components/Builder";
 
-const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
+const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
 const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
 
 function mergeBrand(saved: unknown): BrandKit {
@@ -21,7 +21,7 @@ function mergeBrand(saved: unknown): BrandKit {
         brand.colors[slot] = c;
       }
     }
-    for (const slot of SLOTS) {
+    for (const slot of FONT_SLOTS) {
       const f = s.fonts?.[slot];
       if (typeof f === "string" && FONT_CHOICES.includes(f)) {
         brand.fonts[slot] = f;

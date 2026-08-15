@@ -7,11 +7,11 @@ import {
   itemCount,
   type TemplateMeta,
 } from "@/lib/templates";
-import { BrandKit, ColorSlot, Slot } from "@/lib/svg-engine";
+import { BrandKit, ColorSlot, FontSlot } from "@/lib/svg-engine";
 import FontSelect from "@/components/FontSelect";
 import ColorSelect from "@/components/ColorSelect";
 
-const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
+const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
 const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
 const SLOT_LABEL: Record<ColorSlot, string> = {
   primary: "Primary",
@@ -47,7 +47,6 @@ export default function Builder({
   const [brand, setBrand] = useState<BrandKit>(initialBrand);
   const [values, setValues] = useState<Record<string, string>>(savedValues);
   const [fieldsOpen, setFieldsOpen] = useState(true);
-  const [showTitle, setShowTitle] = useState(savedValues.showTitle === "1");
   const [railSort, setRailSort] = useState<"category" | "name" | "count">("category");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,8 +66,8 @@ export default function Builder({
   // Live preview: debounced server render (PNG only — SVG stays server-side).
   const renderInput = useMemo(
     () =>
-      JSON.stringify({ templateId: template.id, brand, values: effective, showTitle }),
-    [template.id, brand, effective, showTitle]
+      JSON.stringify({ templateId: template.id, brand, values: effective }),
+    [template.id, brand, effective]
   );
   const debouncedInput = useDebounced(renderInput, 400);
   const stale = renderInput !== debouncedInput;
@@ -91,22 +90,6 @@ export default function Builder({
       })
       .catch(() => {});
   }, [debouncedInput]);
-
-  // Rail thumbnails re-render only after brand settles.
-  const debouncedBrand = useDebounced(brand, 800);
-  const brandQuery = useMemo(() => {
-    const b = debouncedBrand;
-    const p = new URLSearchParams({
-      pc: b.colors.primary.slice(1),
-      sc: b.colors.secondary.slice(1),
-      tc: b.colors.tertiary.slice(1),
-      ac: b.colors.accent.slice(1),
-      pf: b.fonts.primary,
-      sf: b.fonts.secondary,
-      tf: b.fonts.tertiary,
-    });
-    return p.toString();
-  }, [debouncedBrand]);
 
   // Debounced auto-save of brand + changed field values.
   const pending = useRef<PrefsPatch>({});
@@ -145,7 +128,7 @@ export default function Builder({
     });
   }
 
-  function setFont(slot: Slot, font: string) {
+  function setFont(slot: FontSlot, font: string) {
     setBrand((b) => {
       const next = { ...b, fonts: { ...b.fonts, [slot]: font } };
       queueSave({ brand: next });
@@ -195,7 +178,6 @@ export default function Builder({
           templateId: template.id,
           brand,
           values: effective,
-          showTitle,
         }),
       });
       if (res.status === 401) {
@@ -236,49 +218,27 @@ export default function Builder({
               </button>
             </div>
             <div className="card-body flex-grow-1 overflow-auto">
-              {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => {
-                const isTitle = f.key === "title";
-                return (
-                  <div className={`mb-3 ${f.indent ? "ms-4" : ""}`} key={f.key}>
-                    <div className="d-flex justify-content-between align-items-baseline">
-                      <div className="d-flex align-items-center gap-2">
-                        {isTitle && (
-                          <input
-                            type="checkbox"
-                            className="form-check-input mt-0"
-                            id="show-title"
-                            checked={showTitle}
-                            onChange={(e) => {
-                              setShowTitle(e.target.checked);
-                              queueSave({
-                                values: { showTitle: e.target.checked ? "1" : "0" },
-                              });
-                            }}
-                            aria-label="Include title on graphic"
-                          />
-                        )}
-                        <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
-                          {f.label}
-                        </label>
-                      </div>
-                      <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
-                        {isTitle && !showTitle ? "off" : template.usage[f.key]}
-                      </span>
-                    </div>
-                    <input
-                      id={`field-${f.key}`}
-                      className="form-control form-control-sm"
-                      value={values[f.key] ?? ""}
-                      placeholder={f.label}
-                      maxLength={f.maxLength}
-                      disabled={isTitle && !showTitle}
-                      onChange={(e) => setField(f.key, e.target.value)}
-                    />
+              {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => (
+                <div className="mb-3" key={f.key}>
+                  <div className="d-flex justify-content-between align-items-baseline">
+                    <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
+                      {f.label}
+                    </label>
+                    <span className="text-secondary" style={{ fontSize: "0.72rem" }}>
+                      {template.usage[f.key]}
+                    </span>
                   </div>
-                );
-              })}
+                  <input
+                    id={`field-${f.key}`}
+                    className="form-control form-control-sm"
+                    value={values[f.key] ?? ""}
+                    placeholder={f.label}
+                    maxLength={f.maxLength}
+                    onChange={(e) => setField(f.key, e.target.value)}
+                  />
+                </div>
+              ))}
 
-              <hr className="my-3" />
               <div className="fw-bold small mb-2">Colors</div>
               <div className="row g-2 mb-3">
                 {COLOR_SLOTS.map((slot) => (
@@ -295,7 +255,7 @@ export default function Builder({
                 ))}
               </div>
               <div className="fw-bold small mb-2">Fonts</div>
-              {SLOTS.map((slot) => (
+              {FONT_SLOTS.map((slot) => (
                 <div className="mb-2" key={`f-${slot}`}>
                   <label className="form-label small mb-1">{SLOT_LABEL[slot]}</label>
                   <FontSelect
@@ -397,7 +357,7 @@ export default function Builder({
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                     <img
-                      src={`/api/preview/${t.id}?w=220&plain=1&v=${t.rev}${showTitle ? "&t=1" : ""}&${brandQuery}`}
+                      src={`/api/preview/${t.id}?w=220&plain=1&v=${t.rev}`}
                       alt={t.title}
                       style={{ width: "100%", height: "auto", display: "block" }}
                       draggable={false}

@@ -10,12 +10,7 @@ export async function POST(req: NextRequest) {
   if (uid == null) {
     return NextResponse.json({ error: "Not signed in" }, { status: 401 });
   }
-  let body: {
-    templateId?: string;
-    brand?: unknown;
-    values?: unknown;
-    showTitle?: unknown;
-  };
+  let body: { templateId?: string; brand?: unknown; values?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -28,8 +23,7 @@ export async function POST(req: NextRequest) {
   const svg = renderTemplate(
     template.svg,
     sanitizeBrand(body.brand),
-    sanitizeValues(body.values),
-    { hideKeys: body.showTitle === true ? [] : ["title"] }
+    sanitizeValues(body.values)
   );
   try {
     const png = await renderPng(svg, 1024);

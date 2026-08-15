@@ -3,7 +3,7 @@
 // Annotation convention inside template SVGs:
 //   data-ig-fill="primary|secondary|tertiary|accent"   -> fill from that color slot
 //   data-ig-stroke="primary|secondary|tertiary|accent" -> stroke from that color slot
-//   data-ig-font="primary|secondary|tertiary"    -> font-family is set to that font slot
+//   data-ig-font="primary|secondary"             -> font-family from that font slot
 //   data-ig-text="<fieldKey>"                    -> text content bound to a form field
 //   data-ig-contrast="primary|secondary|tertiary"-> fill becomes black or white,
 //                                                   whichever contrasts with that
@@ -13,10 +13,12 @@ export type Slot = "primary" | "secondary" | "tertiary";
 // Accent is a color-only slot used by strokes/connectors (arrows, lines,
 // leaders) so they stay visible on any background the user picks.
 export type ColorSlot = Slot | "accent";
+// Two font slots: primary = item text, secondary = captions/other text.
+export type FontSlot = "primary" | "secondary";
 
 export type BrandKit = {
   colors: Record<ColorSlot, string>;
-  fonts: Record<Slot, string>;
+  fonts: Record<FontSlot, string>;
 };
 
 export const DEFAULT_BRAND: BrandKit = {
@@ -26,7 +28,7 @@ export const DEFAULT_BRAND: BrandKit = {
     tertiary: "#ffc107",
     accent: "#495057",
   },
-  fonts: { primary: "Roboto", secondary: "Roboto", tertiary: "Roboto" },
+  fonts: { primary: "Roboto", secondary: "Roboto" },
 };
 
 // Classic web-safe fonts: present on end-user machines, so downloads render
@@ -72,12 +74,12 @@ function setAttr(tag: string, attr: string, value: string): string {
   return tag.replace(/(\s*\/?>)$/, ` ${attr}="${value}"$1`);
 }
 
-const SLOT_RE = /^(primary|secondary|tertiary)$/;
+const FONT_SLOT_RE = /^(primary|secondary)$/;
 const COLOR_SLOT_RE = /^(primary|secondary|tertiary|accent)$/;
 
-function slotIn(tag: string, name: string): Slot | null {
+function fontSlotIn(tag: string, name: string): FontSlot | null {
   const m = tag.match(new RegExp(`data-${name}="([^"]*)"`));
-  return m && SLOT_RE.test(m[1]) ? (m[1] as Slot) : null;
+  return m && FONT_SLOT_RE.test(m[1]) ? (m[1] as FontSlot) : null;
 }
 
 function colorSlotIn(tag: string, name: string): ColorSlot | null {
@@ -97,23 +99,14 @@ export function contrastColor(hex: string): string {
 export function renderTemplate(
   svgSource: string,
   brand: BrandKit,
-  values: Record<string, string>,
-  opts: { hideKeys?: string[] } = {}
+  values: Record<string, string>
 ): string {
-  const hide = new Set(opts.hideKeys ?? []);
-  let src = svgSource;
-  if (hide.has("title")) {
-    // Crop the empty title band so the graphic fills the canvas.
-    src = src.replace('viewBox="0 0 800 600"', 'viewBox="0 112 800 488"');
-  }
-  let out = src.replace(/<[^>]+>/g, (tag) => {
-    const textKey = tag.match(/data-ig-text="([^"]+)"/)?.[1];
-    if (textKey && hide.has(textKey)) tag = setAttr(tag, "display", "none");
+  let out = svgSource.replace(/<[^>]+>/g, (tag) => {
     const fill = colorSlotIn(tag, "ig-fill");
     if (fill) tag = setAttr(tag, "fill", brand.colors[fill]);
     const stroke = colorSlotIn(tag, "ig-stroke");
     if (stroke) tag = setAttr(tag, "stroke", brand.colors[stroke]);
-    const font = slotIn(tag, "ig-font");
+    const font = fontSlotIn(tag, "ig-font");
     if (font) tag = setAttr(tag, "font-family", brand.fonts[font]);
     const contrast = colorSlotIn(tag, "ig-contrast");
     if (contrast) tag = setAttr(tag, "fill", contrastColor(brand.colors[contrast]));

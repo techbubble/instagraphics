@@ -6,15 +6,15 @@ import {
   ColorSlot,
   DEFAULT_BRAND,
   FONT_CHOICES,
+  FontSlot,
   GOOGLE_FONTS,
-  Slot,
 } from "./svg-engine";
 
 // Server-side SVG -> PNG rasterization. Template SVG source never leaves
 // the server; the browser only ever receives rendered PNGs (the raw SVG is
 // released solely by the paid download endpoint).
 
-const SLOTS: Slot[] = ["primary", "secondary", "tertiary"];
+const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
 const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "accent"];
 
 // Classic fonts are not installed on the server, so previews substitute
@@ -141,7 +141,7 @@ export function sanitizeBrand(input: unknown): BrandKit {
         brand.colors[slot] = c.toLowerCase();
       }
     }
-    for (const slot of SLOTS) {
+    for (const slot of FONT_SLOTS) {
       const f = s.fonts?.[slot];
       if (typeof f === "string" && FONT_CHOICES.includes(f)) {
         brand.fonts[slot] = f;
@@ -174,7 +174,6 @@ export function brandFromQuery(sp: URLSearchParams): BrandKit {
     fonts: {
       primary: sp.get("pf") || "",
       secondary: sp.get("sf") || "",
-      tertiary: sp.get("tf") || "",
     },
   });
 }
