@@ -20,19 +20,12 @@ export default async function Navbar() {
               </Link>
             </li>
           )}
-          {user && (
-            <li className="nav-item">
-              <Link className="nav-link" href="/credits">
-                Buy Credits
-              </Link>
-            </li>
-          )}
         </ul>
         <ul className="navbar-nav align-items-center">
           {user ? (
             <>
               <li className="nav-item me-3">
-                <Link href="/credits" className="badge text-bg-primary text-decoration-none">
+                <Link href="/credits" className="badge text-bg-primary text-decoration-none" title="Buy credits">
                   {user.credits} credit{user.credits === 1 ? "" : "s"}
                 </Link>
               </li>
