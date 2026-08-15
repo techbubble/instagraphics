@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
           unit_amount: CREDIT_PRICE_CENTS,
           product_data: {
             name: "Instagraphics Credit",
-            description: "1 credit = 1 infographic download",
+            description: "1 credit unlocks one infographic for unlimited downloads",
           },
         },
       },

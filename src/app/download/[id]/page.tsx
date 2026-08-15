@@ -15,9 +15,9 @@ export default async function DownloadPage({
   const graphicId = Number(id);
   if (!Number.isInteger(graphicId)) notFound();
   const rows = (await sql()`
-    SELECT id, title FROM graphics
+    SELECT id, title, paid_at FROM graphics
     WHERE id = ${graphicId} AND user_id = ${user.id}
-  `) as { id: number; title: string }[];
+  `) as { id: number; title: string; paid_at: string | null }[];
   const graphic = rows[0];
   if (!graphic) notFound();
 
@@ -36,12 +36,12 @@ export default async function DownloadPage({
       </div>
       <div className="col-lg-4">
         <h1 className="h4">{graphic.title}</h1>
-        <p className="text-secondary">
-          Each download uses 1 credit. You have{" "}
-          <strong>{user.credits}</strong> credit{user.credits === 1 ? "" : "s"}.
-        </p>
-        {user.credits > 0 ? (
-          <DownloadButtons graphicId={graphic.id} size="lg" />
+        <div className="alert alert-info py-2 small">
+          Downloads are cropped to the graphic&apos;s content and have a
+          transparent background &mdash; ready to drop into any document.
+        </div>
+        {graphic.paid_at || user.credits > 0 ? (
+          <DownloadButtons graphicId={graphic.id} paid={!!graphic.paid_at} size="lg" />
         ) : (
           <div className="alert alert-warning">
             You are out of credits.{" "}

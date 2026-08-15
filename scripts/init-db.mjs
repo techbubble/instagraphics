@@ -39,6 +39,7 @@ const statements = [
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
   `CREATE INDEX IF NOT EXISTS graphics_user_created_idx ON graphics (user_id, created_at DESC)`,
+  `ALTER TABLE graphics ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ`,
   `CREATE TABLE IF NOT EXISTS purchases (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

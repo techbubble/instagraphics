@@ -8,17 +8,17 @@ export default async function MyGraphicsPage() {
   const user = await currentUser();
   if (!user) redirect("/login?next=%2Fgraphics");
   const rows = (await sql()`
-    SELECT id, title, created_at FROM graphics
+    SELECT id, title, created_at, paid_at FROM graphics
     WHERE user_id = ${user.id}
     ORDER BY created_at DESC
-  `) as { id: number; title: string; created_at: string }[];
+  `) as { id: number; title: string; created_at: string; paid_at: string | null }[];
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="h3 mb-0">My Graphics</h1>
         <span className="text-secondary small">
-          {user.credits} credit{user.credits === 1 ? "" : "s"} &middot; 1 credit per download
+          {user.credits} credit{user.credits === 1 ? "" : "s"} &middot; 1 credit unlocks a graphic
         </span>
       </div>
       {rows.length === 0 ? (
@@ -45,7 +45,7 @@ export default async function MyGraphicsPage() {
                   <div className="small text-secondary mb-2">
                     {new Date(g.created_at).toLocaleDateString()}
                   </div>
-                  <DownloadButtons graphicId={g.id} />
+                  <DownloadButtons graphicId={g.id} paid={!!g.paid_at} />
                 </div>
               </div>
             </div>

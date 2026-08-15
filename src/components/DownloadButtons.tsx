@@ -11,19 +11,24 @@ function slugify(s: string): string {
   );
 }
 
+// One Download button with a format picker. The first download of a
+// graphic costs 1 credit; every download after that is free.
 export default function DownloadButtons({
   graphicId,
+  paid,
   size = "sm",
 }: {
   graphicId: number;
+  paid: boolean;
   size?: "sm" | "lg";
 }) {
   const router = useRouter();
-  const [busy, setBusy] = useState<"svg" | "png" | null>(null);
+  const [format, setFormat] = useState<"svg" | "png">("svg");
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function download(format: "svg" | "png") {
-    setBusy(format);
+  async function download() {
+    setBusy(true);
     setError(null);
     try {
       const res = await fetch(`/api/graphics/${graphicId}/download`, {
@@ -49,26 +54,36 @@ export default function DownloadButtons({
       if (format === "svg") {
         triggerDownload(new Blob([embedded], { type: "image/svg+xml" }), `${name}.svg`);
       } else {
-        triggerDownload(await svgToPngBlob(embedded), `${name}.png`);
+        triggerDownload(await svgToPngBlob(embedded, { background: null }), `${name}.png`);
       }
       router.refresh();
     } catch {
       setError("Download failed.");
     } finally {
-      setBusy(null);
+      setBusy(false);
     }
   }
 
-  const btn = size === "lg" ? "btn btn-primary" : "btn btn-outline-primary btn-sm";
+  const sm = size === "sm";
   return (
     <div>
-      <div className="btn-group" role="group" aria-label="Download">
-        <button className={btn} disabled={busy !== null} onClick={() => download("svg")}>
-          {busy === "svg" ? "..." : "SVG"}
+      <div className={`input-group ${sm ? "input-group-sm" : ""}`}>
+        <button
+          className="btn btn-primary"
+          disabled={busy}
+          onClick={download}
+        >
+          {busy ? "..." : paid ? "Download" : "Download (1 credit)"}
         </button>
-        <button className={btn} disabled={busy !== null} onClick={() => download("png")}>
-          {busy === "png" ? "..." : "PNG"}
-        </button>
+        <select
+          className="form-select flex-grow-0 w-auto"
+          value={format}
+          onChange={(e) => setFormat(e.target.value as "svg" | "png")}
+          aria-label="Download format"
+        >
+          <option value="svg">SVG</option>
+          <option value="png">PNG</option>
+        </select>
       </div>
       {error && (
         <div className="small text-danger mt-1">
