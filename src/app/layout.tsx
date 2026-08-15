@@ -27,7 +27,7 @@ export default function RootLayout({
         <Navbar />
         <main className="container py-4">{children}</main>
         <footer className="border-top py-4 mt-5">
-          <div className="container text-secondary small">
+          <div className="container-fluid px-3 text-secondary small">
             Instagraphics &middot; Build branded infographics in seconds.
           </div>
         </footer>

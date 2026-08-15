@@ -6,7 +6,7 @@ export default async function Navbar() {
   const user = await currentUser();
   return (
     <nav className="navbar navbar-expand bg-white border-bottom">
-      <div className="container">
+      <div className="container-fluid px-3">
         <Link className="navbar-brand fw-bold text-primary" href="/">
           Instagraphics
         </Link>
