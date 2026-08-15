@@ -162,7 +162,7 @@ export default function Builder({
     if (id === templateId) return;
     flush();
     setTemplateId(id);
-    window.history.replaceState(null, "", `/build/${id}${window.location.search}`);
+    window.history.replaceState(null, "", `/publish/${id}${window.location.search}`);
   }
 
   const railGroups = useMemo(() => {
@@ -198,7 +198,7 @@ export default function Builder({
         }),
       });
       if (res.status === 401) {
-        router.push(`/login?next=${encodeURIComponent(`/build/${template.id}`)}`);
+        router.push(`/login?next=${encodeURIComponent(`/publish/${template.id}`)}`);
         return;
       }
       if (!res.ok) {

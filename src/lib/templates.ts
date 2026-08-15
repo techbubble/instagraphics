@@ -25,6 +25,7 @@ export type Template = {
   category: string;
   items: number; // item slots on the graphic; drives the "#" sort
   description: string;
+  about: string; // longer copy for the template's landing page
   usage: Partial<Record<string, string>>;
   svg: string;
 };
@@ -36,6 +37,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 3,
     description: "3 chevron arrows showing a left-to-right process.",
+    about: "Chevron arrows are the classic way to show forward motion: each step hands off to the next, left to right. Use the 3-step version for onboarding flows, delivery pipelines, hiring processes, or any procedure your audience should read as a sequence with a clear start and finish. The arrow shapes make direction unmistakable even at a glance, and captions under each arrow (3-step layout) leave room for a short explanation.",
     usage: {
       item1: "arrow 1",
       item2: "arrow 2",
@@ -64,6 +66,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 4,
     description: "4 chevron arrows showing a left-to-right process.",
+    about: "Chevron arrows are the classic way to show forward motion: each step hands off to the next, left to right. Use the 4-step version for onboarding flows, delivery pipelines, hiring processes, or any procedure your audience should read as a sequence with a clear start and finish. The arrow shapes make direction unmistakable even at a glance, and captions under each arrow (3-step layout) leave room for a short explanation.",
     usage: {
       item1: "arrow 1",
       item2: "arrow 2",
@@ -89,6 +92,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 5,
     description: "5 chevron arrows showing a left-to-right process.",
+    about: "Chevron arrows are the classic way to show forward motion: each step hands off to the next, left to right. Use the 5-step version for onboarding flows, delivery pipelines, hiring processes, or any procedure your audience should read as a sequence with a clear start and finish. The arrow shapes make direction unmistakable even at a glance, and captions under each arrow (3-step layout) leave room for a short explanation.",
     usage: {
       item1: "arrow 1",
       item2: "arrow 2",
@@ -117,6 +121,7 @@ export const TEMPLATES: Template[] = [
     category: "Cycle",
     items: 3,
     description: "3 stages arranged in a continuous circular flow.",
+    about: "A cycle diagram shows a process that never ends: each stage feeds the next and the last loops back to the first. The 3-part ring suits continuous-improvement loops (plan-do-check-act), product iteration cadences, customer lifecycle stories, and operating rhythms. Connecting arrows carry your accent color so the flow stays visible on any background.",
     usage: {
       item1: "1st circle",
       item2: "2nd circle",
@@ -145,6 +150,7 @@ export const TEMPLATES: Template[] = [
     category: "Cycle",
     items: 4,
     description: "4 stages arranged in a continuous circular flow.",
+    about: "A cycle diagram shows a process that never ends: each stage feeds the next and the last loops back to the first. The 4-part ring suits continuous-improvement loops (plan-do-check-act), product iteration cadences, customer lifecycle stories, and operating rhythms. Connecting arrows carry your accent color so the flow stays visible on any background.",
     usage: {
       item1: "1st circle",
       item2: "2nd circle",
@@ -178,6 +184,7 @@ export const TEMPLATES: Template[] = [
     category: "Cycle",
     items: 5,
     description: "5 stages arranged in a continuous circular flow.",
+    about: "A cycle diagram shows a process that never ends: each stage feeds the next and the last loops back to the first. The 5-part ring suits continuous-improvement loops (plan-do-check-act), product iteration cadences, customer lifecycle stories, and operating rhythms. Connecting arrows carry your accent color so the flow stays visible on any background.",
     usage: {
       item1: "1st circle",
       item2: "2nd circle",
@@ -216,6 +223,7 @@ export const TEMPLATES: Template[] = [
     category: "Hierarchy",
     items: 3,
     description: "3 stacked levels from broad base to narrow peak.",
+    about: "Pyramids communicate hierarchy and proportion: a broad foundation carrying progressively narrower levels. The 3-level version fits strategy cascades (vision down to execution), needs hierarchies, skill ladders, and any argument where lower layers support upper ones. Side labels with leader lines keep every level readable regardless of band size.",
     usage: {
       item1: "peak",
       item2: "second level",
@@ -241,6 +249,7 @@ export const TEMPLATES: Template[] = [
     category: "Hierarchy",
     items: 4,
     description: "4 stacked levels from broad base to narrow peak.",
+    about: "Pyramids communicate hierarchy and proportion: a broad foundation carrying progressively narrower levels. The 4-level version fits strategy cascades (vision down to execution), needs hierarchies, skill ladders, and any argument where lower layers support upper ones. Side labels with leader lines keep every level readable regardless of band size.",
     usage: {
       item1: "peak",
       item2: "second level",
@@ -270,6 +279,7 @@ export const TEMPLATES: Template[] = [
     category: "Hierarchy",
     items: 5,
     description: "5 stacked levels from broad base to narrow peak.",
+    about: "Pyramids communicate hierarchy and proportion: a broad foundation carrying progressively narrower levels. The 5-level version fits strategy cascades (vision down to execution), needs hierarchies, skill ladders, and any argument where lower layers support upper ones. Side labels with leader lines keep every level readable regardless of band size.",
     usage: {
       item1: "peak",
       item2: "second level",
@@ -303,6 +313,7 @@ export const TEMPLATES: Template[] = [
     category: "Relationship",
     items: 3,
     description: "Three overlapping circles with a shared center.",
+    about: "Three overlapping circles frame a sweet spot: the place where all three forces align. Classic uses include design-tech-business, people-process-technology, and passion-skill-market framings. The center label names what only the full intersection delivers.",
     usage: {
       item1: "top-left circle",
       item2: "top-right circle",
@@ -327,6 +338,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 3,
     description: "3 narrowing stages from awareness to action.",
+    about: "Funnels show narrowing: many enter, fewer remain at each stage. The 3-stage version is the standard shape for sales pipelines, marketing conversion paths, recruiting flows, and any qualification story. Band widths reinforce the message that each stage filters the last.",
     usage: {
       item1: "widest band",
       item2: "second band",
@@ -349,6 +361,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 4,
     description: "4 narrowing stages from awareness to action.",
+    about: "Funnels show narrowing: many enter, fewer remain at each stage. The 4-stage version is the standard shape for sales pipelines, marketing conversion paths, recruiting flows, and any qualification story. Band widths reinforce the message that each stage filters the last.",
     usage: {
       item1: "widest band",
       item2: "second band",
@@ -374,6 +387,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 5,
     description: "5 narrowing stages from awareness to action.",
+    about: "Funnels show narrowing: many enter, fewer remain at each stage. The 5-stage version is the standard shape for sales pipelines, marketing conversion paths, recruiting flows, and any qualification story. Band widths reinforce the message that each stage filters the last.",
     usage: {
       item1: "widest band",
       item2: "second band",
@@ -402,6 +416,7 @@ export const TEMPLATES: Template[] = [
     category: "Timeline",
     items: 3,
     description: "Horizontal timeline with 3 milestones.",
+    about: "A horizontal timeline puts events in order and distance. With 3 milestones plus an optional subtitle line, it covers product roadmaps, project phase plans, company history slides, and launch countdowns. Milestone markers pick up your brand colors in sequence.",
     usage: {
       item1: "milestone 1",
       item2: "milestone 2",
@@ -427,6 +442,7 @@ export const TEMPLATES: Template[] = [
     category: "Timeline",
     items: 4,
     description: "Horizontal timeline with 4 milestones.",
+    about: "A horizontal timeline puts events in order and distance. With 4 milestones plus an optional subtitle line, it covers product roadmaps, project phase plans, company history slides, and launch countdowns. Milestone markers pick up your brand colors in sequence.",
     usage: {
       item1: "milestone 1",
       item2: "milestone 2",
@@ -455,6 +471,7 @@ export const TEMPLATES: Template[] = [
     category: "Timeline",
     items: 5,
     description: "Horizontal timeline with 5 milestones.",
+    about: "A horizontal timeline puts events in order and distance. With 5 milestones plus an optional subtitle line, it covers product roadmaps, project phase plans, company history slides, and launch countdowns. Milestone markers pick up your brand colors in sequence.",
     usage: {
       item1: "milestone 1",
       item2: "milestone 2",
@@ -486,6 +503,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 3,
     description: "3 numbered circles with step labels.",
+    about: "Numbered circles present instructions people should follow one at a time. The 3-step layout works for how-to guides, setup instructions, and service explainers; the 3-step variant adds caption lines under each circle for a sentence of detail.",
     usage: {
       item1: "step 1 circle",
       item2: "step 2 circle",
@@ -523,6 +541,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 4,
     description: "4 numbered circles with step labels.",
+    about: "Numbered circles present instructions people should follow one at a time. The 4-step layout works for how-to guides, setup instructions, and service explainers; the 3-step variant adds caption lines under each circle for a sentence of detail.",
     usage: {
       item1: "step 1 circle",
       item2: "step 2 circle",
@@ -560,6 +579,7 @@ export const TEMPLATES: Template[] = [
     category: "Process",
     items: 5,
     description: "5 numbered circles with step labels.",
+    about: "Numbered circles present instructions people should follow one at a time. The 5-step layout works for how-to guides, setup instructions, and service explainers; the 3-step variant adds caption lines under each circle for a sentence of detail.",
     usage: {
       item1: "step 1 circle",
       item2: "step 2 circle",
@@ -603,6 +623,7 @@ export const TEMPLATES: Template[] = [
     category: "Relationship",
     items: 2,
     description: "Two overlapping circles with a shared middle value.",
+    about: "Two overlapping circles are the fastest way to show where two ideas meet. Use it for positioning statements (quality meets speed), partnership stories, or skills intersections; the overlap label names the value created where the circles meet.",
     usage: {
       item1: "left circle",
       item2: "right circle",
@@ -624,6 +645,7 @@ export const TEMPLATES: Template[] = [
     category: "List",
     items: 3,
     description: "Three numbered items in stacked bars.",
+    about: "A numbered list ranks things: priorities, principles, agenda points, product pillars. The 3-item layout gives each entry a full-width bar with a numbered badge, making order and importance obvious. Alternating bar colors keep long lists scannable.",
     usage: {
       item1: "bar 1",
       item2: "bar 2",
@@ -652,6 +674,7 @@ export const TEMPLATES: Template[] = [
     category: "List",
     items: 4,
     description: "Four numbered items in stacked bars.",
+    about: "A numbered list ranks things: priorities, principles, agenda points, product pillars. The 4-item layout gives each entry a full-width bar with a numbered badge, making order and importance obvious. Alternating bar colors keep long lists scannable.",
     usage: {
       item1: "bar 1",
       item2: "bar 2",
@@ -685,6 +708,7 @@ export const TEMPLATES: Template[] = [
     category: "List",
     items: 5,
     description: "Five numbered items in stacked bars.",
+    about: "A numbered list ranks things: priorities, principles, agenda points, product pillars. The 5-item layout gives each entry a full-width bar with a numbered badge, making order and importance obvious. Alternating bar colors keep long lists scannable.",
     usage: {
       item1: "bar 1",
       item2: "bar 2",
@@ -723,6 +747,7 @@ export const TEMPLATES: Template[] = [
     category: "Comparison",
     items: 4,
     description: "Four quadrants with axis labels.",
+    about: "The 2x2 matrix is the consultant's favorite for a reason: two axes, four quadrants, instant prioritization. Label the axes (effort vs impact, urgency vs importance) and name each quadrant to sort ideas, projects, or competitors into actionable buckets.",
     usage: {
       item1: "top-left cell",
       item2: "top-right cell",
