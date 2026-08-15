@@ -283,7 +283,9 @@ export default function Builder({
               <div className="row g-2 mb-3">
                 {COLOR_SLOTS.map((slot) => (
                   <div className="col-3" key={`c-${slot}`}>
-                    <label className="form-label small mb-1">{SLOT_LABEL[slot]}</label>
+                    <label className="form-label mb-1" style={{ fontSize: "0.8rem" }}>
+                      {SLOT_LABEL[slot]}
+                    </label>
                     <ColorSelect
                       value={brand.colors[slot]}
                       onChange={(c) => setColor(slot, c)}
