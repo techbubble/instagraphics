@@ -21,6 +21,7 @@ export const UNIVERSAL_FIELDS: UniversalField[] = [
 
 export type Template = {
   id: string;
+  family: string; // variant group (e.g. all funnel sizes share "funnel")
   title: string;
   category: string;
   items: number; // item slots on the graphic; drives the "#" sort
@@ -34,6 +35,7 @@ export type Template = {
 export const TEMPLATES: Template[] = [
   {
     id: "process-arrow-3",
+    family: "process-arrow",
     title: "Process Arrows (3 steps)",
     category: "Process",
     items: 3,
@@ -71,6 +73,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "process-arrow-4",
+    family: "process-arrow",
     title: "Process Arrows (4 steps)",
     category: "Process",
     items: 4,
@@ -103,6 +106,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "process-arrow-5",
+    family: "process-arrow",
     title: "Process Arrows (5 steps)",
     category: "Process",
     items: 5,
@@ -139,6 +143,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "cycle-3",
+    family: "cycle",
     title: "Cycle (3 parts)",
     category: "Cycle",
     items: 3,
@@ -173,6 +178,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "cycle-4",
+    family: "cycle",
     title: "Cycle (4 parts)",
     category: "Cycle",
     items: 4,
@@ -213,6 +219,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "cycle-5",
+    family: "cycle",
     title: "Cycle (5 parts)",
     category: "Cycle",
     items: 5,
@@ -259,6 +266,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "pyramid-3",
+    family: "pyramid",
     title: "Pyramid (3 levels)",
     category: "Hierarchy",
     items: 3,
@@ -290,6 +298,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "pyramid-4",
+    family: "pyramid",
     title: "Pyramid (4 levels)",
     category: "Hierarchy",
     items: 4,
@@ -326,6 +335,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "pyramid-5",
+    family: "pyramid",
     title: "Pyramid (5 levels)",
     category: "Hierarchy",
     items: 5,
@@ -367,6 +377,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "venn-3",
+    family: "venn",
     title: "Venn (3 circles)",
     category: "Relationship",
     items: 3,
@@ -398,6 +409,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "funnel-3",
+    family: "funnel",
     title: "Funnel (3 stages)",
     category: "Process",
     items: 3,
@@ -426,6 +438,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "funnel-4",
+    family: "funnel",
     title: "Funnel (4 stages)",
     category: "Process",
     items: 4,
@@ -458,6 +471,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "funnel-5",
+    family: "funnel",
     title: "Funnel (5 stages)",
     category: "Process",
     items: 5,
@@ -494,6 +508,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "timeline-3",
+    family: "timeline",
     title: "Timeline (3 milestones)",
     category: "Timeline",
     items: 3,
@@ -526,6 +541,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "timeline-4",
+    family: "timeline",
     title: "Timeline (4 milestones)",
     category: "Timeline",
     items: 4,
@@ -562,6 +578,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "timeline-5",
+    family: "timeline",
     title: "Timeline (5 milestones)",
     category: "Timeline",
     items: 5,
@@ -602,6 +619,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "steps-3",
+    family: "steps",
     title: "Step Circles (3 steps)",
     category: "Process",
     items: 3,
@@ -648,6 +666,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "steps-4",
+    family: "steps",
     title: "Step Circles (4 steps)",
     category: "Process",
     items: 4,
@@ -692,6 +711,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "steps-5",
+    family: "steps",
     title: "Step Circles (5 steps)",
     category: "Process",
     items: 5,
@@ -743,6 +763,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "venn-2",
+    family: "venn",
     title: "Venn (2 circles)",
     category: "Relationship",
     items: 2,
@@ -770,6 +791,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "list-3",
+    family: "list",
     title: "Numbered List (3 items)",
     category: "List",
     items: 3,
@@ -804,6 +826,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "list-4",
+    family: "list",
     title: "Numbered List (4 items)",
     category: "List",
     items: 4,
@@ -844,6 +867,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "list-5",
+    family: "list",
     title: "Numbered List (5 items)",
     category: "List",
     items: 5,
@@ -890,6 +914,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "matrix-2x2",
+    family: "matrix",
     title: "2x2 Matrix",
     category: "Comparison",
     items: 4,
@@ -956,4 +981,16 @@ export function toMeta(t: Template): TemplateMeta {
 
 export function itemCount(t: TemplateMeta): number {
   return t.items;
+}
+
+// Family helpers: variants of one layout differing only in item count.
+export function familyTitle(t: TemplateMeta): string {
+  return t.title.replace(/\s*\(.*\)$/, "");
+}
+
+// The representative variant of a family: closest to 4 items (larger wins ties).
+export function familyDefault<T extends { items: number }>(variants: T[]): T {
+  return [...variants].sort(
+    (a, b) => Math.abs(a.items - 4) - Math.abs(b.items - 4) || b.items - a.items
+  )[0];
 }

@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   UNIVERSAL_FIELDS,
+  familyDefault,
+  familyTitle,
   itemCount,
   type TemplateMeta,
 } from "@/lib/templates";
@@ -72,6 +74,13 @@ export default function Builder({
   }, [fieldsOpen]);
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
+  const variants = useMemo(
+    () =>
+      templates
+        .filter((t) => t.family === template.family)
+        .sort((a, b) => a.items - b.items),
+    [templates, template.family]
+  );
 
 
   // Non-empty values override the template's authored placeholder text.
@@ -197,7 +206,14 @@ export default function Builder({
   }
 
   const railGroups = useMemo(() => {
-    const sorted = [...templates].sort((a, b) =>
+    const byFamily = new Map<string, TemplateMeta[]>();
+    for (const t of templates) {
+      const list = byFamily.get(t.family) ?? [];
+      list.push(t);
+      byFamily.set(t.family, list);
+    }
+    const defaults = [...byFamily.values()].map((v) => familyDefault(v));
+    const sorted = defaults.sort((a, b) =>
       railSort === "name"
         ? a.title.localeCompare(b.title)
         : railSort === "count"
@@ -255,7 +271,11 @@ export default function Builder({
         style={side ? { height: side + 64 } : undefined}
       >
         {fieldsOpen ? (
-          <div className="card flex-shrink-0 d-flex flex-column h-100" style={{ width: 300 }}>
+          <div className="flex-shrink-0 d-flex flex-column h-100" style={{ width: 300 }}>
+            <div className="fw-bold small mb-2 d-flex align-items-end" style={{ height: 56 }}>
+              Content, Color and Font inputs are preserved as you switch graphics.
+            </div>
+            <div className="card d-flex flex-column flex-grow-1" style={{ minHeight: 0 }}>
             <div className="card-header d-flex justify-content-between align-items-center py-2">
               <span className="fw-bold">Content</span>
               <button
@@ -315,6 +335,7 @@ export default function Builder({
                 </div>
               ))}
             </div>
+            </div>
           </div>
         ) : (
           <button
@@ -329,7 +350,23 @@ export default function Builder({
 
         <div ref={centerRef} className="flex-grow-1 d-flex flex-column align-items-center">
           <div className="text-center mb-2" style={{ height: 56 }}>
-            <h1 className="h4 mb-0">{template.title}</h1>
+            <div className="d-flex justify-content-center align-items-center gap-2">
+              <h1 className="h4 mb-0">{familyTitle(template)}</h1>
+              {variants.length > 1 && (
+                <div className="btn-group btn-group-sm" role="group" aria-label="Item count">
+                  {variants.map((v) => (
+                    <button
+                      key={v.id}
+                      type="button"
+                      className={`btn ${v.id === template.id ? "btn-primary" : "btn-outline-primary"}`}
+                      onClick={() => switchTemplate(v.id)}
+                    >
+                      {v.items}-item
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <span className="small text-secondary">{template.description}</span>
           </div>
           <div
@@ -411,7 +448,7 @@ export default function Builder({
                     title={t.title}
                     onClick={() => switchTemplate(t.id)}
                     className={`ig-thumb d-block w-100 p-0 mb-1 border rounded bg-white ${
-                      t.id === template.id ? "border-primary border-2" : ""
+                      t.family === template.family ? "border-primary border-2" : ""
                     }`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
