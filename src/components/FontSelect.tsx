@@ -35,13 +35,14 @@ export default function FontSelect({
     <div className="position-relative" ref={ref}>
       <button
         type="button"
-        className="form-select form-select-sm text-start"
-        style={{ fontFamily: value }}
+        className="form-select text-start d-flex justify-content-between align-items-baseline"
+        style={{ fontFamily: value, fontSize: "1rem" }}
         aria-label={ariaLabel}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
-        {value}
+        <span>{value}</span>
+        <span className="ms-2 me-3">Aa</span>
       </button>
       {open && (
         <div
