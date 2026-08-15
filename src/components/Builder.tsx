@@ -221,51 +221,6 @@ export default function Builder({
         <span className="small text-secondary">{template.description}</span>
       </div>
 
-      <div className="row g-3 mb-3">
-        <div className="col-md-5">
-          <div className="card h-100">
-            <div className="card-header py-2 fw-bold">Colors</div>
-            <div className="card-body py-2">
-              <div className="row g-2">
-                {COLOR_SLOTS.map((slot) => (
-                  <div className="col-3" key={`c-${slot}`}>
-                    <label className="form-label small fw-bold mb-1">
-                      {SLOT_LABEL[slot]}
-                    </label>
-                    <ColorSelect
-                      value={brand.colors[slot]}
-                      onChange={(c) => setColor(slot, c)}
-                      ariaLabel={`${SLOT_LABEL[slot]} color`}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-7">
-          <div className="card h-100">
-            <div className="card-header py-2 fw-bold">Fonts</div>
-            <div className="card-body py-2">
-              <div className="row g-2">
-                {SLOTS.map((slot) => (
-                  <div className="col-4" key={`f-${slot}`}>
-                    <label className="form-label small fw-bold mb-1">
-                      {SLOT_LABEL[slot]}
-                    </label>
-                    <FontSelect
-                      value={brand.fonts[slot]}
-                      onChange={(f) => setFont(slot, f)}
-                      ariaLabel={`${SLOT_LABEL[slot]} font`}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="d-flex gap-3 align-items-stretch">
         {fieldsOpen ? (
           <div className="card flex-shrink-0 d-flex flex-column" style={{ width: 300 }}>
@@ -322,6 +277,32 @@ export default function Builder({
                   </div>
                 );
               })}
+
+              <hr className="my-3" />
+              <div className="fw-bold small mb-2">Colors</div>
+              <div className="row g-2 mb-3">
+                {COLOR_SLOTS.map((slot) => (
+                  <div className="col-3" key={`c-${slot}`}>
+                    <label className="form-label small mb-1">{SLOT_LABEL[slot]}</label>
+                    <ColorSelect
+                      value={brand.colors[slot]}
+                      onChange={(c) => setColor(slot, c)}
+                      ariaLabel={`${SLOT_LABEL[slot]} color`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="fw-bold small mb-2">Fonts</div>
+              {SLOTS.map((slot) => (
+                <div className="mb-2" key={`f-${slot}`}>
+                  <label className="form-label small mb-1">{SLOT_LABEL[slot]}</label>
+                  <FontSelect
+                    value={brand.fonts[slot]}
+                    onChange={(f) => setFont(slot, f)}
+                    ariaLabel={`${SLOT_LABEL[slot]} font`}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         ) : (
