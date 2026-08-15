@@ -26,7 +26,7 @@ export const DEFAULT_BRAND: BrandKit = {
     primary: "#0d6efd",
     secondary: "#6c757d",
     tertiary: "#ffc107",
-    quaternary: "#198754",
+    quaternary: "#dc3545",
     accent: "#495057",
   },
   fonts: { primary: "Roboto", secondary: "Roboto" },
