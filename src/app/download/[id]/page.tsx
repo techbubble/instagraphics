@@ -48,13 +48,6 @@ export default async function DownloadPage({
             <Link href="/credits">Buy credits</Link> to download.
           </div>
         )}
-        <hr />
-        <Link href="/graphics" className="btn btn-outline-secondary btn-sm me-2">
-          My Graphics
-        </Link>
-        <Link href="/" className="btn btn-outline-secondary btn-sm">
-          Make another
-        </Link>
       </div>
     </div>
   );
