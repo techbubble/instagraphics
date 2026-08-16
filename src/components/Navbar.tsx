@@ -15,7 +15,7 @@ export default async function Navbar() {
         <ul className="navbar-nav me-auto">
           {user && (
             <li className="nav-item">
-              <Link className="nav-link" href="/graphics">
+              <Link className="nav-link text-nowrap" href="/graphics">
                 My Graphics
               </Link>
             </li>
@@ -24,15 +24,15 @@ export default async function Navbar() {
         <ul className="navbar-nav align-items-center">
           {user ? (
             <>
-              <li className="nav-item me-3">
+              <li className="nav-item me-2 me-md-3">
                 <Link href="/credits" className="badge text-bg-primary text-decoration-none" title="Buy credits">
                   {user.credits} credit{user.credits === 1 ? "" : "s"}
                 </Link>
               </li>
-              <li className="nav-item me-3 text-secondary small">{user.email}</li>
+              <li className="nav-item me-3 text-secondary small d-none d-md-block">{user.email}</li>
               <li className="nav-item">
                 <form action={logoutAction}>
-                  <button className="btn btn-outline-secondary btn-sm" type="submit">
+                  <button className="btn btn-outline-secondary btn-sm text-nowrap" type="submit">
                     Sign out
                   </button>
                 </form>
