@@ -41,7 +41,7 @@ export default async function MyGraphicsPage() {
                     draggable={false}
                   />
                 </div>
-                <div className="card-body py-2">
+                <div className="card-body py-2 bg-light rounded-bottom">
                   <div className="fw-semibold">{g.title}</div>
                   <div className="small text-secondary mb-2">
                     {new Date(g.created_at).toLocaleDateString()}
