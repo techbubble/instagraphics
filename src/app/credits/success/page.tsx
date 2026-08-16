@@ -4,6 +4,7 @@ import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import { stripe, fulfillCheckoutSession } from "@/lib/stripe";
 import RefreshOnMount from "@/components/RefreshOnMount";
+import TrackPurchase from "@/components/TrackPurchase";
 
 // Webhook-independent fulfillment fallback: verify the session with
 // Stripe directly and credit idempotently.
@@ -18,11 +19,13 @@ export default async function CreditsSuccessPage({
   if (!session_id) redirect("/credits");
 
   let ok = false;
+  let purchasedValue = 0;
   try {
     const session = await stripe().checkout.sessions.retrieve(session_id);
     if (Number(session.metadata?.userId) === user.id) {
       await fulfillCheckoutSession(session);
       ok = session.payment_status === "paid";
+      purchasedValue = (session.amount_total ?? 0) / 100;
     }
   } catch {
     ok = false;
@@ -36,6 +39,7 @@ export default async function CreditsSuccessPage({
   return (
     <div className="row justify-content-center text-center">
       <RefreshOnMount />
+      {ok && <TrackPurchase value={purchasedValue} />}
       <div className="col-md-6">
         {ok ? (
           <>

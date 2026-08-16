@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
+import RedditPixel from "@/components/RedditPixel";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://www.instagraphic.app";
@@ -58,6 +59,7 @@ export default function RootLayout({
         <Navbar />
         <main className="container py-4">{children}</main>
         <Analytics />
+        <RedditPixel />
       </body>
     </html>
   );
