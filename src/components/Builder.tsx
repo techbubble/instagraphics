@@ -386,8 +386,8 @@ export default function Builder({
         )}
 
         <div ref={centerRef} className="flex-grow-1 d-flex flex-column align-items-center">
-          <div className="mb-2 d-flex align-items-center justify-content-center" style={{ height: 56 }}>
-            <div className="px-3 py-2 rounded-2 border border-primary bg-primary-subtle text-primary-emphasis fw-bold small d-flex align-items-center gap-2">
+          <div className="mb-2 d-flex align-items-center w-100" style={{ height: 56 }}>
+            <div className="w-100 h-100 px-3 rounded-2 border border-primary bg-primary-subtle text-primary-emphasis fw-bold d-flex align-items-center justify-content-center gap-2" style={{ fontSize: "1.05rem" }}>
               {/* Bootstrap Icons "arrow-repeat" */}
               <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" className="flex-shrink-0" aria-hidden="true">
                 <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
