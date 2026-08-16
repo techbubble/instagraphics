@@ -61,7 +61,19 @@ export default function Builder({
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [side, setSide] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const centerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setIsMobile(mq.matches);
+    const t = setTimeout(apply, 0);
+    mq.addEventListener("change", apply);
+    return () => {
+      clearTimeout(t);
+      mq.removeEventListener("change", apply);
+    };
+  }, []);
 
   // The square graphic area dictates the row height; side panels scroll.
   useEffect(() => {
@@ -272,15 +284,20 @@ export default function Builder({
   return (
     <>
       <div
-        className="d-flex gap-3 align-items-stretch ig-fullbleed"
-        style={side ? { height: side + 64 } : undefined}
+        className={`d-flex gap-3 align-items-stretch ig-fullbleed ${isMobile ? "flex-column" : ""}`}
+        style={!isMobile && side ? { height: side + 64 } : undefined}
       >
         {fieldsOpen ? (
-          <div className="flex-shrink-0 d-flex flex-column h-100" style={{ width: 300 }}>
-            <div className="mb-2 d-flex flex-column justify-content-end" style={{ height: 56 }}>
-              <h1 className="h4 mb-0">{familyTitle(template)}</h1>
-              <span className="small text-secondary text-truncate">{template.description}</span>
-            </div>
+          <div
+            className={`flex-shrink-0 d-flex flex-column ${isMobile ? "" : "h-100"}`}
+            style={{ width: isMobile ? "100%" : 300, order: isMobile ? 2 : 0 }}
+          >
+            {!isMobile && (
+              <div className="mb-2 d-flex flex-column justify-content-end" style={{ height: 56 }}>
+                <h1 className="h4 mb-0">{familyTitle(template)}</h1>
+                <span className="small text-secondary text-truncate">{template.description}</span>
+              </div>
+            )}
             <div className="card d-flex flex-column flex-grow-1" style={{ minHeight: 0 }}>
             <div className="card-header d-flex justify-content-between align-items-center py-2">
               <span className="fw-bold">Content</span>
@@ -385,7 +402,17 @@ export default function Builder({
           </button>
         )}
 
-        <div ref={centerRef} className="flex-grow-1 d-flex flex-column align-items-center">
+        <div
+          ref={centerRef}
+          className="flex-grow-1 d-flex flex-column align-items-center"
+          style={{ order: isMobile ? 1 : 0 }}
+        >
+          {isMobile && (
+            <div className="w-100 mb-1">
+              <h1 className="h5 mb-0">{familyTitle(template)}</h1>
+              <span className="small text-secondary">{template.description}</span>
+            </div>
+          )}
           <div className="mb-2 d-flex align-items-center" style={{ height: 56, width: side ?? "100%" }}>
             <div className="w-100 h-100 px-3 rounded-2 border border-primary bg-primary-subtle text-primary-emphasis fw-bold d-flex align-items-center justify-content-center gap-2" style={{ fontSize: "1.05rem" }}>
               {/* Bootstrap Icons "arrow-repeat" */}
@@ -430,7 +457,10 @@ export default function Builder({
           </div>
         </div>
 
-        <div className="flex-shrink-0 d-flex flex-column h-100" style={{ width: 120 }}>
+        <div
+          className={`flex-shrink-0 d-flex flex-column ${isMobile ? "" : "h-100"}`}
+          style={{ width: isMobile ? "100%" : 120, order: isMobile ? 3 : 0 }}
+        >
           <div className="d-flex justify-content-center mb-2">
             <div className="btn-group btn-group-sm" role="group" aria-label="Sort thumbnails">
               <button
@@ -460,10 +490,13 @@ export default function Builder({
               </button>
             </div>
           </div>
-          <div className="overflow-auto flex-grow-1" style={{ height: 0, minHeight: 200 }}>
+          <div
+            className={`overflow-auto ${isMobile ? "d-flex flex-row gap-2 pb-2" : "flex-grow-1"}`}
+            style={isMobile ? undefined : { height: 0, minHeight: 200 }}
+          >
             {railGroups.map((g) => (
-              <div key={g.category ?? "all"} className="mb-2">
-                {g.category && (
+              <div key={g.category ?? "all"} className={isMobile ? "d-flex flex-row gap-2" : "mb-2"}>
+                {g.category && !isMobile && (
                   <div className="small text-secondary fw-bold" style={{ fontSize: "0.7rem" }}>
                     {g.category}
                   </div>
@@ -474,7 +507,8 @@ export default function Builder({
                     type="button"
                     title={t.title}
                     onClick={() => switchTemplate(t.id)}
-                    className={`ig-thumb d-block w-100 p-0 mb-1 border rounded bg-white ${
+                    style={isMobile ? { width: 88, flexShrink: 0 } : undefined}
+                    className={`ig-thumb d-block p-0 border rounded bg-white ${isMobile ? "" : "w-100 mb-1"} ${
                       t.family === template.family ? "border-primary border-2" : ""
                     }`}
                   >
