@@ -371,16 +371,18 @@ export default function Builder({
                 ))}
               </div>
               <div className="fw-bold small mb-2">Fonts</div>
-              {FONT_SLOTS.map((slot) => (
-                <div className="mb-2" key={`f-${slot}`}>
-                  <label className="form-label small mb-1">{FONT_LABEL[slot]}</label>
-                  <FontSelect
-                    value={brand.fonts[slot]}
-                    onChange={(f) => setFont(slot, f)}
-                    ariaLabel={`${FONT_LABEL[slot]} font`}
-                  />
-                </div>
-              ))}
+              <div className="row g-2">
+                {FONT_SLOTS.map((slot) => (
+                  <div className="col-6" key={`f-${slot}`}>
+                    <label className="form-label small mb-1">{FONT_LABEL[slot]}</label>
+                    <FontSelect
+                      value={brand.fonts[slot]}
+                      onChange={(f) => setFont(slot, f)}
+                      ariaLabel={`${FONT_LABEL[slot]} font`}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             </div>
           </div>
