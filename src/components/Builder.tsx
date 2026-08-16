@@ -290,7 +290,7 @@ export default function Builder({
         {fieldsOpen ? (
           <div
             className={`flex-shrink-0 d-flex flex-column ${isMobile ? "" : "h-100"}`}
-            style={{ width: isMobile ? "100%" : 300, order: isMobile ? 2 : 0 }}
+            style={{ width: isMobile ? "100%" : 300, order: isMobile ? 3 : 0 }}
           >
             {!isMobile && (
               <div className="mb-2 d-flex flex-column justify-content-end" style={{ height: 56 }}>
@@ -459,7 +459,7 @@ export default function Builder({
 
         <div
           className={`flex-shrink-0 d-flex flex-column ${isMobile ? "" : "h-100"}`}
-          style={{ width: isMobile ? "100%" : 120, order: isMobile ? 3 : 0 }}
+          style={{ width: isMobile ? "100%" : 120, order: isMobile ? 2 : 0 }}
         >
           <div className="d-flex justify-content-center mb-2">
             <div className="btn-group btn-group-sm" role="group" aria-label="Sort thumbnails">
