@@ -17,7 +17,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What does a credit do, and what does it cost?",
-    a: "Credits cost $0.99 each. One credit unlocks one saved graphic permanently: after the first download you can re-download that graphic in either format, as many times as you like, at no extra cost. Credits never expire.",
+    a: "Credits cost $0.99 each. One credit unlocks one saved graphic permanently: after the first download you can re-download that graphic in either SVG or PNG format, as many times as you like, at no extra cost. Credits never expire.",
   },
   {
     q: "Can I use the graphics commercially?",
