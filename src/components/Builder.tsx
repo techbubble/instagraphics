@@ -461,7 +461,7 @@ export default function Builder({
           className={`flex-shrink-0 d-flex flex-column ${isMobile ? "" : "h-100"}`}
           style={{ width: isMobile ? "100%" : 120, order: isMobile ? 2 : 0 }}
         >
-          <div className="d-flex justify-content-center mb-2">
+          <div className={`d-flex justify-content-center mb-2 ${isMobile ? "d-none" : ""}`}>
             <div className="btn-group btn-group-sm" role="group" aria-label="Sort thumbnails">
               <button
                 type="button"
