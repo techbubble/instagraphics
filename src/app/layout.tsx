@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 const SITE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://www.instagraphic.app";
 const DESCRIPTION =
-  "Build branded infographics in seconds. Pick a layout, apply your colors and fonts, type your content, and download as SVG or PNG.";
+  "Build branded graphics in seconds. Pick a layout, apply your colors and fonts, type your content, and download as SVG or PNG.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Instagraphic - build branded infographics in seconds",
+        alt: "Instagraphic - build branded graphics in seconds",
       },
     ],
   },

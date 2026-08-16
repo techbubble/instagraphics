@@ -1,6 +1,6 @@
 # Instagraphics
 
-Public-facing app for building branded infographics (SmartArt-style) from SVG templates. Users pick a layout, apply brand colors/fonts, fill in text fields with a live preview, save to their account, and download as SVG or PNG. Downloads cost 1 credit; credits are $0.99 each via Stripe Checkout.
+Public-facing app for building branded graphics (SmartArt-style) from SVG templates. Users pick a layout, apply brand colors/fonts, fill in text fields with a live preview, save to their account, and download as SVG or PNG. Downloads cost 1 credit; credits are $0.99 each via Stripe Checkout.
 
 ## Stack
 
