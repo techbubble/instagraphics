@@ -8,7 +8,7 @@ export default async function CreditsPage() {
   return (
     <div className="row justify-content-center">
       <div className="col-md-6 col-lg-5">
-        <h1 className="h3 mb-3">Buy Credits</h1>
+        <h1 className="h3 mb-3 text-center">Buy Credits</h1>
         <p className="text-secondary">
           Credits are $0.99 each. 1 credit unlocks one graphic for unlimited SVG/PNG downloads. You
           currently have <strong>{user.credits}</strong> credit
