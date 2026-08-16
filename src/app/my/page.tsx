@@ -34,7 +34,7 @@ export default async function MyGraphicsPage() {
                 <div className="ig-tile-preview border-bottom">
                   {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
                   <img
-                    src={`/api/graphics/${g.id}/preview?w=300&plain=1`}
+                    src={`/api/graphics/${g.id}/preview?w=300${g.paid_at ? "&plain=1" : ""}`}
                     alt={g.title}
                     loading="lazy"
                     style={{ width: "100%", height: "auto", display: "block" }}
