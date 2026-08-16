@@ -57,7 +57,7 @@ export default function DownloadButtons({
       } else {
         triggerDownload(await svgToPngBlob(embedded, { background: null }), `${name}.png`);
       }
-      if (goToLibrary) router.push("/graphics");
+      if (goToLibrary) router.push("/my");
       // refresh so the navbar credit count reflects the charge
       router.refresh();
     } catch {

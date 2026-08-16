@@ -15,7 +15,7 @@ export default async function Navbar() {
         <ul className="navbar-nav me-auto">
           {user && (
             <li className="nav-item">
-              <Link className="nav-link text-nowrap" href="/graphics">
+              <Link className="nav-link text-nowrap" href="/my">
                 My Graphics
               </Link>
             </li>

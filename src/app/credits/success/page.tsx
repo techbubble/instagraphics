@@ -54,7 +54,7 @@ export default async function CreditsSuccessPage({
             </p>
           </>
         )}
-        <Link href="/graphics" className="btn btn-primary me-2">
+        <Link href="/my" className="btn btn-primary me-2">
           My Graphics
         </Link>
         <Link href="/" className="btn btn-outline-secondary">
