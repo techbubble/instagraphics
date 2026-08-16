@@ -6,7 +6,6 @@ import {
   UNIVERSAL_FIELDS,
   familyDefault,
   familyTitle,
-  itemCount,
   type TemplateMeta,
 } from "@/lib/templates";
 import { BrandKit, ColorSlot, DEFAULT_BRAND, FontSlot } from "@/lib/svg-engine";
@@ -56,7 +55,6 @@ export default function Builder({
   const [brand, setBrand] = useState<BrandKit>(initialBrand);
   const [values, setValues] = useState<Record<string, string>>(savedValues);
   const [fieldsOpen, setFieldsOpen] = useState(true);
-  const [railSort, setRailSort] = useState<"category" | "name" | "count">("category");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -230,14 +228,9 @@ export default function Builder({
       byFamily.set(t.family, list);
     }
     const defaults = [...byFamily.values()].map((v) => familyDefault(v));
-    const sorted = defaults.sort((a, b) =>
-      railSort === "name"
-        ? a.title.localeCompare(b.title)
-        : railSort === "count"
-          ? itemCount(a) - itemCount(b) || a.title.localeCompare(b.title)
-          : a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
+    const sorted = defaults.sort(
+      (a, b) => a.category.localeCompare(b.category) || a.title.localeCompare(b.title)
     );
-    if (railSort !== "category") return [{ category: null as string | null, items: sorted }];
     const groups: { category: string | null; items: TemplateMeta[] }[] = [];
     for (const t of sorted) {
       const g = groups[groups.length - 1];
@@ -245,7 +238,7 @@ export default function Builder({
       else groups.push({ category: t.category, items: [t] });
     }
     return groups;
-  }, [templates, railSort]);
+  }, [templates]);
 
   async function save() {
     if (!authed) {
@@ -461,35 +454,6 @@ export default function Builder({
           className={`flex-shrink-0 d-flex flex-column ${isMobile ? "" : "h-100"}`}
           style={{ width: isMobile ? "100%" : 120, order: isMobile ? 2 : 0 }}
         >
-          <div className={`d-flex justify-content-center mb-2 ${isMobile ? "d-none" : ""}`}>
-            <div className="btn-group btn-group-sm" role="group" aria-label="Sort thumbnails">
-              <button
-                type="button"
-                className={`btn py-0 px-1 ${railSort === "category" ? "btn-secondary" : "btn-outline-secondary"}`}
-                style={{ fontSize: "0.7rem" }}
-                onClick={() => setRailSort("category")}
-              >
-                Cat
-              </button>
-              <button
-                type="button"
-                className={`btn py-0 px-1 ${railSort === "name" ? "btn-secondary" : "btn-outline-secondary"}`}
-                style={{ fontSize: "0.7rem" }}
-                onClick={() => setRailSort("name")}
-              >
-                A&ndash;Z
-              </button>
-              <button
-                type="button"
-                className={`btn py-0 px-1 ${railSort === "count" ? "btn-secondary" : "btn-outline-secondary"}`}
-                style={{ fontSize: "0.7rem" }}
-                title="Sort by number of items"
-                onClick={() => setRailSort("count")}
-              >
-                #
-              </button>
-            </div>
-          </div>
           <div
             className={`overflow-auto ${isMobile ? "d-flex flex-row gap-2 pb-2" : "flex-grow-1"}`}
             style={isMobile ? undefined : { height: 0, minHeight: 200 }}
