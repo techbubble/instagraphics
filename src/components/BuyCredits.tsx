@@ -5,6 +5,7 @@ import { useState } from "react";
 export default function BuyCredits() {
   const [quantity, setQuantity] = useState(10);
   const [busy, setBusy] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const valid = Number.isInteger(quantity) && quantity >= 1 && quantity <= 1000;
@@ -31,6 +32,27 @@ export default function BuyCredits() {
   }
 
   return (
+    <>
+    <div className="alert alert-warning border-warning" role="alert">
+      <div className="fw-bold text-uppercase text-center">Refund Policy</div>
+      <div className="text-start">
+        All credit purchases are final and non-refundable. By completing a
+        purchase, you acknowledge and agree that no refunds, credits, or
+        exchanges will be issued.
+      </div>
+      <div className="form-check d-flex justify-content-center gap-2 mt-2 mb-0">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          id="refund-agree"
+          checked={agreed}
+          onChange={(e) => setAgreed(e.target.checked)}
+        />
+        <label className="form-check-label fw-bold" htmlFor="refund-agree">
+          I Agree
+        </label>
+      </div>
+    </div>
     <div className="card">
       <div className="card-body">
         <label className="form-label" htmlFor="qty">
@@ -58,11 +80,12 @@ export default function BuyCredits() {
         <button
           className="btn btn-primary w-100"
           onClick={checkout}
-          disabled={busy || !valid}
+          disabled={busy || !valid || !agreed}
         >
           {busy ? "Redirecting..." : "Checkout with Stripe"}
         </button>
       </div>
     </div>
+    </>
   );
 }
