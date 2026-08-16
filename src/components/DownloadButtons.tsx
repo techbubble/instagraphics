@@ -11,8 +11,8 @@ function slugify(s: string): string {
   );
 }
 
-// One Download button with a format picker. The first download of a
-// graphic costs 1 credit; every download after that is free.
+// Two side-by-side download buttons. The first download of a graphic costs
+// 1 credit; every download after that is free.
 export default function DownloadButtons({
   graphicId,
   paid,
@@ -25,12 +25,11 @@ export default function DownloadButtons({
   goToLibrary?: boolean;
 }) {
   const router = useRouter();
-  const [format, setFormat] = useState<"svg" | "png">("svg");
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<"svg" | "png" | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function download() {
-    setBusy(true);
+  async function download(format: "svg" | "png") {
+    setBusy(format);
     setError(null);
     try {
       const res = await fetch(`/api/graphics/${graphicId}/download`, {
@@ -64,31 +63,27 @@ export default function DownloadButtons({
     } catch {
       setError("Download failed.");
     } finally {
-      setBusy(false);
+      setBusy(null);
     }
   }
 
-  const sm = size === "sm";
+  const lg = size === "lg";
+  const btn = lg ? "btn btn-primary" : "btn btn-primary btn-sm";
   return (
     <div>
-      <div className={`input-group ${sm ? "input-group-sm" : ""}`}>
-        <button
-          className="btn btn-primary"
-          disabled={busy}
-          onClick={download}
-        >
-          {paid ? "Download" : "Download (1 credit)"}
+      <div className="d-flex gap-2">
+        <button className={btn} disabled={busy !== null} onClick={() => download("svg")}>
+          Download SVG
         </button>
-        <select
-          className="form-select flex-grow-0 w-auto"
-          value={format}
-          onChange={(e) => setFormat(e.target.value as "svg" | "png")}
-          aria-label="Download format"
-        >
-          <option value="svg">SVG</option>
-          <option value="png">PNG</option>
-        </select>
+        <button className={btn} disabled={busy !== null} onClick={() => download("png")}>
+          Download PNG
+        </button>
       </div>
+      {!paid && (
+        <div className="small text-secondary mt-1">
+          First download uses 1 credit, then downloads are free.
+        </div>
+      )}
       {error && (
         <div className="small text-danger mt-1">
           {error}{" "}
