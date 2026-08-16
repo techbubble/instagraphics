@@ -70,8 +70,8 @@ export default function DownloadButtons({
   const lg = size === "lg";
   const btn = lg ? "btn btn-primary" : "btn btn-primary btn-sm";
   return (
-    <div>
-      <div className="d-flex gap-2">
+    <div className={lg ? "text-center" : ""}>
+      <div className={`d-flex gap-2 ${lg ? "justify-content-center" : ""}`}>
         <button className={btn} disabled={busy !== null} onClick={() => download("svg")}>
           Download SVG
         </button>
