@@ -20,6 +20,11 @@ export default async function Navbar() {
               </Link>
             </li>
           )}
+          <li className="nav-item">
+            <Link className="nav-link" href="/faq">
+              FAQ
+            </Link>
+          </li>
         </ul>
         <ul className="navbar-nav align-items-center">
           {user ? (

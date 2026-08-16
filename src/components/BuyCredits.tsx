@@ -84,6 +84,9 @@ export default function BuyCredits() {
         >
           {busy ? "Redirecting..." : "Checkout with Stripe"}
         </button>
+        <div className="small text-secondary text-center mt-2">
+          By purchasing you agree to the <a href="/terms">Terms</a>.
+        </div>
       </div>
     </div>
     </>
