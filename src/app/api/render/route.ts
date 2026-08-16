@@ -32,6 +32,16 @@ export async function POST(req: NextRequest) {
       return `viewBox="${nx} ${ny} ${side} ${side}"`;
     }
   );
+  // Watermark the on-screen preview (bottom-left); downloads never pass
+  // through this route, so they stay clean.
+  svg = svg.replace(
+    /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"[^>]*>/,
+    (m, x, y, w, h) =>
+      m +
+      `<text x="${Number(x) + 26}" y="${Number(y) + Number(h) - 24}" ` +
+      `font-family="Roboto" font-size="30" font-weight="bold" fill="#495057" ` +
+      `fill-opacity="0.75" letter-spacing="2">INSTAGRAPHIC.APP</text>`
+  );
   try {
     const png = await renderPng(svg, 1024);
     return new NextResponse(new Uint8Array(png), {
