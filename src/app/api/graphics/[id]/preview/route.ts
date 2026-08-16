@@ -29,8 +29,20 @@ export async function GET(
   // Small tiles may skip the checkerboard; anything larger keeps it so the
   // clean asset only ships via the paid download.
   const plain = sp.get("plain") === "1" && w <= 300;
+  let svg = rows[0].svg;
+  if (!plain) {
+    // Large checkered preview carries the watermark; downloads stay clean.
+    svg = svg.replace(
+      /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"[^>]*>/,
+      (m, x, y, wd, h) =>
+        m +
+        `<text x="${Number(x) + 26}" y="${Number(y) + Number(h) - 24}" ` +
+        `font-family="Roboto" font-size="30" font-weight="bold" fill="#495057" ` +
+        `fill-opacity="0.75" letter-spacing="2">INSTAGRAPHIC.APP</text>`
+    );
+  }
   try {
-    const png = await renderPng(rows[0].svg, w, { checker: !plain });
+    const png = await renderPng(svg, w, { checker: !plain });
     return new NextResponse(new Uint8Array(png), {
       headers: {
         "Content-Type": "image/png",
