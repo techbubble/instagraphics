@@ -18,7 +18,7 @@ type Tile = {
 
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [selected, setSelected] = useState<string | null>(null);
 
   const categories = useMemo(
     () => [...new Set(tiles.map((t) => t.category))].sort(),
@@ -26,12 +26,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   );
 
   function toggle(cat: string) {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(cat)) next.delete(cat);
-      else next.add(cat);
-      return next;
-    });
+    setSelected((prev) => (prev === cat ? null : cat));
   }
 
   const filtered = useMemo(() => {
@@ -39,7 +34,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
     return [...tiles]
       .sort((a, b) => b.saves - a.saves || a.title.localeCompare(b.title))
       .filter((t) => {
-        if (selected.size > 0 && !selected.has(t.category)) return false;
+        if (selected && t.category !== selected) return false;
         if (!q) return true;
         return [t.title, t.category, t.description, t.keywords].some((s) =>
           s.toLowerCase().includes(q)
@@ -47,8 +42,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
       });
   }, [tiles, query, selected]);
 
-  const catsQuery =
-    selected.size > 0 ? `?cats=${encodeURIComponent([...selected].join(","))}` : "";
+  const catsQuery = selected ? `?cats=${encodeURIComponent(selected)}` : "";
 
   return (
     <>
@@ -67,14 +61,14 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
       <div className="d-flex flex-wrap gap-2 justify-content-center mb-4">
         <button
           type="button"
-          className={`btn btn-sm rounded-pill ${selected.size === 0 ? "btn-primary" : "btn-outline-primary"}`}
-          aria-pressed={selected.size === 0}
-          onClick={() => setSelected(new Set())}
+          className={`btn btn-sm rounded-pill ${selected === null ? "btn-primary" : "btn-outline-primary"}`}
+          aria-pressed={selected === null}
+          onClick={() => setSelected(null)}
         >
           All
         </button>
         {categories.map((cat) => {
-          const active = selected.has(cat);
+          const active = selected === cat;
           return (
             <button
               key={cat}
