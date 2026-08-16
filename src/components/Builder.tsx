@@ -318,7 +318,7 @@ export default function Builder({
               )}
               <button
                 type="button"
-                className="btn btn-sm btn-outline-secondary py-0"
+                className={`btn btn-sm btn-outline-secondary py-0 ${isMobile ? "d-none" : ""}`}
                 onClick={() => setFieldsOpen(false)}
                 aria-label="Collapse content panel"
               >
