@@ -1063,40 +1063,6 @@ export const TEMPLATES: Template[] = [
 </svg>`,
   },
   {
-    id: "before-after-1",
-    family: "before-after",
-    title: "Before / After",
-    category: "Comparison",
-    items: 2,
-    description: "Side-by-side panels contrasting old and new.",
-    about: "Nothing sells a change like a side-by-side. The before/after panels frame the old state and the new state with a caption line under each for the numbers that prove the difference. Use it for process improvements, redesigns, and results slides.",
-    usage: {
-      item1: "before panel",
-      item2: "after panel",
-      other1: "under before",
-      other2: "under after",
-    },
-    labels: {
-      item1: "Before",
-      item2: "After",
-      other1: "Before Caption",
-      other2: "After Caption",
-    },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-100.00 -16.28) scale(1.5000)">
-<rect data-ig-fill="tertiary" x="100" y="180" width="280" height="280" rx="14"/>
-<rect data-ig-fill="primary" x="420" y="180" width="280" height="280" rx="14"/>
-<text data-ig-contrast="tertiary" data-ig-font="secondary" x="240" y="220" text-anchor="middle" font-size="17" font-weight="bold" fill="#495057">BEFORE</text>
-<text data-ig-contrast="primary" data-ig-font="secondary" x="560" y="220" text-anchor="middle" font-size="17" font-weight="bold" fill="#495057">AFTER</text>
-<text data-ig-text="item1" data-ig-contrast="tertiary" data-ig-font="primary" x="240" y="330" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Manual process</text>
-<text data-ig-text="item2" data-ig-contrast="primary" data-ig-font="primary" x="560" y="330" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">Automated flow</text>
-<line x1="372" y1="320" x2="412" y2="320" stroke="#495057" data-ig-stroke="accent" stroke-width="6"/><polygon data-ig-fill="accent" fill="#495057" points="428,320 412,311 412,329"/>
-<text data-ig-text="other1" data-ig-font="secondary" x="240" y="505" text-anchor="middle" font-size="17" fill="#212529">12 hours per week</text>
-<text data-ig-text="other2" data-ig-font="secondary" x="560" y="505" text-anchor="middle" font-size="17" fill="#212529">20 minutes per week</text>
-</g>
-</svg>`,
-  },
-  {
     id: "pillars-3",
     family: "pillars",
     title: "Pillars (3)",
@@ -1236,17 +1202,24 @@ export const TEMPLATES: Template[] = [
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
 <g transform="translate(-175.00 -10.00) scale(1.5000)">
 <rect data-ig-fill="primary" x="150" y="150" width="290" height="180" rx="10"/>
-<text data-ig-contrast="primary" data-ig-font="secondary" x="295" y="186" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">STRENGTHS</text>
-<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="295" y="258" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Strong brand</text>
+<text x="172" y="315" font-family="Arial" data-ig-font="primary" font-size="88" font-weight="bold" fill="#ffffff" fill-opacity="0.28">S</text>
+<text data-ig-contrast="primary" data-ig-font="secondary" x="295" y="188" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">STRENGTHS</text>
+<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="295" y="255" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Strong brand</text>
 <rect data-ig-fill="secondary" x="460" y="150" width="290" height="180" rx="10"/>
-<text data-ig-contrast="secondary" data-ig-font="secondary" x="605" y="186" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">WEAKNESSES</text>
-<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="605" y="258" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Limited reach</text>
+<text x="680" y="315" font-family="Arial" data-ig-font="primary" font-size="88" font-weight="bold" fill="#ffffff" fill-opacity="0.28">W</text>
+<text data-ig-contrast="secondary" data-ig-font="secondary" x="605" y="188" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">WEAKNESSES</text>
+<text data-ig-text="item2" data-ig-contrast="secondary" data-ig-font="primary" x="605" y="255" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Limited reach</text>
 <rect data-ig-fill="tertiary" x="150" y="350" width="290" height="180" rx="10"/>
-<text data-ig-contrast="tertiary" data-ig-font="secondary" x="295" y="386" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">OPPORTUNITIES</text>
-<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="295" y="458" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">New markets</text>
+<text x="172" y="515" font-family="Arial" data-ig-font="primary" font-size="88" font-weight="bold" fill="#ffffff" fill-opacity="0.28">O</text>
+<text data-ig-contrast="tertiary" data-ig-font="secondary" x="295" y="388" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">OPPORTUNITIES</text>
+<text data-ig-text="item3" data-ig-contrast="tertiary" data-ig-font="primary" x="295" y="455" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">New markets</text>
 <rect data-ig-fill="quaternary" x="460" y="350" width="290" height="180" rx="10"/>
-<text data-ig-contrast="quaternary" data-ig-font="secondary" x="605" y="386" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">THREATS</text>
-<text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="605" y="458" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Competition</text>
+<text x="680" y="515" font-family="Arial" data-ig-font="primary" font-size="88" font-weight="bold" fill="#ffffff" fill-opacity="0.28">T</text>
+<text data-ig-contrast="quaternary" data-ig-font="secondary" x="605" y="388" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">THREATS</text>
+<text data-ig-text="item4" data-ig-contrast="quaternary" data-ig-font="primary" x="605" y="455" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Competition</text>
+<circle cx="450" cy="340" r="58" fill="#ffffff"/>
+<circle cx="450" cy="340" r="58" fill="none" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
+<text data-ig-font="primary" x="450" y="350" text-anchor="middle" font-size="26" font-weight="bold" fill="#212529">SWOT</text>
 </g>
 </svg>`,
   },
@@ -2129,45 +2102,6 @@ export const TEMPLATES: Template[] = [
 <text data-ig-text="item2" data-ig-contrast="primary" data-ig-font="primary" x="400" y="420" text-anchor="middle" font-size="21" font-weight="bold" fill="#ffffff">Effort &amp; Habits</text>
 <text data-ig-text="other1" data-ig-font="secondary" x="580" y="240" text-anchor="start" font-size="17" fill="#212529">What people see</text>
 <text data-ig-text="other2" data-ig-font="secondary" x="580" y="420" text-anchor="start" font-size="17" fill="#212529">What it takes</text>
-</g>
-</svg>`,
-  },
-  {
-    id: "balance-1",
-    family: "balance",
-    title: "Balance Scale",
-    category: "Comparison",
-    items: 2,
-    description: "Two options weighed on a scale.",
-    about: "A balance scale weighs two options against each other. Put one on each pan and let the caption state the verdict - or leave it level to show genuine trade-off.",
-    usage: {
-      item1: "left pan",
-      item2: "right pan",
-      other1: "below the base",
-    },
-    labels: {
-      item1: "Left Option",
-      item2: "Right Option",
-      other1: "Verdict",
-    },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-142.86 -78.40) scale(1.6071)">
-
-
-<line x1="200" y1="230" x2="600" y2="230" stroke="#495057" data-ig-stroke="accent" stroke-width="8"/>
-<rect data-ig-fill="accent" fill="#495057" x="392" y="230" width="16" height="292"/>
-<polygon data-ig-fill="accent" fill="#495057" points="330,520 470,520 500,556 300,556"/>
-<line x1="200" y1="230" x2="150" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="200" y1="230" x2="250" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="600" y1="230" x2="550" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<line x1="600" y1="230" x2="650" y2="445" stroke="#495057" data-ig-stroke="accent" stroke-width="3"/>
-<path d="M 125 445 A 75 40 0 0 0 275 445 Z" data-ig-fill="primary"/>
-<path d="M 525 445 A 75 40 0 0 0 675 445 Z" data-ig-fill="tertiary"/>
-<rect data-ig-fill="primary" x="120" y="120" width="160" height="56" rx="10"/>
-<rect data-ig-fill="tertiary" x="520" y="120" width="160" height="56" rx="10"/>
-<text data-ig-text="item1" data-ig-contrast="primary" data-ig-font="primary" x="200" y="154" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Build</text>
-<text data-ig-text="item2" data-ig-contrast="tertiary" data-ig-font="primary" x="600" y="154" text-anchor="middle" font-size="19" font-weight="bold" fill="#ffffff">Buy</text>
-<text data-ig-text="other1" data-ig-font="secondary" x="400" y="596" text-anchor="middle" font-size="18" font-weight="bold" fill="#212529">Total cost over 3 years</text>
 </g>
 </svg>`,
   },
