@@ -46,7 +46,7 @@ export default function FontSelect({
       {open && (
         <div
           className="dropdown-menu show overflow-auto shadow-sm"
-          style={{ maxHeight: 280, zIndex: 1050, minWidth: 220 }}
+          style={{ maxHeight: 280, zIndex: 1050, minWidth: 220, bottom: "100%", top: "auto", marginBottom: 4 }}
         >
           {groups.map(([label, fonts]) => (
             <div key={label}>
