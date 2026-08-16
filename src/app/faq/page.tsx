@@ -12,6 +12,10 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     a: "Instagraphic turns your text into a professional graphic in seconds. Pick a layout, type your content, apply your brand colors and fonts with a live preview, and download the finished graphic.",
   },
   {
+    q: "Why should I use Instagraphic?",
+    a: "Time. You could build the same diagram in Canva, PowerPoint, or an AI image tool - but you'll spend ten minutes or more fiddling with alignment, colors, and export settings, and AI tools can't give you a clean, editable vector. On Instagraphic you type your text, your saved brand colors and fonts apply themselves, and within seconds you're dropping a crisp, editable SVG into your document. If you value your time, it isn't close.",
+  },
+  {
     q: "What does a credit do, and what does it cost?",
     a: "Credits cost $0.99 each. One credit unlocks one saved graphic permanently: after the first download you can re-download that graphic in either format, as many times as you like, at no extra cost. Credits never expire.",
   },
