@@ -14,9 +14,18 @@ declare global {
 }
 
 export function trackReddit(event: string, data?: Record<string, unknown>) {
-  if (typeof window !== "undefined" && window.rdt) {
-    window.rdt("track", event, data);
-  }
+  if (typeof window === "undefined" || !PIXEL_ID) return;
+  // The pixel script loads after hydration; retry until it exists so
+  // events fired on first render (e.g. Purchase) are not dropped.
+  let tries = 0;
+  const attempt = () => {
+    if (window.rdt) {
+      window.rdt("track", event, data);
+    } else if (++tries < 40) {
+      setTimeout(attempt, 250);
+    }
+  };
+  attempt();
 }
 
 export default function RedditPixel() {
