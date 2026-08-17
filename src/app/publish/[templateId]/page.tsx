@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import { TEMPLATES, getTemplate, toMeta } from "@/lib/templates";
 import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
@@ -42,6 +43,17 @@ export default async function BuildPage({
   const { cats } = await searchParams;
   const template = getTemplate(templateId);
   if (!template) notFound();
+  const ua = (await headers()).get("user-agent") ?? "";
+  if (!/bot|crawl|spider|slurp|headless/i.test(ua)) {
+    try {
+      await sql()`
+        INSERT INTO template_views (template_id, views) VALUES (${template.id}, 1)
+        ON CONFLICT (template_id) DO UPDATE SET views = template_views.views + 1
+      `;
+    } catch {
+      // stats are best-effort
+    }
+  }
   const user = await currentUser();
   const rows = user
     ? ((await sql()`

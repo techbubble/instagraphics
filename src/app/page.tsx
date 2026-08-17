@@ -12,12 +12,22 @@ export default async function HomePage() {
   // Popularity: paid downloads (unlocks) per family drive the ordering —
   // saves are free, so only purchases count.
   let unlocksByTemplate: Record<string, number> = {};
+  let publishesByTemplate: Record<string, number> = {};
+  let viewsByTemplate: Record<string, number> = {};
   try {
-    const rows = (await sql()`
-      SELECT template_id, COUNT(*)::int AS c FROM graphics
-      WHERE paid_at IS NOT NULL GROUP BY template_id
-    `) as { template_id: string; c: number }[];
-    unlocksByTemplate = Object.fromEntries(rows.map((r) => [r.template_id, r.c]));
+    const [unlocks, publishes, views] = await Promise.all([
+      sql()`
+        SELECT template_id, COUNT(*)::int AS c FROM graphics
+        WHERE paid_at IS NOT NULL GROUP BY template_id
+      `,
+      sql()`
+        SELECT template_id, COUNT(*)::int AS c FROM graphics GROUP BY template_id
+      `,
+      sql()`SELECT template_id, views::int AS c FROM template_views`,
+    ]) as { template_id: string; c: number }[][];
+    unlocksByTemplate = Object.fromEntries(unlocks.map((r) => [r.template_id, r.c]));
+    publishesByTemplate = Object.fromEntries(publishes.map((r) => [r.template_id, r.c]));
+    viewsByTemplate = Object.fromEntries(views.map((r) => [r.template_id, r.c]));
   } catch {
     // no DB (e.g. build-time) — fall back to alphabetical
   }
@@ -29,12 +39,12 @@ export default async function HomePage() {
   }
   const tiles = [...byFamily.values()].map((variants) => {
     const def = familyDefault(variants);
-    const saves = variants.reduce(
-      (sum, v) => sum + (unlocksByTemplate[v.id] ?? 0),
-      0
-    );
+    const sum = (m: Record<string, number>) =>
+      variants.reduce((n, v) => n + (m[v.id] ?? 0), 0);
     return {
-      saves,
+      downloads: sum(unlocksByTemplate),
+      publishes: sum(publishesByTemplate),
+      views: sum(viewsByTemplate),
       family: def.family,
       title: familyTitle(def),
       category: def.category,

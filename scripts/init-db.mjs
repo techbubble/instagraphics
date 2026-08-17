@@ -48,6 +48,10 @@ const statements = [
     stripe_session_id TEXT UNIQUE NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`,
+  `CREATE TABLE IF NOT EXISTS template_views (
+    template_id TEXT PRIMARY KEY,
+    views BIGINT NOT NULL DEFAULT 0
+  )`,
   `CREATE TABLE IF NOT EXISTS downloads (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
