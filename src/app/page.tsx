@@ -8,6 +8,9 @@ import {
 import HomeGallery from "@/components/HomeGallery";
 import { sql } from "@/lib/db";
 
+// Tile counters must be live, not frozen at build time.
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   // Popularity: paid downloads (unlocks) per family drive the ordering —
   // saves are free, so only purchases count.
