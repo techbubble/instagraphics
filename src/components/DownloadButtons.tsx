@@ -51,7 +51,7 @@ export default function DownloadButtons({
         return;
       }
       const { svg, title } = await res.json();
-      if (!paid) trackReddit("AddToCart", { currency: "USD", value: 0.99 });
+      if (!paid) trackReddit("AddToCart", { currency: "USD", value: 0.99, conversionId: `unlock-${graphicId}` });
       const name = slugify(title);
       const embedded = await embedGoogleFonts(svg);
       if (format === "svg") {

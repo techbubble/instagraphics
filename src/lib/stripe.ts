@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { sql } from "./db";
+import { sendRedditConversion } from "./reddit-capi";
 
 export const CREDIT_PRICE_CENTS = 99;
 
@@ -33,5 +34,11 @@ export async function fulfillCheckoutSession(
   `) as { id: number }[];
   if (inserted.length === 0) return false; // already fulfilled
   await sql()`UPDATE users SET credits = credits + ${credits} WHERE id = ${userId}`;
+  await sendRedditConversion({
+    event: "Purchase",
+    conversionId: session.id,
+    value: (session.amount_total ?? credits * CREDIT_PRICE_CENTS) / 100,
+    email: session.customer_email ?? session.customer_details?.email ?? undefined,
+  });
   return true;
 }

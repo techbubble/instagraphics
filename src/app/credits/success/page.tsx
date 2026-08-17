@@ -39,7 +39,7 @@ export default async function CreditsSuccessPage({
   return (
     <div className="row justify-content-center text-center">
       <RefreshOnMount />
-      {ok && <TrackPurchase value={purchasedValue} />}
+      {ok && <TrackPurchase value={purchasedValue} conversionId={session_id} />}
       <div className="col-md-6">
         {ok ? (
           <>
