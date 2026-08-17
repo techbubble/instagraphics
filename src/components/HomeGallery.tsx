@@ -103,7 +103,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
                     />
                   </div>
                 </Link>
-                <div className="card-body py-2 bg-light rounded-bottom">
+                <div className="card-body py-2 bg-light rounded-bottom d-flex flex-column">
                   <div className="d-flex justify-content-between align-items-center">
                     <span className="fw-semibold text-dark">{t.title}</span>
                     {t.variants.length > 1 ? (
@@ -142,7 +142,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
                   </div>
                   <div className="small text-secondary">{t.description}</div>
                   {(t.views > 0 || t.publishes > 0 || t.downloads > 0) && (
-                    <div className="d-flex gap-3 mt-1 small text-secondary justify-content-end">
+                    <div className="d-flex gap-3 mt-auto pt-1 small text-secondary justify-content-end">
                       {t.views > 0 && (
                         <span title="Views">
                           {/* Bootstrap Icons "eye-fill" */}
