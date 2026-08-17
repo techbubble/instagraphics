@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sessionUserId } from "@/lib/auth";
 import { sql } from "@/lib/db";
-import { sendRedditConversion } from "@/lib/reddit-capi";
 
 // Delivered assets are cropped to the graphic's content bounds, with
 // explicit dimensions so client-side PNG rasterization keeps the aspect.
@@ -71,15 +70,6 @@ export async function POST(
     await sql()`
       UPDATE graphics SET paid_at = now() WHERE id = ${graphicId}
     `;
-    const who = (await sql()`SELECT email FROM users WHERE id = ${uid}`) as { email: string }[];
-    await sendRedditConversion({
-      event: "AddToCart",
-      conversionId: `unlock-${graphicId}`,
-      value: 0.99,
-      email: who[0]?.email,
-      ip: req.headers.get("x-forwarded-for")?.split(",")[0] ?? null,
-      userAgent: req.headers.get("user-agent"),
-    });
   }
   await sql()`
     INSERT INTO downloads (user_id, graphic_id, format)
