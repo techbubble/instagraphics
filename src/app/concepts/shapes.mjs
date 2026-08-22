@@ -34,11 +34,16 @@ const cloud = (x, y, label) =>
   txt(0, 18, 30, DARK, label) +
   `</g>`;
 
+const DROP_PATH = "M0 -34 C 17 -8 22 4 22 14 A 22 22 0 1 1 -22 14 C -22 4 -17 -8 0 -34 Z";
+
 const drop = (x, y, label, labelAbove = false) =>
   `<g transform="translate(${x} ${y})">` +
-  `<path d="M0 -34 C 17 -8 22 4 22 14 A 22 22 0 1 1 -22 14 C -22 4 -17 -8 0 -34 Z" fill="${BLUE}"/>` +
+  `<path d="${DROP_PATH}" fill="${BLUE}"/>` +
   txt(0, labelAbove ? -58 : 92, 28, DARK, label) +
   `</g>`;
+
+const smallDrop = (x, y) =>
+  `<g transform="translate(${x} ${y}) scale(0.6)"><path d="${DROP_PATH}" fill="${BLUE}" opacity="0.7"/></g>`;
 
 function mindMapRadial() {
   const nodes = [
@@ -104,41 +109,42 @@ function teamRing() {
 }
 
 function pictogram() {
-  const cols = (i) => (i < 6 ? BLUE : i < 9 ? TEAL : YELLOW);
-  let out = "";
-  for (let i = 0; i < 10; i++) {
-    const x = 180 + (i % 5) * 160;
-    const y = i < 5 ? 280 : 580;
-    out += person(x, y, 1.2, cols(i));
-  }
-  const legend = [
-    [BLUE, "Topic 1 — 6 of 10", 810],
-    [TEAL, "Topic 2 — 3 of 10", 872],
-    [YELLOW, "Topic 3 — 1 of 10", 934],
+  // One row of 10, grouped 6/3/1 with square brackets under each group.
+  const groups = [
+    [0, 5, BLUE, "Topic 1", "6 of 10"],
+    [6, 8, TEAL, "Topic 2", "3 of 10"],
+    [9, 9, YELLOW, "Topic 3", "1 of 10"],
   ];
-  return (
-    out +
-    legend
-      .map(
-        ([c, l, y]) =>
-          `<circle cx="290" cy="${y - 10}" r="16" fill="${c}"/>` +
-          txt(325, y, 30, DARK, l, "start")
-      )
-      .join("")
-  );
+  const px = (i) => 115 + i * 86;
+  let out = "";
+  for (const [a, b, c] of groups) {
+    for (let i = a; i <= b; i++) out += person(px(i), 460, 0.95, c);
+  }
+  for (const [a, b, c, label, count] of groups) {
+    const x1 = px(a) - 38;
+    const x2 = px(b) + 38;
+    const mid = (x1 + x2) / 2;
+    out +=
+      `<path d="M${x1} 545 V 566 H ${x2} V 545" fill="none" stroke="${c}" stroke-width="8" stroke-linecap="round"/>` +
+      txt(mid, 630, 32, DARK, label) +
+      txt(mid, 676, 28, ACCENT, count, "middle", 400);
+  }
+  return out;
 }
 
 function conversation() {
-  const bubble = (y, c, l, sign) =>
-    `<rect x="330" y="${y - 46}" width="340" height="92" rx="46" fill="${c}"/>` +
-    `<polygon points="${500 + sign * 60},${y + 44} ${500 + sign * 110},${y + 44} ${500 + sign * 160},${y + 112}" fill="${c}"/>` +
-    txt(500, y + 11, 32, onLight(c) ? DARK : "#fff", l);
+  // Chat layout: left speaker's bubbles left-aligned, right speaker's
+  // right-aligned, tails angling down toward their speaker.
+  const bubble = (cx, y, c, l, tail) =>
+    `<rect x="${cx - 170}" y="${y - 46}" width="340" height="92" rx="46" fill="${c}"/>` +
+    `<polygon points="${tail}" fill="${c}"/>` +
+    txt(cx, y + 11, 32, onLight(c) ? DARK : "#fff", l);
   return (
-    person(250, 790, 2.1, BLUE) +
-    person(750, 790, 2.1, TEAL) +
-    bubble(210, BLUE, "Topic 1", -1) +
-    bubble(390, TEAL, "Topic 2", 1) +
-    bubble(570, BLUE, "Topic 3", -1)
+    person(215, 850, 2.0, BLUE) +
+    person(785, 850, 2.0, TEAL) +
+    bubble(340, 230, BLUE, "Topic 1", "255,272 305,272 235,330") +
+    bubble(660, 400, TEAL, "Topic 2", "745,442 695,442 765,500") +
+    bubble(340, 570, BLUE, "Topic 3", "255,612 305,612 235,670")
   );
 }
 
@@ -146,105 +152,124 @@ function sunClouds() {
   let rays = "";
   for (let i = 0; i < 12; i++) {
     const a = (i * 30 * Math.PI) / 180;
-    rays += `<line x1="${700 + 145 * Math.cos(a)}" y1="${350 + 145 * Math.sin(a)}" x2="${700 + 195 * Math.cos(a)}" y2="${350 + 195 * Math.sin(a)}" stroke="${YELLOW}" stroke-width="14" stroke-linecap="round"/>`;
+    const len = i % 2 === 0 ? 250 : 222;
+    rays += `<line x1="${(500 + 182 * Math.cos(a)).toFixed(1)}" y1="${(400 + 182 * Math.sin(a)).toFixed(1)}" x2="${(500 + len * Math.cos(a)).toFixed(1)}" y2="${(400 + len * Math.sin(a)).toFixed(1)}" stroke="${YELLOW}" stroke-width="16" stroke-linecap="round"/>`;
   }
   return (
     rays +
-    `<circle cx="700" cy="350" r="115" fill="${YELLOW}"/>` +
-    txt(700, 364, 40, DARK, "Goal") +
-    cloud(260, 190, "Topic 1") +
-    cloud(230, 450, "Topic 2") +
-    cloud(300, 690, "Topic 3") +
-    txt(500, 930, 34, DARK, "Clouds pass. The sun stays.")
+    `<circle cx="500" cy="400" r="160" fill="${YELLOW}"/>` +
+    txt(500, 415, 46, DARK, "Goal") +
+    cloud(280, 250, "Topic 1") +
+    cloud(720, 300, "Topic 2") +
+    cloud(450, 590, "Topic 3") +
+    txt(500, 900, 34, DARK, "Clouds pass. The sun stays.")
   );
 }
 
 function umbrella() {
+  // Canopy of four colored panels with curved seams and scalloped hem.
+  const bases = [150, 325, 500, 675, 850];
+  const cols = [BLUE, TEAL, YELLOW, CORAL];
+  const downSide = (bx) => `C ${500 + (bx - 500) * 0.35} 200 ${bx} 300 ${bx} 430`;
+  const upSide = (bx) => `C ${bx} 300 ${500 + (bx - 500) * 0.35} 200 500 132`;
+  let canopy = "";
+  for (let i = 0; i < 4; i++) {
+    const b1 = bases[i];
+    const b2 = bases[i + 1];
+    canopy += `<path d="M500 132 ${downSide(b1)} A ${(b2 - b1) / 2} 42 0 0 0 ${b2} 430 ${upSide(b2)} Z" fill="${cols[i]}"/>`;
+  }
   return (
-    `<line x1="500" y1="80" x2="500" y2="120" stroke="${ACCENT}" stroke-width="12" stroke-linecap="round"/>` +
-    `<path d="M500 420 V730 Q500 790 455 790 Q420 790 420 755" fill="none" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
-    `<path d="M200 420 A 300 300 0 0 1 800 420 A 100 45 0 0 1 600 420 A 100 45 0 0 1 400 420 A 100 45 0 0 1 200 420 Z" fill="${CORAL}"/>` +
-    `<path d="M500 122 C 380 180 330 300 322 440" fill="none" stroke="#d13c3c" stroke-width="7"/>` +
-    `<path d="M500 122 C 620 180 670 300 678 440" fill="none" stroke="#d13c3c" stroke-width="7"/>` +
-    `<rect x="330" y="520" width="340" height="80" rx="40" fill="${ACCENT}"/>` +
-    txt(500, 570, 32, "#fff", "Topic 5") +
-    drop(130, 300, "Topic 1") +
-    drop(320, 150, "Topic 2", true) +
-    drop(680, 150, "Topic 3", true) +
-    drop(870, 300, "Topic 4") +
+    smallDrop(235, 190) +
+    smallDrop(765, 190) +
+    smallDrop(90, 150) +
+    smallDrop(910, 150) +
+    `<line x1="500" y1="78" x2="500" y2="124" stroke="${ACCENT}" stroke-width="12" stroke-linecap="round"/>` +
+    `<path d="M500 430 V 760 Q500 815 452 815 Q418 815 418 782" fill="none" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
+    canopy +
+    `<rect x="350" y="540" width="300" height="76" rx="38" fill="${ACCENT}"/>` +
+    txt(500, 590, 32, "#fff", "Topic 5") +
+    drop(105, 310, "Topic 1", true) +
+    drop(320, 140, "Topic 2", true) +
+    drop(680, 140, "Topic 3", true) +
+    drop(895, 310, "Topic 4", true) +
     txt(500, 930, 34, DARK, "Protected from the storm")
   );
 }
 
 function daisy() {
+  // Teardrop petals: narrow base near the core, rounded tip outward.
   const cols = [BLUE, TEAL, CORAL, BLUE, TEAL, CORAL];
+  const PETAL = "M0 0 C -55 -30 -72 -95 -46 -142 C -26 -176 26 -176 46 -142 C 72 -95 55 -30 0 0 Z";
   let petals = "";
   let labels = "";
   for (let i = 0; i < 6; i++) {
     const deg = -90 + i * 60;
     const a = (deg * Math.PI) / 180;
-    const x = 500 + 240 * Math.cos(a);
-    const y = 470 + 240 * Math.sin(a);
-    petals += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="85" ry="160" transform="rotate(${deg + 90} ${x.toFixed(1)} ${y.toFixed(1)})" fill="${cols[i]}"/>`;
-    labels += txt(x.toFixed(1), (y + 11).toFixed(1), 28, onLight(cols[i]) ? DARK : "#fff", `Topic ${i + 1}`);
+    const bx = (500 + 100 * Math.cos(a)).toFixed(1);
+    const by = (485 + 100 * Math.sin(a)).toFixed(1);
+    petals += `<g transform="translate(${bx} ${by}) rotate(${deg + 90}) scale(1.55)"><path d="${PETAL}" fill="${cols[i]}"/></g>`;
+    const lx = (500 + 240 * Math.cos(a)).toFixed(1);
+    const ly = (485 + 240 * Math.sin(a) + 10).toFixed(1);
+    labels += txt(lx, ly, 28, onLight(cols[i]) ? DARK : "#fff", `Topic ${i + 1}`);
   }
   return (
     petals +
-    `<circle cx="500" cy="470" r="105" fill="${YELLOW}"/>` +
-    txt(500, 484, 36, DARK, "Core") +
+    `<circle cx="500" cy="485" r="100" fill="${YELLOW}"/>` +
+    txt(500, 499, 36, DARK, "Core") +
     labels
   );
 }
 
 function flowerStem() {
+  // Potted plant: gently curved stem, proper pointed leaves, full bloom.
+  const LEAF = "M0 0 C 28 -20 72 -24 102 -6 C 74 20 30 18 0 0 Z";
   const leaves = [
-    [430, 730, -35, "end", 340, "Topic 1"],
-    [570, 640, 35, "start", 660, "Topic 2"],
-    [430, 550, -35, "end", 340, "Topic 3"],
-    [570, 460, 35, "start", 660, "Topic 4"],
+    [497, 720, true, "Topic 1"],
+    [503, 640, false, "Topic 2"],
+    [497, 560, true, "Topic 3"],
+    [503, 480, false, "Topic 4"],
   ];
   let bloom = "";
   for (let i = 0; i < 8; i++) {
     const a = (i * 45 * Math.PI) / 180;
-    const x = 500 + 55 * Math.cos(a);
-    const y = 210 + 55 * Math.sin(a);
-    bloom += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="28" ry="55" transform="rotate(${i * 45 + 90} ${x.toFixed(1)} ${y.toFixed(1)})" fill="${CORAL}"/>`;
+    const x = (500 + 55 * Math.cos(a)).toFixed(1);
+    const y = (300 + 55 * Math.sin(a)).toFixed(1);
+    bloom += `<ellipse cx="${x}" cy="${y}" rx="26" ry="52" transform="rotate(${i * 45 + 90} ${x} ${y})" fill="${CORAL}"/>`;
   }
   return (
-    `<line x1="150" y1="850" x2="850" y2="850" stroke="${ACCENT}" stroke-width="6" stroke-dasharray="18 14"/>` +
-    `<path d="M500 850 V 250" fill="none" stroke="${TEAL}" stroke-width="16"/>` +
+    `<path d="M500 810 C 485 700 515 640 500 550 C 488 470 510 430 500 360" fill="none" stroke="${TEAL}" stroke-width="14"/>` +
     leaves
-      .map(
-        ([x, y, rot, anchor, lx, l]) =>
-          `<ellipse cx="${x}" cy="${y}" rx="70" ry="28" transform="rotate(${rot} ${x} ${y})" fill="${TEAL}"/>` +
-          txt(lx, y + 8, 30, DARK, l, anchor)
+      .map(([x, y, left, l]) =>
+        `<g transform="translate(${x} ${y})${left ? " scale(-1 1)" : ""} rotate(25) scale(1.25)"><path d="${LEAF}" fill="${TEAL}"/></g>` +
+        txt(left ? 385 : 615, y + 14, 30, DARK, l, left ? "end" : "start")
       )
       .join("") +
     bloom +
-    `<circle cx="500" cy="210" r="46" fill="${YELLOW}"/>` +
-    txt(500, 222, 26, DARK, "Goal") +
-    txt(500, 940, 34, DARK, "Growth feeds the bloom")
+    `<circle cx="500" cy="300" r="46" fill="${YELLOW}"/>` +
+    txt(500, 312, 26, DARK, "Goal") +
+    `<rect x="410" y="782" width="180" height="28" rx="8" fill="${CORAL}"/>` +
+    `<path d="M425 810 L575 810 L553 905 L447 905 Z" fill="#d13c3c"/>` +
+    txt(500, 965, 34, DARK, "Growth feeds the bloom")
   );
 }
 
 function persona() {
+  // Avatar in a ring; two trait chips per side, curved connectors with
+  // dots where they meet the ring.
   const chips = [
-    [210, 190, BLUE, "Topic 1"],
-    [790, 190, TEAL, "Topic 2"],
-    [210, 700, YELLOW, "Topic 3"],
-    [790, 700, CORAL, "Topic 4"],
+    [190, 260, BLUE, "Topic 1", "M320 260 C 348 260 354 305 362 342", 364, 346],
+    [810, 260, TEAL, "Topic 2", "M680 260 C 652 260 646 305 638 342", 636, 346],
+    [190, 600, YELLOW, "Topic 3", "M320 600 C 350 600 356 545 366 502", 367, 499],
+    [810, 600, CORAL, "Topic 4", "M680 600 C 650 600 644 545 634 502", 633, 499],
   ];
   return (
-    chips
-      .map(
-        ([x, y]) =>
-          `<line x1="${x + (x < 500 ? 90 : -90)}" y1="${y + (y < 450 ? 30 : -30)}" x2="${x < 500 ? 405 : 595}" y2="${y < 450 ? 350 : 520}" stroke="${ACCENT}" stroke-width="6"/>`
-      )
-      .join("") +
-    `<circle cx="500" cy="430" r="130" fill="#e9ecef" stroke="${ACCENT}" stroke-width="8"/>` +
-    person(500, 460, 1.4, ACCENT) +
-    chips.map(([x, y, c, l]) => node(x, y, 220, 74, c, l, onLight(c) ? DARK : "#fff")).join("") +
-    txt(500, 640, 36, DARK, "Persona")
+    chips.map(([, , , , d]) => `<path d="${d}" fill="none" stroke="${ACCENT}" stroke-width="6"/>`).join("") +
+    `<circle cx="500" cy="420" r="155" fill="#e9ecef" stroke="${ACCENT}" stroke-width="8"/>` +
+    person(500, 455, 1.65, ACCENT) +
+    chips.map(([, , , , , dx, dy]) => `<circle cx="${dx}" cy="${dy}" r="9" fill="${ACCENT}"/>`).join("") +
+    chips.map(([x, y, c, l]) => node(x, y, 260, 80, c, l, onLight(c) ? DARK : "#fff")).join("") +
+    `<rect x="390" y="630" width="220" height="64" rx="32" fill="${ACCENT}"/>` +
+    txt(500, 671, 30, "#fff", "Persona")
   );
 }
 
