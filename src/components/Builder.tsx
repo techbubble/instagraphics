@@ -192,6 +192,31 @@ export default function Builder({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Templates with sample defaults (e.g. subway station lists) open with a
+  // completed graphic: seed fields whose current value can't drive the
+  // layout. Not persisted until the user actually edits.
+  useEffect(() => {
+    const fd = template.fieldDefaults;
+    if (!fd) return;
+    const t = setTimeout(() => {
+      setValues((v) => {
+        const next = { ...v };
+        let changed = false;
+        for (const [k, def] of Object.entries(fd)) {
+          const cur = (next[k] ?? "").trim();
+          const needsList = template.textareas?.includes(k);
+          if (!cur || (needsList && !cur.includes(","))) {
+            next[k] = def as string;
+            changed = true;
+          }
+        }
+        return changed ? next : v;
+      });
+    }, 0);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [template.id]);
+
   function setColor(slot: ColorSlot, color: string) {
     setBrand((b) => {
       const next = { ...b, colors: { ...b.colors, [slot]: color } };
@@ -319,7 +344,10 @@ export default function Builder({
               </button>
             </div>
             <div className="card-body flex-grow-1 overflow-auto">
-              {UNIVERSAL_FIELDS.filter((f) => template.usage[f.key]).map((f) => (
+              {(template.fieldOrder ?? UNIVERSAL_FIELDS.map((f) => f.key))
+                .map((key) => UNIVERSAL_FIELDS.find((f) => f.key === key)!)
+                .filter((f) => f && template.usage[f.key])
+                .map((f) => (
                 <div className="mb-3" key={f.key}>
                   <div className="d-flex justify-content-between align-items-baseline">
                     <label className="form-label fw-bold small mb-1" htmlFor={`field-${f.key}`}>
@@ -329,13 +357,24 @@ export default function Builder({
                       {template.usage[f.key]}
                     </span>
                   </div>
-                  <input
-                    id={`field-${f.key}`}
-                    className="form-control form-control-sm"
-                    value={values[f.key] ?? ""}
-                    maxLength={template.fieldMax?.[f.key] ?? f.maxLength}
-                    onChange={(e) => setField(f.key, e.target.value)}
-                  />
+                  {template.textareas?.includes(f.key) ? (
+                    <textarea
+                      id={`field-${f.key}`}
+                      className="form-control form-control-sm"
+                      rows={2}
+                      value={values[f.key] ?? ""}
+                      maxLength={template.fieldMax?.[f.key] ?? f.maxLength}
+                      onChange={(e) => setField(f.key, e.target.value)}
+                    />
+                  ) : (
+                    <input
+                      id={`field-${f.key}`}
+                      className="form-control form-control-sm"
+                      value={values[f.key] ?? ""}
+                      maxLength={template.fieldMax?.[f.key] ?? f.maxLength}
+                      onChange={(e) => setField(f.key, e.target.value)}
+                    />
+                  )}
                 </div>
               ))}
 

@@ -179,7 +179,9 @@ export function buildSubwaySvg(lines: number, values: Record<string, string>): s
   const nameKeys = ["other1", "other2", "other3"];
   const lists = v.spines.map((_, i) => {
     const raw = (values[itemKeys[i]] || "").trim() || v.defaults[i];
-    return raw.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 12);
+    const parsed = raw.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 12);
+    // A one-word value is a leftover from another template, not a line.
+    return parsed.length >= 2 ? parsed : v.defaults[i].split(",").map((s) => s.trim());
   });
   const names = v.spines.map((_, i) => (values[nameKeys[i]] || "").trim() || v.nameDefaults[i]);
   const segsPerLine = v.spines.map(buildSegs);

@@ -32,6 +32,9 @@ export type Template = {
   usage: Partial<Record<string, string>>;
   labels: Partial<Record<string, string>>; // contextual field labels (fall back to universal)
   fieldMax?: Partial<Record<string, number>>; // per-template maxLength overrides
+  fieldOrder?: string[]; // panel order override
+  textareas?: string[]; // fields rendered as multi-line text boxes
+  fieldDefaults?: Partial<Record<string, string>>; // sample text seeded on open
   svg: string;
 };
 
@@ -2755,6 +2758,12 @@ export const TEMPLATES: Template[] = [
       item1: "Line 1 stations",
       other1: "Line 1 name"
     },
+    fieldOrder: ["other1", "item1"],
+    textareas: ["item1"],
+    fieldDefaults: {
+      item1: 'Discover, Define, Design, Deliver, Debrief',
+      other1: 'Line one',
+    },
     fieldMax: {
       item1: 200,
     },
@@ -2779,6 +2788,14 @@ export const TEMPLATES: Template[] = [
       other1: "Line 1 name",
       item2: "Line 2 stations",
       other2: "Line 2 name"
+    },
+    fieldOrder: ["other1", "item1", "other2", "item2"],
+    textareas: ["item1", "item2"],
+    fieldDefaults: {
+      item1: 'Research, Insight, Concept, Junction, Launch',
+      item2: 'Plan, Fund, Junction, Scale',
+      other1: 'Line one',
+      other2: 'Line two',
     },
     fieldMax: {
       item1: 200,
@@ -2809,6 +2826,16 @@ export const TEMPLATES: Template[] = [
       other2: "Line 2 name",
       item3: "Line 3 stations",
       other3: "Line 3 name"
+    },
+    fieldOrder: ["other1", "item1", "other2", "item2", "other3", "item3"],
+    textareas: ["item1", "item2", "item3"],
+    fieldDefaults: {
+      item1: 'Brand, Junction 1, Junction 2, Sales',
+      item2: 'Product, Junction 2, Growth',
+      item3: 'Support, Junction 1, Success',
+      other1: 'Line one',
+      other2: 'Line two',
+      other3: 'Line three',
     },
     fieldMax: {
       item1: 200,
