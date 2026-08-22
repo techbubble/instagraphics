@@ -46,6 +46,16 @@ export function templateSvg(t: Template, values: Record<string, string>): string
   return t.svg;
 }
 
+// Comma-separated lists only mean something to list-driven templates
+// (subway maps). Everywhere else, show just the part before the comma so
+// a station list doesn't spill into a single-slot graphic.
+export function displayValues(t: Template, values: Record<string, string>): Record<string, string> {
+  if (t.family === "subway-map") return values;
+  return Object.fromEntries(
+    Object.entries(values).map(([k, v]) => [k, v.includes(",") ? v.split(",")[0].trim() : v])
+  );
+}
+
 export const TEMPLATES: Template[] = [
   {
     id: "process-arrow-3",
