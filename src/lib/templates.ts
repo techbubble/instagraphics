@@ -184,16 +184,16 @@ export const TEMPLATES: Template[] = [
       item3: "Stage 3",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-147.19 -65.43) scale(1.6576)">
+<g transform="translate(32.6 91.7) scale(1.1972)">
 <path d="M 424 137 A 175 175 0 0 1 571 349" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="46"/>
 <polygon data-ig-fill="primary" fill="#0d6efd" points="562,376 538,337 605,350"/>
-<text data-ig-text="item1" data-ig-font="primary" x="619" y="190" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Plan</text>
+<text data-ig-text="item1" data-ig-font="primary" x="560" y="160" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Plan</text>
 <path d="M 538 418 A 175 175 0 0 1 281 438" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="46"/>
 <polygon data-ig-fill="secondary" fill="#0d6efd" points="262,418 307,416 263,468"/>
 <text data-ig-text="item2" data-ig-font="primary" x="400" y="570" text-anchor="middle" font-size="21" font-weight="bold" fill="#212529">Do</text>
 <path d="M 238 376 A 175 175 0 0 1 349 143" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="46"/>
 <polygon data-ig-fill="tertiary" fill="#0d6efd" points="376,137 354,177 332,112"/>
-<text data-ig-text="item3" data-ig-font="primary" x="181" y="190" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Check</text>
+<text data-ig-text="item3" data-ig-font="primary" x="240" y="160" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Check</text>
 </g>
 </svg>`,
   },
@@ -218,19 +218,19 @@ export const TEMPLATES: Template[] = [
       item4: "Stage 4",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-259.02 -102.63) scale(1.9440)">
+<g transform="translate(-48.2 64.8) scale(1.4040)">
 <path d="M 424 137 A 175 175 0 0 1 567 259" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="46"/>
 <polygon data-ig-fill="primary" fill="#0d6efd" points="573,286 533,264 598,242"/>
-<text data-ig-text="item1" data-ig-font="primary" x="579" y="138" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Plan</text>
+<text data-ig-text="item1" data-ig-font="primary" x="510" y="128" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Plan</text>
 <path d="M 573 334 A 175 175 0 0 1 451 477" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="46"/>
 <polygon data-ig-fill="secondary" fill="#0d6efd" points="424,483 446,443 468,508"/>
-<text data-ig-text="item2" data-ig-font="primary" x="579" y="496" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Do</text>
+<text data-ig-text="item2" data-ig-font="primary" x="510" y="510" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Do</text>
 <path d="M 376 483 A 175 175 0 0 1 233 361" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="46"/>
 <polygon data-ig-fill="tertiary" fill="#0d6efd" points="227,334 267,356 202,378"/>
-<text data-ig-text="item3" data-ig-font="primary" x="221" y="496" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Check</text>
+<text data-ig-text="item3" data-ig-font="primary" x="290" y="510" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Check</text>
 <path d="M 227 286 A 175 175 0 0 1 349 143" fill="none" stroke="#0d6efd" data-ig-stroke="quaternary" stroke-width="46"/>
 <polygon data-ig-fill="quaternary" fill="#0d6efd" points="376,137 354,177 332,112"/>
-<text data-ig-text="item4" data-ig-font="primary" x="221" y="138" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Act</text>
+<text data-ig-text="item4" data-ig-font="primary" x="290" y="128" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Act</text>
 </g>
 </svg>`,
   },
@@ -257,22 +257,22 @@ export const TEMPLATES: Template[] = [
       item5: "Stage 5",
     },
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<g transform="translate(-157.42 -52.86) scale(1.6572)">
+<g transform="translate(25.2 100.8) scale(1.1969)">
 <path d="M 424 137 A 175 175 0 0 1 543 210" fill="none" stroke="#0d6efd" data-ig-stroke="primary" stroke-width="46"/>
 <polygon data-ig-fill="primary" fill="#0d6efd" points="557,233 513,225 567,184"/>
-<text data-ig-text="item1" data-ig-font="primary" x="549" y="112" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Plan</text>
+<text data-ig-text="item1" data-ig-font="primary" x="500" y="102" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Plan</text>
 <path d="M 572 280 A 175 175 0 0 1 540 415" fill="none" stroke="#0d6efd" data-ig-stroke="secondary" stroke-width="46"/>
 <polygon data-ig-fill="secondary" fill="#0d6efd" points="522,436 516,391 571,430"/>
-<text data-ig-text="item2" data-ig-font="primary" x="641" y="395" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Do</text>
+<text data-ig-text="item2" data-ig-font="primary" x="600" y="430" text-anchor="start" font-size="21" font-weight="bold" fill="#212529">Do</text>
 <path d="M 482 465 A 175 175 0 0 1 343 475" fill="none" stroke="#0d6efd" data-ig-stroke="tertiary" stroke-width="46"/>
 <polygon data-ig-fill="tertiary" fill="#0d6efd" points="318,465 359,445 339,510"/>
 <text data-ig-text="item3" data-ig-font="primary" x="400" y="570" text-anchor="middle" font-size="21" font-weight="bold" fill="#212529">Check</text>
 <path d="M 278 436 A 175 175 0 0 1 225 307" fill="none" stroke="#0d6efd" data-ig-stroke="quaternary" stroke-width="46"/>
 <polygon data-ig-fill="quaternary" fill="#0d6efd" points="228,280 259,312 191,314"/>
-<text data-ig-text="item4" data-ig-font="primary" x="159" y="395" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Act</text>
+<text data-ig-text="item4" data-ig-font="primary" x="200" y="430" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Act</text>
 <path d="M 243 233 A 175 175 0 0 1 349 143" fill="none" stroke="#0d6efd" data-ig-stroke="accent" stroke-width="46"/>
 <polygon data-ig-fill="accent" fill="#0d6efd" points="376,137 354,177 332,112"/>
-<text data-ig-text="item5" data-ig-font="primary" x="251" y="112" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Adjust</text>
+<text data-ig-text="item5" data-ig-font="primary" x="300" y="102" text-anchor="end" font-size="21" font-weight="bold" fill="#212529">Adjust</text>
 </g>
 </svg>`,
   },
