@@ -102,7 +102,7 @@ function Balloon() {
 function RootsAndBranches() {
   const branches: [number, number, string, string][] = [
     [230, 250, C.blue, "Growth"],
-    [500, 160, C.teal, "Trust"],
+    [500, 155, C.teal, "Trust"],
     [770, 250, C.yellow, "Revenue"],
   ];
   const roots: [number, string][] = [
@@ -112,24 +112,36 @@ function RootsAndBranches() {
   ];
   return (
     <>
-      {/* Limbs all originate inside the trunk so the fork has no gaps. */}
-      <path d="M500 650 C 478 540, 458 500, 380 420 M500 660 L500 380 M500 650 C 522 540, 542 500, 620 420" fill="none" stroke={C.accent} strokeWidth="36" strokeLinecap="round" />
-      <rect x="455" y="600" width="90" height="112" fill={C.accent} />
+      {/* Tapered trunk: flared base, narrowing to the fork. */}
+      <path
+        d="M425 712 C 460 700 462 640 468 560 C 472 505 476 470 480 440 C 486 415 492 405 500 400 C 508 405 514 415 520 440 C 524 470 528 505 532 560 C 538 640 540 700 575 712 Z"
+        fill={C.accent}
+      />
+      {/* Branches curve from the fork out to each canopy node. */}
+      <path d="M494 440 C 450 380 360 330 285 295" fill="none" stroke={C.accent} strokeWidth="22" strokeLinecap="round" />
+      <path d="M500 420 C 500 350 500 300 500 245" fill="none" stroke={C.accent} strokeWidth="24" strokeLinecap="round" />
+      <path d="M506 440 C 550 380 640 330 715 295" fill="none" stroke={C.accent} strokeWidth="22" strokeLinecap="round" />
+      {/* Foliage: soft satellite circles behind each labeled node. */}
       {branches.map(([x, y, col, label]) => (
         <g key={label}>
-          <line x1="500" y1="560" x2={x} y2={y + 60} stroke={C.accent} strokeWidth="18" strokeLinecap="round" />
+          <circle cx={x + 62} cy={y - 38} r="52" fill={col} opacity="0.35" />
+          <circle cx={x - 58} cy={y + 40} r="44" fill={col} opacity="0.35" />
+          <circle cx={x + 30} cy={y + 62} r="36" fill={col} opacity="0.25" />
           <circle cx={x} cy={y} r="95" fill={col} />
           <text x={x} y={y + 12} textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={col === C.yellow || col === C.teal ? C.dark : "#fff"}>{label}</text>
         </g>
       ))}
+      {/* Ground */}
       <line x1="120" y1="712" x2="880" y2="712" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
+      {/* Tapered roots with rootlets */}
+      <path d="M468 706 C 420 745 340 755 255 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
+      <path d="M500 710 C 500 750 500 775 500 805" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
+      <path d="M532 706 C 580 745 660 755 745 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
+      <path d="M400 750 C 370 765 350 780 330 795 M600 750 C 630 765 650 780 670 795 M500 770 C 470 785 455 795 445 805 M500 770 C 530 785 545 795 555 805" fill="none" stroke={C.accent} strokeWidth="8" strokeLinecap="round" />
       {roots.map(([x, label]) => (
-        <g key={label}>
-          <path d={`M500 710 C ${x < 500 ? x + 80 : x - 80} 760, ${x} 790, ${x} 840`} fill="none" stroke={C.accent} strokeWidth="14" strokeLinecap="round" />
-          <text x={x} y="900" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
-        </g>
+        <text key={label} x={x} y="870" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
       ))}
-      <text x="500" y="980" textAnchor="middle" fontFamily={F} fontSize="32" fill={C.accent}>Visible results grow from hidden roots</text>
+      <text x="500" y="960" textAnchor="middle" fontFamily={F} fontSize="32" fill={C.accent}>Visible results grow from hidden roots</text>
     </>
   );
 }
