@@ -228,6 +228,29 @@ function Dominoes() {
   );
 }
 
+function Stool() {
+  const legs: [number, number, string, string][] = [
+    [330, 230, C.blue, "People"],
+    [500, 500, C.teal, "Process"],
+    [670, 770, C.yellow, "Technology"],
+  ];
+  return (
+    <>
+      {legs.map(([topX, footX, col, label]) => (
+        <g key={label}>
+          <line x1={topX} y1="330" x2={footX} y2="770" stroke={col} strokeWidth="38" strokeLinecap="round" />
+          <text x={footX} y="850" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>{label}</text>
+        </g>
+      ))}
+      <ellipse cx="500" cy="290" rx="270" ry="62" fill={C.accent} />
+      <ellipse cx="500" cy="272" rx="270" ry="58" fill={C.coral} />
+      <text x="500" y="287" textAnchor="middle" fontFamily={F} fontSize="40" fontWeight="700" fill="#fff">Strategy</text>
+      <line x1="120" y1="790" x2="880" y2="790" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
+      <text x="500" y="950" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Remove any one leg and it falls</text>
+    </>
+  );
+}
+
 export default function ConceptsPage() {
   return (
     <>
@@ -253,6 +276,9 @@ export default function ConceptsPage() {
         </Frame>
         <Frame title="Domino Effect" note="Compounding chain of small wins">
           <Dominoes />
+        </Frame>
+        <Frame title="Three-Legged Stool" note="Interdependent supports — all or nothing">
+          <Stool />
         </Frame>
       </div>
     </>
