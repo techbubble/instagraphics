@@ -77,20 +77,19 @@ function Balloon() {
   );
   return (
     <>
-      <g transform="translate(140 100) scale(30)" fill="none" stroke={C.dark} strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round">
+      <g transform="translate(140 140) scale(30)" fill="none" stroke={C.dark} strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 21v-3h6v3a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1" />
         <path d="M9 18c-2.347 -2.169 -5 -5.226 -5 -8a8 8 0 1 1 16 0c0 2.774 -2.653 5.831 -5 8" />
         <path d="M5.5 14h13" />
         <path d="M10 14c-1.69 -4.712 -.924 -8.197 0 -11.602" />
         <path d="M14 14c1.469 -3.867 1.19 -7.735 0 -11.602" />
       </g>
-      {arrow(120, 230, true, "#22a06b", "Vision")}
-      {arrow(120, 380, true, "#22a06b", "Talent")}
-      {arrow(120, 530, true, "#22a06b", "Focus")}
-      {arrow(880, 230, false, "#dc3545", "Doubt")}
-      {arrow(880, 380, false, "#dc3545", "Debt")}
-      {arrow(880, 530, false, "#dc3545", "Drag")}
-      <text x="500" y="920" textAnchor="middle" fontFamily={F} fontSize="38" fontWeight="700" fill={C.dark}>What lifts you vs. what weighs you down</text>
+      {arrow(120, 270, true, "#22a06b", "Vision")}
+      {arrow(120, 420, true, "#22a06b", "Talent")}
+      {arrow(120, 570, true, "#22a06b", "Focus")}
+      {arrow(880, 270, false, "#dc3545", "Doubt")}
+      {arrow(880, 420, false, "#dc3545", "Debt")}
+      {arrow(880, 570, false, "#dc3545", "Drag")}
     </>
   );
 }
