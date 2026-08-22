@@ -90,29 +90,22 @@ function teamRing() {
   );
 }
 
+// Font Awesome Free 6.7.2 glyphs (regular/lightbulb, regular/hand).
+// License: CC BY 4.0 — https://fontawesome.com/license/free
+const FA_BULB = "M297.2 248.9C311.6 228.3 320 203.2 320 176c0-70.7-57.3-128-128-128S64 105.3 64 176c0 27.2 8.4 52.3 22.8 72.9c3.7 5.3 8.1 11.3 12.8 17.7c0 0 0 0 0 0c12.9 17.7 28.3 38.9 39.8 59.8c10.4 19 15.7 38.8 18.3 57.5L109 384c-2.2-12-5.9-23.7-11.8-34.5c-9.9-18-22.2-34.9-34.5-51.8c0 0 0 0 0 0s0 0 0 0c-5.2-7.1-10.4-14.2-15.4-21.4C27.6 247.9 16 213.3 16 176C16 78.8 94.8 0 192 0s176 78.8 176 176c0 37.3-11.6 71.9-31.4 100.3c-5 7.2-10.2 14.3-15.4 21.4c0 0 0 0 0 0s0 0 0 0c-12.3 16.8-24.6 33.7-34.5 51.8c-5.9 10.8-9.6 22.5-11.8 34.5l-48.6 0c2.6-18.7 7.9-38.6 18.3-57.5c11.5-20.9 26.9-42.1 39.8-59.8c0 0 0 0 0 0s0 0 0 0s0 0 0 0c4.7-6.4 9-12.4 12.7-17.7zM192 128c-26.5 0-48 21.5-48 48c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-44.2 35.8-80 80-80c8.8 0 16 7.2 16 16s-7.2 16-16 16zm0 384c-44.2 0-80-35.8-80-80l0-16 160 0 0 16c0 44.2-35.8 80-80 80z";
+const FA_HAND = "M256 0c-25.3 0-47.2 14.7-57.6 36c-7-2.6-14.5-4-22.4-4c-35.3 0-64 28.7-64 64l0 165.5-2.7-2.7c-25-25-65.5-25-90.5 0s-25 65.5 0 90.5L106.5 437c48 48 113.1 75 181 75l8.5 0 8 0c1.5 0 3-.1 4.5-.4c91.7-6.2 165-79.4 171.1-171.1c.3-1.5 .4-3 .4-4.5l0-176c0-35.3-28.7-64-64-64c-5.5 0-10.9 .7-16 2l0-2c0-35.3-28.7-64-64-64c-7.9 0-15.4 1.4-22.4 4C303.2 14.7 281.3 0 256 0zM240 96.1l0-.1 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 31.9 0 .1 0 136c0 13.3 10.7 24 24 24s24-10.7 24-24l0-136c0 0 0 0 0-.1c0-8.8 7.2-16 16-16s16 7.2 16 16l0 55.9c0 0 0 .1 0 .1l0 80c0 13.3 10.7 24 24 24s24-10.7 24-24l0-71.9c0 0 0-.1 0-.1c0-8.8 7.2-16 16-16s16 7.2 16 16l0 172.9c-.1 .6-.1 1.3-.2 1.9c-3.4 69.7-59.3 125.6-129 129c-.6 0-1.3 .1-1.9 .2l-4.9 0-8.5 0c-55.2 0-108.1-21.9-147.1-60.9L52.7 315.3c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L119 336.4c6.9 6.9 17.2 8.9 26.2 5.2s14.8-12.5 14.8-22.2L160 96c0-8.8 7.2-16 16-16c8.8 0 16 7.1 16 15.9L192 232c0 13.3 10.7 24 24 24s24-10.7 24-24l0-135.9z";
+
 function lightBulb() {
-  // Classic pear-shaped bulb: round glass tapering to a threaded screw
-  // base, yellow rays, idea chips with leader dots on both sides.
+  // Font Awesome lightbulb glyph, idea chips with leader dots both sides.
   const chip = (x, y, c, l) =>
     `<rect x="${x - 110}" y="${y - 35}" width="220" height="70" rx="24" fill="${c}"/>` +
     txt(x, y + 10, 30, onLight(c) ? DARK : "#fff", l);
-  let rays = "";
-  for (const deg of [-150, -120, -90, -60, -30]) {
-    const a = (deg * Math.PI) / 180;
-    rays += `<line x1="${(500 + 175 * Math.cos(a)).toFixed(1)}" y1="${(330 + 175 * Math.sin(a)).toFixed(1)}" x2="${(500 + 222 * Math.cos(a)).toFixed(1)}" y2="${(330 + 222 * Math.sin(a)).toFixed(1)}" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>`;
-  }
   const leaders = [
-    [275, 343, 350, 340], [275, 373, 380, 420], [275, 421, 428, 500],
-    [725, 657, 650, 340], [725, 627, 620, 420], [725, 579, 572, 500],
+    [275, 348, 355, 300], [275, 332, 339, 390], [275, 355, 362, 480],
+    [725, 652, 645, 300], [725, 668, 661, 390], [725, 645, 638, 480],
   ];
   return (
-    rays +
-    `<path d="M445 565 C 415 505 350 470 350 335 A 150 150 0 1 1 650 335 C 650 470 585 505 555 565" fill="none" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
-    `<line x1="448" y1="592" x2="552" y2="592" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
-    `<line x1="452" y1="620" x2="548" y2="620" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
-    `<line x1="462" y1="648" x2="538" y2="648" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
-    `<line x1="480" y1="676" x2="520" y2="676" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
-    txt(500, 345, 36, DARK, "Big Idea") +
+    `<g transform="translate(298 130) scale(1.05)"><path d="${FA_BULB}" fill="${ACCENT}"/></g>` +
     leaders
       .map(
         ([xa, xb, dx, y]) =>
@@ -120,37 +113,33 @@ function lightBulb() {
           `<circle cx="${dx}" cy="${y}" r="8" fill="${ACCENT}"/>`
       )
       .join("") +
-    chip(165, 340, BLUE, "Topic 1") +
-    chip(165, 420, TEAL, "Topic 2") +
-    chip(165, 500, BLUE, "Topic 3") +
-    chip(835, 340, CORAL, "Topic 4") +
-    chip(835, 420, TEAL, "Topic 5") +
-    chip(835, 500, CORAL, "Topic 6")
+    chip(165, 300, BLUE, "Topic 1") +
+    chip(165, 390, TEAL, "Topic 2") +
+    chip(165, 480, BLUE, "Topic 3") +
+    chip(835, 300, CORAL, "Topic 4") +
+    chip(835, 390, TEAL, "Topic 5") +
+    chip(835, 480, CORAL, "Topic 6")
   );
 }
 
 function openHand() {
-  // Open palm traced from the user's reference image: four spread
-  // fingers, thumb out to the side, wrist cuff. Colored fingertip dots.
+  // Font Awesome hand glyph; colored dot and label per fingertip.
   const dots = [
-    [286, 388, BLUE, 185, 355, "Topic 1"],
-    [398, 245, TEAL, 355, 195, "Topic 2"],
-    [472, 190, YELLOW, 472, 130, "Topic 3"],
-    [546, 225, CORAL, 590, 165, "Topic 4"],
-    [618, 300, ACCENT, 700, 250, "Topic 5"],
+    [278, 648, "#22a06b", 158, 655, "Topic 1"],
+    [438, 285, BLUE, 378, 200, "Topic 2"],
+    [505, 252, TEAL, 505, 158, "Topic 3"],
+    [578, 288, YELLOW, 632, 200, "Topic 4"],
+    [652, 352, CORAL, 722, 285, "Topic 5"],
   ];
   return (
-    `<g fill="#fff" stroke="${DARK}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">` +
-    `<path d="M 350 630 L 350 520 L 262 405 A 31 31 0 0 1 311 367 L 370 455 L 365 250 A 33 33 0 0 1 431 250 L 431 462 L 435 468 L 439 462 L 439 185 A 33 33 0 0 1 505 185 L 505 464 L 509 470 L 513 464 L 513 220 A 33 33 0 0 1 579 220 L 579 472 L 583 478 L 588 472 L 588 295 A 30 30 0 0 1 648 295 L 650 540 L 650 630 Q 650 655 630 655 L 370 655 Q 350 655 350 630 Z"/>` +
-    `<rect x="380" y="685" width="240" height="58" rx="18"/>` +
-    `</g>` +
+    `<g transform="translate(180 180) scale(1.25)"><path d="${FA_HAND}" fill="${DARK}"/></g>` +
     dots
       .map(
         ([dx, dy, c, lx, ly, l]) =>
           `<circle cx="${dx}" cy="${dy}" r="13" fill="${c}"/>` + txt(lx, ly, 30, DARK, l)
       )
       .join("") +
-    txt(500, 920, 34, DARK, "Five ideas, one hand")
+    txt(500, 940, 34, DARK, "Five ideas, one hand")
   );
 }
 
