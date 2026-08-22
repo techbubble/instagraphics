@@ -270,6 +270,47 @@ function Stool() {
   );
 }
 
+function SubwayMap() {
+  // 2-line, 8-station canned map with one interchange. Station labels are
+  // the fill-in-the-blank slots (8 = current universal field limit).
+  const st = (x: number, y: number, r: number, w: number) => (
+    <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#fff" stroke={C.dark} strokeWidth={w} />
+  );
+  const labels: [number, number, "start" | "middle" | "end", string][] = [
+    [210, 205, "middle", "Topic 1"],
+    [370, 210, "middle", "Topic 2"],
+    [525, 480, "start", "Topic 3"],
+    [590, 630, "middle", "Topic 4"],
+    [730, 765, "middle", "Topic 5"],
+    [190, 785, "middle", "Topic 6"],
+    [290, 540, "end", "Topic 7"],
+    [715, 195, "start", "Topic 8"],
+    [425, 425, "end", "Junction"],
+  ];
+  return (
+    <>
+      <path d="M210 250 H420 Q470 250 470 300 V520 Q470 570 520 570 H680 Q730 570 730 620 V700" fill="none" stroke={C.blue} strokeWidth="22" strokeLinecap="round" />
+      <path d="M190 720 H300 Q350 720 350 670 V400 Q350 350 400 350 H620 Q670 350 670 300 V200" fill="none" stroke={C.teal} strokeWidth="22" strokeLinecap="round" />
+      {st(210, 250, 20, 10)}
+      {st(370, 250, 15, 8)}
+      {st(470, 470, 15, 8)}
+      {st(590, 570, 15, 8)}
+      {st(730, 700, 20, 10)}
+      {st(190, 720, 20, 10)}
+      {st(350, 550, 15, 8)}
+      {st(670, 200, 20, 10)}
+      <rect x="440" y="326" width="60" height="48" rx="24" fill="#fff" stroke={C.dark} strokeWidth="9" />
+      {labels.map(([x, y, anchor, label]) => (
+        <text key={label} x={x} y={y} textAnchor={anchor} fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>{label}</text>
+      ))}
+      <line x1="160" y1="890" x2="250" y2="890" stroke={C.blue} strokeWidth="16" strokeLinecap="round" />
+      <text x="270" y="900" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line one</text>
+      <line x1="540" y1="890" x2="630" y2="890" stroke={C.teal} strokeWidth="16" strokeLinecap="round" />
+      <text x="650" y="900" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line two</text>
+    </>
+  );
+}
+
 export default function ConceptsPage() {
   return (
     <>
@@ -298,6 +339,9 @@ export default function ConceptsPage() {
         </Frame>
         <Frame title="Three-Legged Stool" note="Interdependent supports — all or nothing">
           <Stool />
+        </Frame>
+        <Frame title="Subway Map" note="2 lines, 8 stations, one junction — fill in the blanks">
+          <SubwayMap />
         </Frame>
       </div>
     </>
