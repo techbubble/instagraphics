@@ -84,13 +84,13 @@ function Balloon() {
       <rect x="440" y="760" width="120" height="90" rx="12" fill="#fff" stroke={C.accent} strokeWidth="8" />
       {["Vision", "Talent", "Focus"].map((label, i) => (
         <g key={label}>
-          <path d={`M120 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke={C.blue} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={`M120 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke="#22a06b" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
           <text x="120" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
       {["Doubt", "Debt", "Drag"].map((label, i) => (
         <g key={label}>
-          <path d={`M880 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke={C.accent} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={`M880 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke="#dc3545" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
           <text x="880" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
