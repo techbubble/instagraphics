@@ -249,26 +249,24 @@ function Dominoes() {
 }
 
 function Stool() {
-  // Front view: thick seat, three tapered splayed legs, one stretcher rung.
-  const legs: [string, string, number, string][] = [
-    ["285,310 335,310 240,760 195,760", C.blue, 217, "People"],
-    ["475,310 525,310 522,760 478,760", C.teal, 500, "Process"],
-    ["665,310 715,310 805,760 760,760", C.yellow, 783, "Technology"],
-  ];
+  // 3/4 view: elliptical seat with thickness, two back legs on the far
+  // ground line, one longer front leg reaching closer to the viewer.
   return (
     <>
-      <line x1="252" y1="560" x2="748" y2="560" stroke={C.accent} strokeWidth="14" />
-      {legs.map(([pts, col, footX, label]) => (
-        <g key={label}>
-          <polygon points={pts} fill={col} />
-          <text x={footX} y="838" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>{label}</text>
-        </g>
-      ))}
-      <rect x="235" y="292" width="530" height="26" rx="13" fill="#d13c3c" />
-      <rect x="225" y="235" width="550" height="66" rx="30" fill={C.coral} />
-      <text x="500" y="281" textAnchor="middle" fontFamily={F} fontSize="40" fontWeight="700" fill="#fff">Strategy</text>
-      <line x1="120" y1="768" x2="880" y2="768" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
-      <text x="500" y="950" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Remove any one leg and it falls</text>
+      <ellipse cx="500" cy="795" rx="340" ry="58" fill="none" stroke={C.accent} strokeWidth="5" strokeDasharray="16 14" opacity="0.6" />
+      {/* Back legs (shorter — further away), tops tucked behind the seat */}
+      <polygon points="315,290 360,290 300,754 262,754" fill={C.blue} />
+      <polygon points="640,290 685,290 738,754 700,754" fill={C.yellow} />
+      {/* Seat: side wall then top face */}
+      <path d="M230 285 A 270 75 0 0 0 770 285 L770 320 A 270 75 0 0 1 230 320 Z" fill="#d13c3c" />
+      <ellipse cx="500" cy="283" rx="270" ry="75" fill={C.coral} />
+      <text x="500" y="297" textAnchor="middle" fontFamily={F} fontSize="42" fontWeight="700" fill="#fff">Strategy</text>
+      {/* Front leg (longest — nearest) */}
+      <polygon points="474,352 526,352 518,852 482,852" fill={C.teal} />
+      <text x="255" y="825" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>People</text>
+      <text x="745" y="825" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Technology</text>
+      <text x="500" y="920" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Process</text>
+      <text x="500" y="985" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Remove any one leg and it falls</text>
     </>
   );
 }
