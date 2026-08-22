@@ -136,7 +136,6 @@ function RootsAndBranches() {
       {roots.map(([x, label]) => (
         <text key={label} x={x} y="870" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
       ))}
-      <text x="500" y="960" textAnchor="middle" fontFamily={F} fontSize="32" fill={C.accent}>Visible results grow from hidden roots</text>
     </>
   );
 }
