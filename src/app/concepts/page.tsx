@@ -277,36 +277,36 @@ function SubwayMap() {
     <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#fff" stroke={C.dark} strokeWidth={w} />
   );
   const labels: [number, number, "start" | "middle" | "end", string][] = [
-    [210, 205, "middle", "Topic 1"],
-    [370, 210, "middle", "Topic 2"],
-    [525, 480, "start", "Topic 3"],
-    [590, 630, "middle", "Topic 4"],
-    [730, 765, "middle", "Topic 5"],
-    [190, 785, "middle", "Topic 6"],
-    [290, 540, "end", "Topic 7"],
-    [715, 195, "start", "Topic 8"],
-    [425, 425, "end", "Junction"],
+    [150, 255, "middle", "Topic 1"],
+    [300, 255, "middle", "Topic 2"],
+    [395, 490, "end", "Topic 3"],
+    [700, 605, "middle", "Topic 4"],
+    [820, 715, "middle", "Topic 5"],
+    [180, 825, "middle", "Topic 6"],
+    [380, 825, "middle", "Topic 7"],
+    [830, 295, "middle", "Topic 8"],
+    [505, 710, "end", "Junction"],
   ];
   return (
     <>
-      <path d="M210 250 H420 Q470 250 470 300 V520 Q470 570 520 570 H680 Q730 570 730 620 V700" fill="none" stroke={C.blue} strokeWidth="22" strokeLinecap="round" />
-      <path d="M190 720 H300 Q350 720 350 670 V400 Q350 350 400 350 H620 Q670 350 670 300 V200" fill="none" stroke={C.teal} strokeWidth="22" strokeLinecap="round" />
-      {st(210, 250, 20, 10)}
-      {st(370, 250, 15, 8)}
-      {st(470, 470, 15, 8)}
-      {st(590, 570, 15, 8)}
-      {st(730, 700, 20, 10)}
-      {st(190, 720, 20, 10)}
-      {st(350, 550, 15, 8)}
-      {st(670, 200, 20, 10)}
-      <rect x="440" y="326" width="60" height="48" rx="24" fill="#fff" stroke={C.dark} strokeWidth="9" />
+      <path d="M150 300 H400 Q450 300 450 350 V600 Q450 650 500 650 H820" fill="none" stroke={C.blue} strokeWidth="22" strokeLinecap="round" />
+      <path d="M180 760 H520 Q570 760 570 710 V400 Q570 350 620 350 H830" fill="none" stroke={C.teal} strokeWidth="22" strokeLinecap="round" />
+      {st(150, 300, 20, 10)}
+      {st(300, 300, 15, 8)}
+      {st(450, 480, 15, 8)}
+      {st(700, 650, 15, 8)}
+      {st(820, 650, 20, 10)}
+      {st(180, 760, 20, 10)}
+      {st(380, 760, 15, 8)}
+      {st(830, 350, 20, 10)}
+      <rect x="546" y="620" width="48" height="60" rx="24" fill="#fff" stroke={C.dark} strokeWidth="9" />
       {labels.map(([x, y, anchor, label]) => (
         <text key={label} x={x} y={y} textAnchor={anchor} fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>{label}</text>
       ))}
-      <line x1="160" y1="890" x2="250" y2="890" stroke={C.blue} strokeWidth="16" strokeLinecap="round" />
-      <text x="270" y="900" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line one</text>
-      <line x1="540" y1="890" x2="630" y2="890" stroke={C.teal} strokeWidth="16" strokeLinecap="round" />
-      <text x="650" y="900" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line two</text>
+      <line x1="160" y1="905" x2="250" y2="905" stroke={C.blue} strokeWidth="16" strokeLinecap="round" />
+      <text x="270" y="915" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line one</text>
+      <line x1="540" y1="905" x2="630" y2="905" stroke={C.teal} strokeWidth="16" strokeLinecap="round" />
+      <text x="650" y="915" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line two</text>
     </>
   );
 }
