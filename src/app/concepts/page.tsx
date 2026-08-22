@@ -311,6 +311,70 @@ function SubwayMap() {
   );
 }
 
+function SubwayMapOne() {
+  // 1 line, 5 stations — fits Item 1-5 exactly.
+  return (
+    <>
+      <path d="M150 250 H450 Q500 250 500 300 V450 Q500 500 550 500 H700 Q750 500 750 550 V700 Q750 750 700 750 H350" fill="none" stroke={C.blue} strokeWidth="22" strokeLinecap="round" />
+      <circle cx="150" cy="250" r="20" fill="#fff" stroke={C.dark} strokeWidth="10" />
+      <circle cx="350" cy="250" r="15" fill="#fff" stroke={C.dark} strokeWidth="8" />
+      <circle cx="620" cy="500" r="15" fill="#fff" stroke={C.dark} strokeWidth="8" />
+      <circle cx="750" cy="640" r="15" fill="#fff" stroke={C.dark} strokeWidth="8" />
+      <circle cx="350" cy="750" r="20" fill="#fff" stroke={C.dark} strokeWidth="10" />
+      <text x="150" y="205" textAnchor="middle" fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>Topic 1</text>
+      <text x="350" y="205" textAnchor="middle" fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>Topic 2</text>
+      <text x="620" y="555" textAnchor="middle" fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>Topic 3</text>
+      <text x="795" y="650" textAnchor="start" fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>Topic 4</text>
+      <text x="350" y="815" textAnchor="middle" fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>Topic 5</text>
+    </>
+  );
+}
+
+function SubwayMapThree() {
+  // 3 lines, 8 stations, 2 junctions — uses all 8 universal fields.
+  const st = (x: number, y: number, r: number, w: number) => (
+    <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#fff" stroke={C.dark} strokeWidth={w} />
+  );
+  const labels: [number, number, "start" | "middle" | "end", string][] = [
+    [150, 205, "middle", "Topic 1"],
+    [320, 205, "middle", "Topic 2"],
+    [850, 565, "middle", "Topic 3"],
+    [180, 845, "middle", "Topic 4"],
+    [400, 845, "middle", "Topic 5"],
+    [860, 205, "middle", "Topic 6"],
+    [150, 445, "middle", "Topic 7"],
+    [610, 145, "middle", "Topic 8"],
+    [445, 440, "end", "Junction 1"],
+    [700, 455, "start", "Junction 2"],
+  ];
+  return (
+    <>
+      <path d="M150 250 H450 Q500 250 500 300 V450 Q500 500 550 500 H850" fill="none" stroke={C.blue} strokeWidth="22" strokeLinecap="round" />
+      <path d="M180 780 H620 Q670 780 670 730 V300 Q670 250 720 250 H860" fill="none" stroke={C.teal} strokeWidth="22" strokeLinecap="round" />
+      <path d="M150 380 H560 Q610 380 610 330 V180" fill="none" stroke={C.yellow} strokeWidth="22" strokeLinecap="round" />
+      {st(150, 250, 20, 10)}
+      {st(320, 250, 15, 8)}
+      {st(850, 500, 20, 10)}
+      {st(180, 780, 20, 10)}
+      {st(400, 780, 15, 8)}
+      {st(860, 250, 20, 10)}
+      {st(150, 380, 20, 10)}
+      {st(610, 180, 20, 10)}
+      <rect x="470" y="356" width="60" height="48" rx="24" fill="#fff" stroke={C.dark} strokeWidth="9" />
+      <rect x="646" y="470" width="48" height="60" rx="24" fill="#fff" stroke={C.dark} strokeWidth="9" />
+      {labels.map(([x, y, anchor, label]) => (
+        <text key={label} x={x} y={y} textAnchor={anchor} fontFamily={F} fontSize="30" fontWeight="700" fill={C.dark}>{label}</text>
+      ))}
+      <line x1="100" y1="920" x2="170" y2="920" stroke={C.blue} strokeWidth="16" strokeLinecap="round" />
+      <text x="190" y="930" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line one</text>
+      <line x1="400" y1="920" x2="470" y2="920" stroke={C.teal} strokeWidth="16" strokeLinecap="round" />
+      <text x="490" y="930" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line two</text>
+      <line x1="700" y1="920" x2="770" y2="920" stroke={C.yellow} strokeWidth="16" strokeLinecap="round" />
+      <text x="790" y="930" fontFamily={F} fontSize="28" fontWeight="700" fill={C.dark}>Line three</text>
+    </>
+  );
+}
+
 export default function ConceptsPage() {
   return (
     <>
@@ -340,8 +404,14 @@ export default function ConceptsPage() {
         <Frame title="Three-Legged Stool" note="Interdependent supports — all or nothing">
           <Stool />
         </Frame>
-        <Frame title="Subway Map" note="2 lines, 8 stations, one junction — fill in the blanks">
+        <Frame title="Subway Map (1 Line)" note="1 line, 5 stations — the simplest journey">
+          <SubwayMapOne />
+        </Frame>
+        <Frame title="Subway Map (2 Lines)" note="2 lines, 8 stations, one junction">
           <SubwayMap />
+        </Frame>
+        <Frame title="Subway Map (3 Lines)" note="3 lines, 8 stations, two junctions">
+          <SubwayMapThree />
         </Frame>
       </div>
     </>
