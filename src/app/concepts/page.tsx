@@ -58,31 +58,37 @@ function MetroMap() {
 }
 
 function Balloon() {
-  const gores = [C.blue, C.teal, C.yellow, C.coral];
+  // Teardrop envelope: widest above middle, tapering to a narrow neck.
+  const gore = (h: number) =>
+    `M500 140 C ${500 + 0.73 * h} 140 ${500 + h} 280 ${500 + h} 400 ` +
+    `C ${500 + h} 520 ${500 + 0.53 * h} 605 515 652 L485 652 ` +
+    `C ${500 - 0.53 * h} 605 ${500 - h} 520 ${500 - h} 400 ` +
+    `C ${500 - h} 280 ${500 - 0.73 * h} 140 500 140 Z`;
+  const layers: [number, string][] = [
+    [300, C.blue],
+    [220, C.teal],
+    [145, C.yellow],
+    [75, C.coral],
+  ];
   return (
     <>
-      {gores.map((col, i) => (
-        <path
-          key={col}
-          d={`M500 130 C ${290 + i * 105} 130, ${290 + i * 105} 560, 500 660 C ${710 - (3 - i) * 105} 560, ${710 - (3 - i) * 105} 130, 500 130`}
-          fill={col}
-          opacity={0.92}
-        />
+      {layers.map(([h, col]) => (
+        <path key={col} d={gore(h)} fill={col} />
       ))}
-      <path d="M500 130 C 290 130, 290 560, 500 660 C 710 560, 710 130, 500 130" fill="none" stroke={C.accent} strokeWidth="8" />
-      <line x1="445" y1="648" x2="462" y2="760" stroke={C.accent} strokeWidth="7" />
-      <line x1="555" y1="648" x2="538" y2="760" stroke={C.accent} strokeWidth="7" />
+      <path d={gore(300)} fill="none" stroke={C.accent} strokeWidth="8" />
+      <line x1="486" y1="652" x2="464" y2="760" stroke={C.accent} strokeWidth="7" />
+      <line x1="514" y1="652" x2="536" y2="760" stroke={C.accent} strokeWidth="7" />
       <rect x="440" y="760" width="120" height="90" rx="12" fill="#fff" stroke={C.accent} strokeWidth="8" />
       {["Vision", "Talent", "Focus"].map((label, i) => (
         <g key={label}>
-          <path d={`M150 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke={C.teal} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="150" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
+          <path d={`M120 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke={C.teal} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="120" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
       {["Doubt", "Debt", "Drag"].map((label, i) => (
         <g key={label}>
-          <path d={`M850 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke={C.coral} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="850" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
+          <path d={`M880 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke={C.coral} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="880" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
       <text x="500" y="930" textAnchor="middle" fontFamily={F} fontSize="42" fontWeight="700" fill={C.dark}>What lifts you vs. what weighs you down</text>
@@ -161,13 +167,14 @@ function Honeycomb() {
         return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
       })
       .join(" ");
+  // Proper hex tiling: neighbors sit at distance sqrt(3)*r from center.
   const cells: [number, number, string, string][] = [
-    [500, 275, C.blue, "Plan"],
-    [695, 388, C.teal, "Build"],
-    [695, 613, C.yellow, "Test"],
-    [500, 725, C.coral, "Ship"],
-    [305, 613, C.blue, "Learn"],
-    [305, 388, C.teal, "Refine"],
+    [405, 335, C.blue, "Plan"],
+    [595, 335, C.teal, "Build"],
+    [690.5, 500, C.yellow, "Test"],
+    [595, 665, C.coral, "Ship"],
+    [405, 665, C.blue, "Learn"],
+    [309.5, 500, C.teal, "Refine"],
   ];
   return (
     <>
