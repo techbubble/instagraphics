@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sessionUserId } from "@/lib/auth";
 import { sql } from "@/lib/db";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, templateSvg } from "@/lib/templates";
 import { renderTemplate } from "@/lib/svg-engine";
 import { sanitizeBrand, sanitizeValues } from "@/lib/server-render";
 
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
   const values = sanitizeValues(body.values);
-  const svg = renderTemplate(template.svg, sanitizeBrand(body.brand), values);
+  const svg = renderTemplate(templateSvg(template, values), sanitizeBrand(body.brand), values);
   const title = template.title.slice(0, 80);
   const rows = (await sql()`
     INSERT INTO graphics (user_id, template_id, title, svg)

@@ -1,3 +1,5 @@
+import { buildSubwaySvg } from "./subway";
+
 // The content panel is the same for every graphic: one universal set of
 // fields, persisted per account. Each template maps the subset it uses via
 // its `usage` map (key -> where the text lands); unmapped fields are inert.
@@ -29,8 +31,16 @@ export type Template = {
   about: string; // longer copy for the template's landing page
   usage: Partial<Record<string, string>>;
   labels: Partial<Record<string, string>>; // contextual field labels (fall back to universal)
+  fieldMax?: Partial<Record<string, number>>; // per-template maxLength overrides
   svg: string;
 };
+
+// Templates with rendering logic generate their SVG from field values;
+// everything else uses the static SVG.
+export function templateSvg(t: Template, values: Record<string, string>): string {
+  if (t.family === "subway-map") return buildSubwaySvg(t.items, values);
+  return t.svg;
+}
 
 export const TEMPLATES: Template[] = [
   {
@@ -2735,25 +2745,20 @@ export const TEMPLATES: Template[] = [
     title: "Subway Map (1 line)",
     category: "Process",
     items: 1,
-    description: "One winding transit line through 5 stations.",
-    about: "A single subway line is the friendliest way to show a journey: five stations, one track, no branches. Use it for onboarding paths, learning journeys, project phases, or any story told strictly in order.",
+    description: "One transit line; list any number of stations.",
+    about: "A subway map turns ideas into stations on transit lines. Type each line's stations as a comma-separated list — as many as you like. To create an interchange, put the same station name in two lines at the point where they should meet.",
     usage: {
-      item1: "station 1",
-      item2: "station 2",
-      item3: "station 3",
-      item4: "station 4",
-      item5: "station 5",
+      item1: "comma-separated stations",
+      other1: "legend name"
     },
     labels: {
-      item1: "Station 1",
-      item2: "Station 2",
-      item3: "Station 3",
-      item4: "Station 4",
-      item5: "Station 5",
+      item1: "Line 1 stations",
+      other1: "Line 1 name"
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<path d="M150 250 H450 Q500 250 500 300 V450 Q500 500 550 500 H700 Q750 500 750 550 V700 Q750 750 700 750 H350" fill="none" data-ig-stroke="primary" stroke="#0d6efd" stroke-width="22" stroke-linecap="round"/><circle cx="150" cy="250" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="350" cy="250" r="15" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="8"/><circle cx="620" cy="500" r="15" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="8"/><circle cx="750" cy="640" r="15" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="8"/><circle cx="350" cy="750" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><text data-ig-text="item1" data-ig-font="primary" x="150" y="205" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Discover</text><text data-ig-text="item2" data-ig-font="primary" x="350" y="205" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Define</text><text data-ig-text="item3" data-ig-font="primary" x="620" y="555" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Design</text><text data-ig-text="item4" data-ig-font="primary" x="795" y="650" text-anchor="start" font-size="30" font-weight="bold" fill="#212529">Deliver</text><text data-ig-text="item5" data-ig-font="primary" x="350" y="815" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Debrief</text>
-</svg>`,
+    fieldMax: {
+      item1: 200,
+    },
+    svg: buildSubwaySvg(1, {}),
   },
   {
     id: "subway-map-2",
@@ -2761,31 +2766,25 @@ export const TEMPLATES: Template[] = [
     title: "Subway Map (2 lines)",
     category: "Relationship",
     items: 2,
-    description: "Two transit lines, 8 stations, one junction.",
-    about: "Two subway lines crossing at a junction show parallel workstreams that share one decisive meeting point. Name the stations along each line, and let the junction carry the moment the tracks connect: a shared milestone, dependency, or decision.",
+    description: "Two transit lines with a shared interchange station.",
+    about: "A subway map turns ideas into stations on transit lines. Type each line's stations as a comma-separated list — as many as you like. To create an interchange, put the same station name in two lines at the point where they should meet.",
     usage: {
-      item1: "line 1 station",
-      item2: "line 1 station",
-      item3: "line 1 station",
-      item4: "line 1 terminal",
-      item5: "line 2 station",
-      other1: "line 2 station",
-      other2: "line 2 terminal",
-      other3: "junction",
+      item1: "comma-separated stations",
+      other1: "legend name",
+      item2: "comma-separated stations",
+      other2: "legend name"
     },
     labels: {
-      item1: "Station 1",
-      item2: "Station 2",
-      item3: "Station 3",
-      item4: "Station 4",
-      item5: "Station 5",
-      other1: "Station 6",
-      other2: "Station 7",
-      other3: "Junction",
+      item1: "Line 1 stations",
+      other1: "Line 1 name",
+      item2: "Line 2 stations",
+      other2: "Line 2 name"
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<path d="M150 300 H400 Q450 300 450 350 V600 Q450 650 500 650 H820" fill="none" data-ig-stroke="primary" stroke="#0d6efd" stroke-width="22" stroke-linecap="round"/><path d="M180 760 H520 Q570 760 570 710 V400 Q570 350 620 350 H830" fill="none" data-ig-stroke="secondary" stroke="#3be8bd" stroke-width="22" stroke-linecap="round"/><circle cx="150" cy="300" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="300" cy="300" r="15" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="8"/><circle cx="450" cy="480" r="15" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="8"/><circle cx="820" cy="650" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="180" cy="760" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="380" cy="760" r="15" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="8"/><circle cx="830" cy="350" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><rect x="546" y="620" width="48" height="60" rx="24" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="9"/><text data-ig-text="item1" data-ig-font="primary" x="150" y="255" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Research</text><text data-ig-text="item2" data-ig-font="primary" x="300" y="255" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Insight</text><text data-ig-text="item3" data-ig-font="primary" x="395" y="490" text-anchor="end" font-size="30" font-weight="bold" fill="#212529">Concept</text><text data-ig-text="item4" data-ig-font="primary" x="820" y="715" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Launch</text><text data-ig-text="item5" data-ig-font="primary" x="180" y="825" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Plan</text><text data-ig-text="other1" data-ig-font="primary" x="380" y="825" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Fund</text><text data-ig-text="other2" data-ig-font="primary" x="830" y="295" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Scale</text><text data-ig-text="other3" data-ig-font="primary" x="505" y="710" text-anchor="end" font-size="30" font-weight="bold" fill="#212529">Junction</text><line x1="160" y1="905" x2="250" y2="905" data-ig-stroke="primary" stroke="#0d6efd" stroke-width="16" stroke-linecap="round"/><text data-ig-font="primary" x="270" y="915" text-anchor="start" font-size="28" font-weight="bold" fill="#212529">Line one</text><line x1="540" y1="905" x2="630" y2="905" data-ig-stroke="secondary" stroke="#3be8bd" stroke-width="16" stroke-linecap="round"/><text data-ig-font="primary" x="650" y="915" text-anchor="start" font-size="28" font-weight="bold" fill="#212529">Line two</text>
-</svg>`,
+    fieldMax: {
+      item1: 200,
+      item2: 200,
+    },
+    svg: buildSubwaySvg(2, {}),
   },
   {
     id: "subway-map-3",
@@ -2793,31 +2792,30 @@ export const TEMPLATES: Template[] = [
     title: "Subway Map (3 lines)",
     category: "Relationship",
     items: 3,
-    description: "Three transit lines, 8 stations, two junctions.",
-    about: "Three subway lines with two junctions map a system, not just a journey: several themes, each with its own stations, intersecting where work genuinely overlaps. Ideal for org strategy views, multi-team roadmaps, and ecosystem stories.",
+    description: "Three transit lines with two interchange stations.",
+    about: "A subway map turns ideas into stations on transit lines. Type each line's stations as a comma-separated list — as many as you like. To create an interchange, put the same station name in two lines at the point where they should meet.",
     usage: {
-      item1: "line 1 terminal",
-      item2: "line 1 terminal",
-      item3: "line 2 terminal",
-      item4: "line 2 terminal",
-      item5: "line 3 terminal",
-      other1: "line 3 terminal",
-      other2: "junction 1",
-      other3: "junction 2",
+      item1: "comma-separated stations",
+      other1: "legend name",
+      item2: "comma-separated stations",
+      other2: "legend name",
+      item3: "comma-separated stations",
+      other3: "legend name"
     },
     labels: {
-      item1: "Station 1",
-      item2: "Station 2",
-      item3: "Station 3",
-      item4: "Station 4",
-      item5: "Station 5",
-      other1: "Station 6",
-      other2: "Junction 1",
-      other3: "Junction 2",
+      item1: "Line 1 stations",
+      other1: "Line 1 name",
+      item2: "Line 2 stations",
+      other2: "Line 2 name",
+      item3: "Line 3 stations",
+      other3: "Line 3 name"
     },
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" font-family="Arial">
-<path d="M150 250 H450 Q500 250 500 300 V450 Q500 500 550 500 H850" fill="none" data-ig-stroke="primary" stroke="#0d6efd" stroke-width="22" stroke-linecap="round"/><path d="M180 780 H620 Q670 780 670 730 V300 Q670 250 720 250 H860" fill="none" data-ig-stroke="secondary" stroke="#3be8bd" stroke-width="22" stroke-linecap="round"/><path d="M150 380 H560 Q610 380 610 330 V180" fill="none" data-ig-stroke="tertiary" stroke="#ffc107" stroke-width="22" stroke-linecap="round"/><circle cx="150" cy="250" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="850" cy="500" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="180" cy="780" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="860" cy="250" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="150" cy="380" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><circle cx="610" cy="180" r="20" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="10"/><rect x="470" y="356" width="60" height="48" rx="24" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="9"/><rect x="646" y="470" width="48" height="60" rx="24" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="9"/><text data-ig-text="item1" data-ig-font="primary" x="150" y="205" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Brand</text><text data-ig-text="item2" data-ig-font="primary" x="850" y="565" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Sales</text><text data-ig-text="item3" data-ig-font="primary" x="180" y="845" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Product</text><text data-ig-text="item4" data-ig-font="primary" x="860" y="205" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Growth</text><text data-ig-text="item5" data-ig-font="primary" x="150" y="445" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Support</text><text data-ig-text="other1" data-ig-font="primary" x="610" y="145" text-anchor="middle" font-size="30" font-weight="bold" fill="#212529">Success</text><text data-ig-text="other2" data-ig-font="primary" x="445" y="440" text-anchor="end" font-size="30" font-weight="bold" fill="#212529">Junction 1</text><text data-ig-text="other3" data-ig-font="primary" x="700" y="455" text-anchor="start" font-size="30" font-weight="bold" fill="#212529">Junction 2</text><line x1="100" y1="920" x2="170" y2="920" data-ig-stroke="primary" stroke="#0d6efd" stroke-width="16" stroke-linecap="round"/><text data-ig-font="primary" x="190" y="930" text-anchor="start" font-size="28" font-weight="bold" fill="#212529">Line one</text><line x1="400" y1="920" x2="470" y2="920" data-ig-stroke="secondary" stroke="#3be8bd" stroke-width="16" stroke-linecap="round"/><text data-ig-font="primary" x="490" y="930" text-anchor="start" font-size="28" font-weight="bold" fill="#212529">Line two</text><line x1="700" y1="920" x2="770" y2="920" data-ig-stroke="tertiary" stroke="#ffc107" stroke-width="16" stroke-linecap="round"/><text data-ig-font="primary" x="790" y="930" text-anchor="start" font-size="28" font-weight="bold" fill="#212529">Line three</text>
-</svg>`,
+    fieldMax: {
+      item1: 200,
+      item2: 200,
+      item3: 200,
+    },
+    svg: buildSubwaySvg(3, {}),
   },
   {
     id: "balloon-1",

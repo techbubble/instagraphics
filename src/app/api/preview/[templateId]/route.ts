@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, templateSvg } from "@/lib/templates";
 import { renderTemplate } from "@/lib/svg-engine";
 import { brandFromQuery, renderPng } from "@/lib/server-render";
 
@@ -20,7 +20,7 @@ export async function GET(
   // Thumbnails may skip the checkerboard; larger renders always carry it.
   const plain = sp.get("plain") === "1" && w <= 480;
   try {
-    const png = await renderPng(renderTemplate(template.svg, brand, {}), w, {
+    const png = await renderPng(renderTemplate(templateSvg(template, {}), brand, {}), w, {
       checker: !plain,
     });
     return new NextResponse(new Uint8Array(png), {

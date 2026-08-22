@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, templateSvg } from "@/lib/templates";
 import { renderTemplate } from "@/lib/svg-engine";
 import { renderPng, sanitizeBrand, sanitizeValues } from "@/lib/server-render";
 
@@ -16,11 +16,8 @@ export async function POST(req: NextRequest) {
   if (!template) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
-  let svg = renderTemplate(
-    template.svg,
-    sanitizeBrand(body.brand),
-    sanitizeValues(body.values)
-  );
+  const values = sanitizeValues(body.values);
+  let svg = renderTemplate(templateSvg(template, values), sanitizeBrand(body.brand), values);
   // Square canvas: pad the viewBox so the builder preview (and its baked
   // checkerboard) fills a square area with the graphic centered.
   svg = svg.replace(

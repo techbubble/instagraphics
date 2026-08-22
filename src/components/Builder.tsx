@@ -333,7 +333,7 @@ export default function Builder({
                     id={`field-${f.key}`}
                     className="form-control form-control-sm"
                     value={values[f.key] ?? ""}
-                    maxLength={f.maxLength}
+                    maxLength={template.fieldMax?.[f.key] ?? f.maxLength}
                     onChange={(e) => setField(f.key, e.target.value)}
                   />
                 </div>

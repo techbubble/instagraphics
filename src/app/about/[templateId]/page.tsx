@@ -37,6 +37,13 @@ export default async function TemplateLandingPage({
   );
 
   return (
+    <>
+      <div className="text-center pb-4">
+        <h1 className="h3 fw-bold">Turn your text into a professional graphic in seconds.</h1>
+        <p className="text-secondary">
+          Pick a layout, apply your colors and fonts, type your content, and download.
+        </p>
+      </div>
     <div className="row justify-content-center g-5">
       <div className="col-md-6">
         <div className="border rounded p-3 bg-white">
@@ -50,7 +57,7 @@ export default async function TemplateLandingPage({
         </div>
       </div>
       <div className="col-md-5">
-        <h1 className="h2">{template.title}</h1>
+        <h2 className="h2">{template.title}</h2>
         <p className="text-secondary">{template.description}</p>
         <ul className="list-unstyled text-secondary small mb-4">
           <li>
@@ -85,5 +92,6 @@ export default async function TemplateLandingPage({
         )}
       </div>
     </div>
+    </>
   );
 }
