@@ -35,6 +35,7 @@ export type Template = {
   fieldOrder?: string[]; // panel order override
   textareas?: string[]; // fields rendered as multi-line text boxes
   fieldDefaults?: Partial<Record<string, string>>; // sample text seeded on open
+  defaultVariant?: boolean; // family thumbnail/default when set
   svg: string;
 };
 
@@ -2772,6 +2773,7 @@ export const TEMPLATES: Template[] = [
   {
     id: "subway-map-2",
     family: "subway-map",
+    defaultVariant: true,
     title: "Subway Map (2 lines)",
     category: "Relationship",
     items: 2,
@@ -3161,8 +3163,11 @@ export function familyTitle(t: TemplateMeta): string {
   return t.title.replace(/\s*\(.*\)$/, "");
 }
 
-// The representative variant of a family: closest to 4 items (larger wins ties).
-export function familyDefault<T extends { items: number }>(variants: T[]): T {
+// The representative variant of a family: an explicitly flagged variant
+// wins; otherwise closest to 4 items (larger wins ties).
+export function familyDefault<T extends { items: number; defaultVariant?: boolean }>(variants: T[]): T {
+  const flagged = variants.find((v) => v.defaultVariant);
+  if (flagged) return flagged;
   return [...variants].sort(
     (a, b) => Math.abs(a.items - 4) - Math.abs(b.items - 4) || b.items - a.items
   )[0];
