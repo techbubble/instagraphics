@@ -291,7 +291,7 @@ export default function ConceptsPage() {
         <Frame title="Orbits" note="Priority by distance from the mission">
           <Orbits />
         </Frame>
-        <Frame title="Honeycomb" note="Interlocking capabilities around a core">
+        <Frame title="Honeycomb 2" note="Interlocking capabilities around a core">
           <Honeycomb />
         </Frame>
         <Frame title="Domino Effect" note="Compounding chain of small wins">
