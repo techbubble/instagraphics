@@ -255,14 +255,14 @@ function Stool() {
     <>
       <ellipse cx="500" cy="795" rx="340" ry="58" fill="none" stroke={C.accent} strokeWidth="5" strokeDasharray="16 14" opacity="0.6" />
       {/* Back legs (shorter — further away), tops tucked behind the seat */}
-      <polygon points="315,290 360,290 300,754 262,754" fill={C.blue} />
-      <polygon points="640,290 685,290 738,754 700,754" fill={C.yellow} />
+      <polygon points="365,388 410,388 305,754 260,754" fill={C.blue} />
+      <polygon points="590,388 635,388 740,754 695,754" fill={C.yellow} />
       {/* Seat: side wall then top face */}
       <path d="M230 285 A 270 75 0 0 0 770 285 L770 320 A 270 75 0 0 1 230 320 Z" fill="#d13c3c" />
       <ellipse cx="500" cy="283" rx="270" ry="75" fill={C.coral} />
       <text x="500" y="297" textAnchor="middle" fontFamily={F} fontSize="42" fontWeight="700" fill="#fff">Strategy</text>
       {/* Front leg (longest — nearest) */}
-      <polygon points="474,352 526,352 518,852 482,852" fill={C.teal} />
+      <polygon points="474,392 526,392 518,852 482,852" fill={C.teal} />
       <text x="255" y="825" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>People</text>
       <text x="745" y="825" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Technology</text>
       <text x="500" y="920" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Process</text>
