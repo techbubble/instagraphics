@@ -164,7 +164,6 @@ function Orbits() {
           </g>
         );
       })}
-      <text x="500" y="960" textAnchor="middle" fontFamily={F} fontSize="32" fill={C.accent}>Closer orbit = higher priority</text>
     </>
   );
 }
