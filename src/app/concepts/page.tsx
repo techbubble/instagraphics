@@ -183,25 +183,33 @@ function Honeycomb() {
         return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
       })
       .join(" ");
-  // Proper hex tiling: neighbors sit at distance sqrt(3)*r from center.
-  const cells: [number, number, string, string][] = [
-    [405, 335, C.blue, "Plan"],
-    [595, 335, C.teal, "Build"],
-    [690.5, 500, C.yellow, "Test"],
-    [595, 665, C.coral, "Ship"],
-    [405, 665, C.blue, "Learn"],
-    [309.5, 500, C.teal, "Refine"],
+  // r=108 gives a flat-to-flat width of 187; centers 199 apart leave a
+  // uniform 12-unit gap between every pair of neighbors, center included.
+  const R = 108;
+  const D = 199;
+  const ring: [number, string, string][] = [
+    [-120, C.blue, "Plan"],
+    [-60, C.teal, "Build"],
+    [0, C.yellow, "Test"],
+    [60, C.coral, "Ship"],
+    [120, C.blue, "Learn"],
+    [180, C.teal, "Refine"],
   ];
   return (
     <>
-      {cells.map(([x, y, col, label]) => (
-        <g key={label}>
-          <polygon points={hex(x, y, 108)} fill={col} stroke="#fff" strokeWidth="10" />
-          <text x={x} y={y + 12} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={col === C.teal || col === C.yellow ? C.dark : "#fff"}>{label}</text>
-        </g>
-      ))}
-      <polygon points={hex(500, 500, 108)} fill="#fff" stroke={C.accent} strokeWidth="12" />
-      <text x="500" y="512" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>Team</text>
+      {ring.map(([deg, col, label]) => {
+        const a = (deg * Math.PI) / 180;
+        const x = 500 + D * Math.cos(a);
+        const y = 500 + D * Math.sin(a);
+        return (
+          <g key={label}>
+            <polygon points={hex(x, y, R)} fill={col} />
+            <text x={x} y={y + 12} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={col === C.teal || col === C.yellow ? C.dark : "#fff"}>{label}</text>
+          </g>
+        );
+      })}
+      <polygon points={hex(500, 500, R)} fill={C.accent} />
+      <text x="500" y="512" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill="#fff">Team</text>
     </>
   );
 }
