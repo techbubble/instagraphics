@@ -130,9 +130,9 @@ function RootsAndBranches() {
       {/* Ground */}
       <line x1="120" y1="712" x2="880" y2="712" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
       {/* Tapered roots with rootlets */}
-      <path d="M435 706 C 390 748 330 760 255 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
+      <path d="M440 706 C 395 748 335 760 260 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
       <path d="M500 710 C 500 750 500 775 500 805" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
-      <path d="M565 706 C 610 748 670 760 745 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
+      <path d="M560 706 C 605 748 665 760 740 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
       {roots.map(([x, label]) => (
         <text key={label} x={x} y="870" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
       ))}
