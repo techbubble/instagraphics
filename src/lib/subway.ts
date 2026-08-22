@@ -31,7 +31,7 @@ const VARIANTS: Record<number, Variant> = {
     ],
     slots: ["primary"],
     defaults: ["Discover, Define, Design, Deliver, Debrief"],
-    nameDefaults: ["Line one"],
+    nameDefaults: ["Design sprint"],
     crossings: [],
     legendY: 905,
   },
@@ -42,10 +42,10 @@ const VARIANTS: Record<number, Variant> = {
     ],
     slots: ["primary", "secondary"],
     defaults: [
-      "Research, Insight, Concept, Junction, Launch",
-      "Plan, Fund, Junction, Scale",
+      "Research, Wireframe, Prototype, Beta, Launch",
+      "Spec, Build, Beta, Scale",
     ],
-    nameDefaults: ["Line one", "Line two"],
+    nameDefaults: ["Design", "Engineering"],
     crossings: [
       { lines: [0, 1], at: [570, 650], vertical: true, label: [505, 710, "end"] },
     ],
@@ -59,11 +59,11 @@ const VARIANTS: Record<number, Variant> = {
     ],
     slots: ["primary", "secondary", "tertiary"],
     defaults: [
-      "Brand, Junction 1, Junction 2, Sales",
-      "Product, Junction 2, Growth",
-      "Support, Junction 1, Success",
+      "Idea, Beta, Launch, Scale",
+      "Research, Launch, Growth",
+      "Hiring, Beta, Support",
     ],
-    nameDefaults: ["Line one", "Line two", "Line three"],
+    nameDefaults: ["Product", "Marketing", "Operations"],
     crossings: [
       { lines: [0, 2], at: [500, 380], vertical: false, label: [445, 440, "end"] },
       { lines: [0, 1], at: [670, 500], vertical: true, label: [700, 455, "start"] },

@@ -2762,7 +2762,7 @@ export const TEMPLATES: Template[] = [
     textareas: ["item1"],
     fieldDefaults: {
       item1: 'Discover, Define, Design, Deliver, Debrief',
-      other1: 'Line one',
+      other1: 'Design sprint',
     },
     fieldMax: {
       item1: 200,
@@ -2792,10 +2792,10 @@ export const TEMPLATES: Template[] = [
     fieldOrder: ["other1", "item1", "other2", "item2"],
     textareas: ["item1", "item2"],
     fieldDefaults: {
-      item1: 'Research, Insight, Concept, Junction, Launch',
-      item2: 'Plan, Fund, Junction, Scale',
-      other1: 'Line one',
-      other2: 'Line two',
+      item1: 'Research, Wireframe, Prototype, Beta, Launch',
+      item2: 'Spec, Build, Beta, Scale',
+      other1: 'Design',
+      other2: 'Engineering',
     },
     fieldMax: {
       item1: 200,
@@ -2830,12 +2830,12 @@ export const TEMPLATES: Template[] = [
     fieldOrder: ["other1", "item1", "other2", "item2", "other3", "item3"],
     textareas: ["item1", "item2", "item3"],
     fieldDefaults: {
-      item1: 'Brand, Junction 1, Junction 2, Sales',
-      item2: 'Product, Junction 2, Growth',
-      item3: 'Support, Junction 1, Success',
-      other1: 'Line one',
-      other2: 'Line two',
-      other3: 'Line three',
+      item1: 'Idea, Beta, Launch, Scale',
+      item2: 'Research, Launch, Growth',
+      item3: 'Hiring, Beta, Support',
+      other1: 'Product',
+      other2: 'Marketing',
+      other3: 'Operations',
     },
     fieldMax: {
       item1: 200,
