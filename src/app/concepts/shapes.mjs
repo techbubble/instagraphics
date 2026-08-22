@@ -71,10 +71,11 @@ function mindMapSplit() {
 }
 
 function teamRing() {
+  // Five people on an even pentagon (point down); top kept open.
   const spots = [
-    [500, 200], [734, 335], [734, 605], [500, 740], [266, 605], [266, 335],
+    [323.7, 227.3], [676.3, 227.3], [785.3, 562.7], [500.0, 770.0], [214.7, 562.7],
   ];
-  const cols = [BLUE, TEAL, YELLOW, CORAL, BLUE, TEAL];
+  const cols = [BLUE, TEAL, YELLOW, CORAL, BLUE];
   return (
     `<circle cx="500" cy="470" r="178" fill="none" stroke="${ACCENT}" stroke-width="4" stroke-dasharray="4 14"/>` +
     spots
@@ -88,8 +89,70 @@ function teamRing() {
   );
 }
 
+function lightBulb() {
+  // Modern bulb: empty glass, screw cap, rays. No filament.
+  const chip = (x, y, c, l) =>
+    `<rect x="${x - 110}" y="${y - 35}" width="220" height="70" rx="24" fill="${c}"/>` +
+    txt(x, y + 10, 30, onLight(c) ? DARK : "#fff", l);
+  let rays = "";
+  for (const deg of [-150, -120, -90, -60, -30]) {
+    const a = (deg * Math.PI) / 180;
+    rays += `<line x1="${(500 + 232 * Math.cos(a)).toFixed(1)}" y1="${(400 + 232 * Math.sin(a)).toFixed(1)}" x2="${(500 + 278 * Math.cos(a)).toFixed(1)}" y2="${(400 + 278 * Math.sin(a)).toFixed(1)}" stroke="${YELLOW}" stroke-width="14" stroke-linecap="round"/>`;
+  }
+  const leaders = [
+    [285, 330, 337, 260], [265, 278, 286, 410], [285, 350, 357, 560],
+    [715, 670, 663, 260], [735, 722, 714, 410], [715, 650, 643, 560],
+  ];
+  return (
+    rays +
+    `<circle cx="500" cy="400" r="210" fill="${YELLOW}"/>` +
+    `<rect x="442" y="604" width="116" height="82" rx="16" fill="${ACCENT}"/>` +
+    `<line x1="450" y1="628" x2="550" y2="623" stroke="#fff" stroke-width="6"/>` +
+    `<line x1="450" y1="650" x2="550" y2="645" stroke="#fff" stroke-width="6"/>` +
+    `<line x1="450" y1="672" x2="550" y2="667" stroke="#fff" stroke-width="6"/>` +
+    `<rect x="478" y="686" width="44" height="22" rx="11" fill="${ACCENT}"/>` +
+    txt(500, 412, 44, DARK, "Big Idea") +
+    leaders
+      .map(
+        ([xa, xb, dx, y]) =>
+          `<line x1="${xa}" y1="${y}" x2="${xb}" y2="${y}" stroke="${ACCENT}" stroke-width="6"/>` +
+          `<circle cx="${dx}" cy="${y}" r="8" fill="${ACCENT}"/>`
+      )
+      .join("") +
+    chip(175, 260, BLUE, "Topic 1") +
+    chip(155, 410, TEAL, "Topic 2") +
+    chip(175, 560, BLUE, "Topic 3") +
+    chip(825, 260, CORAL, "Topic 4") +
+    chip(845, 410, TEAL, "Topic 5") +
+    chip(825, 560, CORAL, "Topic 6")
+  );
+}
+
+function openHand() {
+  // Stylized flat hand: dark palm, brand-colored capsule fingers,
+  // one idea per fingertip.
+  const fingers = [
+    [415, 360, TEAL, 60], [497, 310, YELLOW, 60], [579, 350, CORAL, 60], [652, 430, BLUE, 54],
+  ];
+  const labels = [
+    [210, 485, "Topic 1"], [400, 298, "Topic 2"], [497, 246, "Topic 3"],
+    [596, 298, "Topic 4"], [672, 378, "Topic 5"],
+  ];
+  return (
+    `<line x1="340" y1="690" x2="245" y2="550" stroke="${BLUE}" stroke-width="62" stroke-linecap="round"/>` +
+    fingers
+      .map(([x, tip, c, w]) => `<line x1="${x}" y1="600" x2="${x}" y2="${tip}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`)
+      .join("") +
+    `<rect x="355" y="570" width="330" height="250" rx="62" fill="${ACCENT}"/>` +
+    labels.map(([x, y, l]) => txt(x, y, 30, DARK, l)).join("") +
+    txt(500, 950, 34, DARK, "Five ideas, one hand")
+  );
+}
+
 export const CONCEPT_SHAPES = [
   { key: "mindmap-radial", title: "Mind Map (Radial)", note: "Center idea, six branches", body: mindMapRadial() },
   { key: "mindmap-split", title: "Mind Map (Split)", note: "Center idea, 4 + 4 branches", body: mindMapSplit() },
   { key: "team-ring", title: "Team Ring", note: "People around a shared goal", body: teamRing() },
+  { key: "light-bulb", title: "Light Bulb", note: "One big idea, six sparks", body: lightBulb() },
+  { key: "open-hand", title: "Open Hand", note: "Five ideas at your fingertips", body: openHand() },
 ];
