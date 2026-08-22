@@ -249,24 +249,23 @@ function Dominoes() {
 }
 
 function Stool() {
-  // 3/4 view: elliptical seat with thickness, two back legs on the far
-  // ground line, one longer front leg reaching closer to the viewer.
+  // 3/4 view: thick seat with sealed rim, round-capped legs, per-foot
+  // shadows. Front leg is longest (nearest); back legs sit higher.
   return (
     <>
-      <ellipse cx="500" cy="795" rx="340" ry="58" fill="none" stroke={C.accent} strokeWidth="5" strokeDasharray="16 14" opacity="0.6" />
-      {/* Back legs (shorter — further away), tops tucked behind the seat */}
-      <polygon points="365,388 410,388 305,754 260,754" fill={C.blue} />
-      <polygon points="590,388 635,388 740,754 695,754" fill={C.yellow} />
-      {/* Seat: side wall then top face */}
-      <path d="M230 285 A 270 75 0 0 0 770 285 L770 320 A 270 75 0 0 1 230 320 Z" fill="#d13c3c" />
-      <ellipse cx="500" cy="283" rx="270" ry="75" fill={C.coral} />
-      <text x="500" y="297" textAnchor="middle" fontFamily={F} fontSize="42" fontWeight="700" fill="#fff">Strategy</text>
-      {/* Front leg (longest — nearest) */}
-      <polygon points="474,392 526,392 518,852 482,852" fill={C.teal} />
-      <text x="255" y="825" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>People</text>
-      <text x="745" y="825" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Technology</text>
-      <text x="500" y="920" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Process</text>
-      <text x="500" y="985" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Remove any one leg and it falls</text>
+      <ellipse cx="258" cy="656" rx="64" ry="14" fill="#dee2e6" />
+      <ellipse cx="742" cy="656" rx="64" ry="14" fill="#dee2e6" />
+      <ellipse cx="500" cy="766" rx="70" ry="15" fill="#dee2e6" />
+      <line x1="395" y1="300" x2="258" y2="630" stroke={C.blue} strokeWidth="46" strokeLinecap="round" />
+      <line x1="605" y1="300" x2="742" y2="630" stroke={C.yellow} strokeWidth="46" strokeLinecap="round" />
+      <path d="M220 213 A 280 78 0 0 0 780 213 L780 255 A 280 78 0 0 1 220 255 Z" fill="#d13c3c" />
+      <ellipse cx="500" cy="212" rx="280" ry="79" fill={C.coral} />
+      <text x="500" y="228" textAnchor="middle" fontFamily={F} fontSize="44" fontWeight="700" fill="#fff">Strategy</text>
+      <line x1="500" y1="345" x2="500" y2="740" stroke={C.teal} strokeWidth="54" strokeLinecap="round" />
+      <text x="258" y="720" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>People</text>
+      <text x="742" y="720" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Technology</text>
+      <text x="500" y="830" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Process</text>
+      <text x="500" y="930" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Remove any one leg and it falls</text>
     </>
   );
 }
