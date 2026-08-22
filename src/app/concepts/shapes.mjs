@@ -102,8 +102,8 @@ function lightBulb() {
     `<rect x="${x - 110}" y="${y - 35}" width="220" height="70" rx="24" fill="${c}"/>` +
     txt(x, y + 10, 30, onLight(c) ? DARK : "#fff", l);
   const leaders = [
-    [275, 361, 368, 225], [275, 331, 338, 375], [275, 400, 407, 525],
-    [725, 639, 632, 225], [725, 669, 662, 375], [725, 600, 593, 525],
+    [275, 363, 370, 220], [275, 331, 338, 370], [275, 398, 405, 520],
+    [725, 637, 630, 220], [725, 669, 662, 370], [725, 602, 595, 520],
   ];
   return (
     `<defs><filter id="bulbThin"><feMorphology operator="erode" radius="7"/></filter></defs>` +
@@ -115,12 +115,12 @@ function lightBulb() {
           `<circle cx="${dx}" cy="${y}" r="8" fill="${ACCENT}"/>`
       )
       .join("") +
-    chip(165, 225, BLUE, "Topic 1") +
-    chip(165, 375, TEAL, "Topic 2") +
-    chip(165, 525, BLUE, "Topic 3") +
-    chip(835, 225, CORAL, "Topic 4") +
-    chip(835, 375, TEAL, "Topic 5") +
-    chip(835, 525, CORAL, "Topic 6")
+    chip(165, 220, BLUE, "Topic 1") +
+    chip(165, 370, TEAL, "Topic 2") +
+    chip(165, 520, BLUE, "Topic 3") +
+    chip(835, 220, CORAL, "Topic 4") +
+    chip(835, 370, TEAL, "Topic 5") +
+    chip(835, 520, CORAL, "Topic 6")
   );
 }
 
