@@ -127,14 +127,14 @@ function lightBulb() {
 function openHand() {
   // FA hand (thinned); colored dot and label per fingertip.
   const dots = [
-    [290, 642, "#22a06b", 158, 655, "Topic 1"],
-    [450, 298, BLUE, 378, 200, "Topic 2"],
-    [508, 262, TEAL, 505, 158, "Topic 3"],
-    [582, 300, YELLOW, 632, 200, "Topic 4"],
-    [665, 368, CORAL, 722, 285, "Topic 5"],
+    [262, 632, "#22a06b", 150, 640, "Topic 1"],
+    [430, 270, BLUE, 378, 200, "Topic 2"],
+    [505, 236, TEAL, 505, 158, "Topic 3"],
+    [582, 275, YELLOW, 632, 200, "Topic 4"],
+    [655, 344, CORAL, 722, 285, "Topic 5"],
   ];
   return (
-    `<defs><filter id="handThin"><feMorphology operator="erode" radius="10"/></filter></defs>` +
+    `<defs><filter id="handThin"><feMorphology operator="erode" radius="7"/></filter></defs>` +
     `<g transform="translate(180 180) scale(1.25)"><path d="${FA_HAND}" fill="${DARK}" filter="url(#handThin)"/></g>` +
     dots
       .map(

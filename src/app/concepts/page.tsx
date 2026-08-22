@@ -60,43 +60,37 @@ function MetroMap() {
 }
 
 function Balloon() {
-  // Teardrop envelope built from vertical gore panels alternating two colors.
-  const down = (h: number) =>
-    `C ${500 + 0.73 * h} 140 ${500 + h} 280 ${500 + h} 400 ` +
-    `C ${500 + h} 520 ${500 + 0.53 * h} 605 ${500 + h * 0.05} 652`;
-  const up = (h: number) =>
-    `C ${500 + 0.53 * h} 605 ${500 + h} 520 ${500 + h} 400 ` +
-    `C ${500 + h} 280 ${500 + 0.73 * h} 140 500 140`;
-  const bounds = [-300, -200, -100, 0, 100, 200, 300];
+  // Tabler Icons "air-balloon" (MIT) as large line art; green lift
+  // arrows left, red drag arrows right.
+  const arrow = (x: number, y: number, up: boolean, col: string, label: string) => (
+    <g key={label}>
+      <path
+        d={up ? `M${x} ${y} l0 -70 m-24 26 l24 -26 l24 26` : `M${x} ${y - 70} l0 70 m-24 -26 l24 26 l24 -26`}
+        fill="none"
+        stroke={col}
+        strokeWidth="14"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <text x={x} y={y + 52} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
+    </g>
+  );
   return (
     <>
-      {bounds.slice(0, -1).map((b1, i) => {
-        const b2 = bounds[i + 1];
-        return (
-          <path
-            key={b1}
-            d={`M500 140 ${down(b2)} L${500 + b1 * 0.05} 652 ${up(b1)} Z`}
-            fill={i % 2 === 0 ? "#22a06b" : "#dc3545"}
-          />
-        );
-      })}
-      <path d={`M500 140 ${down(300)} L485 652 ${up(-300)} Z`} fill="none" stroke={C.accent} strokeWidth="8" />
-      <line x1="486" y1="652" x2="464" y2="760" stroke={C.accent} strokeWidth="7" />
-      <line x1="514" y1="652" x2="536" y2="760" stroke={C.accent} strokeWidth="7" />
-      <rect x="440" y="760" width="120" height="90" rx="12" fill="#fff" stroke={C.accent} strokeWidth="8" />
-      {["Vision", "Talent", "Focus"].map((label, i) => (
-        <g key={label}>
-          <path d={`M120 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke="#22a06b" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="120" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
-        </g>
-      ))}
-      {["Doubt", "Debt", "Drag"].map((label, i) => (
-        <g key={label}>
-          <path d={`M880 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke="#dc3545" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="880" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
-        </g>
-      ))}
-      <text x="500" y="930" textAnchor="middle" fontFamily={F} fontSize="42" fontWeight="700" fill={C.dark}>What lifts you vs. what weighs you down</text>
+      <g transform="translate(140 100) scale(30)" fill="none" stroke={C.dark} strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 21v-3h6v3a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1" />
+        <path d="M9 18c-2.347 -2.169 -5 -5.226 -5 -8a8 8 0 1 1 16 0c0 2.774 -2.653 5.831 -5 8" />
+        <path d="M5.5 14h13" />
+        <path d="M10 14c-1.69 -4.712 -.924 -8.197 0 -11.602" />
+        <path d="M14 14c1.469 -3.867 1.19 -7.735 0 -11.602" />
+      </g>
+      {arrow(120, 230, true, "#22a06b", "Vision")}
+      {arrow(120, 380, true, "#22a06b", "Talent")}
+      {arrow(120, 530, true, "#22a06b", "Focus")}
+      {arrow(880, 230, false, "#dc3545", "Doubt")}
+      {arrow(880, 380, false, "#dc3545", "Debt")}
+      {arrow(880, 530, false, "#dc3545", "Drag")}
+      <text x="500" y="920" textAnchor="middle" fontFamily={F} fontSize="38" fontWeight="700" fill={C.dark}>What lifts you vs. what weighs you down</text>
     </>
   );
 }
@@ -136,10 +130,9 @@ function RootsAndBranches() {
       {/* Ground */}
       <line x1="120" y1="712" x2="880" y2="712" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
       {/* Tapered roots with rootlets */}
-      <path d="M468 706 C 420 745 340 755 255 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
+      <path d="M435 706 C 390 748 330 760 255 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
       <path d="M500 710 C 500 750 500 775 500 805" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
-      <path d="M532 706 C 580 745 660 755 745 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
-      <path d="M400 750 C 370 765 350 780 330 795 M600 750 C 630 765 650 780 670 795 M500 770 C 470 785 455 795 445 805 M500 770 C 530 785 545 795 555 805" fill="none" stroke={C.accent} strokeWidth="8" strokeLinecap="round" />
+      <path d="M565 706 C 610 748 670 760 745 800" fill="none" stroke={C.accent} strokeWidth="16" strokeLinecap="round" />
       {roots.map(([x, label]) => (
         <text key={label} x={x} y="870" textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
       ))}
