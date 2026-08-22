@@ -76,7 +76,7 @@ function teamRing() {
   const spots = [
     [759.8, 320], [759.8, 620], [500, 770], [240.2, 620], [240.2, 320],
   ];
-  const cols = [TEAL, YELLOW, CORAL, BLUE, TEAL];
+  const cols = [TEAL, YELLOW, CORAL, BLUE, ACCENT];
   return (
     `<circle cx="500" cy="470" r="178" fill="none" stroke="${ACCENT}" stroke-width="4" stroke-dasharray="4 14"/>` +
     spots
@@ -85,8 +85,8 @@ function teamRing() {
           person(x, y, 1.1, cols[i]) + txt(x, y + 105, 28, DARK, `Topic ${i + 1}`)
       )
       .join("") +
-    `<circle cx="500" cy="470" r="110" fill="${CORAL}"/>` +
-    txt(500, 484, 40, "#fff", "Goal")
+    `<circle cx="500" cy="470" r="110" fill="#fff" stroke="${ACCENT}" stroke-width="8"/>` +
+    txt(500, 484, 40, DARK, "Goal")
   );
 }
 
@@ -99,7 +99,7 @@ function lightBulb() {
   let rays = "";
   for (const deg of [-150, -120, -90, -60, -30]) {
     const a = (deg * Math.PI) / 180;
-    rays += `<line x1="${(500 + 175 * Math.cos(a)).toFixed(1)}" y1="${(330 + 175 * Math.sin(a)).toFixed(1)}" x2="${(500 + 222 * Math.cos(a)).toFixed(1)}" y2="${(330 + 222 * Math.sin(a)).toFixed(1)}" stroke="${YELLOW}" stroke-width="14" stroke-linecap="round"/>`;
+    rays += `<line x1="${(500 + 175 * Math.cos(a)).toFixed(1)}" y1="${(330 + 175 * Math.sin(a)).toFixed(1)}" x2="${(500 + 222 * Math.cos(a)).toFixed(1)}" y2="${(330 + 222 * Math.sin(a)).toFixed(1)}" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>`;
   }
   const leaders = [
     [275, 343, 350, 340], [275, 373, 380, 420], [275, 421, 428, 500],
@@ -130,21 +130,19 @@ function lightBulb() {
 }
 
 function openHand() {
-  // Tabler Icons "hand-stop" (MIT) as large line art; a colored dot and
-  // label at each fingertip.
+  // Open palm traced from the user's reference image: four spread
+  // fingers, thumb out to the side, wrist cuff. Colored fingertip dots.
   const dots = [
-    [305, 498, BLUE, 198, 440, "Topic 1"],
-    [425, 235, BLUE, 398, 190, "Topic 2"],
-    [515, 175, TEAL, 515, 128, "Topic 3"],
-    [605, 235, YELLOW, 628, 190, "Topic 4"],
-    [695, 295, CORAL, 742, 252, "Topic 5"],
+    [286, 388, BLUE, 185, 355, "Topic 1"],
+    [398, 245, TEAL, 355, 195, "Topic 2"],
+    [472, 190, YELLOW, 472, 130, "Topic 3"],
+    [546, 225, CORAL, 590, 165, "Topic 4"],
+    [618, 300, ACCENT, 700, 250, "Topic 5"],
   ];
   return (
-    `<g transform="translate(140 120) scale(30)" fill="#fff" stroke="${DARK}" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round">` +
-    `<path d="M17 7.5a1.5 1.5 0 0 1 3 0v8.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"/>` +
-    `<path d="M8 13v-7.5a1.5 1.5 0 0 1 3 0v6.5" fill="none"/>` +
-    `<path d="M11 5.5v-2a1.5 1.5 0 1 1 3 0v8.5" fill="none"/>` +
-    `<path d="M14 5.5a1.5 1.5 0 0 1 3 0v6.5" fill="none"/>` +
+    `<g fill="#fff" stroke="${DARK}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">` +
+    `<path d="M 350 630 L 350 520 L 262 405 A 31 31 0 0 1 311 367 L 370 455 L 365 250 A 33 33 0 0 1 431 250 L 431 462 L 435 468 L 439 462 L 439 185 A 33 33 0 0 1 505 185 L 505 464 L 509 470 L 513 464 L 513 220 A 33 33 0 0 1 579 220 L 579 472 L 583 478 L 588 472 L 588 295 A 30 30 0 0 1 648 295 L 650 540 L 650 630 Q 650 655 630 655 L 370 655 Q 350 655 350 630 Z"/>` +
+    `<rect x="380" y="685" width="240" height="58" rx="18"/>` +
     `</g>` +
     dots
       .map(
