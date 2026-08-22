@@ -74,7 +74,7 @@ function Balloon() {
           <path
             key={b1}
             d={`M500 140 ${down(b2)} L${500 + b1 * 0.05} 652 ${up(b1)} Z`}
-            fill={i % 2 === 0 ? C.blue : C.yellow}
+            fill={i % 2 === 0 ? "#22a06b" : "#dc3545"}
           />
         );
       })}
