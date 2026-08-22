@@ -71,11 +71,12 @@ function mindMapSplit() {
 }
 
 function teamRing() {
-  // Five people on an even pentagon (point down); top kept open.
+  // Original hex layout minus the top person; slightly wider radius so
+  // labels clear the dashed ring.
   const spots = [
-    [323.7, 227.3], [676.3, 227.3], [785.3, 562.7], [500.0, 770.0], [214.7, 562.7],
+    [759.8, 320], [759.8, 620], [500, 770], [240.2, 620], [240.2, 320],
   ];
-  const cols = [BLUE, TEAL, YELLOW, CORAL, BLUE];
+  const cols = [TEAL, YELLOW, CORAL, BLUE, TEAL];
   return (
     `<circle cx="500" cy="470" r="178" fill="none" stroke="${ACCENT}" stroke-width="4" stroke-dasharray="4 14"/>` +
     spots
@@ -90,28 +91,28 @@ function teamRing() {
 }
 
 function lightBulb() {
-  // Modern bulb: empty glass, screw cap, rays. No filament.
+  // Classic pear-shaped bulb: round glass tapering to a threaded screw
+  // base, yellow rays, idea chips with leader dots on both sides.
   const chip = (x, y, c, l) =>
     `<rect x="${x - 110}" y="${y - 35}" width="220" height="70" rx="24" fill="${c}"/>` +
     txt(x, y + 10, 30, onLight(c) ? DARK : "#fff", l);
   let rays = "";
   for (const deg of [-150, -120, -90, -60, -30]) {
     const a = (deg * Math.PI) / 180;
-    rays += `<line x1="${(500 + 232 * Math.cos(a)).toFixed(1)}" y1="${(400 + 232 * Math.sin(a)).toFixed(1)}" x2="${(500 + 278 * Math.cos(a)).toFixed(1)}" y2="${(400 + 278 * Math.sin(a)).toFixed(1)}" stroke="${YELLOW}" stroke-width="14" stroke-linecap="round"/>`;
+    rays += `<line x1="${(500 + 175 * Math.cos(a)).toFixed(1)}" y1="${(330 + 175 * Math.sin(a)).toFixed(1)}" x2="${(500 + 222 * Math.cos(a)).toFixed(1)}" y2="${(330 + 222 * Math.sin(a)).toFixed(1)}" stroke="${YELLOW}" stroke-width="14" stroke-linecap="round"/>`;
   }
   const leaders = [
-    [285, 330, 337, 260], [265, 278, 286, 410], [285, 350, 357, 560],
-    [715, 670, 663, 260], [735, 722, 714, 410], [715, 650, 643, 560],
+    [275, 343, 350, 340], [275, 373, 380, 420], [275, 421, 428, 500],
+    [725, 657, 650, 340], [725, 627, 620, 420], [725, 579, 572, 500],
   ];
   return (
     rays +
-    `<circle cx="500" cy="400" r="210" fill="${YELLOW}"/>` +
-    `<rect x="442" y="604" width="116" height="82" rx="16" fill="${ACCENT}"/>` +
-    `<line x1="450" y1="628" x2="550" y2="623" stroke="#fff" stroke-width="6"/>` +
-    `<line x1="450" y1="650" x2="550" y2="645" stroke="#fff" stroke-width="6"/>` +
-    `<line x1="450" y1="672" x2="550" y2="667" stroke="#fff" stroke-width="6"/>` +
-    `<rect x="478" y="686" width="44" height="22" rx="11" fill="${ACCENT}"/>` +
-    txt(500, 412, 44, DARK, "Big Idea") +
+    `<path d="M445 565 C 415 505 350 470 350 335 A 150 150 0 1 1 650 335 C 650 470 585 505 555 565" fill="none" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
+    `<line x1="448" y1="592" x2="552" y2="592" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
+    `<line x1="452" y1="620" x2="548" y2="620" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
+    `<line x1="462" y1="648" x2="538" y2="648" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
+    `<line x1="480" y1="676" x2="520" y2="676" stroke="${ACCENT}" stroke-width="14" stroke-linecap="round"/>` +
+    txt(500, 345, 36, DARK, "Big Idea") +
     leaders
       .map(
         ([xa, xb, dx, y]) =>
@@ -119,33 +120,39 @@ function lightBulb() {
           `<circle cx="${dx}" cy="${y}" r="8" fill="${ACCENT}"/>`
       )
       .join("") +
-    chip(175, 260, BLUE, "Topic 1") +
-    chip(155, 410, TEAL, "Topic 2") +
-    chip(175, 560, BLUE, "Topic 3") +
-    chip(825, 260, CORAL, "Topic 4") +
-    chip(845, 410, TEAL, "Topic 5") +
-    chip(825, 560, CORAL, "Topic 6")
+    chip(165, 340, BLUE, "Topic 1") +
+    chip(165, 420, TEAL, "Topic 2") +
+    chip(165, 500, BLUE, "Topic 3") +
+    chip(835, 340, CORAL, "Topic 4") +
+    chip(835, 420, TEAL, "Topic 5") +
+    chip(835, 500, CORAL, "Topic 6")
   );
 }
 
 function openHand() {
-  // Stylized flat hand: dark palm, brand-colored capsule fingers,
-  // one idea per fingertip.
-  const fingers = [
-    [415, 360, TEAL, 60], [497, 310, YELLOW, 60], [579, 350, CORAL, 60], [652, 430, BLUE, 54],
-  ];
-  const labels = [
-    [210, 485, "Topic 1"], [400, 298, "Topic 2"], [497, 246, "Topic 3"],
-    [596, 298, "Topic 4"], [672, 378, "Topic 5"],
+  // Tabler Icons "hand-stop" (MIT) as large line art; a colored dot and
+  // label at each fingertip.
+  const dots = [
+    [305, 498, BLUE, 198, 440, "Topic 1"],
+    [425, 235, BLUE, 398, 190, "Topic 2"],
+    [515, 175, TEAL, 515, 128, "Topic 3"],
+    [605, 235, YELLOW, 628, 190, "Topic 4"],
+    [695, 295, CORAL, 742, 252, "Topic 5"],
   ];
   return (
-    `<line x1="340" y1="690" x2="245" y2="550" stroke="${BLUE}" stroke-width="62" stroke-linecap="round"/>` +
-    fingers
-      .map(([x, tip, c, w]) => `<line x1="${x}" y1="600" x2="${x}" y2="${tip}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`)
+    `<g transform="translate(140 120) scale(30)" fill="#fff" stroke="${DARK}" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round">` +
+    `<path d="M17 7.5a1.5 1.5 0 0 1 3 0v8.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"/>` +
+    `<path d="M8 13v-7.5a1.5 1.5 0 0 1 3 0v6.5" fill="none"/>` +
+    `<path d="M11 5.5v-2a1.5 1.5 0 1 1 3 0v8.5" fill="none"/>` +
+    `<path d="M14 5.5a1.5 1.5 0 0 1 3 0v6.5" fill="none"/>` +
+    `</g>` +
+    dots
+      .map(
+        ([dx, dy, c, lx, ly, l]) =>
+          `<circle cx="${dx}" cy="${dy}" r="13" fill="${c}"/>` + txt(lx, ly, 30, DARK, l)
+      )
       .join("") +
-    `<rect x="355" y="570" width="330" height="250" rx="62" fill="${ACCENT}"/>` +
-    labels.map(([x, y, l]) => txt(x, y, 30, DARK, l)).join("") +
-    txt(500, 950, 34, DARK, "Five ideas, one hand")
+    txt(500, 920, 34, DARK, "Five ideas, one hand")
   );
 }
 
