@@ -22,6 +22,7 @@ type Variant = {
   nameDefaults: string[];
   crossings: Crossing[];
   legendY: number;
+  vSide?: Record<number, "left" | "right">; // label side on vertical runs, away from other tracks
 };
 
 const VARIANTS: Record<number, Variant> = {
@@ -46,6 +47,7 @@ const VARIANTS: Record<number, Variant> = {
       "Spec, Build, Beta, Scale",
     ],
     nameDefaults: ["Design", "Engineering"],
+    vSide: { 0: "left", 1: "right" },
     crossings: [
       { lines: [0, 1], at: [570, 650], vertical: true, label: [505, 710, "end"] },
     ],
@@ -64,6 +66,7 @@ const VARIANTS: Record<number, Variant> = {
       "Hiring, Beta, Support",
     ],
     nameDefaults: ["Product", "Marketing", "Operations"],
+    vSide: { 0: "left", 1: "right", 2: "left" },
     crossings: [
       { lines: [0, 2], at: [500, 380], vertical: false, label: [445, 440, "end"] },
       { lines: [0, 1], at: [670, 500], vertical: true, label: [700, 455, "start"] },
@@ -240,16 +243,22 @@ export function buildSubwaySvg(lines: number, values: Record<string, string>): s
       stations += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${terminal ? 20 : 15}" fill="#ffffff" data-ig-stroke="accent" stroke="#495057" stroke-width="${terminal ? 10 : 8}"/>`;
       const horizontal = Math.abs(d[0]) >= Math.abs(d[1]);
       let lx = p[0], ly = p[1], anchor = "middle";
-      if (horizontal) {
+      if (terminal && !horizontal) {
+        // Vertical line end: label beyond the endpoint, off every track.
+        const outward = i === 0 ? -1 : 1;
+        ly = p[1] + outward * d[1] * 45 + (outward * d[1] > 0 ? 62 : -30);
+      } else if (horizontal) {
         // Alternate above/below so crowded runs don't stack labels.
         ly = p[1] > 700 ? p[1] + 62 : i % 2 === 0 ? p[1] - 40 : p[1] + 62;
-      } else if (p[0] < 500) {
-        lx = p[0] + 42;
-        anchor = "start";
-        ly = p[1] + 10;
       } else {
-        lx = p[0] - 42;
-        anchor = "end";
+        const side = v.vSide?.[li] ?? (p[0] < 500 ? "right" : "left");
+        if (side === "right") {
+          lx = p[0] + 42;
+          anchor = "start";
+        } else {
+          lx = p[0] - 42;
+          anchor = "end";
+        }
         ly = p[1] + 10;
       }
       labels += `<text data-ig-font="primary" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" font-size="30" font-weight="bold" fill="#212529">${esc(name)}</text>`;
