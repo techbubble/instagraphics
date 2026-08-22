@@ -2,6 +2,8 @@
 // Not in the template library, not in the database, excluded from robots.
 // Reachable only by direct URL: /concepts
 
+import { CONCEPT_SHAPES } from "./shapes.mjs";
+
 const C = {
   blue: "#0d6efd",
   teal: "#3be8bd",
@@ -413,6 +415,11 @@ export default function ConceptsPage() {
         <Frame title="Subway Map (3 Lines)" note="3 lines, 8 stations, two junctions">
           <SubwayMapThree />
         </Frame>
+        {CONCEPT_SHAPES.map((c) => (
+          <Frame key={c.key} title={c.title} note={c.note}>
+            <g dangerouslySetInnerHTML={{ __html: c.body }} />
+          </Frame>
+        ))}
       </div>
     </>
   );
