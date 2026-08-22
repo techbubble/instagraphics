@@ -34,7 +34,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return [...tiles]
-      .sort((a, b) => b.downloads - a.downloads || a.title.localeCompare(b.title))
+      .sort((a, b) => b.downloads - a.downloads || b.views - a.views || a.title.localeCompare(b.title))
       .filter((t) => {
         if (selected && t.category !== selected) return false;
         if (!q) return true;
