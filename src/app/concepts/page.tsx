@@ -258,10 +258,10 @@ function Stool() {
       <ellipse cx="500" cy="766" rx="70" ry="15" fill="#dee2e6" />
       <line x1="395" y1="300" x2="258" y2="630" stroke={C.blue} strokeWidth="46" strokeLinecap="round" />
       <line x1="605" y1="300" x2="742" y2="630" stroke={C.yellow} strokeWidth="46" strokeLinecap="round" />
+      <line x1="500" y1="300" x2="500" y2="740" stroke={C.teal} strokeWidth="54" strokeLinecap="round" />
       <path d="M220 213 A 280 78 0 0 0 780 213 L780 255 A 280 78 0 0 1 220 255 Z" fill="#d13c3c" />
       <ellipse cx="500" cy="212" rx="280" ry="79" fill={C.coral} />
       <text x="500" y="228" textAnchor="middle" fontFamily={F} fontSize="44" fontWeight="700" fill="#fff">Strategy</text>
-      <line x1="500" y1="345" x2="500" y2="740" stroke={C.teal} strokeWidth="54" strokeLinecap="round" />
       <text x="258" y="720" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>People</text>
       <text x="742" y="720" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Technology</text>
       <text x="500" y="830" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Process</text>
