@@ -102,8 +102,8 @@ function lightBulb() {
     `<rect x="${x - 110}" y="${y - 35}" width="220" height="70" rx="24" fill="${c}"/>` +
     txt(x, y + 10, 30, onLight(c) ? DARK : "#fff", l);
   const leaders = [
-    [275, 348, 355, 300], [275, 332, 339, 390], [275, 355, 362, 480],
-    [725, 652, 645, 300], [725, 668, 661, 390], [725, 645, 638, 480],
+    [275, 358, 365, 240], [275, 332, 339, 390], [275, 406, 413, 540],
+    [725, 642, 635, 240], [725, 668, 661, 390], [725, 594, 587, 540],
   ];
   return (
     `<defs><filter id="bulbThin"><feMorphology operator="erode" radius="7"/></filter></defs>` +
@@ -115,12 +115,12 @@ function lightBulb() {
           `<circle cx="${dx}" cy="${y}" r="8" fill="${ACCENT}"/>`
       )
       .join("") +
-    chip(165, 300, BLUE, "Topic 1") +
+    chip(165, 240, BLUE, "Topic 1") +
     chip(165, 390, TEAL, "Topic 2") +
-    chip(165, 480, BLUE, "Topic 3") +
-    chip(835, 300, CORAL, "Topic 4") +
+    chip(165, 540, BLUE, "Topic 3") +
+    chip(835, 240, CORAL, "Topic 4") +
     chip(835, 390, TEAL, "Topic 5") +
-    chip(835, 480, CORAL, "Topic 6")
+    chip(835, 540, CORAL, "Topic 6")
   );
 }
 
