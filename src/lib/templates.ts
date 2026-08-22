@@ -2792,7 +2792,7 @@ export const TEMPLATES: Template[] = [
     fieldOrder: ["other1", "item1", "other2", "item2"],
     textareas: ["item1", "item2"],
     fieldDefaults: {
-      item1: 'Research, Wireframe, Prototype, Beta, Launch',
+      item1: 'Research, Wireframe, Beta, Launch',
       item2: 'Spec, Build, Beta, Scale',
       other1: 'Design',
       other2: 'Engineering',

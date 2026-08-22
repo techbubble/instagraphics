@@ -42,7 +42,7 @@ const VARIANTS: Record<number, Variant> = {
     ],
     slots: ["primary", "secondary"],
     defaults: [
-      "Research, Wireframe, Prototype, Beta, Launch",
+      "Research, Wireframe, Beta, Launch",
       "Spec, Build, Beta, Scale",
     ],
     nameDefaults: ["Design", "Engineering"],
