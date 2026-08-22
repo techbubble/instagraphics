@@ -212,7 +212,7 @@ function Dominoes() {
     [340, 12, C.yellow, "One reply"],
     [500, 30, C.teal, "One deal"],
     [660, 52, C.blue, "One hire"],
-    [820, 74, C.accent, "New market"],
+    [820, 74, C.accent, ""],
   ];
   return (
     <>
