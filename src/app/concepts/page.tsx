@@ -112,8 +112,9 @@ function RootsAndBranches() {
   ];
   return (
     <>
-      <path d="M470 700 C 470 560, 460 520, 380 420 M500 700 L500 380 M530 700 C 530 560, 540 520, 620 420" fill="none" stroke={C.accent} strokeWidth="34" strokeLinecap="round" />
-      <rect x="455" y="560" width="90" height="150" fill={C.accent} />
+      {/* Limbs all originate inside the trunk so the fork has no gaps. */}
+      <path d="M500 650 C 478 540, 458 500, 380 420 M500 660 L500 380 M500 650 C 522 540, 542 500, 620 420" fill="none" stroke={C.accent} strokeWidth="36" strokeLinecap="round" />
+      <rect x="455" y="600" width="90" height="112" fill={C.accent} />
       {branches.map(([x, y, col, label]) => (
         <g key={label}>
           <line x1="500" y1="560" x2={x} y2={y + 60} stroke={C.accent} strokeWidth="18" strokeLinecap="round" />
