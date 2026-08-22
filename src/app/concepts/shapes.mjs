@@ -90,11 +90,10 @@ function teamRing() {
   );
 }
 
-// Font Awesome Free 6.7.2 glyphs (regular/lightbulb, regular/hand).
+// Font Awesome Free 6.7.2 glyph (regular/lightbulb).
 // License: CC BY 4.0 - https://fontawesome.com/license/free
 // Strokes thinned uniformly via feMorphology erode.
 const FA_BULB = "M297.2 248.9C311.6 228.3 320 203.2 320 176c0-70.7-57.3-128-128-128S64 105.3 64 176c0 27.2 8.4 52.3 22.8 72.9c3.7 5.3 8.1 11.3 12.8 17.7c0 0 0 0 0 0c12.9 17.7 28.3 38.9 39.8 59.8c10.4 19 15.7 38.8 18.3 57.5L109 384c-2.2-12-5.9-23.7-11.8-34.5c-9.9-18-22.2-34.9-34.5-51.8c0 0 0 0 0 0s0 0 0 0c-5.2-7.1-10.4-14.2-15.4-21.4C27.6 247.9 16 213.3 16 176C16 78.8 94.8 0 192 0s176 78.8 176 176c0 37.3-11.6 71.9-31.4 100.3c-5 7.2-10.2 14.3-15.4 21.4c0 0 0 0 0 0s0 0 0 0c-12.3 16.8-24.6 33.7-34.5 51.8c-5.9 10.8-9.6 22.5-11.8 34.5l-48.6 0c2.6-18.7 7.9-38.6 18.3-57.5c11.5-20.9 26.9-42.1 39.8-59.8c0 0 0 0 0 0s0 0 0 0s0 0 0 0c4.7-6.4 9-12.4 12.7-17.7zM192 128c-26.5 0-48 21.5-48 48c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-44.2 35.8-80 80-80c8.8 0 16 7.2 16 16s-7.2 16-16 16zm0 384c-44.2 0-80-35.8-80-80l0-16 160 0 0 16c0 44.2-35.8 80-80 80z";
-const FA_HAND = "M256 0c-25.3 0-47.2 14.7-57.6 36c-7-2.6-14.5-4-22.4-4c-35.3 0-64 28.7-64 64l0 165.5-2.7-2.7c-25-25-65.5-25-90.5 0s-25 65.5 0 90.5L106.5 437c48 48 113.1 75 181 75l8.5 0 8 0c1.5 0 3-.1 4.5-.4c91.7-6.2 165-79.4 171.1-171.1c.3-1.5 .4-3 .4-4.5l0-176c0-35.3-28.7-64-64-64c-5.5 0-10.9 .7-16 2l0-2c0-35.3-28.7-64-64-64c-7.9 0-15.4 1.4-22.4 4C303.2 14.7 281.3 0 256 0zM240 96.1l0-.1 0-32c0-8.8 7.2-16 16-16s16 7.2 16 16l0 31.9 0 .1 0 136c0 13.3 10.7 24 24 24s24-10.7 24-24l0-136c0 0 0 0 0-.1c0-8.8 7.2-16 16-16s16 7.2 16 16l0 55.9c0 0 0 .1 0 .1l0 80c0 13.3 10.7 24 24 24s24-10.7 24-24l0-71.9c0 0 0-.1 0-.1c0-8.8 7.2-16 16-16s16 7.2 16 16l0 172.9c-.1 .6-.1 1.3-.2 1.9c-3.4 69.7-59.3 125.6-129 129c-.6 0-1.3 .1-1.9 .2l-4.9 0-8.5 0c-55.2 0-108.1-21.9-147.1-60.9L52.7 315.3c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L119 336.4c6.9 6.9 17.2 8.9 26.2 5.2s14.8-12.5 14.8-22.2L160 96c0-8.8 7.2-16 16-16c8.8 0 16 7.1 16 15.9L192 232c0 13.3 10.7 24 24 24s24-10.7 24-24l0-135.9z";
 
 function lightBulb() {
   // FA lightbulb (thinned), idea chips with leader dots on both sides.
@@ -124,32 +123,9 @@ function lightBulb() {
   );
 }
 
-function openHand() {
-  // FA hand (thinned); colored dot and label per fingertip.
-  const dots = [
-    [262, 632, "#22a06b", 150, 640, "Topic 1"],
-    [430, 270, BLUE, 378, 200, "Topic 2"],
-    [505, 236, TEAL, 505, 158, "Topic 3"],
-    [582, 275, YELLOW, 632, 200, "Topic 4"],
-    [655, 344, CORAL, 722, 285, "Topic 5"],
-  ];
-  return (
-    `<defs><filter id="handThin"><feMorphology operator="erode" radius="7"/></filter></defs>` +
-    `<g transform="translate(180 180) scale(1.25)"><path d="${FA_HAND}" fill="${DARK}" filter="url(#handThin)"/></g>` +
-    dots
-      .map(
-        ([dx, dy, c, lx, ly, l]) =>
-          `<circle cx="${dx}" cy="${dy}" r="13" fill="${c}"/>` + txt(lx, ly, 30, DARK, l)
-      )
-      .join("") +
-    txt(500, 940, 34, DARK, "Five ideas, one hand")
-  );
-}
-
 export const CONCEPT_SHAPES = [
   { key: "mindmap-radial", title: "Mind Map (Radial)", note: "Center idea, six branches", body: mindMapRadial() },
   { key: "mindmap-split", title: "Mind Map (Split)", note: "Center idea, 4 + 4 branches", body: mindMapSplit() },
   { key: "team-ring", title: "Team Ring", note: "People around a shared goal", body: teamRing() },
   { key: "light-bulb", title: "Light Bulb", note: "One big idea, six sparks", body: lightBulb() },
-  { key: "open-hand", title: "Open Hand", note: "Five ideas at your fingertips", body: openHand() },
 ];
