@@ -58,36 +58,39 @@ function MetroMap() {
 }
 
 function Balloon() {
-  // Teardrop envelope: widest above middle, tapering to a narrow neck.
-  const gore = (h: number) =>
-    `M500 140 C ${500 + 0.73 * h} 140 ${500 + h} 280 ${500 + h} 400 ` +
-    `C ${500 + h} 520 ${500 + 0.53 * h} 605 515 652 L485 652 ` +
-    `C ${500 - 0.53 * h} 605 ${500 - h} 520 ${500 - h} 400 ` +
-    `C ${500 - h} 280 ${500 - 0.73 * h} 140 500 140 Z`;
-  const layers: [number, string][] = [
-    [300, C.blue],
-    [220, C.teal],
-    [145, C.yellow],
-    [75, C.coral],
-  ];
+  // Teardrop envelope built from vertical gore panels alternating two colors.
+  const down = (h: number) =>
+    `C ${500 + 0.73 * h} 140 ${500 + h} 280 ${500 + h} 400 ` +
+    `C ${500 + h} 520 ${500 + 0.53 * h} 605 ${500 + h * 0.05} 652`;
+  const up = (h: number) =>
+    `C ${500 + 0.53 * h} 605 ${500 + h} 520 ${500 + h} 400 ` +
+    `C ${500 + h} 280 ${500 + 0.73 * h} 140 500 140`;
+  const bounds = [-300, -200, -100, 0, 100, 200, 300];
   return (
     <>
-      {layers.map(([h, col]) => (
-        <path key={col} d={gore(h)} fill={col} />
-      ))}
-      <path d={gore(300)} fill="none" stroke={C.accent} strokeWidth="8" />
+      {bounds.slice(0, -1).map((b1, i) => {
+        const b2 = bounds[i + 1];
+        return (
+          <path
+            key={b1}
+            d={`M500 140 ${down(b2)} L${500 + b1 * 0.05} 652 ${up(b1)} Z`}
+            fill={i % 2 === 0 ? C.blue : C.yellow}
+          />
+        );
+      })}
+      <path d={`M500 140 ${down(300)} L485 652 ${up(-300)} Z`} fill="none" stroke={C.accent} strokeWidth="8" />
       <line x1="486" y1="652" x2="464" y2="760" stroke={C.accent} strokeWidth="7" />
       <line x1="514" y1="652" x2="536" y2="760" stroke={C.accent} strokeWidth="7" />
       <rect x="440" y="760" width="120" height="90" rx="12" fill="#fff" stroke={C.accent} strokeWidth="8" />
       {["Vision", "Talent", "Focus"].map((label, i) => (
         <g key={label}>
-          <path d={`M120 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke={C.teal} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={`M120 ${300 + i * 150} l0 -70 m-24 26 l24 -26 l24 26`} fill="none" stroke={C.blue} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
           <text x="120" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
       {["Doubt", "Debt", "Drag"].map((label, i) => (
         <g key={label}>
-          <path d={`M880 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke={C.coral} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={`M880 ${230 + i * 150} l0 70 m-24 -26 l24 26 l24 -26`} fill="none" stroke={C.accent} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" />
           <text x="880" y={352 + i * 150} textAnchor="middle" fontFamily={F} fontSize="34" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
