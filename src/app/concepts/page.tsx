@@ -241,23 +241,25 @@ function Dominoes() {
 }
 
 function Stool() {
-  const legs: [number, number, string, string][] = [
-    [330, 230, C.blue, "People"],
-    [500, 500, C.teal, "Process"],
-    [670, 770, C.yellow, "Technology"],
+  // Front view: thick seat, three tapered splayed legs, one stretcher rung.
+  const legs: [string, string, number, string][] = [
+    ["285,310 335,310 240,760 195,760", C.blue, 217, "People"],
+    ["475,310 525,310 522,760 478,760", C.teal, 500, "Process"],
+    ["665,310 715,310 805,760 760,760", C.yellow, 783, "Technology"],
   ];
   return (
     <>
-      {legs.map(([topX, footX, col, label]) => (
+      <line x1="252" y1="560" x2="748" y2="560" stroke={C.accent} strokeWidth="14" />
+      {legs.map(([pts, col, footX, label]) => (
         <g key={label}>
-          <line x1={topX} y1="330" x2={footX} y2="770" stroke={col} strokeWidth="38" strokeLinecap="round" />
-          <text x={footX} y="850" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>{label}</text>
+          <polygon points={pts} fill={col} />
+          <text x={footX} y="838" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>{label}</text>
         </g>
       ))}
-      <ellipse cx="500" cy="290" rx="270" ry="62" fill={C.accent} />
-      <ellipse cx="500" cy="272" rx="270" ry="58" fill={C.coral} />
-      <text x="500" y="287" textAnchor="middle" fontFamily={F} fontSize="40" fontWeight="700" fill="#fff">Strategy</text>
-      <line x1="120" y1="790" x2="880" y2="790" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
+      <rect x="235" y="292" width="530" height="26" rx="13" fill="#d13c3c" />
+      <rect x="225" y="235" width="550" height="66" rx="30" fill={C.coral} />
+      <text x="500" y="281" textAnchor="middle" fontFamily={F} fontSize="40" fontWeight="700" fill="#fff">Strategy</text>
+      <line x1="120" y1="768" x2="880" y2="768" stroke={C.accent} strokeWidth="6" strokeDasharray="18 14" />
       <text x="500" y="950" textAnchor="middle" fontFamily={F} fontSize="36" fontWeight="700" fill={C.dark}>Remove any one leg and it falls</text>
     </>
   );
