@@ -43,10 +43,17 @@ export async function sendGiftEmail(email: string, credits: number, fromEmail: s
       : undefined,
   });
   const plural = credits === 1 ? "credit" : "credits";
+  const site = "https://www.instagraphic.app";
   await transporter.sendMail({
     from: process.env.SMTP_FROM || process.env.SMTP_USER,
     to: email,
     subject: `You received ${credits} Instagraphic ${plural}`,
-    text: `${fromEmail} sent you ${credits} ${plural} on Instagraphic.\n\nSign in at https://www.instagraphic.app/login with this email address and the ${plural} will be waiting in your account. Each credit unlocks one graphic for unlimited SVG and PNG downloads.`,
+    text: `${fromEmail} sent you ${credits} ${plural} on Instagraphic.\n\nSign in at ${site} with this email address and the ${plural} will be waiting in your account. Each credit unlocks one graphic for unlimited SVG and PNG downloads.`,
+    html: `<div style="font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:1.6;color:#212529;max-width:600px;margin:0 auto;padding:24px">
+<p style="font-size:22px;font-weight:bold;margin:0 0 16px">${fromEmail} sent you ${credits} ${plural} on Instagraphic.</p>
+<p style="margin:0 0 16px">Sign in at <a href="${site}" style="color:#0d6efd">${site.replace("https://", "")}</a> with this email address and the ${plural} will be waiting in your account.</p>
+<p style="margin:0 0 24px">Each credit unlocks one graphic for unlimited SVG and PNG downloads.</p>
+<a href="${site}"><img src="${site}/og.png" alt="Instagraphic — turn your text into a professional graphic in seconds" width="600" style="width:100%;max-width:600px;border:1px solid #dee2e6;border-radius:8px"/></a>
+</div>`,
   });
 }
