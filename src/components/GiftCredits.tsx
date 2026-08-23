@@ -6,16 +6,18 @@ import { useRouter } from "next/navigation";
 export default function GiftCredits({ balance }: { balance: number }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [credits, setCredits] = useState(1);
+  const [credits, setCredits] = useState("1");
+  const num = Number(credits);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState<string | null>(null);
 
   const valid =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
-    Number.isInteger(credits) &&
-    credits >= 1 &&
-    credits <= balance;
+    /^\d+$/.test(credits.trim()) &&
+    Number.isInteger(num) &&
+    num >= 1 &&
+    num <= balance;
 
   async function send() {
     setBusy(true);
@@ -25,15 +27,15 @@ export default function GiftCredits({ balance }: { balance: number }) {
       const res = await fetch("/api/gift", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), credits }),
+        body: JSON.stringify({ email: email.trim(), credits: num }),
       });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body.error || "Could not send the gift.");
       setSent(
-        `Sent ${credits} credit${credits === 1 ? "" : "s"} to ${email.trim()}. They will find the credits in their account when they sign in with that email.`
+        `Sent ${num} credit${num === 1 ? "" : "s"} to ${email.trim()}. They will find the credits in their account when they sign in with that email.`
       );
       setEmail("");
-      setCredits(1);
+      setCredits("1");
       router.refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not send the gift.");
@@ -75,7 +77,7 @@ export default function GiftCredits({ balance }: { balance: number }) {
           min={1}
           max={balance}
           value={credits}
-          onChange={(e) => setCredits(Number(e.target.value))}
+          onChange={(e) => setCredits(e.target.value.replace(/^0+(?=\d)/, ""))}
         />
       </div>
       {error && <div className="alert alert-danger py-2">{error}</div>}
