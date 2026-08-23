@@ -50,6 +50,12 @@ export async function POST(req: NextRequest) {
     console.error("gift failed:", e);
     return NextResponse.json({ error: "Could not send the gift. You were not charged." }, { status: 500 });
   }
-  sendGiftEmail(email, credits, user.email).catch((e) => console.error("gift email failed:", e));
+  // Await the send: on serverless the function freezes after responding,
+  // so a fire-and-forget email never leaves the building.
+  try {
+    await sendGiftEmail(email, credits, user.email);
+  } catch (e) {
+    console.error("gift email failed:", e);
+  }
   return NextResponse.json({ ok: true, balance: debited[0].credits });
 }
