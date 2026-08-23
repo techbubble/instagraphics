@@ -18,7 +18,7 @@ export async function sendOtpEmail(email: string, code: string) {
       : undefined,
   });
   await transporter.sendMail({
-    from: { name: "Instagraphic Team", address: (process.env.SMTP_FROM || process.env.SMTP_USER) as string },
+    from: { name: "Instagraphic", address: (process.env.SMTP_FROM || process.env.SMTP_USER) as string },
     to: email,
     subject: `${code} is your Instagraphic sign-in code`,
     text: `Your Instagraphic sign-in code is ${code}. It expires in 10 minutes.\n\nIf you did not request this, ignore this email.`,
@@ -45,7 +45,7 @@ export async function sendGiftEmail(email: string, credits: number, fromEmail: s
   const plural = credits === 1 ? "credit" : "credits";
   const site = "https://www.instagraphic.app";
   await transporter.sendMail({
-    from: { name: "Instagraphic Team", address: (process.env.SMTP_FROM || process.env.SMTP_USER) as string },
+    from: { name: "Instagraphic", address: (process.env.SMTP_FROM || process.env.SMTP_USER) as string },
     to: email,
     subject: `You received ${credits} Instagraphic ${plural}`,
     text: `${fromEmail} sent you ${credits} ${plural} on Instagraphic.\n\nSign in at ${site} with this email address and the ${plural} will be waiting in your account. Each credit unlocks one graphic for unlimited SVG and PNG downloads.`,
