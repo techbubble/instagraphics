@@ -8,11 +8,11 @@ export default function CreditsTabs({ balance }: { balance: number }) {
   const [tab, setTab] = useState<"buy" | "gift">("buy");
   return (
     <>
-      <ul className="nav nav-tabs mb-3 justify-content-center">
+      <ul className="nav nav-tabs nav-fill nav-justified mb-4 fs-5">
         <li className="nav-item">
           <button
             type="button"
-            className={`nav-link ${tab === "buy" ? "active" : ""}`}
+            className={`nav-link w-100 fw-bold ${tab === "buy" ? "active" : "text-secondary"}`}
             onClick={() => setTab("buy")}
           >
             Buy Credits
@@ -21,7 +21,7 @@ export default function CreditsTabs({ balance }: { balance: number }) {
         <li className="nav-item">
           <button
             type="button"
-            className={`nav-link ${tab === "gift" ? "active" : ""}`}
+            className={`nav-link w-100 fw-bold ${tab === "gift" ? "active" : "text-secondary"}`}
             onClick={() => setTab("gift")}
           >
             Gift Credits
