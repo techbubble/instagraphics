@@ -151,41 +151,45 @@ const OBSTACLES = LINES.flatMap((l) =>
   })
 );
 
-// Post-layout pass: wherever two labels overlap, move one of them in
-// growing vertical steps until it clears every other label (and, when
-// possible, the tracks too).
-function resolveLabelCollisions(labels: Label[], names: string[]): Label[] {
+// Post-layout pass: no label may overlap another label or a track. Any
+// offender is stepped through a widening grid of offsets to the nearest
+// fully clear spot.
+function resolveLabelCollisions(labels: Label[], names: string[]): { labels: Label[]; moved: boolean[] } {
   const out = labels.map((l) => ({ ...l }));
-  const STEPS = [20, -20, 40, -40, 60, -60, 80, -80, 100, -100, 120, -120];
-  for (let pass = 0; pass < 10; pass++) {
+  const offsets: { dx: number; dy: number }[] = [];
+  for (let dy = -240; dy <= 240; dy += 20) {
+    for (let dx = -240; dx <= 240; dx += 20) {
+      if (dx !== 0 || dy !== 0) offsets.push({ dx, dy });
+    }
+  }
+  offsets.sort((a, b) => Math.hypot(a.dx, a.dy) - Math.hypot(b.dx, b.dy));
+  const clearOfTracks = (box: ReturnType<typeof labelBox>) =>
+    OBSTACLES.every((ob) => !(box.x0 < ob.x1 && ob.x0 < box.x1 && box.y0 < ob.y1 && ob.y0 < box.y1));
+  const isClear = (cand: Label, self: number) => {
+    const box = labelBox(cand, names[self]);
+    if (box.y0 < 30 || box.y1 > 950 || box.x0 < 10 || box.x1 > 990) return false;
+    if (!clearOfTracks(box)) return false;
+    return out.every((o, k) => k === self || !boxesOverlap(box, labelBox(o, names[k])));
+  };
+  for (let pass = 0; pass < 6; pass++) {
     let moved = false;
     for (let i = 0; i < out.length; i++) {
-      for (let j = i + 1; j < out.length; j++) {
-        if (!boxesOverlap(labelBox(out[i], names[i]), labelBox(out[j], names[j]))) continue;
-        const clearOfText = (cand: Label, self: number) =>
-          cand.y > 40 && cand.y < 960 &&
-          out.every((o, k) => k === self || !boxesOverlap(labelBox(cand, names[self]), labelBox(o, names[k])));
-        const clearOfTracks = (cand: Label, self: number) => {
-          const box = labelBox(cand, names[self]);
-          return OBSTACLES.every((ob) => !(box.x0 < ob.x1 && ob.x0 < box.x1 && box.y0 < ob.y1 && ob.y0 < box.y1));
-        };
-        const tryMove = (idx: number, strict: boolean) => {
-          for (const dy of STEPS) {
-            const cand = { ...out[idx], y: labels[idx].y + dy };
-            if (clearOfText(cand, idx) && (!strict || clearOfTracks(cand, idx))) {
-              out[idx] = cand;
-              return true;
-            }
-          }
-          return false;
-        };
-        const fixed = tryMove(j, true) || tryMove(i, true) || tryMove(j, false) || tryMove(i, false);
-        if (fixed) moved = true;
+      if (isClear(out[i], i)) continue;
+      for (const { dx, dy } of offsets) {
+        const cand = { ...out[i], x: labels[i].x + dx, y: labels[i].y + dy };
+        if (isClear(cand, i)) {
+          out[i] = cand;
+          moved = true;
+          break;
+        }
       }
     }
     if (!moved) break;
   }
-  return out;
+  return {
+    labels: out,
+    moved: out.map((l, i) => Math.abs(l.x - labels[i].x) > 1 || Math.abs(l.y - labels[i].y) > 1),
+  };
 }
 
 export default function SubmapMock() {
@@ -261,10 +265,11 @@ export default function SubmapMock() {
     return { x: s.p[0] + (right ? 38 : -38), y: s.p[1] + 8, anchor: right ? ("start" as const) : ("end" as const) };
   };
 
-  const finalLabels = resolveLabelCollisions(
+  const resolved = resolveLabelCollisions(
     drawable.map((s) => labelFor(s)),
     drawable.map((s) => s.name)
   );
+  const finalLabels = resolved.labels;
 
   return (
     <div className="row g-4">
@@ -309,8 +314,13 @@ export default function SubmapMock() {
                   <circle cx={s.p[0]} cy={s.p[1]} r={s.terminal ? 17 : 13} fill="#fff" stroke="#212529" strokeWidth={s.terminal ? 9 : 7} />
                 )}
                 {(() => {
+                  if (!resolved.moved[i]) return null;
                   const box = labelBox(lab, s.name);
-                  return <rect x={box.x0 - 3} y={box.y0} width={box.x1 - box.x0 + 6} height={box.y1 - box.y0} fill="#ffffff" />;
+                  const cx = (box.x0 + box.x1) / 2;
+                  const cy = (box.y0 + box.y1) / 2;
+                  return Math.hypot(cx - s.p[0], cy - s.p[1]) > 70 ? (
+                    <line x1={s.p[0]} y1={s.p[1]} x2={cx} y2={cy} stroke="#adb5bd" strokeWidth="3" />
+                  ) : null;
                 })()}
                 <text x={lab.x} y={lab.y} textAnchor={lab.anchor} fontFamily="Roboto, Helvetica, Arial, sans-serif" fontSize="27" fontWeight="bold" fill="#212529">
                   {s.name}
