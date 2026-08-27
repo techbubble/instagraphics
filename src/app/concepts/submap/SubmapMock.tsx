@@ -11,10 +11,10 @@ type Pt = [number, number];
 const R = 40;
 
 const LINES = [
-  { name: "Market", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
-  { name: "Operations", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
-  { name: "Strategy", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
-  { name: "Risks", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
+  { name: "Principles", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
+  { name: "Appeals", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
+  { name: "Grievances", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
+  { name: "Independence", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
 ];
 
 // Crossing points that can host a junction: [lineA, lineB] -> grid point.
@@ -24,26 +24,31 @@ const CROSSINGS: { lines: [number, number]; at: Pt; vertical: boolean }[] = [
 ];
 
 const DEFAULTS = [
-  "Demand shift, Remote work, New segments, Pricing pressure",
-  "Hiring freeze, Automation, Vendor costs, Cycle time",
-  "Focus markets, New segments, Automation, Platform bet",
-  "Churn risk, Debt load, Competition",
+  "Self-evident truths, Created equal, Unalienable rights, Consent, Alter or abolish",
+  "Petitioned, Warned brethren, Repeated injuries, Deaf to justice, Necessity",
+  "Blocked laws, Consent, Standing armies, Dependent judges, Repeated injuries, Burnt towns",
+  "Independent states, Allegiance dissolved, War and peace, Sacred honor",
 ];
 
 const DETAILS: Record<string, string> = {
-  "Demand shift": "Enterprise demand moved down-market in Q2; SMB now drives 61% of new pipeline (p. 4).",
-  "Remote work": "Remote-first buyers renew 1.8x more often than office-based accounts (p. 6).",
-  "New segments": "Healthcare and education emerged as unplanned segments, 22% of revenue. Shared focus of Market and Strategy threads (p. 9).",
-  "Pricing pressure": "Two competitors cut list prices ~30%; win-rate impact concentrated in deals under $10k (p. 11).",
-  "Hiring freeze": "Headcount frozen since March; support backlog doubled (p. 14).",
-  Automation: "Ticket auto-triage recovered 60% of the backlog. Named by both Operations and Strategy as the highest-leverage investment (p. 15).",
-  "Vendor costs": "Cloud spend grew 41% YoY, outpacing revenue growth (p. 17).",
-  "Cycle time": "Release cycle stretched from 2 to 5 weeks after the freeze (p. 18).",
-  "Focus markets": "Recommendation: concentrate GTM on two verticals instead of five (p. 21).",
-  "Platform bet": "Board approved platform re-architecture; 3-quarter payback projected (p. 24).",
-  "Churn risk": "Churn concentrated in accounts without onboarding calls: 4.1x baseline (p. 27).",
-  "Debt load": "Deferred maintenance estimated at 30% of engineering capacity (p. 28).",
-  Competition: "Two funded entrants launched overlapping products in June (p. 29).",
+  "Self-evident truths": "\u201cWe hold these truths to be self-evident\u201d \u2014 the argument opens from premises requiring no proof.",
+  "Created equal": "\u201c...that all men are created equal...\u201d \u2014 the founding premise of the whole document.",
+  "Unalienable rights": "\u201c...endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.\u201d",
+  Consent: "\u201cGovernments derive their just powers from the consent of the governed\u201d \u2014 and the grievance: \u201cimposing Taxes on us without our Consent.\u201d The principle and its violation meet here.",
+  "Alter or abolish": "\u201cWhenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it.\u201d",
+  "Blocked laws": "\u201cHe has refused his Assent to Laws, the most wholesome and necessary for the public good.\u201d",
+  "Standing armies": "\u201cHe has kept among us, in times of peace, Standing Armies without the Consent of our legislatures.\u201d",
+  "Dependent judges": "\u201cHe has made Judges dependent on his Will alone, for the tenure of their offices.\u201d",
+  "Repeated injuries": "\u201cA history of repeated injuries and usurpations\u201d \u2014 and \u201cour repeated Petitions have been answered only by repeated injury.\u201d The grievances and the failed appeals intersect here.",
+  "Burnt towns": "\u201cHe has plundered our seas, ravaged our Coasts, burnt our towns, and destroyed the lives of our people.\u201d",
+  Petitioned: "\u201cIn every stage of these Oppressions We have Petitioned for Redress in the most humble terms.\u201d",
+  "Warned brethren": "\u201cNor have We been wanting in attentions to our British brethren. We have warned them from time to time.\u201d",
+  "Deaf to justice": "\u201cThey too have been deaf to the voice of justice and of consanguinity.\u201d",
+  Necessity: "\u201cWe must, therefore, acquiesce in the necessity, which denounces our Separation.\u201d",
+  "Independent states": "\u201cThese United Colonies are, and of Right ought to be Free and Independent States.\u201d",
+  "Allegiance dissolved": "\u201cThey are Absolved from all Allegiance to the British Crown.\u201d",
+  "War and peace": "\u201cFull Power to levy War, conclude Peace, contract Alliances, establish Commerce.\u201d",
+  "Sacred honor": "\u201cWe mutually pledge to each other our Lives, our Fortunes and our sacred Honor.\u201d",
 };
 
 // ---- arc-length parameterisation (rounded polyline) ----
@@ -276,9 +281,9 @@ export default function SubmapMock() {
       <div className="col-md-4">
         <h1 className="h4 fw-bold">Submap</h1>
         <p className="text-secondary small">
-          Mockup: a document distilled into lines of thought. Each line is a
-          thread, each station a point, shared stations are junctions. Click
-          any station.
+          The Declaration of Independence as a transit map: four threads of
+          argument, each point a station, shared ideas are junctions. Click
+          any station for the passage.
         </p>
         {LINES.map((l, i) => (
           <div className="mb-3" key={l.name}>
@@ -295,8 +300,8 @@ export default function SubmapMock() {
           </div>
         ))}
         <p className="text-secondary" style={{ fontSize: "0.75rem" }}>
-          Junctions: a station name appearing in Market &amp; Strategy pins to
-          the upper crossing; Operations &amp; Strategy to the lower one.
+          Junctions: a station name appearing in Principles &amp; Grievances
+          pins to the upper crossing; Appeals &amp; Grievances to the lower one.
         </p>
       </div>
       <div className="col-md-8 position-relative">
