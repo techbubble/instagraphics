@@ -11,10 +11,10 @@ type Pt = [number, number];
 const R = 40;
 
 const LINES = [
-  { name: "England", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
-  { name: "The Mail", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
-  { name: "The Age", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
-  { name: "France", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
+  { name: "Creation", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
+  { name: "The Garden", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
+  { name: "Mankind", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
+  { name: "The Fall", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
 ];
 
 // Crossing points that can host a junction: [lineA, lineB] -> grid point.
@@ -24,29 +24,31 @@ const CROSSINGS: { lines: [number, number]; at: Pt; vertical: boolean }[] = [
 ];
 
 const DEFAULTS = [
-  "Large-jawed King, Cock-lane ghost, Highwaymen, Hanged for trifles",
-  "Shooter's Hill, Mist and mud, November 1775, Jerry's message, Recalled to life",
-  "Best of times, Highwaymen, Worst of times, November 1775, Season of darkness",
-  "Paper money, Trees for guillotines, Tumbrils waiting, Severed hands",
+  "Let there be light, Waters divided, Living creatures, Image of God, Day of rest",
+  "Eden planted, Four rivers, Tree of knowledge, Eve created, Not ashamed",
+  "Image of God, Breath of life, Eve created, Mother of all living, East of Eden",
+  "Serpent's question, Forbidden fruit, Eyes opened, Curses spoken, Banished",
 ];
 
 const DETAILS: Record<string, string> = {
-  "Best of times": "\u201cIt was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness...\u201d",
-  "Worst of times": "\u201c...it was the epoch of belief, it was the epoch of incredulity, it was the spring of hope, it was the winter of despair.\u201d",
-  Highwaymen: "\u201cDaring burglaries by armed men, and highway robberies, took place in the capital itself every night.\u201d The lawlessness of the age, lived out on England's roads.",
-  "November 1775": "\u201cIt was the Dover road that lay, on a Friday night late in November... one thousand seven hundred and seventy-five.\u201d The period and the journey meet here.",
-  "Season of darkness": "\u201cWe had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way.\u201d",
-  "Large-jawed King": "\u201cThere were a king with a large jaw and a queen with a plain face, on the throne of England.\u201d",
-  "Cock-lane ghost": "\u201cMrs. Southcott had recently attained her five-and-twentieth blessed birthday... the Cock-lane ghost had been laid only a round dozen of years.\u201d",
-  "Hanged for trifles": "\u201cThe hangman... to-day taking the life of an atrocious murderer, and to-morrow of a wretched pilferer who had robbed a farmer's boy of sixpence.\u201d",
-  "Shooter's Hill": "\u201cHe walked up hill in the mire by the side of the mail... the horses had three times already come to a stop.\u201d",
-  "Mist and mud": "\u201cThere was a steaming mist in all the hollows... like an evil spirit, seeking rest and finding none.\u201d",
-  "Jerry's message": "\u201cWait at Dover for Mam'selle.\u201d A message for Mr. Jarvis Lorry, of Tellson's Bank, carried by Jerry Cruncher.",
-  "Recalled to life": "\u201cJerry, say that my answer was, RECALLED TO LIFE.\u201d The answer that names the whole first book.",
-  "Paper money": "\u201cFrance... rolling with exceeding smoothness down hill, making paper money and spending it.\u201d",
-  "Trees for guillotines": "\u201cGrowing trees... already marked by the Woodman, Fate, to make a certain movable framework with a sack and a knife in it, terrible in history.\u201d",
-  "Tumbrils waiting": "\u201cRude carts, bespattered with rustic mire... to be his tumbrils of the Revolution.\u201d",
-  "Severed hands": "\u201cA youth condemned to have his hands cut off... because he had not kneeled down in the rain to do honour to a dirty procession of monks.\u201d",
+  "Let there be light": "\u201cAnd God said, Let there be light: and there was light.\u201d (Genesis 1:3)",
+  "Waters divided": "\u201cGod made the firmament, and divided the waters... and God called the firmament Heaven.\u201d (1:7\u20138)",
+  "Living creatures": "\u201cLet the waters bring forth abundantly the moving creature that hath life, and fowl that may fly above the earth.\u201d (1:20)",
+  "Image of God": "\u201cSo God created man in his own image... male and female created he them.\u201d (1:27) The sixth day of creation and the first station of the human story.",
+  "Day of rest": "\u201cAnd he rested on the seventh day... and God blessed the seventh day, and sanctified it.\u201d (2:2\u20133)",
+  "Breath of life": "\u201cThe LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life.\u201d (2:7)",
+  "Eve created": "\u201cThe rib, which the LORD God had taken from man, made he a woman.\u201d (2:22) The garden narrative and the human thread meet here.",
+  "Mother of all living": "\u201cAdam called his wife's name Eve; because she was the mother of all living.\u201d (3:20)",
+  "East of Eden": "\u201cSo he drove out the man; and he placed at the east of the garden of Eden Cherubims, and a flaming sword.\u201d (3:24)",
+  "Eden planted": "\u201cThe LORD God planted a garden eastward in Eden; and there he put the man whom he had formed.\u201d (2:8)",
+  "Four rivers": "\u201cA river went out of Eden to water the garden; and from thence it was parted, and became into four heads.\u201d (2:10)",
+  "Tree of knowledge": "\u201cBut of the tree of the knowledge of good and evil, thou shalt not eat of it.\u201d (2:17)",
+  "Not ashamed": "\u201cThey were both naked, the man and his wife, and were not ashamed.\u201d (2:25)",
+  "Serpent's question": "\u201cNow the serpent was more subtil than any beast... Yea, hath God said, Ye shall not eat of every tree of the garden?\u201d (3:1)",
+  "Forbidden fruit": "\u201cShe took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat.\u201d (3:6)",
+  "Eyes opened": "\u201cAnd the eyes of them both were opened, and they knew that they were naked.\u201d (3:7)",
+  "Curses spoken": "\u201cCursed is the ground for thy sake... In the sweat of thy face shalt thou eat bread.\u201d (3:17\u201319)",
+  Banished: "\u201cTherefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken.\u201d (3:23)",
 };
 
 // ---- arc-length parameterisation (rounded polyline) ----
@@ -287,9 +289,9 @@ export default function SubmapMock() {
       <div className="col-md-4">
         <h1 className="h4 fw-bold">Submap</h1>
         <p className="text-secondary small">
-          The opening of A Tale of Two Cities as a transit map: four threads,
-          each point a station, shared ideas are junctions. Click any station
-          for the passage.
+          Genesis 1-3 as a transit map: four threads, each point a
+          station, shared ideas are junctions. Click any station for the
+          verse.
         </p>
         {LINES.map((l, i) => (
           <div className="mb-3" key={l.name}>
@@ -306,8 +308,8 @@ export default function SubmapMock() {
           </div>
         ))}
         <p className="text-secondary" style={{ fontSize: "0.75rem" }}>
-          Junctions: a station name appearing in England &amp; The Age pins to
-          the upper crossing; The Mail &amp; The Age to the lower one.
+          Junctions: a station name appearing in Creation &amp; Mankind pins to
+          the upper crossing; The Garden &amp; Mankind to the lower one.
         </p>
       </div>
       <div className="col-md-8 position-relative">
