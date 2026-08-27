@@ -308,6 +308,10 @@ export default function SubmapMock() {
                 ) : (
                   <circle cx={s.p[0]} cy={s.p[1]} r={s.terminal ? 17 : 13} fill="#fff" stroke="#212529" strokeWidth={s.terminal ? 9 : 7} />
                 )}
+                {(() => {
+                  const box = labelBox(lab, s.name);
+                  return <rect x={box.x0 - 3} y={box.y0} width={box.x1 - box.x0 + 6} height={box.y1 - box.y0} fill="#ffffff" />;
+                })()}
                 <text x={lab.x} y={lab.y} textAnchor={lab.anchor} fontFamily="Roboto, Helvetica, Arial, sans-serif" fontSize="27" fontWeight="bold" fill="#212529">
                   {s.name}
                 </text>
