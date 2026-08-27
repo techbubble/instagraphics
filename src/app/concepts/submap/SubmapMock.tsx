@@ -157,7 +157,7 @@ const OBSTACLES = LINES.flatMap((l) =>
 // Post-layout pass: no label may overlap another label or a track. Any
 // offender is stepped through a widening grid of offsets to the nearest
 // fully clear spot.
-function resolveLabelCollisions(labels: Label[], names: string[]): { labels: Label[]; moved: boolean[] } {
+function resolveLabelCollisions(labels: Label[], names: string[], junction?: boolean[]): { labels: Label[]; moved: boolean[] } {
   const out = labels.map((l) => ({ ...l }));
   const offsets: { dx: number; dy: number }[] = [];
   for (let dy = -240; dy <= 240; dy += 20) {
@@ -178,12 +178,19 @@ function resolveLabelCollisions(labels: Label[], names: string[]): { labels: Lab
     let moved = false;
     for (let i = 0; i < out.length; i++) {
       if (isClear(out[i], i)) continue;
-      for (const { dx, dy } of offsets) {
-        const cand = { ...out[i], x: labels[i].x + dx, y: labels[i].y + dy };
-        if (isClear(cand, i)) {
-          out[i] = cand;
-          moved = true;
-          break;
+      const anchors: Label["anchor"][] = [labels[i].anchor, "middle", "start", "end"];
+      const seen = new Set<string>();
+      outer: for (const { dx, dy } of offsets) {
+        if (junction?.[i] && Math.hypot(dx, dy) > 110) break;
+        for (const anchor of anchors) {
+          const key = `${anchor}`;
+          if (seen.has(key) && (dx !== 0 || dy !== 0)) seen.delete(key);
+          const cand = { ...out[i], x: labels[i].x + dx, y: labels[i].y + dy, anchor };
+          if (isClear(cand, i)) {
+            out[i] = cand;
+            moved = true;
+            break outer;
+          }
         }
       }
     }
@@ -270,7 +277,8 @@ export default function SubmapMock() {
 
   const resolved = resolveLabelCollisions(
     drawable.map((s) => labelFor(s)),
-    drawable.map((s) => s.name)
+    drawable.map((s) => s.name),
+    drawable.map((s) => s.junction)
   );
   const finalLabels = resolved.labels;
 
@@ -317,7 +325,7 @@ export default function SubmapMock() {
                   <circle cx={s.p[0]} cy={s.p[1]} r={s.terminal ? 17 : 13} fill="#fff" stroke="#212529" strokeWidth={s.terminal ? 9 : 7} />
                 )}
                 {(() => {
-                  if (!resolved.moved[i]) return null;
+                  if (s.junction || !resolved.moved[i]) return null;
                   const box = labelBox(lab, s.name);
                   const cx = (box.x0 + box.x1) / 2;
                   const cy = (box.y0 + box.y1) / 2;
