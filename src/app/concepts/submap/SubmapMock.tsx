@@ -318,9 +318,20 @@ export default function SubmapMock() {
                   const box = labelBox(lab, s.name);
                   const cx = (box.x0 + box.x1) / 2;
                   const cy = (box.y0 + box.y1) / 2;
-                  return Math.hypot(cx - s.p[0], cy - s.p[1]) > 70 ? (
-                    <line x1={s.p[0]} y1={s.p[1]} x2={cx} y2={cy} stroke="#adb5bd" strokeWidth="3" />
-                  ) : null;
+                  if (Math.hypot(cx - s.p[0], cy - s.p[1]) <= 70) return null;
+                  // Stop the leader at the label box edge plus a small gap.
+                  const G = 7;
+                  const dx = cx - s.p[0], dy = cy - s.p[1];
+                  const tx = dx !== 0 ? Math.min((box.x0 - G - s.p[0]) / dx, (box.x1 + G - s.p[0]) / dx) : Infinity;
+                  const ty = dy !== 0 ? Math.min((box.y0 - G - s.p[1]) / dy, (box.y1 + G - s.p[1]) / dy) : Infinity;
+                  const tHit = Math.max(
+                    dx !== 0 ? Math.max((box.x0 - G - s.p[0]) / dx, (box.x1 + G - s.p[0]) / dx) * 0 + tx : 0,
+                    dy !== 0 ? ty : 0
+                  );
+                  const t = Math.max(0.1, Math.min(1, tHit));
+                  return (
+                    <line x1={s.p[0]} y1={s.p[1]} x2={s.p[0] + dx * t} y2={s.p[1] + dy * t} stroke="#adb5bd" strokeWidth="3" />
+                  );
                 })()}
                 <text x={lab.x} y={lab.y} textAnchor={lab.anchor} fontFamily="Roboto, Helvetica, Arial, sans-serif" fontSize="27" fontWeight="bold" fill="#212529">
                   {s.name}
