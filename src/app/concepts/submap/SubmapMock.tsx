@@ -11,10 +11,10 @@ type Pt = [number, number];
 const R = 40;
 
 const LINES = [
-  { name: "Principles", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
-  { name: "Appeals", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
-  { name: "Grievances", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
-  { name: "Independence", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
+  { name: "England", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
+  { name: "The Mail", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
+  { name: "The Age", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
+  { name: "France", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
 ];
 
 // Crossing points that can host a junction: [lineA, lineB] -> grid point.
@@ -24,31 +24,29 @@ const CROSSINGS: { lines: [number, number]; at: Pt; vertical: boolean }[] = [
 ];
 
 const DEFAULTS = [
-  "Self-evident truths, Created equal, Unalienable rights, Consent, Alter or abolish",
-  "Petitioned, Warned brethren, Repeated injuries, Deaf to justice, Necessity",
-  "Blocked laws, Consent, Standing armies, Dependent judges, Repeated injuries, Burnt towns",
-  "Independent states, Allegiance dissolved, War and peace, Sacred honor",
+  "Large-jawed King, Cock-lane ghost, Highwaymen, Hanged for trifles",
+  "Shooter's Hill, Mist and mud, November 1775, Jerry's message, Recalled to life",
+  "Best of times, Highwaymen, Worst of times, November 1775, Season of darkness",
+  "Paper money, Trees for guillotines, Tumbrils waiting, Severed hands",
 ];
 
 const DETAILS: Record<string, string> = {
-  "Self-evident truths": "\u201cWe hold these truths to be self-evident\u201d \u2014 the argument opens from premises requiring no proof.",
-  "Created equal": "\u201c...that all men are created equal...\u201d \u2014 the founding premise of the whole document.",
-  "Unalienable rights": "\u201c...endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.\u201d",
-  Consent: "\u201cGovernments derive their just powers from the consent of the governed\u201d \u2014 and the grievance: \u201cimposing Taxes on us without our Consent.\u201d The principle and its violation meet here.",
-  "Alter or abolish": "\u201cWhenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it.\u201d",
-  "Blocked laws": "\u201cHe has refused his Assent to Laws, the most wholesome and necessary for the public good.\u201d",
-  "Standing armies": "\u201cHe has kept among us, in times of peace, Standing Armies without the Consent of our legislatures.\u201d",
-  "Dependent judges": "\u201cHe has made Judges dependent on his Will alone, for the tenure of their offices.\u201d",
-  "Repeated injuries": "\u201cA history of repeated injuries and usurpations\u201d \u2014 and \u201cour repeated Petitions have been answered only by repeated injury.\u201d The grievances and the failed appeals intersect here.",
-  "Burnt towns": "\u201cHe has plundered our seas, ravaged our Coasts, burnt our towns, and destroyed the lives of our people.\u201d",
-  Petitioned: "\u201cIn every stage of these Oppressions We have Petitioned for Redress in the most humble terms.\u201d",
-  "Warned brethren": "\u201cNor have We been wanting in attentions to our British brethren. We have warned them from time to time.\u201d",
-  "Deaf to justice": "\u201cThey too have been deaf to the voice of justice and of consanguinity.\u201d",
-  Necessity: "\u201cWe must, therefore, acquiesce in the necessity, which denounces our Separation.\u201d",
-  "Independent states": "\u201cThese United Colonies are, and of Right ought to be Free and Independent States.\u201d",
-  "Allegiance dissolved": "\u201cThey are Absolved from all Allegiance to the British Crown.\u201d",
-  "War and peace": "\u201cFull Power to levy War, conclude Peace, contract Alliances, establish Commerce.\u201d",
-  "Sacred honor": "\u201cWe mutually pledge to each other our Lives, our Fortunes and our sacred Honor.\u201d",
+  "Best of times": "\u201cIt was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness...\u201d",
+  "Worst of times": "\u201c...it was the epoch of belief, it was the epoch of incredulity, it was the spring of hope, it was the winter of despair.\u201d",
+  Highwaymen: "\u201cDaring burglaries by armed men, and highway robberies, took place in the capital itself every night.\u201d The lawlessness of the age, lived out on England's roads.",
+  "November 1775": "\u201cIt was the Dover road that lay, on a Friday night late in November... one thousand seven hundred and seventy-five.\u201d The period and the journey meet here.",
+  "Season of darkness": "\u201cWe had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way.\u201d",
+  "Large-jawed King": "\u201cThere were a king with a large jaw and a queen with a plain face, on the throne of England.\u201d",
+  "Cock-lane ghost": "\u201cMrs. Southcott had recently attained her five-and-twentieth blessed birthday... the Cock-lane ghost had been laid only a round dozen of years.\u201d",
+  "Hanged for trifles": "\u201cThe hangman... to-day taking the life of an atrocious murderer, and to-morrow of a wretched pilferer who had robbed a farmer's boy of sixpence.\u201d",
+  "Shooter's Hill": "\u201cHe walked up hill in the mire by the side of the mail... the horses had three times already come to a stop.\u201d",
+  "Mist and mud": "\u201cThere was a steaming mist in all the hollows... like an evil spirit, seeking rest and finding none.\u201d",
+  "Jerry's message": "\u201cWait at Dover for Mam'selle.\u201d A message for Mr. Jarvis Lorry, of Tellson's Bank, carried by Jerry Cruncher.",
+  "Recalled to life": "\u201cJerry, say that my answer was, RECALLED TO LIFE.\u201d The answer that names the whole first book.",
+  "Paper money": "\u201cFrance... rolling with exceeding smoothness down hill, making paper money and spending it.\u201d",
+  "Trees for guillotines": "\u201cGrowing trees... already marked by the Woodman, Fate, to make a certain movable framework with a sack and a knife in it, terrible in history.\u201d",
+  "Tumbrils waiting": "\u201cRude carts, bespattered with rustic mire... to be his tumbrils of the Revolution.\u201d",
+  "Severed hands": "\u201cA youth condemned to have his hands cut off... because he had not kneeled down in the rain to do honour to a dirty procession of monks.\u201d",
 };
 
 // ---- arc-length parameterisation (rounded polyline) ----
@@ -281,9 +279,9 @@ export default function SubmapMock() {
       <div className="col-md-4">
         <h1 className="h4 fw-bold">Submap</h1>
         <p className="text-secondary small">
-          The Declaration of Independence as a transit map: four threads of
-          argument, each point a station, shared ideas are junctions. Click
-          any station for the passage.
+          The opening of A Tale of Two Cities as a transit map: four threads,
+          each point a station, shared ideas are junctions. Click any station
+          for the passage.
         </p>
         {LINES.map((l, i) => (
           <div className="mb-3" key={l.name}>
@@ -300,8 +298,8 @@ export default function SubmapMock() {
           </div>
         ))}
         <p className="text-secondary" style={{ fontSize: "0.75rem" }}>
-          Junctions: a station name appearing in Principles &amp; Grievances
-          pins to the upper crossing; Appeals &amp; Grievances to the lower one.
+          Junctions: a station name appearing in England &amp; The Age pins to
+          the upper crossing; The Mail &amp; The Age to the lower one.
         </p>
       </div>
       <div className="col-md-8 position-relative">
