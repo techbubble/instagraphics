@@ -125,6 +125,68 @@ function pathD(spine: Pt[]): string {
 }
 
 type Station = { name: string; p: Pt; d: Pt; terminal: boolean; junction: boolean; line: number };
+type Label = { x: number; y: number; anchor: "start" | "middle" | "end" };
+
+// Approximate bbox of a rendered label (font 27 bold).
+function labelBox(l: Label, name: string) {
+  const w = name.length * 14.5;
+  const x0 = l.anchor === "middle" ? l.x - w / 2 : l.anchor === "start" ? l.x : l.x - w;
+  return { x0, x1: x0 + w, y0: l.y - 24, y1: l.y + 6 };
+}
+function boxesOverlap(a: ReturnType<typeof labelBox>, b: ReturnType<typeof labelBox>) {
+  const pad = 4;
+  return a.x0 < b.x1 + pad && b.x0 < a.x1 + pad && a.y0 < b.y1 + pad && b.y0 < a.y1 + pad;
+}
+
+// Track segments inflated to strips; labels should not sit on the rails.
+const OBSTACLES = LINES.flatMap((l) =>
+  l.spine.slice(0, -1).map((a, i) => {
+    const b = l.spine[i + 1];
+    return {
+      x0: Math.min(a[0], b[0]) - 14,
+      x1: Math.max(a[0], b[0]) + 14,
+      y0: Math.min(a[1], b[1]) - 14,
+      y1: Math.max(a[1], b[1]) + 14,
+    };
+  })
+);
+
+// Post-layout pass: wherever two labels overlap, move one of them in
+// growing vertical steps until it clears every other label (and, when
+// possible, the tracks too).
+function resolveLabelCollisions(labels: Label[], names: string[]): Label[] {
+  const out = labels.map((l) => ({ ...l }));
+  const STEPS = [20, -20, 40, -40, 60, -60, 80, -80, 100, -100, 120, -120];
+  for (let pass = 0; pass < 10; pass++) {
+    let moved = false;
+    for (let i = 0; i < out.length; i++) {
+      for (let j = i + 1; j < out.length; j++) {
+        if (!boxesOverlap(labelBox(out[i], names[i]), labelBox(out[j], names[j]))) continue;
+        const clearOfText = (cand: Label, self: number) =>
+          cand.y > 40 && cand.y < 960 &&
+          out.every((o, k) => k === self || !boxesOverlap(labelBox(cand, names[self]), labelBox(o, names[k])));
+        const clearOfTracks = (cand: Label, self: number) => {
+          const box = labelBox(cand, names[self]);
+          return OBSTACLES.every((ob) => !(box.x0 < ob.x1 && ob.x0 < box.x1 && box.y0 < ob.y1 && ob.y0 < box.y1));
+        };
+        const tryMove = (idx: number, strict: boolean) => {
+          for (const dy of STEPS) {
+            const cand = { ...out[idx], y: labels[idx].y + dy };
+            if (clearOfText(cand, idx) && (!strict || clearOfTracks(cand, idx))) {
+              out[idx] = cand;
+              return true;
+            }
+          }
+          return false;
+        };
+        const fixed = tryMove(j, true) || tryMove(i, true) || tryMove(j, false) || tryMove(i, false);
+        if (fixed) moved = true;
+      }
+    }
+    if (!moved) break;
+  }
+  return out;
+}
 
 export default function SubmapMock() {
   const [texts, setTexts] = useState<string[]>(DEFAULTS);
@@ -199,6 +261,11 @@ export default function SubmapMock() {
     return { x: s.p[0] + (right ? 38 : -38), y: s.p[1] + 8, anchor: right ? ("start" as const) : ("end" as const) };
   };
 
+  const finalLabels = resolveLabelCollisions(
+    drawable.map((s) => labelFor(s)),
+    drawable.map((s) => s.name)
+  );
+
   return (
     <div className="row g-4">
       <div className="col-md-4">
@@ -233,7 +300,7 @@ export default function SubmapMock() {
             <path key={l.name} d={pathD(l.spine)} fill="none" stroke={l.color} strokeWidth="20" strokeLinecap="round" />
           ))}
           {drawable.map((s, i) => {
-            const lab = labelFor(s);
+            const lab = finalLabels[i];
             return (
               <g key={`${s.line}-${i}`} style={{ cursor: "pointer" }} onClick={() => setActive(active?.name === s.name ? null : s)}>
                 {s.junction ? (
