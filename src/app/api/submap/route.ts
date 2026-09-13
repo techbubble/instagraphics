@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { NextRequest, NextResponse } from "next/server";
-import { currentUser } from "@/lib/auth";
 
 // Analyzes an uploaded document into the submap structure. All content
 // and geometry instructions live in subwaymap.md at the repo root.
@@ -119,8 +118,6 @@ function validateMap(lines: SubmapLine[]): string[] {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await currentUser();
-  if (!user) return NextResponse.json({ error: "Sign in to analyze documents." }, { status: 401 });
   const key = process.env.AI_GATEWAY_API_KEY || process.env.ANTHROPIC_API_KEY;
   if (!key) {
     return NextResponse.json(
