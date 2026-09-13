@@ -12,7 +12,7 @@ type Pt = [number, number];
 type MapStation = { label: string; detail: string; at: Pt };
 type MapLine = { name: string; loop: boolean; path: Pt[]; stations: MapStation[] };
 
-const COLORS = ["#0d6efd", "#3be8bd", "#f55151", "#ffc107", "#6f42c1", "#fd7e14"];
+const COLORS = ["#0d6efd", "#3be8bd", "#f55151", "#ffc107", "#6f42c1", "#fd7e14", "#d63384", "#198754"];
 
 // Handcrafted Genesis demo in the analysis schema: veering lines, one loop
 // (the Garden), junctions at Image of God / Eve created / Banished.
@@ -165,10 +165,11 @@ function pathD(rawSpine: Pt[], loop: boolean, r: number): string {
   return d;
 }
 
-type Station = { name: string; detail: string; p: Pt; d: Pt; terminal: boolean; junction: boolean; line: number; tickSign: number };
+type Station = { name: string; detail: string; p: Pt; d: Pt; terminal: boolean; junction: boolean; line: number; tickSign: number; hideLabel?: boolean };
 type Label = { x: number; y: number; anchor: "start" | "middle" | "end" };
 
 function labelBox(l: Label, name: string) {
+  if (name === "") return { x0: -9999, x1: -9998, y0: -9999, y1: -9998 };
   const w = name.length * 12.5;
   const x0 = l.anchor === "middle" ? l.x - w / 2 : l.anchor === "start" ? l.x : l.x - w;
   return { x0, x1: x0 + w, y0: l.y - 21, y1: l.y + 5 };
@@ -259,13 +260,19 @@ export default function SubmapMock() {
       if (!res.ok) throw new Error(data.error || "Analysis failed.");
       const lines = data.lines as MapLine[];
       if (!Array.isArray(lines) || lines.length < 2) throw new Error("Unexpected analysis shape.");
-      // Only one loop allowed; demote extras.
+      // Only one loop allowed; demote extras. Drop stub fragments.
       let loopSeen = false;
       for (const l of lines) {
         if (l.loop && loopSeen) l.loop = false;
         if (l.loop) loopSeen = true;
       }
-      setMap(lines.slice(0, 8));
+      const solid = lines.filter((l) => {
+        const path = l.loop ? [...l.path, l.path[0]] : l.path;
+        let plen = 0;
+        for (let i = 0; i < path.length - 1; i++) plen += Math.hypot(path[i + 1][0] - path[i][0], path[i + 1][1] - path[i][1]);
+        return plen >= 18 && l.stations.length >= 2;
+      });
+      setMap(solid.slice(0, 8));
     } catch (e) {
       setUploadError(e instanceof Error ? e.message : "Analysis failed.");
     } finally {
@@ -289,28 +296,48 @@ export default function SubmapMock() {
     const fit = ([x, y]: Pt): Pt => [SCALE(offX + (x - minX) * k), SCALE(offY + (y - minY) * k)];
     const scaled = map.map((l) => l.path.map(fit));
     const segsPer = map.map((l, i) => buildSegs(scaled[i], l.loop, 40));
-    // Junction labels: identical label on 2+ lines.
-    const count = new Map<string, number>();
-    for (const l of map) for (const st of l.stations) {
-      const k = st.label.toLowerCase();
-      count.set(k, (count.get(k) ?? 0) + 1);
-    }
-    const stations: Station[] = [];
+    // First pass: snap every station to its line.
+    const snapped: { st: MapStation; li: number; i: number; p: Pt; d: Pt }[] = [];
     map.forEach((l, li) => {
       l.stations.forEach((st, i) => {
         const target: Pt = fit(st.at);
         const { p, d } = pointAt(segsPer[li], snapToPath(segsPer[li], target));
-        stations.push({
-          name: st.label,
-          detail: st.detail,
-          p,
-          d,
-          terminal: !l.loop && (i === 0 || i === l.stations.length - 1),
-          junction: (count.get(st.label.toLowerCase()) ?? 0) > 1,
-          line: li,
-          tickSign: i % 2 === 0 ? 1 : -1,
-        });
+        snapped.push({ st, li, i, p, d });
       });
+    });
+    // A label shared by 2+ lines is a junction ONLY if the snapped
+    // positions actually coincide; otherwise treat as separate stations.
+    const byLabel = new Map<string, typeof snapped>();
+    for (const sn of snapped) {
+      const k = sn.st.label.toLowerCase();
+      if (!byLabel.has(k)) byLabel.set(k, []);
+      byLabel.get(k)!.push(sn);
+    }
+    const junctionKeys = new Set<string>();
+    for (const [k, group] of byLabel) {
+      if (group.length < 2) continue;
+      const ok = group.every((g) => Math.hypot(g.p[0] - group[0].p[0], g.p[1] - group[0].p[1]) < 34);
+      if (ok) junctionKeys.add(k);
+    }
+    const labelShown = new Set<string>();
+    const stations: Station[] = snapped.map((sn) => {
+      const k = sn.st.label.toLowerCase();
+      const junction = junctionKeys.has(k);
+      // A shared label that failed junction coincidence renders its extra
+      // occurrences as unlabeled ticks instead of repeating the text.
+      const dupe = !junction && (byLabel.get(k)?.length ?? 1) > 1 && labelShown.has(k);
+      if (!junction) labelShown.add(k);
+      return {
+        name: sn.st.label,
+        detail: sn.st.detail,
+        p: sn.p,
+        d: sn.d,
+        terminal: !map[sn.li].loop && (sn.i === 0 || sn.i === map[sn.li].stations.length - 1),
+        junction,
+        line: sn.li,
+        tickSign: sn.i % 2 === 0 ? 1 : -1,
+        hideLabel: dupe,
+      };
     });
     // Obstacles: subdivide every straight run into short chunks so diagonal
     // segments don't blanket huge rectangles.
@@ -322,6 +349,9 @@ export default function SubmapMock() {
         obstacles.push({ x0: p[0] - 16, x1: p[0] + 16, y0: p[1] - 16, y1: p[1] + 16 });
       }
     });
+    // Reserve the legend band at the bottom of the canvas.
+    const legendRowsMax = Math.ceil(map.length / 3);
+    obstacles.push({ x0: 0, x1: 1000, y0: 968 - (legendRowsMax - 1) * 30 - 24, y1: 1000 });
     const spinesD = map.map((l, i) => pathD(scaled[i], l.loop, 40));
     return { stations, obstacles, spinesD, colors };
   }, [map]);
@@ -349,7 +379,7 @@ export default function SubmapMock() {
 
   const resolved = resolveLabelCollisions(
     drawable.map((s) => labelFor(s)),
-    drawable.map((s) => s.name),
+    drawable.map((s) => (s.hideLabel ? "" : s.name)),
     drawable.map((s) => s.junction),
     obstacles
   );
@@ -359,7 +389,7 @@ export default function SubmapMock() {
   const longest = Math.max(...map.map((l) => l.name.length));
   const legendCols = Math.min(n, longest > 10 ? 3 : 4);
   const legendRows = Math.ceil(n / legendCols);
-  const legendY = legendRows > 1 ? 940 : 968;
+  const legendY = 968 - (legendRows - 1) * 30;
   return (
     <div className="row g-4">
       <div className="col-md-4">
@@ -456,17 +486,19 @@ export default function SubmapMock() {
                     strokeLinecap="butt"
                   />
                 )}
-                <text
-                  x={lab.x}
-                  y={lab.y}
-                  textAnchor={lab.anchor}
-                  fontFamily="Roboto, Helvetica, Arial, sans-serif"
-                  fontSize={s.junction || s.terminal ? 25 : 22}
-                  fontWeight={s.junction || s.terminal ? "bold" : "600"}
-                  fill="#212529"
-                >
-                  {s.name}
-                </text>
+                {!s.hideLabel && (
+                  <text
+                    x={lab.x}
+                    y={lab.y}
+                    textAnchor={lab.anchor}
+                    fontFamily="Roboto, Helvetica, Arial, sans-serif"
+                    fontSize={s.junction || s.terminal ? 25 : 22}
+                    fontWeight={s.junction || s.terminal ? "bold" : "600"}
+                    fill="#212529"
+                  >
+                    {s.name}
+                  </text>
+                )}
               </g>
             );
           })}

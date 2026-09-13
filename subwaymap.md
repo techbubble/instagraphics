@@ -13,23 +13,27 @@ chart generator.
   PREFER FEWER, LONGER LINES: a document under two pages usually has 2-4
   threads; split a thread in two only when it truly diverges. Seven short
   shuttle lines is a fragmented map, not a richer one.
-- Each line is a named theme. Name: at most 14 characters, normal words
-  with spaces ("Great Task", not "GreatTask").
+- Each line is a named theme. Name: at most 16 characters of normal
+  words with spaces. NEVER truncate a word to fit ("Orchestration" or
+  "Orchestrating", never "Orchestrn"); pick different shorter words
+  instead.
 - A line carries as many stations as its thread has real points: anywhere
   from 2 to 14. Do NOT pad thin threads or truncate rich ones — a major
   thread with twelve points should show twelve stations; a minor motif
   with two points is a short shuttle line. Aim for 15-40 stations across
   the whole map for a typical document.
-- Station labels: 1 to 3 words, at most 20 characters, ordinary words
+- Station labels: 1 to 3 words, at most 22 characters, ordinary words
   separated by spaces — never CamelCase, never concatenated, never a
   numeric suffix to dodge a name clash (no "Final Resting 2"; choose a
-  genuinely different name). Labels are unique across the map EXCEPT
+  genuinely different name), and never a word chopped mid-way ("Value
+  Not Compl" is unacceptable). Labels are unique across the map EXCEPT
   junction labels, which appear identically on the 2-3 lines they join.
 - Every station has a `detail`: 1-2 sentences for its popup, quoting or
   closely paraphrasing the document, with a page/section/verse reference
   when the document has them.
 - Junctions: when two threads share a genuine concept, both lines carry a
-  station with the IDENTICAL label at the IDENTICAL coordinates. Junctions
+  station with the IDENTICAL label at the IDENTICAL coordinates. If three
+  lines share one concept, all three must pass through that exact point. Junctions
   are the map's payoff — find the real ones, typically 2 to 6 on a rich
   document. Lines may also cross without a junction where they share
   nothing.

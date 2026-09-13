@@ -87,6 +87,19 @@ function validateMap(lines: SubmapLine[]): string[] {
       if (best > 3) issues.push(`Line "${l.name}": station "${st.label}" at [${st.at}] is ${best.toFixed(1)} units off the line's path.`);
     }
   }
+  if (lines.length > 8) issues.push(`Map has ${lines.length} lines; maximum is 8. Merge related threads.`);
+  for (const l of lines) {
+    let plen = 0;
+    const path = l.loop ? [...l.path, l.path[0]] : l.path;
+    for (let i = 0; i < path.length - 1; i++) plen += Math.hypot(path[i + 1][0] - path[i][0], path[i + 1][1] - path[i][1]);
+    if (plen < 18) issues.push(`Line "${l.name}" is a stub (path length ${plen.toFixed(0)} units). Every line must travel across a meaningful part of the map; merge it into another thread or extend it.`);
+    if (l.stations.length < 2) issues.push(`Line "${l.name}" has fewer than 2 stations.`);
+    if (!l.loop && l.path.length >= 2) {
+      const [x0, y0] = l.path[0];
+      const straight = l.path.every(([x, y]) => (x - x0) * (l.path[l.path.length - 1][1] - y0) === (y - y0) * (l.path[l.path.length - 1][0] - x0));
+      if (straight) issues.push(`Line "${l.name}" is perfectly straight end to end; every line needs at least one bend.`);
+    }
+  }
   const byLabel = new Map<string, [number, number][]>();
   for (const l of lines) for (const st of l.stations) {
     const k = st.label.toLowerCase();
@@ -182,7 +195,10 @@ export async function POST(req: NextRequest) {
         content: `Your map has geometry violations:\n- ${issues.slice(0, 20).join("\n- ")}\n\nRegenerate the COMPLETE map fixing every violation while keeping the same content and overall design.`,
       },
     ]);
-    if (repair && validateMap(repair.lines).length < issues.length) result = repair;
+    if (repair) {
+      const remaining = validateMap(repair.lines);
+      if (remaining.length === 0 || remaining.length < issues.length) result = repair;
+    }
   }
   return NextResponse.json(result);
 }
