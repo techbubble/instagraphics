@@ -165,13 +165,13 @@ function pathD(rawSpine: Pt[], loop: boolean, r: number): string {
   return d;
 }
 
-type Station = { name: string; detail: string; p: Pt; d: Pt; terminal: boolean; junction: boolean; line: number };
+type Station = { name: string; detail: string; p: Pt; d: Pt; terminal: boolean; junction: boolean; line: number; tickSign: number };
 type Label = { x: number; y: number; anchor: "start" | "middle" | "end" };
 
 function labelBox(l: Label, name: string) {
-  const w = name.length * 14.5;
+  const w = name.length * 12.5;
   const x0 = l.anchor === "middle" ? l.x - w / 2 : l.anchor === "start" ? l.x : l.x - w;
-  return { x0, x1: x0 + w, y0: l.y - 24, y1: l.y + 6 };
+  return { x0, x1: x0 + w, y0: l.y - 21, y1: l.y + 5 };
 }
 function boxesOverlap(a: ReturnType<typeof labelBox>, b: ReturnType<typeof labelBox>) {
   const pad = 4;
@@ -265,7 +265,7 @@ export default function SubmapMock() {
         if (l.loop && loopSeen) l.loop = false;
         if (l.loop) loopSeen = true;
       }
-      setMap(lines.slice(0, 6));
+      setMap(lines.slice(0, 8));
     } catch (e) {
       setUploadError(e instanceof Error ? e.message : "Analysis failed.");
     } finally {
@@ -275,7 +275,19 @@ export default function SubmapMock() {
 
   const { stations, obstacles, spinesD, colors } = useMemo(() => {
     const colors = map.map((_, i) => COLORS[i % COLORS.length]);
-    const scaled = map.map((l) => l.path.map(([x, y]) => [SCALE(x), SCALE(y)] as Pt));
+    // Auto-fit: uniformly rescale the used bounding box to fill the grid,
+    // preserving 45-degree angles (same scale on both axes).
+    const all = map.flatMap((l) => [...l.path, ...l.stations.map((st) => st.at)]);
+    const minX = Math.min(...all.map((p) => p[0]));
+    const maxX = Math.max(...all.map((p) => p[0]));
+    const minY = Math.min(...all.map((p) => p[1]));
+    const maxY = Math.max(...all.map((p) => p[1]));
+    const span = Math.max(maxX - minX, maxY - minY, 1);
+    const k = 88 / span;
+    const offX = 6 + (88 - (maxX - minX) * k) / 2;
+    const offY = 6 + (88 - (maxY - minY) * k) / 2;
+    const fit = ([x, y]: Pt): Pt => [SCALE(offX + (x - minX) * k), SCALE(offY + (y - minY) * k)];
+    const scaled = map.map((l) => l.path.map(fit));
     const segsPer = map.map((l, i) => buildSegs(scaled[i], l.loop, 40));
     // Junction labels: identical label on 2+ lines.
     const count = new Map<string, number>();
@@ -286,7 +298,7 @@ export default function SubmapMock() {
     const stations: Station[] = [];
     map.forEach((l, li) => {
       l.stations.forEach((st, i) => {
-        const target: Pt = [SCALE(st.at[0]), SCALE(st.at[1])];
+        const target: Pt = fit(st.at);
         const { p, d } = pointAt(segsPer[li], snapToPath(segsPer[li], target));
         stations.push({
           name: st.label,
@@ -296,6 +308,7 @@ export default function SubmapMock() {
           terminal: !l.loop && (i === 0 || i === l.stations.length - 1),
           junction: (count.get(st.label.toLowerCase()) ?? 0) > 1,
           line: li,
+          tickSign: i % 2 === 0 ? 1 : -1,
         });
       });
     });
@@ -323,15 +336,15 @@ export default function SubmapMock() {
   });
 
   const labelFor = (s: Station): Label => {
-    if (s.junction) return { x: s.p[0] - 44, y: s.p[1] - 34, anchor: "end" };
+    if (s.junction) return { x: s.p[0] - 40, y: s.p[1] - 32, anchor: "end" };
     const horizontal = Math.abs(s.d[0]) >= Math.abs(s.d[1]);
     if (horizontal) {
-      const x = Math.min(848, Math.max(152, s.p[0]));
-      const idx = drawable.filter((o) => o.line === s.line).indexOf(s);
-      return { x, y: idx % 2 === 0 ? s.p[1] - 36 : s.p[1] + 54, anchor: "middle" };
+      const x = Math.min(858, Math.max(142, s.p[0]));
+      // Label rides the same side as the station tick.
+      return { x, y: s.tickSign > 0 ? s.p[1] + 52 : s.p[1] - 32, anchor: "middle" };
     }
-    const right = s.p[0] < 500;
-    return { x: s.p[0] + (right ? 38 : -38), y: s.p[1] + 8, anchor: right ? "start" : "end" };
+    const right = s.tickSign > 0 ? s.p[0] < 500 : s.p[0] >= 500;
+    return { x: s.p[0] + (right ? 34 : -34), y: s.p[1] + 8, anchor: right ? "start" : "end" };
   };
 
   const resolved = resolveLabelCollisions(
@@ -345,6 +358,8 @@ export default function SubmapMock() {
   const n = map.length;
   const longest = Math.max(...map.map((l) => l.name.length));
   const legendCols = Math.min(n, longest > 10 ? 3 : 4);
+  const legendRows = Math.ceil(n / legendCols);
+  const legendY = legendRows > 1 ? 940 : 968;
   return (
     <div className="row g-4">
       <div className="col-md-4">
@@ -398,7 +413,7 @@ export default function SubmapMock() {
       <div className="col-md-8 position-relative">
         <svg viewBox="0 0 1000 1000" style={{ width: "100%", display: "block", background: "#fff", border: "1px solid #dee2e6", borderRadius: 8 }}>
           {spinesD.map((d, i) => (
-            <path key={i} d={d} fill="none" stroke={colors[i]} strokeWidth="20" strokeLinecap="round" />
+            <path key={i} d={d} fill="none" stroke={colors[i]} strokeWidth="16" strokeLinecap="round" />
           ))}
           {drawable.map((s, i) => {
             const lab = finalLabels[i];
@@ -417,15 +432,39 @@ export default function SubmapMock() {
                   const t = Math.max(0.1, Math.min(1, Math.max(dx !== 0 ? tx : 0, dy !== 0 ? ty : 0)));
                   return <line x1={s.p[0]} y1={s.p[1]} x2={s.p[0] + dx * t} y2={s.p[1] + dy * t} stroke="#adb5bd" strokeWidth="3" />;
                 })()}
-                <circle
-                  cx={s.p[0]}
-                  cy={s.p[1]}
-                  r={s.junction ? 23 : s.terminal ? 17 : 13}
-                  fill="#fff"
-                  stroke="#212529"
-                  strokeWidth={s.junction ? 9 : s.terminal ? 9 : 7}
-                />
-                <text x={lab.x} y={lab.y} textAnchor={lab.anchor} fontFamily="Roboto, Helvetica, Arial, sans-serif" fontSize="27" fontWeight="bold" fill="#212529">
+                <circle cx={s.p[0]} cy={s.p[1]} r="22" fill="transparent" />
+                {s.junction ? (
+                  <circle cx={s.p[0]} cy={s.p[1]} r="19" fill="#fff" stroke="#212529" strokeWidth="8" />
+                ) : s.terminal ? (
+                  <line
+                    x1={s.p[0] - s.d[1] * 20}
+                    y1={s.p[1] + s.d[0] * 20}
+                    x2={s.p[0] + s.d[1] * 20}
+                    y2={s.p[1] - s.d[0] * 20}
+                    stroke={colors[s.line]}
+                    strokeWidth="9"
+                    strokeLinecap="round"
+                  />
+                ) : (
+                  <line
+                    x1={s.p[0] + s.tickSign * -s.d[1] * 9}
+                    y1={s.p[1] + s.tickSign * s.d[0] * 9}
+                    x2={s.p[0] + s.tickSign * -s.d[1] * 24}
+                    y2={s.p[1] + s.tickSign * s.d[0] * 24}
+                    stroke={colors[s.line]}
+                    strokeWidth="8"
+                    strokeLinecap="butt"
+                  />
+                )}
+                <text
+                  x={lab.x}
+                  y={lab.y}
+                  textAnchor={lab.anchor}
+                  fontFamily="Roboto, Helvetica, Arial, sans-serif"
+                  fontSize={s.junction || s.terminal ? 25 : 22}
+                  fontWeight={s.junction || s.terminal ? "bold" : "600"}
+                  fill="#212529"
+                >
                   {s.name}
                 </text>
               </g>
@@ -435,16 +474,16 @@ export default function SubmapMock() {
             <g key={i}>
               <line
                 x1={70 + (i % legendCols) * (860 / legendCols)}
-                y1={968 + Math.floor(i / legendCols) * 30}
+                y1={legendY + Math.floor(i / legendCols) * 30}
                 x2={115 + (i % legendCols) * (860 / legendCols)}
-                y2={968 + Math.floor(i / legendCols) * 30}
+                y2={legendY + Math.floor(i / legendCols) * 30}
                 stroke={c}
                 strokeWidth="12"
                 strokeLinecap="round"
               />
               <text
                 x={127 + (i % legendCols) * (860 / legendCols)}
-                y={976 + Math.floor(i / legendCols) * 30}
+                y={legendY + 8 + Math.floor(i / legendCols) * 30}
                 fontFamily="Roboto, Helvetica, Arial, sans-serif"
                 fontSize="22"
                 fontWeight="bold"

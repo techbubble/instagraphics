@@ -15,7 +15,7 @@ const TOOL = {
       lines: {
         type: "array",
         minItems: 2,
-        maxItems: 6,
+        maxItems: 8,
         items: {
           type: "object",
           properties: {
@@ -24,14 +24,14 @@ const TOOL = {
             path: {
               type: "array",
               minItems: 2,
-              maxItems: 8,
+              maxItems: 12,
               items: { type: "array", minItems: 2, maxItems: 2, items: { type: "number" } },
               description: "Ordered waypoints on the 0-100 grid; segments horizontal, vertical or 45 degrees",
             },
             stations: {
               type: "array",
-              minItems: 3,
-              maxItems: 7,
+              minItems: 2,
+              maxItems: 14,
               items: {
                 type: "object",
                 properties: {
@@ -52,6 +52,58 @@ const TOOL = {
 };
 
 const PROMPT = readFileSync(join(process.cwd(), "subwaymap.md"), "utf8");
+
+type SubmapLine = {
+  name: string;
+  loop: boolean;
+  path: [number, number][];
+  stations: { label: string; detail: string; at: [number, number] }[];
+};
+
+function distToSegment(p: [number, number], a: [number, number], b: [number, number]): number {
+  const vx = b[0] - a[0], vy = b[1] - a[1];
+  const len2 = vx * vx + vy * vy || 1;
+  const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * vx + (p[1] - a[1]) * vy) / len2));
+  return Math.hypot(p[0] - (a[0] + vx * t), p[1] - (a[1] + vy * t));
+}
+
+function validateMap(lines: SubmapLine[]): string[] {
+  const issues: string[] = [];
+  for (const l of lines) {
+    const path = l.loop ? [...l.path, l.path[0]] : l.path;
+    for (let i = 0; i < path.length - 1; i++) {
+      const dx = path[i + 1][0] - path[i][0];
+      const dy = path[i + 1][1] - path[i][1];
+      if (Math.abs(dx) > 0.5 && Math.abs(dy) > 0.5 && Math.abs(Math.abs(dx) - Math.abs(dy)) > 1) {
+        issues.push(`Line "${l.name}": segment [${path[i]}] -> [${path[i + 1]}] is not horizontal, vertical or 45 degrees.`);
+      }
+    }
+    for (const [x, y] of l.path) {
+      if (x < 2 || x > 98 || y < 2 || y > 98) issues.push(`Line "${l.name}": waypoint [${x},${y}] is outside the 6..94 range.`);
+    }
+    for (const st of l.stations) {
+      let best = Infinity;
+      for (let i = 0; i < path.length - 1; i++) best = Math.min(best, distToSegment(st.at, path[i], path[i + 1]));
+      if (best > 3) issues.push(`Line "${l.name}": station "${st.label}" at [${st.at}] is ${best.toFixed(1)} units off the line's path.`);
+    }
+  }
+  const byLabel = new Map<string, [number, number][]>();
+  for (const l of lines) for (const st of l.stations) {
+    const k = st.label.toLowerCase();
+    if (!byLabel.has(k)) byLabel.set(k, []);
+    byLabel.get(k)!.push(st.at);
+  }
+  for (const [label, ats] of byLabel) {
+    if (ats.length < 2) continue;
+    for (let i = 1; i < ats.length; i++) {
+      if (Math.hypot(ats[i][0] - ats[0][0], ats[i][1] - ats[0][1]) > 1.5) {
+        issues.push(`Junction "${label}" has different coordinates on its lines; they must be identical.`);
+        break;
+      }
+    }
+  }
+  return issues;
+}
 
 export async function POST(req: NextRequest) {
   const user = await currentUser();
@@ -84,40 +136,53 @@ export async function POST(req: NextRequest) {
   }
   content.push({ type: "text", text: PROMPT });
 
-  const res = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "anthropic/claude-sonnet-5",
-      max_tokens: 3000,
-      tools: [{ type: "function", function: { name: TOOL.name, description: TOOL.description, parameters: TOOL.input_schema } }],
-      tool_choice: { type: "function", function: { name: TOOL.name } },
-      messages: [{ role: "user", content }],
-    }),
-  });
-  if (!res.ok) {
-    const detail = await res.text();
-    console.error("submap analyze failed:", res.status, detail.slice(0, 500));
-    return NextResponse.json({ error: "Analysis failed." }, { status: 502 });
-  }
-  const data = await res.json();
-  const args = data.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
-  if (!args) {
-    return NextResponse.json({ error: "Analysis returned no structure." }, { status: 502 });
-  }
-  try {
-    let parsed = JSON.parse(args);
-    // Some models double-encode: { lines: "<json string>" }.
-    if (typeof parsed.lines === "string") {
-      const inner = JSON.parse(parsed.lines);
-      parsed = Array.isArray(inner) ? { lines: inner } : inner;
+  async function generate(messages: unknown[]): Promise<{ lines: SubmapLine[] } | null> {
+    const res = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "anthropic/claude-sonnet-5",
+        max_tokens: 8000,
+        tools: [{ type: "function", function: { name: TOOL.name, description: TOOL.description, parameters: TOOL.input_schema } }],
+        tool_choice: { type: "function", function: { name: TOOL.name } },
+        messages,
+      }),
+    });
+    if (!res.ok) {
+      console.error("submap analyze failed:", res.status, (await res.text()).slice(0, 500));
+      return null;
     }
-    if (!Array.isArray(parsed.lines)) throw new Error("no lines array");
-    return NextResponse.json(parsed);
-  } catch {
-    return NextResponse.json({ error: "Analysis returned malformed structure." }, { status: 502 });
+    const data = await res.json();
+    const args = data.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
+    if (!args) return null;
+    try {
+      let parsed = JSON.parse(args);
+      if (typeof parsed.lines === "string") {
+        const inner = JSON.parse(parsed.lines);
+        parsed = Array.isArray(inner) ? { lines: inner } : inner;
+      }
+      if (!Array.isArray(parsed.lines)) return null;
+      return parsed as { lines: SubmapLine[] };
+    } catch {
+      return null;
+    }
   }
+
+  const first = await generate([{ role: "user", content }]);
+  if (!first) return NextResponse.json({ error: "Analysis failed." }, { status: 502 });
+  let result = first;
+  const issues = validateMap(result.lines);
+  if (issues.length > 0) {
+    // One repair round: hand the violations back for a corrected map.
+    const repair = await generate([
+      { role: "user", content },
+      { role: "assistant", content: `Previous map attempt:\n${JSON.stringify(result)}` },
+      {
+        role: "user",
+        content: `Your map has geometry violations:\n- ${issues.slice(0, 20).join("\n- ")}\n\nRegenerate the COMPLETE map fixing every violation while keeping the same content and overall design.`,
+      },
+    ]);
+    if (repair && validateMap(repair.lines).length < issues.length) result = repair;
+  }
+  return NextResponse.json(result);
 }
