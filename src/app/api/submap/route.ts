@@ -1,13 +1,14 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@/lib/auth";
 
-// Analyzes an uploaded document into the submap structure: four lines of
-// thought, stations per line, junction stations shared between line 3 and
-// lines 1/2, and a popup detail per station.
+// Analyzes an uploaded document into the submap structure. All content
+// and geometry instructions live in subwaymap.md at the repo root.
 
 const TOOL = {
   name: "submap",
-  description: "Report the document distilled into a four-line subway map.",
+  description: "Report the document distilled into a subway map: lines with octilinear paths, stations with coordinates, junction stations shared between lines.",
   input_schema: {
     type: "object",
     properties: {
@@ -19,21 +20,30 @@ const TOOL = {
           type: "object",
           properties: {
             name: { type: "string", description: "Short thread name, max 14 chars" },
+            loop: { type: "boolean", description: "true for the (at most one) closed-circuit line" },
+            path: {
+              type: "array",
+              minItems: 2,
+              maxItems: 8,
+              items: { type: "array", minItems: 2, maxItems: 2, items: { type: "number" } },
+              description: "Ordered waypoints on the 0-100 grid; segments horizontal, vertical or 45 degrees",
+            },
             stations: {
               type: "array",
               minItems: 3,
-              maxItems: 6,
+              maxItems: 7,
               items: {
                 type: "object",
                 properties: {
                   label: { type: "string", description: "Station label, 1-3 words, max 20 chars" },
-                  detail: { type: "string", description: "1-2 sentences for the popup, quoting or citing the document" },
+                  detail: { type: "string", description: "1-2 sentences for the popup, quoting the document" },
+                  at: { type: "array", minItems: 2, maxItems: 2, items: { type: "number" }, description: "Grid coordinates, must lie on this line's path" },
                 },
-                required: ["label", "detail"],
+                required: ["label", "detail", "at"],
               },
             },
           },
-          required: ["name", "stations"],
+          required: ["name", "loop", "path", "stations"],
         },
       },
     },
@@ -41,15 +51,7 @@ const TOOL = {
   },
 };
 
-const PROMPT = `Distill this document into a subway map of its ideas.
-
-Rules:
-- Use as many lines (threads of thought) as the document genuinely has: between 2 and 6, including the connector. Each line is a named theme with 3-6 stations in the order the ideas develop.
-- The LAST line is the connector: the thread that runs through the whole document. Wherever the connector genuinely shares a concept with another line, give both lines a station with the IDENTICAL label — that becomes a junction. Aim for a junction with each other line when it is truly warranted; skip it when it is not.
-- Junction ordering: the connector crosses the other lines in the order they are listed, so its shared station with line 1 must come before its shared station with line 2, and so on.
-- Station labels: 1-3 words, max 20 characters, evocative, no duplicates except the junction labels.
-- Each station's detail: 1-2 sentences quoting or closely paraphrasing the document (include a short verbatim quote where possible).
-- Line names: max 14 characters.`;
+const PROMPT = readFileSync(join(process.cwd(), "subwaymap.md"), "utf8");
 
 export async function POST(req: NextRequest) {
   const user = await currentUser();
