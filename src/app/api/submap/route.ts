@@ -54,10 +54,10 @@ Rules:
 export async function POST(req: NextRequest) {
   const user = await currentUser();
   if (!user) return NextResponse.json({ error: "Sign in to analyze documents." }, { status: 401 });
-  const key = process.env.ANTHROPIC_API_KEY;
+  const key = process.env.AI_GATEWAY_API_KEY || process.env.ANTHROPIC_API_KEY;
   if (!key) {
     return NextResponse.json(
-      { error: "ANTHROPIC_API_KEY is not configured on the server." },
+      { error: "No AI API key configured on the server." },
       { status: 503 }
     );
   }
@@ -68,11 +68,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Bad request" }, { status: 400 });
   }
 
+  // Vercel AI Gateway, OpenAI-compatible chat completions.
   const content: unknown[] = [];
   if (body.pdfBase64 && typeof body.pdfBase64 === "string" && body.pdfBase64.length < 8_000_000) {
     content.push({
-      type: "document",
-      source: { type: "base64", media_type: "application/pdf", data: body.pdfBase64 },
+      type: "file",
+      file: { filename: "document.pdf", file_data: `data:application/pdf;base64,${body.pdfBase64}` },
     });
   } else if (body.text && typeof body.text === "string") {
     content.push({ type: "text", text: `<document>\n${body.text.slice(0, 60_000)}\n</document>` });
@@ -81,18 +82,17 @@ export async function POST(req: NextRequest) {
   }
   content.push({ type: "text", text: PROMPT });
 
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+  const res = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
     method: "POST",
     headers: {
-      "x-api-key": key,
-      "anthropic-version": "2023-06-01",
+      Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "claude-sonnet-5",
+      model: "anthropic/claude-sonnet-5",
       max_tokens: 3000,
-      tools: [TOOL],
-      tool_choice: { type: "tool", name: "submap" },
+      tools: [{ type: "function", function: { name: TOOL.name, description: TOOL.description, parameters: TOOL.input_schema } }],
+      tool_choice: { type: "function", function: { name: TOOL.name } },
       messages: [{ role: "user", content }],
     }),
   });
@@ -102,11 +102,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Analysis failed." }, { status: 502 });
   }
   const data = await res.json();
-  const toolUse = (data.content as { type: string; input?: unknown }[]).find(
-    (b) => b.type === "tool_use"
-  );
-  if (!toolUse?.input) {
+  const args = data.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
+  if (!args) {
     return NextResponse.json({ error: "Analysis returned no structure." }, { status: 502 });
   }
-  return NextResponse.json(toolUse.input);
+  try {
+    let parsed = JSON.parse(args);
+    // Some models double-encode: { lines: "<json string>" }.
+    if (typeof parsed.lines === "string") {
+      const inner = JSON.parse(parsed.lines);
+      parsed = Array.isArray(inner) ? { lines: inner } : inner;
+    }
+    if (!Array.isArray(parsed.lines)) throw new Error("no lines array");
+    return NextResponse.json(parsed);
+  } catch {
+    return NextResponse.json({ error: "Analysis returned malformed structure." }, { status: 502 });
+  }
 }
