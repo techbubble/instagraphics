@@ -1,84 +1,114 @@
 "use client";
 
-// Mockup of the document->subway-map summarizer. Four hardcoded lines of
-// thought; shared station names become junctions (line 1 x line 3 and
-// line 2 x line 3 have fixed crossing points). Click a station for its
-// extracted detail.
+// Mockup of the document->subway-map summarizer. The document is distilled
+// into as many lines as it has threads (2-6): every thread but the last is
+// a horizontal row; the last is a connector that weaves down through the
+// rows and junctions wherever it shares a station name with a row. Click a
+// station for its extracted detail. Drop a document to analyze it.
 
 import { useMemo, useState } from "react";
 
 type Pt = [number, number];
-const R = 40;
 
-const LINES = [
-  { name: "Creation", color: "#0d6efd", spine: [[115, 230], [905, 230]] as Pt[] },
-  { name: "The Garden", color: "#3be8bd", spine: [[115, 650], [790, 650], [790, 750], [905, 750]] as Pt[] },
-  { name: "Mankind", color: "#ffc107", spine: [[560, 70], [560, 450], [660, 450], [660, 930]] as Pt[] },
-  { name: "The Fall", color: "#f55151", spine: [[115, 450], [460, 450], [460, 850], [905, 850]] as Pt[] },
-];
+const COLORS = ["#0d6efd", "#3be8bd", "#f55151", "#6f42c1", "#fd7e14", "#ffc107"];
+const CONNECTOR_COLOR = "#ffc107";
 
-// Crossing points that can host a junction: [lineA, lineB] -> grid point.
-const CROSSINGS: { lines: [number, number]; at: Pt; vertical: boolean }[] = [
-  { lines: [0, 2], at: [560, 230], vertical: true },
-  { lines: [1, 2], at: [660, 650], vertical: true },
-];
-
+const DEFAULT_NAMES = ["Creation", "The Garden", "The Fall", "Mankind"];
 const DEFAULTS = [
   "Let there be light, Waters divided, Living creatures, Image of God, Day of rest",
   "Eden planted, Four rivers, Tree of knowledge, Eve created, Not ashamed",
-  "Image of God, Breath of life, Eve created, Mother of all living, East of Eden",
   "Serpent's question, Forbidden fruit, Eyes opened, Curses spoken, Banished",
+  "Image of God, Breath of life, Eve created, Mother of all living, East of Eden",
 ];
 
 const DETAILS: Record<string, string> = {
-  "Let there be light": "\u201cAnd God said, Let there be light: and there was light.\u201d (Genesis 1:3)",
-  "Waters divided": "\u201cGod made the firmament, and divided the waters... and God called the firmament Heaven.\u201d (1:7\u20138)",
-  "Living creatures": "\u201cLet the waters bring forth abundantly the moving creature that hath life, and fowl that may fly above the earth.\u201d (1:20)",
-  "Image of God": "\u201cSo God created man in his own image... male and female created he them.\u201d (1:27) The sixth day of creation and the first station of the human story.",
-  "Day of rest": "\u201cAnd he rested on the seventh day... and God blessed the seventh day, and sanctified it.\u201d (2:2\u20133)",
-  "Breath of life": "\u201cThe LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life.\u201d (2:7)",
-  "Eve created": "\u201cThe rib, which the LORD God had taken from man, made he a woman.\u201d (2:22) The garden narrative and the human thread meet here.",
-  "Mother of all living": "\u201cAdam called his wife's name Eve; because she was the mother of all living.\u201d (3:20)",
-  "East of Eden": "\u201cSo he drove out the man; and he placed at the east of the garden of Eden Cherubims, and a flaming sword.\u201d (3:24)",
-  "Eden planted": "\u201cThe LORD God planted a garden eastward in Eden; and there he put the man whom he had formed.\u201d (2:8)",
-  "Four rivers": "\u201cA river went out of Eden to water the garden; and from thence it was parted, and became into four heads.\u201d (2:10)",
-  "Tree of knowledge": "\u201cBut of the tree of the knowledge of good and evil, thou shalt not eat of it.\u201d (2:17)",
-  "Not ashamed": "\u201cThey were both naked, the man and his wife, and were not ashamed.\u201d (2:25)",
-  "Serpent's question": "\u201cNow the serpent was more subtil than any beast... Yea, hath God said, Ye shall not eat of every tree of the garden?\u201d (3:1)",
-  "Forbidden fruit": "\u201cShe took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat.\u201d (3:6)",
-  "Eyes opened": "\u201cAnd the eyes of them both were opened, and they knew that they were naked.\u201d (3:7)",
-  "Curses spoken": "\u201cCursed is the ground for thy sake... In the sweat of thy face shalt thou eat bread.\u201d (3:17\u201319)",
-  Banished: "\u201cTherefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken.\u201d (3:23)",
+  "Let there be light": "“And God said, Let there be light: and there was light.” (Genesis 1:3)",
+  "Waters divided": "“God made the firmament, and divided the waters... and God called the firmament Heaven.” (1:7–8)",
+  "Living creatures": "“Let the waters bring forth abundantly the moving creature that hath life, and fowl that may fly above the earth.” (1:20)",
+  "Image of God": "“So God created man in his own image... male and female created he them.” (1:27) The sixth day of creation and the first station of the human story.",
+  "Day of rest": "“And he rested on the seventh day... and God blessed the seventh day, and sanctified it.” (2:2–3)",
+  "Breath of life": "“The LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life.” (2:7)",
+  "Eve created": "“The rib, which the LORD God had taken from man, made he a woman.” (2:22) The garden narrative and the human thread meet here.",
+  "Mother of all living": "“Adam called his wife's name Eve; because she was the mother of all living.” (3:20)",
+  "East of Eden": "“So he drove out the man; and he placed at the east of the garden of Eden Cherubims, and a flaming sword.” (3:24)",
+  "Eden planted": "“The LORD God planted a garden eastward in Eden; and there he put the man whom he had formed.” (2:8)",
+  "Four rivers": "“A river went out of Eden to water the garden; and from thence it was parted, and became into four heads.” (2:10)",
+  "Tree of knowledge": "“But of the tree of the knowledge of good and evil, thou shalt not eat of it.” (2:17)",
+  "Not ashamed": "“They were both naked, the man and his wife, and were not ashamed.” (2:25)",
+  "Serpent's question": "“Now the serpent was more subtil than any beast... Yea, hath God said, Ye shall not eat of every tree of the garden?” (3:1)",
+  "Forbidden fruit": "“She took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat.” (3:6)",
+  "Eyes opened": "“And the eyes of them both were opened, and they knew that they were naked.” (3:7)",
+  "Curses spoken": "“Cursed is the ground for thy sake... In the sweat of thy face shalt thou eat bread.” (3:17–19)",
+  Banished: "“Therefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken.” (3:23)",
 };
 
-// ---- arc-length parameterisation (rounded polyline) ----
+// ---- generative geometry: n-1 horizontal rows + one weaving connector ----
+type Geometry = {
+  spines: Pt[][];
+  colors: string[];
+  crossings: { lines: [number, number]; at: Pt }[];
+  r: number;
+};
+
+function buildGeometry(n: number): Geometry {
+  const rows = Math.max(1, n - 1);
+  const ys =
+    rows === 1 ? [500] : Array.from({ length: rows }, (_, k) => 200 + (k * 560) / (rows - 1));
+  const xs = Array.from({ length: rows }, (_, k) => 330 + k * (rows > 4 ? 100 : 120));
+  const vgap = rows > 1 ? ys[1] - ys[0] : 400;
+  const r = Math.max(18, Math.min(40, Math.floor(vgap / 2) - 12));
+  const spines: Pt[][] = [];
+  for (let k = 0; k < rows; k++) spines.push([[115, ys[k]], [905, ys[k]]]);
+  const conn: Pt[] = [[xs[0], 80]];
+  for (let k = 0; k < rows - 1; k++) {
+    const mid = (ys[k] + ys[k + 1]) / 2;
+    conn.push([xs[k], mid], [xs[k + 1], mid]);
+  }
+  conn.push([xs[rows - 1], 920]);
+  spines.push(conn);
+  const colors = Array.from({ length: rows }, (_, k) => COLORS[k % COLORS.length]).map((c) =>
+    c === CONNECTOR_COLOR ? "#20c997" : c
+  );
+  colors.push(CONNECTOR_COLOR);
+  return {
+    spines,
+    colors,
+    crossings: Array.from({ length: rows }, (_, k) => ({
+      lines: [k, rows] as [number, number],
+      at: [xs[k], ys[k]] as Pt,
+    })),
+    r,
+  };
+}
+
+// ---- arc-length parameterisation of a rounded polyline ----
 type Seg =
   | { kind: "line"; a: Pt; b: Pt; len: number }
-  | { kind: "arc"; c: Pt; a0: number; a1: number; len: number };
+  | { kind: "arc"; c: Pt; a0: number; a1: number; r: number; len: number };
 
 function unit(a: Pt, b: Pt): Pt {
   const dx = b[0] - a[0], dy = b[1] - a[1];
   const l = Math.hypot(dx, dy);
   return [dx / l, dy / l];
 }
-function buildSegs(spine: Pt[]): Seg[] {
+function buildSegs(spine: Pt[], r: number): Seg[] {
   const segs: Seg[] = [];
   let cur: Pt = spine[0];
   for (let i = 1; i < spine.length - 1; i++) {
     const v = spine[i];
     const dIn = unit(spine[i - 1], v);
     const dOut = unit(v, spine[i + 1]);
-    const p1: Pt = [v[0] - dIn[0] * R, v[1] - dIn[1] * R];
-    const p2: Pt = [v[0] + dOut[0] * R, v[1] + dOut[1] * R];
+    const p1: Pt = [v[0] - dIn[0] * r, v[1] - dIn[1] * r];
+    const p2: Pt = [v[0] + dOut[0] * r, v[1] + dOut[1] * r];
     segs.push({ kind: "line", a: cur, b: p1, len: Math.hypot(p1[0] - cur[0], p1[1] - cur[1]) });
-    const c: Pt = [p1[0] + dOut[0] * R, p1[1] + dOut[1] * R];
+    const c: Pt = [p1[0] + dOut[0] * r, p1[1] + dOut[1] * r];
     const a0 = Math.atan2(p1[1] - c[1], p1[0] - c[0]);
     let a1 = Math.atan2(p2[1] - c[1], p2[0] - c[0]);
     let sweep = a1 - a0;
     if (sweep > Math.PI) sweep -= 2 * Math.PI;
     if (sweep < -Math.PI) sweep += 2 * Math.PI;
     a1 = a0 + sweep;
-    segs.push({ kind: "arc", c, a0, a1, len: Math.abs(sweep) * R });
+    segs.push({ kind: "arc", c, a0, a1, r, len: Math.abs(sweep) * r });
     cur = p2;
   }
   const last = spine[spine.length - 1];
@@ -96,8 +126,8 @@ function pointAt(segs: Seg[], l: number): { p: Pt; d: Pt } {
       return { p: [s.a[0] + (s.b[0] - s.a[0]) * u, s.a[1] + (s.b[1] - s.a[1]) * u], d };
     }
     const dir = s.a1 > s.a0 ? 1 : -1;
-    const ang = s.a0 + (dir * rem) / R;
-    return { p: [s.c[0] + R * Math.cos(ang), s.c[1] + R * Math.sin(ang)], d: [-Math.sin(ang) * dir, Math.cos(ang) * dir] };
+    const ang = s.a0 + (dir * rem) / s.r;
+    return { p: [s.c[0] + s.r * Math.cos(ang), s.c[1] + s.r * Math.sin(ang)], d: [-Math.sin(ang) * dir, Math.cos(ang) * dir] };
   }
   const last = segs[segs.length - 1] as Extract<Seg, { kind: "line" }>;
   return { p: last.b, d: unit(last.a, last.b) };
@@ -117,13 +147,13 @@ function lengthAtPoint(segs: Seg[], pt: Pt): number {
   }
   return acc / 2;
 }
-function pathD(spine: Pt[]): string {
+function pathD(spine: Pt[], r: number): string {
   let d = `M${spine[0][0]} ${spine[0][1]}`;
   for (let i = 1; i < spine.length - 1; i++) {
     const v = spine[i];
     const dIn = unit(spine[i - 1], v);
     const dOut = unit(v, spine[i + 1]);
-    d += ` L${v[0] - dIn[0] * R} ${v[1] - dIn[1] * R} Q${v[0]} ${v[1]} ${v[0] + dOut[0] * R} ${v[1] + dOut[1] * R}`;
+    d += ` L${v[0] - dIn[0] * r} ${v[1] - dIn[1] * r} Q${v[0]} ${v[1]} ${v[0] + dOut[0] * r} ${v[1] + dOut[1] * r}`;
   }
   d += ` L${spine[spine.length - 1][0]} ${spine[spine.length - 1][1]}`;
   return d;
@@ -132,7 +162,6 @@ function pathD(spine: Pt[]): string {
 type Station = { name: string; p: Pt; d: Pt; terminal: boolean; junction: boolean; line: number };
 type Label = { x: number; y: number; anchor: "start" | "middle" | "end" };
 
-// Approximate bbox of a rendered label (font 27 bold).
 function labelBox(l: Label, name: string) {
   const w = name.length * 14.5;
   const x0 = l.anchor === "middle" ? l.x - w / 2 : l.anchor === "start" ? l.x : l.x - w;
@@ -143,23 +172,15 @@ function boxesOverlap(a: ReturnType<typeof labelBox>, b: ReturnType<typeof label
   return a.x0 < b.x1 + pad && b.x0 < a.x1 + pad && a.y0 < b.y1 + pad && b.y0 < a.y1 + pad;
 }
 
-// Track segments inflated to strips; labels should not sit on the rails.
-const OBSTACLES = LINES.flatMap((l) =>
-  l.spine.slice(0, -1).map((a, i) => {
-    const b = l.spine[i + 1];
-    return {
-      x0: Math.min(a[0], b[0]) - 14,
-      x1: Math.max(a[0], b[0]) + 14,
-      y0: Math.min(a[1], b[1]) - 14,
-      y1: Math.max(a[1], b[1]) + 14,
-    };
-  })
-);
-
 // Post-layout pass: no label may overlap another label or a track. Any
-// offender is stepped through a widening grid of offsets to the nearest
-// fully clear spot.
-function resolveLabelCollisions(labels: Label[], names: string[], junction?: boolean[]): { labels: Label[]; moved: boolean[] } {
+// offender steps through a widening grid (with anchor flips) to the
+// nearest fully clear spot; junction labels stay close to their capsule.
+function resolveLabelCollisions(
+  labels: Label[],
+  names: string[],
+  junction: boolean[],
+  obstacles: { x0: number; x1: number; y0: number; y1: number }[]
+): { labels: Label[]; moved: boolean[] } {
   const out = labels.map((l) => ({ ...l }));
   const offsets: { dx: number; dy: number }[] = [];
   for (let dy = -240; dy <= 240; dy += 20) {
@@ -169,7 +190,7 @@ function resolveLabelCollisions(labels: Label[], names: string[], junction?: boo
   }
   offsets.sort((a, b) => Math.hypot(a.dx, a.dy) - Math.hypot(b.dx, b.dy));
   const clearOfTracks = (box: ReturnType<typeof labelBox>) =>
-    OBSTACLES.every((ob) => !(box.x0 < ob.x1 && ob.x0 < box.x1 && box.y0 < ob.y1 && ob.y0 < box.y1));
+    obstacles.every((ob) => !(box.x0 < ob.x1 && ob.x0 < box.x1 && box.y0 < ob.y1 && ob.y0 < box.y1));
   const isClear = (cand: Label, self: number) => {
     const box = labelBox(cand, names[self]);
     if (box.y0 < 30 || box.y1 > 950 || box.x0 < 10 || box.x1 > 990) return false;
@@ -181,12 +202,9 @@ function resolveLabelCollisions(labels: Label[], names: string[], junction?: boo
     for (let i = 0; i < out.length; i++) {
       if (isClear(out[i], i)) continue;
       const anchors: Label["anchor"][] = [labels[i].anchor, "middle", "start", "end"];
-      const seen = new Set<string>();
       outer: for (const { dx, dy } of offsets) {
-        if (junction?.[i] && Math.hypot(dx, dy) > 110) break;
+        if (junction[i] && Math.hypot(dx, dy) > 110) break;
         for (const anchor of anchors) {
-          const key = `${anchor}`;
-          if (seen.has(key) && (dx !== 0 || dy !== 0)) seen.delete(key);
           const cand = { ...out[i], x: labels[i].x + dx, y: labels[i].y + dy, anchor };
           if (isClear(cand, i)) {
             out[i] = cand;
@@ -206,24 +224,71 @@ function resolveLabelCollisions(labels: Label[], names: string[], junction?: boo
 
 export default function SubmapMock() {
   const [texts, setTexts] = useState<string[]>(DEFAULTS);
+  const [names, setNames] = useState<string[]>(DEFAULT_NAMES);
+  const [details, setDetails] = useState<Record<string, string>>(DETAILS);
   const [active, setActive] = useState<Station | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const { stations } = useMemo(() => {
+  async function analyzeFile(file: File) {
+    setBusy(true);
+    setUploadError(null);
+    setActive(null);
+    try {
+      const payload: { text?: string; pdfBase64?: string } = {};
+      if (file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf")) {
+        const buf = await file.arrayBuffer();
+        let bin = "";
+        const bytes = new Uint8Array(buf);
+        for (let i = 0; i < bytes.length; i += 0x8000) {
+          bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        }
+        payload.pdfBase64 = btoa(bin);
+      } else {
+        payload.text = await file.text();
+      }
+      const res = await fetch("/api/submap", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Analysis failed.");
+      const lines = data.lines as { name: string; stations: { label: string; detail: string }[] }[];
+      if (!Array.isArray(lines) || lines.length < 2) throw new Error("Unexpected analysis shape.");
+      const trimmed = lines.slice(0, 6);
+      setTexts(trimmed.map((l) => l.stations.map((st) => st.label).join(", ")));
+      setNames(trimmed.map((l) => l.name));
+      const d: Record<string, string> = {};
+      for (const l of trimmed) for (const st of l.stations) d[st.label] = st.detail;
+      setDetails(d);
+    } catch (e) {
+      setUploadError(e instanceof Error ? e.message : "Analysis failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const n = texts.length;
+  const geo = useMemo(() => buildGeometry(n), [n]);
+
+  const { stations, obstacles } = useMemo(() => {
     const lists = texts.map((t) => t.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 10));
-    const segsPer = LINES.map((l) => buildSegs(l.spine));
+    const segsPer = geo.spines.map((sp) => buildSegs(sp, geo.r));
     const pins = new Map<number, Map<number, number>>();
-    const junctions: { at: Pt; vertical: boolean; name: string }[] = [];
-    for (const cr of CROSSINGS) {
+    const junctionNames = new Set<string>();
+    for (const cr of geo.crossings) {
       const [la, lb] = cr.lines;
-      const shared = lists[la].find((n) => lists[lb].some((m) => m.toLowerCase() === n.toLowerCase()));
+      if (!lists[la] || !lists[lb]) continue;
+      const shared = lists[la].find((nm) => lists[lb].some((m) => m.toLowerCase() === nm.toLowerCase()));
       if (!shared) continue;
       for (const li of [la, lb]) {
-        const idx = lists[li].findIndex((n) => n.toLowerCase() === shared.toLowerCase());
+        const idx = lists[li].findIndex((nm) => nm.toLowerCase() === shared.toLowerCase());
         if (idx < 0) continue;
         if (!pins.has(li)) pins.set(li, new Map());
         pins.get(li)!.set(idx, lengthAtPoint(segsPer[li], cr.at));
       }
-      junctions.push({ at: cr.at, vertical: cr.vertical, name: shared });
+      junctionNames.add(shared.toLowerCase());
     }
     const stations: Station[] = [];
     lists.forEach((list, li) => {
@@ -246,13 +311,30 @@ export default function SubmapMock() {
         return lo.l + ((hi.l - lo.l) * (i - lo.idx)) / (hi.idx - lo.idx);
       };
       list.forEach((name, i) => {
-        const isJ = junctions.some((j) => j.name.toLowerCase() === name.toLowerCase());
         const { p, d } = pointAt(segs, arcOf(i));
-        stations.push({ name, p, d, terminal: i === 0 || i === list.length - 1, junction: isJ, line: li });
+        stations.push({
+          name,
+          p,
+          d,
+          terminal: i === 0 || i === list.length - 1,
+          junction: junctionNames.has(name.toLowerCase()),
+          line: li,
+        });
       });
     });
-    return { stations, junctions };
-  }, [texts]);
+    const obstacles = geo.spines.flatMap((sp) =>
+      sp.slice(0, -1).map((a, i) => {
+        const b = sp[i + 1];
+        return {
+          x0: Math.min(a[0], b[0]) - 14,
+          x1: Math.max(a[0], b[0]) + 14,
+          y0: Math.min(a[1], b[1]) - 14,
+          y1: Math.max(a[1], b[1]) + 14,
+        };
+      })
+    );
+    return { stations, obstacles };
+  }, [texts, geo]);
 
   const seen = new Set<string>();
   const drawable = stations.filter((s) => {
@@ -263,100 +345,138 @@ export default function SubmapMock() {
     return true;
   });
 
-  const labelFor = (s: Station) => {
+  const labelFor = (s: Station): Label => {
     const horizontal = Math.abs(s.d[0]) >= Math.abs(s.d[1]);
-    if (s.junction) return { x: s.p[0] - 44, y: s.p[1] - 34, anchor: "end" as const };
+    if (s.junction) return { x: s.p[0] - 44, y: s.p[1] - 34, anchor: "end" };
     if (horizontal) {
       const x = Math.min(848, Math.max(152, s.p[0]));
-      if (s.terminal && s.p[0] > 820) return { x, y: s.p[1] + 54, anchor: "middle" as const };
-      if (s.terminal) return { x, y: s.p[1] - 36, anchor: "middle" as const };
+      if (s.terminal && s.p[0] > 820) return { x, y: s.p[1] + 54, anchor: "middle" };
+      if (s.terminal) return { x, y: s.p[1] - 36, anchor: "middle" };
       const idx = drawable.filter((o) => o.line === s.line).indexOf(s);
-      return { x, y: idx % 2 === 0 ? s.p[1] - 36 : s.p[1] + 54, anchor: "middle" as const };
+      return { x, y: idx % 2 === 0 ? s.p[1] - 36 : s.p[1] + 54, anchor: "middle" };
     }
-    const right = s.line === 2 && s.p[0] < 620;
-    return { x: s.p[0] + (right ? 38 : -38), y: s.p[1] + 8, anchor: right ? ("start" as const) : ("end" as const) };
+    const right = s.p[0] < 500;
+    return { x: s.p[0] + (right ? 38 : -38), y: s.p[1] + 8, anchor: right ? "start" : "end" };
   };
 
   const resolved = resolveLabelCollisions(
     drawable.map((s) => labelFor(s)),
     drawable.map((s) => s.name),
-    drawable.map((s) => s.junction)
+    drawable.map((s) => s.junction),
+    obstacles
   );
   const finalLabels = resolved.labels;
 
+  const legendCols = Math.min(n, 4);
   return (
     <div className="row g-4">
       <div className="col-md-4">
         <h1 className="h4 fw-bold">Submap</h1>
         <p className="text-secondary small">
-          Genesis 1-3 as a transit map: four threads, each point a
-          station, shared ideas are junctions. Click any station for the
-          verse.
+          A document distilled into as many lines as it has threads. Each
+          station is a point; shared station names become junctions with the
+          connector line (listed last). Click any station for the passage.
         </p>
-        {LINES.map((l, i) => (
-          <div className="mb-3" key={l.name}>
-            <label className="form-label fw-bold small mb-1" style={{ color: l.color === "#3be8bd" || l.color === "#ffc107" ? "#212529" : l.color }}>
-              <span className="d-inline-block me-2 rounded-pill" style={{ width: 26, height: 10, background: l.color, verticalAlign: "middle" }} />
-              {l.name}
+        <label
+          className={`d-block border border-2 rounded text-center py-3 mb-3 ${busy ? "border-primary bg-light" : "border-secondary-subtle"}`}
+          style={{ borderStyle: "dashed", cursor: busy ? "wait" : "pointer" }}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault();
+            const f = e.dataTransfer.files?.[0];
+            if (f && !busy) analyzeFile(f);
+          }}
+        >
+          <input
+            type="file"
+            className="d-none"
+            accept=".txt,.md,.pdf,text/plain,text/markdown,application/pdf"
+            disabled={busy}
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) analyzeFile(f);
+              e.target.value = "";
+            }}
+          />
+          <div className="fw-bold small">{busy ? "Analyzing document..." : "Drop a document here"}</div>
+          <div className="text-secondary" style={{ fontSize: "0.75rem" }}>
+            {busy ? "Extracting lines of thought" : "PDF, TXT or MD — or click to browse"}
+          </div>
+        </label>
+        {uploadError && <div className="alert alert-danger py-2 small">{uploadError}</div>}
+        {texts.map((t, i) => (
+          <div className="mb-3" key={i}>
+            <label className="form-label fw-bold small mb-1">
+              <span className="d-inline-block me-2 rounded-pill" style={{ width: 26, height: 10, background: geo.colors[i], verticalAlign: "middle" }} />
+              {names[i] ?? `Line ${i + 1}`}
+              {i === n - 1 && <span className="text-secondary fw-normal"> (connector)</span>}
             </label>
             <textarea
               className="form-control form-control-sm"
               rows={2}
-              value={texts[i]}
-              onChange={(e) => setTexts((t) => t.map((v, j) => (j === i ? e.target.value : v)))}
+              value={t}
+              onChange={(e) => setTexts((prev) => prev.map((v, j) => (j === i ? e.target.value : v)))}
             />
           </div>
         ))}
         <p className="text-secondary" style={{ fontSize: "0.75rem" }}>
-          Junctions: a station name appearing in Creation &amp; Mankind pins to
-          the upper crossing; The Garden &amp; Mankind to the lower one.
+          A station name shared between the connector and another line pins
+          to their crossing as a junction.
         </p>
       </div>
       <div className="col-md-8 position-relative">
         <svg viewBox="0 0 1000 1000" style={{ width: "100%", display: "block", background: "#fff", border: "1px solid #dee2e6", borderRadius: 8 }}>
-          {LINES.map((l) => (
-            <path key={l.name} d={pathD(l.spine)} fill="none" stroke={l.color} strokeWidth="20" strokeLinecap="round" />
+          {geo.spines.map((sp, i) => (
+            <path key={i} d={pathD(sp, geo.r)} fill="none" stroke={geo.colors[i]} strokeWidth="20" strokeLinecap="round" />
           ))}
           {drawable.map((s, i) => {
             const lab = finalLabels[i];
             return (
               <g key={`${s.line}-${i}`} style={{ cursor: "pointer" }} onClick={() => setActive(active?.name === s.name ? null : s)}>
-                {s.junction ? (
-                  <rect x={s.p[0] - 21} y={s.p[1] - 26} width={42} height={52} rx={21} fill="#fff" stroke="#212529" strokeWidth="8" />
-                ) : (
-                  <circle cx={s.p[0]} cy={s.p[1]} r={s.terminal ? 17 : 13} fill="#fff" stroke="#212529" strokeWidth={s.terminal ? 9 : 7} />
-                )}
                 {(() => {
                   if (s.junction || !resolved.moved[i]) return null;
                   const box = labelBox(lab, s.name);
                   const cx = (box.x0 + box.x1) / 2;
                   const cy = (box.y0 + box.y1) / 2;
                   if (Math.hypot(cx - s.p[0], cy - s.p[1]) <= 70) return null;
-                  // Stop the leader at the label box edge plus a small gap.
                   const G = 7;
                   const dx = cx - s.p[0], dy = cy - s.p[1];
                   const tx = dx !== 0 ? Math.min((box.x0 - G - s.p[0]) / dx, (box.x1 + G - s.p[0]) / dx) : Infinity;
                   const ty = dy !== 0 ? Math.min((box.y0 - G - s.p[1]) / dy, (box.y1 + G - s.p[1]) / dy) : Infinity;
-                  const tHit = Math.max(
-                    dx !== 0 ? Math.max((box.x0 - G - s.p[0]) / dx, (box.x1 + G - s.p[0]) / dx) * 0 + tx : 0,
-                    dy !== 0 ? ty : 0
-                  );
-                  const t = Math.max(0.1, Math.min(1, tHit));
-                  return (
-                    <line x1={s.p[0]} y1={s.p[1]} x2={s.p[0] + dx * t} y2={s.p[1] + dy * t} stroke="#adb5bd" strokeWidth="3" />
-                  );
+                  const t = Math.max(0.1, Math.min(1, Math.max(dx !== 0 ? tx : 0, dy !== 0 ? ty : 0)));
+                  return <line x1={s.p[0]} y1={s.p[1]} x2={s.p[0] + dx * t} y2={s.p[1] + dy * t} stroke="#adb5bd" strokeWidth="3" />;
                 })()}
+                {s.junction ? (
+                  <rect x={s.p[0] - 21} y={s.p[1] - 26} width={42} height={52} rx={21} fill="#fff" stroke="#212529" strokeWidth="8" />
+                ) : (
+                  <circle cx={s.p[0]} cy={s.p[1]} r={s.terminal ? 17 : 13} fill="#fff" stroke="#212529" strokeWidth={s.terminal ? 9 : 7} />
+                )}
                 <text x={lab.x} y={lab.y} textAnchor={lab.anchor} fontFamily="Roboto, Helvetica, Arial, sans-serif" fontSize="27" fontWeight="bold" fill="#212529">
                   {s.name}
                 </text>
               </g>
             );
           })}
-          {LINES.map((l, i) => (
-            <g key={l.name}>
-              <line x1={70 + i * 230} y1={975} x2={120 + i * 230} y2={975} stroke={l.color} strokeWidth="12" strokeLinecap="round" />
-              <text x={132 + i * 230} y={983} fontFamily="Roboto, Helvetica, Arial, sans-serif" fontSize="24" fontWeight="bold" fill="#212529">
-                {l.name}
+          {geo.colors.map((c, i) => (
+            <g key={i}>
+              <line
+                x1={70 + (i % legendCols) * (860 / legendCols)}
+                y1={968 + Math.floor(i / legendCols) * 30}
+                x2={115 + (i % legendCols) * (860 / legendCols)}
+                y2={968 + Math.floor(i / legendCols) * 30}
+                stroke={c}
+                strokeWidth="12"
+                strokeLinecap="round"
+              />
+              <text
+                x={127 + (i % legendCols) * (860 / legendCols)}
+                y={976 + Math.floor(i / legendCols) * 30}
+                fontFamily="Roboto, Helvetica, Arial, sans-serif"
+                fontSize="22"
+                fontWeight="bold"
+                fill="#212529"
+              >
+                {names[i] ?? `Line ${i + 1}`}
               </text>
             </g>
           ))}
@@ -377,7 +497,7 @@ export default function SubmapMock() {
                 <button type="button" className="btn-close btn-sm" aria-label="Close" onClick={() => setActive(null)} />
               </div>
               <div className="small text-secondary mt-1">
-                {DETAILS[active.name] ?? `Extracted point "${active.name}" — supporting detail and source citation would appear here.`}
+                {details[active.name] ?? `Extracted point "${active.name}" — supporting detail would appear here.`}
               </div>
               {active.junction && (
                 <div className="small mt-1 fw-bold" style={{ color: "#0d6efd" }}>
