@@ -154,7 +154,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "anthropic/claude-sonnet-5",
+        model: "anthropic/claude-opus-5",
         max_tokens: 8000,
         tools: [{ type: "function", function: { name: TOOL.name, description: TOOL.description, parameters: TOOL.input_schema } }],
         tool_choice: { type: "function", function: { name: TOOL.name } },
