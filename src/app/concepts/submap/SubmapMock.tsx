@@ -343,7 +343,8 @@ export default function SubmapMock() {
   const finalLabels = resolved.labels;
 
   const n = map.length;
-  const legendCols = Math.min(n, 4);
+  const longest = Math.max(...map.map((l) => l.name.length));
+  const legendCols = Math.min(n, longest > 10 ? 3 : 4);
   return (
     <div className="row g-4">
       <div className="col-md-4">
