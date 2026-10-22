@@ -153,15 +153,25 @@ export async function renderPng(
 }
 
 // Animated GIF of the motion: frames are the baked animation states
-// rasterized by resvg, encoded with one global palette. Frames after the
-// first only carry the pixels that changed (unchanged pixels map to the
-// transparent index with "leave in place" disposal), so the file stays
-// small; the finished state holds for the plan's rest time before the
-// loop restarts.
+// rasterized by resvg, encoded with one global palette.
+//   opaque (previews): frames after the first carry only the pixels that
+//     changed (unchanged pixels map to the transparent index with
+//     "leave in place" disposal), so the file stays small.
+//   transparent (downloads): GIF has one-bit alpha and "leave in place"
+//     cannot clear pixels, so every frame is complete and the previous one
+//     is disposed to background; alpha is thresholded at 50%.
+// The finished state holds for the plan's rest time before the loop
+// restarts.
 export async function renderGif(
   svg: string,
   width = 640,
-  opts: { checker?: boolean; fps?: number; hold?: number; decorate?: (frame: string) => string } = {}
+  opts: {
+    checker?: boolean;
+    transparent?: boolean;
+    fps?: number;
+    hold?: number;
+    decorate?: (frame: string) => string;
+  } = {}
 ): Promise<Buffer> {
   const { GIFEncoder, quantize, applyPalette } = await import("gifenc");
   const fps = opts.fps ?? 15;
@@ -169,23 +179,40 @@ export async function renderGif(
   const { active, rest } = timeline(svg);
   const count = Math.ceil((active * 1000) / frameMs) + 1;
   const decorate = opts.decorate ?? ((f: string) => f);
+  const alpha = opts.transparent === true;
 
-  const frames: Buffer[] = [];
+  const frames: Uint8Array[] = [];
   let w = 0;
   let h = 0;
   for (let i = 0; i < count; i++) {
     const t = i === count - 1 ? active + rest + 1 : (i * frameMs) / 1000;
     const resvg = await rasterizer(decorate(frameSvg(svg, t)), width, {
-      checker: opts.checker,
-      background: "#ffffff",
+      checker: alpha ? false : opts.checker,
+      background: alpha ? undefined : "#ffffff",
     });
     const img = resvg.render();
     w = img.width;
     h = img.height;
-    frames.push(Buffer.from(img.pixels));
+    const px = new Uint8Array(img.pixels);
+    if (alpha) {
+      // resvg pixels are premultiplied; recover the straight color for
+      // pixels we keep and blank the ones that drop out.
+      for (let p = 0; p < px.length; p += 4) {
+        const a = px[p + 3];
+        if (a < 128) {
+          px[p] = px[p + 1] = px[p + 2] = px[p + 3] = 0;
+        } else if (a < 255) {
+          px[p] = Math.min(255, Math.round((px[p] * 255) / a));
+          px[p + 1] = Math.min(255, Math.round((px[p + 1] * 255) / a));
+          px[p + 2] = Math.min(255, Math.round((px[p + 2] * 255) / a));
+          px[p + 3] = 255;
+        }
+      }
+    }
+    frames.push(px);
   }
 
-  // Global palette from the finished frame plus two mid-reveal samples
+  // Global palette from the finished frame plus two mid-motion samples
   // (for the blended tones a fade passes through); 255 colors + 1 reserved
   // transparent index.
   const samples = [frames[count - 1], frames[Math.floor(count / 3)], frames[Math.floor((2 * count) / 3)]];
@@ -203,8 +230,13 @@ export async function renderGif(
   const gif = GIFEncoder();
   let prev: Uint8Array | null = null;
   for (let i = 0; i < count; i++) {
-    const index = applyPalette(frames[i], palette, "rgb444");
-    if (prev) {
+    const rgba = frames[i];
+    const index = applyPalette(rgba, palette, "rgb444");
+    if (alpha) {
+      for (let p = 0, q = 3; p < index.length; p++, q += 4) {
+        if (rgba[q] === 0) index[p] = TRANSPARENT;
+      }
+    } else if (prev) {
       for (let p = 0; p < index.length; p++) {
         if (index[p] === prev[p]) index[p] = TRANSPARENT;
       }
@@ -213,14 +245,16 @@ export async function renderGif(
     gif.writeFrame(index, w, h, {
       palette: encPalette,
       delay: last ? (opts.hold ?? rest * 1000) : frameMs,
-      transparent: i > 0,
+      transparent: alpha || i > 0,
       transparentIndex: TRANSPARENT,
-      dispose: 1,
+      dispose: alpha ? 2 : 1,
       repeat: 0,
     });
-    // Keep the composed state (what the viewer sees) for the next diff.
-    if (prev) for (let p = 0; p < index.length; p++) if (index[p] === TRANSPARENT) index[p] = prev[p];
-    prev = index;
+    if (!alpha) {
+      // Keep the composed state (what the viewer sees) for the next diff.
+      if (prev) for (let p = 0; p < index.length; p++) if (index[p] === TRANSPARENT) index[p] = prev[p];
+      prev = index;
+    }
   }
   gif.finish();
   return Buffer.from(gif.bytes());

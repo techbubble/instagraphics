@@ -36,10 +36,10 @@ export default async function DownloadPage({
       <div className="col-lg-4">
         <h1 className="h4">{graphic.title}</h1>
         <div className="alert alert-info py-2 small">
-          Downloads are cropped to the graphic&apos;s content. SVG and PNG
-          have a transparent background; the SVG also plays the reveal
-          animation in browsers. GIF is the animation on white, for slides,
-          email, and social posts.
+          Downloads are cropped to the graphic&apos;s content with a
+          transparent background. The SVG plays the animation in browsers;
+          the GIF is the animation itself, for slides, email, and social
+          posts.
         </div>
         {graphic.paid_at || user.credits > 0 ? (
           <DownloadButtons graphicId={graphic.id} paid={!!graphic.paid_at} size="lg" goToLibrary />

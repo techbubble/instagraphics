@@ -83,7 +83,7 @@ export async function POST(
   const cropped = await cropToContent(graphic.svg);
   if (format === "gif") {
     try {
-      const gif = await renderGif(cropped, 800, { checker: false });
+      const gif = await renderGif(cropped, 800, { checker: false, transparent: true });
       return new NextResponse(new Uint8Array(gif), {
         headers: {
           "Content-Type": "image/gif",
