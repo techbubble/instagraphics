@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const FAQS: { q: string; a: React.ReactNode }[] = [
   {
     q: "What is Instagraphic?",
-    a: "Instagraphic turns your text into a professional graphic in seconds. Pick a layout, type your content, apply your brand colors and fonts with a live preview, and download the finished graphic.",
+    a: "Instagraphic turns your text into an animated graphic in seconds. Pick a layout, type your content, apply your brand colors and fonts with a live preview, and download the finished graphic.",
   },
   {
     q: "Why should I use Instagraphic?",

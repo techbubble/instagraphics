@@ -67,7 +67,7 @@ export default async function HomePage() {
   return (
     <>
       <div className="text-center pb-3">
-        <h1 className="h3 fw-bold">Turn your text into a professional graphic in seconds.</h1>
+        <h1 className="h3 fw-bold">Turn your text into an animated graphic in seconds.</h1>
         <p className="text-secondary">
           Pick a layout, apply your colors and fonts, type your content, and download.
         </p>
