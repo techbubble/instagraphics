@@ -13,13 +13,6 @@ export default async function Navbar() {
           Instagraphic
         </Link>
         <ul className="navbar-nav me-auto">
-          {user && (
-            <li className="nav-item">
-              <Link className="nav-link text-nowrap" href="/my">
-                My Graphics
-              </Link>
-            </li>
-          )}
           <li className="nav-item">
             <Link className="nav-link" href="/faq">
               FAQ
@@ -29,6 +22,11 @@ export default async function Navbar() {
         <ul className="navbar-nav align-items-center">
           {user ? (
             <>
+              <li className="nav-item me-2 me-md-3">
+                <Link href="/my" className="btn btn-primary btn-sm rounded-pill text-nowrap px-3">
+                  My Graphics
+                </Link>
+              </li>
               <li className="nav-item me-2 me-md-3">
                 <Link href="/credits" className="badge text-bg-primary text-decoration-none" title="Buy credits">
                   {user.credits} credit{user.credits === 1 ? "" : "s"}
