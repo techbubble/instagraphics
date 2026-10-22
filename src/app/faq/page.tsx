@@ -17,7 +17,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What does a credit do, and what does it cost?",
-    a: "Credits cost $0.99 each. One credit unlocks one saved graphic permanently: after the first download you can re-download that graphic in either SVG or PNG format, as many times as you like, at no extra cost. Credits never expire.",
+    a: "Credits cost $0.99 each. One credit unlocks one saved graphic permanently: after the first download you can re-download that graphic in SVG, PNG, or animated GIF format, as many times as you like, at no extra cost. Credits never expire.",
   },
   {
     q: "Can I use the graphics commercially?",
@@ -25,11 +25,11 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What exactly do I download?",
-    a: "Two formats: an SVG (crisp vector at any size, with editable text) and a PNG with a transparent background. Both are cropped to the graphic's content, ready to drop into any document.",
+    a: "Three formats: an SVG (crisp vector at any size, with editable text, and it plays a subtle reveal animation when viewed in a browser), a PNG with a transparent background, and an animated GIF of the reveal for slides, email, and social posts. All are cropped to the graphic's content, ready to drop into any document.",
   },
   {
     q: "Do I need an account to try it?",
-    a: "No. You can customize any layout without signing in - your colors, fonts, and text are kept in your browser. An account (free) is only needed when you save a graphic, and your in-progress work carries over when you sign in.",
+    a: "No. You can customize any layout without signing in - your colors, fonts, and text are kept in your browser. An account (free) is only needed when you save a graphic, and your in-progress work carries over when you sign in. Every new account starts with 100 free credits.",
   },
   {
     q: "Why is there no password?",
