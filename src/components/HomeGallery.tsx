@@ -18,6 +18,39 @@ type Tile = {
   variants: { id: string; items: number }[];
 };
 
+// Tile preview: the animated GIF plays as soon as it has loaded; the static
+// PNG stands in until then so tiles never appear empty.
+function TilePreview({ id, rev, title }: { id: string; rev: string; title: string }) {
+  const png = `/api/preview/${id}?w=400&plain=1&v=${rev}`;
+  const gif = `/api/preview/${id}?w=400&plain=1&anim=1&v=${rev}`;
+  const [ready, setReady] = useState(false);
+  return (
+    <div className="position-relative">
+      {/* eslint-disable-next-line @next/next/no-img-element -- dynamic endpoint */}
+      <img
+        src={gif}
+        alt={title}
+        loading="lazy"
+        onLoad={() => setReady(true)}
+        style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "contain", display: "block" }}
+        draggable={false}
+      />
+      {!ready && (
+        // eslint-disable-next-line @next/next/no-img-element -- dynamic endpoint
+        <img
+          src={png}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="position-absolute top-0 start-0"
+          style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "contain", display: "block" }}
+          draggable={false}
+        />
+      )}
+    </div>
+  );
+}
+
 export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
@@ -93,14 +126,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
               <div className="card ig-tile h-100">
                 <Link href={`/publish/${t.defaultId}${catsQuery}`} aria-label={`Customize ${t.title}`}>
                   <div className="ig-tile-preview border-bottom">
-                    {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
-                    <img
-                      src={`/api/preview/${t.defaultId}?w=400&plain=1&v=${t.rev}`}
-                      alt={t.title}
-                      loading="lazy"
-                      style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "contain", display: "block" }}
-                      draggable={false}
-                    />
+                    <TilePreview id={t.defaultId} rev={t.rev} title={t.title} />
                   </div>
                 </Link>
                 <div className="card-body py-2 bg-light rounded-bottom d-flex flex-column">

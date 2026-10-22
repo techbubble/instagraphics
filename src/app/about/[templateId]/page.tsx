@@ -67,7 +67,7 @@ export default async function TemplateLandingPage({
             <strong className="text-dark">Items:</strong> {itemCount(meta)}
           </li>
           <li>
-            <strong className="text-dark">Formats:</strong> SVG and PNG, cropped
+            <strong className="text-dark">Formats:</strong> SVG (animated), PNG, and animated GIF, cropped
             to content on a transparent background
           </li>
         </ul>

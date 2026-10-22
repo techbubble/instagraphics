@@ -17,7 +17,7 @@ export default function TermsPage() {
         <h2 className="h6 fw-bold">1. The service</h2>
         <p className="text-secondary">
           Instagraphic lets you customize graphic layouts with your own text,
-          colors, and fonts, and download the result as SVG or PNG files. By
+          colors, and fonts, and download the result as SVG, PNG, or GIF files. By
           using the site you agree to these terms.
         </p>
 

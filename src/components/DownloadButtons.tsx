@@ -11,8 +11,11 @@ function slugify(s: string): string {
   );
 }
 
-// Two side-by-side download buttons. The first download of a graphic costs
-// 1 credit; every download after that is free.
+// Download buttons for the three formats. The first download of a graphic
+// costs 1 credit; every download after that is free. SVG carries the reveal
+// animation (plays in browsers, static elsewhere); GIF is the animation
+// encoded; PNG is the finished frame.
+type Format = "svg" | "png" | "gif";
 export default function DownloadButtons({
   graphicId,
   paid,
@@ -25,10 +28,10 @@ export default function DownloadButtons({
   goToLibrary?: boolean;
 }) {
   const router = useRouter();
-  const [busy, setBusy] = useState<"svg" | "png" | null>(null);
+  const [busy, setBusy] = useState<Format | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function download(format: "svg" | "png") {
+  async function download(format: Format) {
     setBusy(format);
     setError(null);
     try {
@@ -49,6 +52,10 @@ export default function DownloadButtons({
         setError("Download failed.");
         return;
       }
+      if (format === "gif") {
+        const title = decodeURIComponent(res.headers.get("X-Title") || "graphic");
+        triggerDownload(await res.blob(), `${slugify(title)}.gif`);
+      } else {
       const { svg, title } = await res.json();
       const name = slugify(title);
       const embedded = await embedGoogleFonts(svg);
@@ -56,6 +63,7 @@ export default function DownloadButtons({
         triggerDownload(new Blob([embedded], { type: "image/svg+xml" }), `${name}.svg`);
       } else {
         triggerDownload(await svgToPngBlob(embedded, { background: null }), `${name}.png`);
+      }
       }
       if (goToLibrary) router.push("/my");
       // refresh so the navbar credit count reflects the charge
@@ -77,6 +85,9 @@ export default function DownloadButtons({
         </button>
         <button className={btn} disabled={busy !== null} onClick={() => download("png")}>
           Download PNG
+        </button>
+        <button className={btn} disabled={busy !== null} onClick={() => download("gif")}>
+          {busy === "gif" ? "Rendering..." : "Download GIF"}
         </button>
       </div>
       {!paid && (

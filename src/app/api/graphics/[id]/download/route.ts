@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sessionUserId } from "@/lib/auth";
 import { sql } from "@/lib/db";
+import { toAnimatedSvg } from "@/lib/animate";
+import { renderGif } from "@/lib/server-render";
 
 // Delivered assets are cropped to the graphic's content bounds, with
 // explicit dimensions so client-side PNG rasterization keeps the aspect.
@@ -28,6 +30,8 @@ async function cropToContent(svg: string): Promise<string> {
 
 // First download of a graphic charges 1 credit and unlocks it; after that
 // the owner can download it in any format, any number of times, for free.
+// SVG responses are JSON carrying the animated (SMIL) vector; GIF
+// responses are the encoded animation itself.
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -44,7 +48,7 @@ export async function POST(
   let format = "svg";
   try {
     const body = await req.json();
-    if (body.format === "png") format = "png";
+    if (body.format === "png" || body.format === "gif") format = body.format;
   } catch {
     // default to svg
   }
@@ -76,8 +80,23 @@ export async function POST(
     VALUES (${uid}, ${graphicId}, ${format})
   `;
 
+  const cropped = await cropToContent(graphic.svg);
+  if (format === "gif") {
+    try {
+      const gif = await renderGif(cropped, 800, { checker: false });
+      return new NextResponse(new Uint8Array(gif), {
+        headers: {
+          "Content-Type": "image/gif",
+          "Cache-Control": "private, no-store",
+          "X-Title": encodeURIComponent(graphic.title),
+        },
+      });
+    } catch {
+      return NextResponse.json({ error: "Render failed" }, { status: 500 });
+    }
+  }
   return NextResponse.json({
-    svg: await cropToContent(graphic.svg),
+    svg: format === "svg" ? toAnimatedSvg(cropped) : cropped,
     title: graphic.title,
   });
 }

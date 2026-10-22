@@ -58,6 +58,7 @@ export default function Builder({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [replay, setReplay] = useState(0);
   const [side, setSide] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const centerRef = useRef<HTMLDivElement>(null);
@@ -107,7 +108,9 @@ export default function Builder({
     [values]
   );
 
-  // Live preview: debounced server render (PNG only — SVG stays server-side).
+  // Live preview: debounced server render of the animated GIF (SVG stays
+  // server-side). A replay re-fetches the same input, which the browser
+  // serves from its own cache-free blob, restarting the loop.
   const renderInput = useMemo(
     () =>
       JSON.stringify({ templateId: template.id, brand, values: effective }),
@@ -121,7 +124,7 @@ export default function Builder({
     fetch("/api/render", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: debouncedInput,
+      body: JSON.stringify({ ...JSON.parse(debouncedInput), format: "gif" }),
     })
       .then(async (res) => {
         if (!res.ok) throw new Error();
@@ -133,7 +136,7 @@ export default function Builder({
         });
       })
       .catch(() => {});
-  }, [debouncedInput]);
+  }, [debouncedInput, replay]);
 
   // Debounced auto-save of brand + changed field values.
   const pending = useRef<PrefsPatch>({});
@@ -474,6 +477,15 @@ export default function Builder({
                 draggable={false}
               />
             )}
+            <button
+              type="button"
+              className="btn btn-light btn-sm border shadow-sm position-absolute top-0 end-0 m-3"
+              onClick={() => setReplay((n) => n + 1)}
+              disabled={stale || !previewUrl}
+              title="Restart the reveal animation (SVG and GIF downloads play it too)"
+            >
+              Replay
+            </button>
             <div className="position-absolute bottom-0 end-0 m-3 text-end">
               {error && (
                 <div className="small text-danger bg-white rounded px-2 py-1 mb-2">

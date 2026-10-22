@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sessionUserId } from "@/lib/auth";
 import { sql } from "@/lib/db";
-import { renderPng } from "@/lib/server-render";
+import { renderGif, renderPng, watermark } from "@/lib/server-render";
 
-// Owner-only PNG preview of a saved graphic. The stored SVG is released
-// only by the (charged) download endpoint.
+// Owner-only PNG preview of a saved graphic (animated GIF with anim=1).
+// The stored SVG is released only by the (charged) download endpoint.
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -29,20 +29,20 @@ export async function GET(
   // Small tiles may skip the checkerboard; anything larger keeps it so the
   // clean asset only ships via the paid download.
   const plain = sp.get("plain") === "1" && w <= 300;
-  let svg = rows[0].svg;
-  if (!plain) {
-    // Large checkered preview carries the watermark; downloads stay clean.
-    svg = svg.replace(
-      /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"[^>]*>/,
-      (m, x, y, wd, h) =>
-        m +
-        `<text x="${Number(x) + 26}" y="${Number(y) + Number(h) - 24}" ` +
-        `font-family="Roboto" font-size="30" font-weight="bold" fill="#495057" ` +
-        `fill-opacity="0.75" letter-spacing="2">INSTAGRAPHIC.APP</text>`
-    );
-  }
+  const svg = rows[0].svg;
+  // Large checkered previews carry the watermark; downloads stay clean.
+  const mark = plain ? (f: string) => f : watermark;
   try {
-    const png = await renderPng(svg, w, { checker: !plain });
+    if (sp.get("anim") === "1") {
+      const gif = await renderGif(svg, Math.min(w, 640), { checker: !plain, decorate: mark });
+      return new NextResponse(new Uint8Array(gif), {
+        headers: {
+          "Content-Type": "image/gif",
+          "Cache-Control": "private, max-age=300",
+        },
+      });
+    }
+    const png = await renderPng(mark(svg), w, { checker: !plain });
     return new NextResponse(new Uint8Array(png), {
       headers: {
         "Content-Type": "image/png",

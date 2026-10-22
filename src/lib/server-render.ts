@@ -9,6 +9,7 @@ import {
   FontSlot,
   GOOGLE_FONTS,
 } from "./svg-engine";
+import { frameSvg, timeline } from "./animate";
 
 // Server-side SVG -> PNG rasterization. Template SVG source never leaves
 // the server; the browser only ever receives rendered PNGs (the raw SVG is
@@ -100,11 +101,23 @@ function checkerMarkup(svg: string): string {
   );
 }
 
-export async function renderPng(
+// On-screen previews carry a watermark (bottom-left); downloads never do.
+export function watermark(svg: string): string {
+  return svg.replace(
+    /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"[^>]*>/,
+    (m, x, y, w, h) =>
+      m +
+      `<text x="${Number(x) + 26}" y="${Number(y) + Number(h) - 24}" ` +
+      `font-family="Roboto" font-size="30" font-weight="bold" fill="#495057" ` +
+      `fill-opacity="0.75" letter-spacing="2">INSTAGRAPHIC.APP</text>`
+  );
+}
+
+async function rasterizer(
   svg: string,
-  width = 800,
-  opts: { checker?: boolean } = {}
-): Promise<Buffer> {
+  width: number,
+  opts: { checker?: boolean; background?: string; systemFonts?: boolean }
+) {
   const files = await fontFiles().catch(() => [] as string[]);
   const { Resvg } = await import("@resvg/resvg-js");
   let aliased = svg;
@@ -115,17 +128,102 @@ export async function renderPng(
     opts.checker === false
       ? aliased
       : aliased.replace(/(<svg\b[^>]*>)/, `$1${checkerMarkup(aliased)}`);
-  const resvg = new Resvg(checkered, {
+  return new Resvg(checkered, {
     fitTo: { mode: "width", value: width },
+    background: opts.background,
     font: {
       fontFiles: files,
-      loadSystemFonts: true,
+      // Scanning system fonts costs ~150ms per instance; frame loops skip
+      // it since every family they use is in the fetched set.
+      loadSystemFonts: opts.systemFonts ?? files.length === 0,
       defaultFontFamily: "Roboto",
     },
   });
+}
+
+export async function renderPng(
+  svg: string,
+  width = 800,
+  opts: { checker?: boolean } = {}
+): Promise<Buffer> {
+  const resvg = await rasterizer(svg, width, { ...opts, systemFonts: true });
   // Copy out of the native-backed buffer (Vercel's response bridge mangles
   // externally-backed Buffers).
   return Buffer.from(resvg.render().asPng());
+}
+
+// Animated GIF of the motion: frames are the baked animation states
+// rasterized by resvg, encoded with one global palette. Frames after the
+// first only carry the pixels that changed (unchanged pixels map to the
+// transparent index with "leave in place" disposal), so the file stays
+// small; the finished state holds for the plan's rest time before the
+// loop restarts.
+export async function renderGif(
+  svg: string,
+  width = 640,
+  opts: { checker?: boolean; fps?: number; hold?: number; decorate?: (frame: string) => string } = {}
+): Promise<Buffer> {
+  const { GIFEncoder, quantize, applyPalette } = await import("gifenc");
+  const fps = opts.fps ?? 15;
+  const frameMs = Math.round(1000 / fps / 10) * 10;
+  const { active, rest } = timeline(svg);
+  const count = Math.ceil((active * 1000) / frameMs) + 1;
+  const decorate = opts.decorate ?? ((f: string) => f);
+
+  const frames: Buffer[] = [];
+  let w = 0;
+  let h = 0;
+  for (let i = 0; i < count; i++) {
+    const t = i === count - 1 ? active + rest + 1 : (i * frameMs) / 1000;
+    const resvg = await rasterizer(decorate(frameSvg(svg, t)), width, {
+      checker: opts.checker,
+      background: "#ffffff",
+    });
+    const img = resvg.render();
+    w = img.width;
+    h = img.height;
+    frames.push(Buffer.from(img.pixels));
+  }
+
+  // Global palette from the finished frame plus two mid-reveal samples
+  // (for the blended tones a fade passes through); 255 colors + 1 reserved
+  // transparent index.
+  const samples = [frames[count - 1], frames[Math.floor(count / 3)], frames[Math.floor((2 * count) / 3)]];
+  const sampleLen = samples.reduce((n, f) => n + f.length, 0);
+  const sample = new Uint8Array(sampleLen);
+  let off = 0;
+  for (const f of samples) {
+    sample.set(f, off);
+    off += f.length;
+  }
+  const palette = quantize(sample, 255, { format: "rgb444" });
+  const TRANSPARENT = palette.length;
+  const encPalette = [...palette, [255, 0, 255]];
+
+  const gif = GIFEncoder();
+  let prev: Uint8Array | null = null;
+  for (let i = 0; i < count; i++) {
+    const index = applyPalette(frames[i], palette, "rgb444");
+    if (prev) {
+      for (let p = 0; p < index.length; p++) {
+        if (index[p] === prev[p]) index[p] = TRANSPARENT;
+      }
+    }
+    const last = i === count - 1;
+    gif.writeFrame(index, w, h, {
+      palette: encPalette,
+      delay: last ? (opts.hold ?? rest * 1000) : frameMs,
+      transparent: i > 0,
+      transparentIndex: TRANSPARENT,
+      dispose: 1,
+      repeat: 0,
+    });
+    // Keep the composed state (what the viewer sees) for the next diff.
+    if (prev) for (let p = 0; p < index.length; p++) if (index[p] === TRANSPARENT) index[p] = prev[p];
+    prev = index;
+  }
+  gif.finish();
+  return Buffer.from(gif.bytes());
 }
 
 export function sanitizeBrand(input: unknown): BrandKit {

@@ -8,7 +8,7 @@ import RedditPixel from "@/components/RedditPixel";
 const SITE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://www.instagraphic.app";
 const DESCRIPTION =
-  "Build branded graphics in seconds. Pick a layout, apply your colors and fonts, type your content, and download as SVG or PNG.";
+  "Build branded graphics in seconds. Pick a layout, apply your colors and fonts, type your content, and download as animated SVG, PNG, or GIF.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
