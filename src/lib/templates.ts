@@ -1,4 +1,6 @@
 import { buildSubwaySvg } from "./subway";
+import { buildCalendarSvg } from "./calendar";
+import { GENERATED_FAMILY_DESCRIPTIONS, GENERATED_TEMPLATES } from "./templates-gen";
 
 // The content panel is the same for every graphic: one universal set of
 // fields, persisted per account. Each template maps the subset it uses via
@@ -43,20 +45,21 @@ export type Template = {
 // everything else uses the static SVG.
 export function templateSvg(t: Template, values: Record<string, string>): string {
   if (t.family === "subway-map") return buildSubwaySvg(t.items, values);
+  if (t.family === "calendar") return buildCalendarSvg(t.items, values);
   return t.svg;
 }
 
 // Comma-separated lists only mean something to list-driven templates
-// (subway maps). Everywhere else, show just the part before the comma so
+// (subway maps, calendars). Everywhere else, show just the part before the comma so
 // a station list doesn't spill into a single-slot graphic.
 export function displayValues(t: Template, values: Record<string, string>): Record<string, string> {
-  if (t.family === "subway-map") return values;
+  if (t.family === "subway-map" || t.family === "calendar") return values;
   return Object.fromEntries(
     Object.entries(values).map(([k, v]) => [k, v.includes(",") ? v.split(",")[0].trim() : v])
   );
 }
 
-export const TEMPLATES: Template[] = [
+const BASE_TEMPLATES: Template[] = [
   {
     id: "process-arrow-3",
     family: "process-arrow",
@@ -3138,6 +3141,9 @@ export const TEMPLATES: Template[] = [
   },
 ];
 
+// Hand-authored templates plus the generated families (scripts/gen).
+export const TEMPLATES: Template[] = [...BASE_TEMPLATES, ...GENERATED_TEMPLATES];
+
 export const CATEGORIES = [...new Set(TEMPLATES.map((t) => t.category))];
 
 export function getTemplate(id: string): Template | undefined {
@@ -3186,6 +3192,7 @@ export function familyDefault<T extends { items: number; defaultVariant?: boolea
 // Count-neutral family descriptions for grouped tiles (variant pills pick
 // the item count).
 export const FAMILY_DESCRIPTIONS: Record<string, string> = {
+  ...GENERATED_FAMILY_DESCRIPTIONS,
   "process-arrow": "Multiple chevron arrows (user-defined) showing a left-to-right process.",
   cycle: "Multiple stages (user-defined) arranged in a continuous circular flow.",
   pyramid: "Multiple stacked levels (user-defined) from broad base to narrow peak.",
