@@ -29,7 +29,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "Do I need an account to try it?",
-    a: "No. You can customize any layout without signing in - your colors, fonts, and text are kept in your browser. An account (free) is only needed when you save a graphic, and your in-progress work carries over when you sign in. Every new account starts with 100 free credits.",
+    a: "No. You can customize any layout without signing in - your colors, fonts, and text are kept in your browser. An account (free) is only needed when you save a graphic, and your in-progress work carries over when you sign in. Every new account starts with 10 free credits.",
   },
   {
     q: "Why is there no password?",

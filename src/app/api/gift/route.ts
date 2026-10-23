@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     // Existing account gets the credits; a new one is created with the
     // gift plus the standard 100 free signup credits.
     await sql()`
-      INSERT INTO users (email, credits) VALUES (${email}, ${credits + 100})
+      INSERT INTO users (email, credits) VALUES (${email}, ${credits + 10})
       ON CONFLICT (email) DO UPDATE SET credits = users.credits + ${credits}
     `;
     await sql()`
