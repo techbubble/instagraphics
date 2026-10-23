@@ -1,6 +1,7 @@
 import { buildSubwaySvg } from "./subway";
 import { buildCalendarSvg } from "./calendar";
 import { GENERATED_FAMILY_DESCRIPTIONS, GENERATED_TEMPLATES } from "./templates-gen";
+import { MAP_FAMILIES, MAP_TEMPLATES, buildMapSvg } from "./maps";
 
 // The content panel is the same for every graphic: one universal set of
 // fields, persisted per account. Each template maps the subset it uses via
@@ -46,6 +47,7 @@ export type Template = {
 export function templateSvg(t: Template, values: Record<string, string>): string {
   if (t.family === "subway-map") return buildSubwaySvg(t.items, values);
   if (t.family === "calendar") return buildCalendarSvg(t.items, values);
+  if (MAP_FAMILIES.has(t.family)) return buildMapSvg(t.family, values);
   return t.svg;
 }
 
@@ -53,7 +55,7 @@ export function templateSvg(t: Template, values: Record<string, string>): string
 // (subway maps, calendars). Everywhere else, show just the part before the comma so
 // a station list doesn't spill into a single-slot graphic.
 export function displayValues(t: Template, values: Record<string, string>): Record<string, string> {
-  if (t.family === "subway-map" || t.family === "calendar") return values;
+  if (t.family === "subway-map" || t.family === "calendar" || MAP_FAMILIES.has(t.family)) return values;
   return Object.fromEntries(
     Object.entries(values).map(([k, v]) => [k, v.includes(",") ? v.split(",")[0].trim() : v])
   );
@@ -3142,7 +3144,7 @@ const BASE_TEMPLATES: Template[] = [
 ];
 
 // Hand-authored templates plus the generated families (scripts/gen).
-export const TEMPLATES: Template[] = [...BASE_TEMPLATES, ...GENERATED_TEMPLATES];
+export const TEMPLATES: Template[] = [...BASE_TEMPLATES, ...GENERATED_TEMPLATES, ...MAP_TEMPLATES];
 
 export const CATEGORIES = [...new Set(TEMPLATES.map((t) => t.category))];
 

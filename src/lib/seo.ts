@@ -622,6 +622,54 @@ const S: Record<string, FamilySeo> = {
     uses: ["Two-level hierarchies", "Themes and sub-themes", "Radial breakdowns"],
     keywords: ["sunburst diagram template", "sunburst infographic", "radial hierarchy chart"],
   },
+  "world-map": {
+    summary:
+      "World map infographic with up to five countries colored in and a legend of values. Show offices, launch markets or global revenue. Editable SVG, PNG and GIF.",
+    uses: ["Office and customer locations", "Launch markets and coverage", "Global revenue by country"],
+    keywords: ["world map infographic", "world map template", "highlight countries map"],
+  },
+  "africa-map": {
+    summary:
+      "Africa map infographic: color in up to five countries and label each with a value. Show market entries, coverage or programs across Africa. Editable SVG, PNG and GIF.",
+    uses: ["Market entry plans", "Program and partner coverage", "Regional footprints"],
+    keywords: ["africa map infographic", "africa map template", "africa countries map"],
+  },
+  "asia-map": {
+    summary:
+      "Asia map infographic: highlight up to five countries with labeled values. Show regional revenue, expansion or partners across Asia. Editable SVG, PNG and GIF.",
+    uses: ["Regional revenue splits", "APAC expansion plans", "Partner coverage"],
+    keywords: ["asia map infographic", "asia map template", "apac countries map"],
+  },
+  "europe-map": {
+    summary:
+      "Europe map infographic: color in up to five countries, each with a value in the legend. Show market share, rollouts or offices across Europe. Editable SVG, PNG and GIF.",
+    uses: ["Market share by country", "EU rollouts and compliance", "Office locations"],
+    keywords: ["europe map infographic", "europe map template", "eu countries map"],
+  },
+  "north-america-map": {
+    summary:
+      "North America map infographic with up to five countries highlighted and labeled, Caribbean included. Show distribution, coverage or operations. Editable SVG, PNG and GIF.",
+    uses: ["Distribution networks", "Cross-border operations", "Regional coverage"],
+    keywords: ["north america map infographic", "north america map template", "usa canada mexico map"],
+  },
+  "south-america-map": {
+    summary:
+      "South America map infographic: color in up to five countries with labeled values. Show growth markets, launch order or presence. Editable SVG, PNG and GIF.",
+    uses: ["Growth market overviews", "Launch sequencing", "Regional presence"],
+    keywords: ["south america map infographic", "south america map template", "latam countries map"],
+  },
+  "oceania-map": {
+    summary:
+      "Oceania map infographic: Australia, New Zealand and the Pacific with up to five countries colored in and labeled. Show coverage and partners. Editable SVG, PNG and GIF.",
+    uses: ["ANZ and Pacific coverage", "Partner networks", "Expansion plans"],
+    keywords: ["oceania map infographic", "australia new zealand map template", "pacific islands map"],
+  },
+  "country-map": {
+    summary:
+      "Country outline infographic: type any country to draw its silhouette, add a headline figure and up to four facts. Every country available. Editable SVG, PNG and GIF.",
+    uses: ["Country profiles and reports", "Market one-pagers", "Expansion announcements"],
+    keywords: ["country outline infographic", "country map template", "country silhouette graphic"],
+  },
 };
 
 const FALLBACK: FamilySeo = {
