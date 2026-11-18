@@ -9,7 +9,9 @@
     "lint": "eslint",
     "db:init": "node --env-file=.env.local scripts/init-db.mjs",
     "gen:templates": "node scripts/gen/build.mjs",
-    "gen:og": "tsx scripts/og.mts"
+    "gen:og": "tsx scripts/og.mts",
+    "ext:build": "node scripts/build-extension.mjs",
+    "ext:dev": "node scripts/build-extension.mjs --dev 3002"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

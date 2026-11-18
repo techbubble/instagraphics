@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Instagraphic",
+  "short_name": "Instagraphic",
+  "version": "1.0.0",
+  "description": "Type your text, get an animated diagram in your brand colors. 229 layouts; download SVG, PNG, or GIF.",
+  "action": {
+    "default_title": "Instagraphic",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "permissions": ["storage"],
+  "host_permissions": ["__BASE__/*"]
+}

@@ -1,12 +1,51 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { otpAction, type AuthState } from "@/app/(auth)/actions";
 
+// Remembers a requested code across reloads. The extension popup closes when
+// the user switches to their inbox, so without this they would land back on
+// the email step.
+const PENDING_KEY = "ig_pending_login";
+const PENDING_MS = 10 * 60 * 1000; // matches the code TTL
+
+function readPending(): string | null {
+  try {
+    const p = JSON.parse(localStorage.getItem(PENDING_KEY) || "null");
+    return p && typeof p.email === "string" && Date.now() - p.at < PENDING_MS ? p.email : null;
+  } catch {
+    return null;
+  }
+}
+function writePending(email: string | null) {
+  try {
+    if (email) localStorage.setItem(PENDING_KEY, JSON.stringify({ email, at: Date.now() }));
+    else localStorage.removeItem(PENDING_KEY);
+  } catch {
+    // storage unavailable; resume is best-effort
+  }
+}
+
 export default function AuthForm({ next }: { next: string }) {
-  const [state, formAction, pending] = useActionState(otpAction, {
+  const [serverState, formAction, pending] = useActionState(otpAction, {
     step: "email",
   } as AuthState);
+  const [resumed, setResumed] = useState<string | null>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is client-only
+    setResumed(readPending());
+  }, []);
+  useEffect(() => {
+    if (serverState.step === "code" && serverState.email) writePending(serverState.email);
+  }, [serverState]);
+
+  // Before any server response, fall back to a remembered pending code.
+  const fresh = serverState.step === "email" && !serverState.error && !serverState.notice;
+  const state: AuthState =
+    fresh && resumed
+      ? { step: "code", email: resumed, notice: `Enter the 6-digit code we emailed to ${resumed}.` }
+      : serverState;
 
   return (
     <div className="row justify-content-center">
@@ -41,7 +80,7 @@ export default function AuthForm({ next }: { next: string }) {
           </form>
         ) : (
           <>
-            <form action={formAction}>
+            <form action={formAction} onSubmit={() => writePending(null)}>
               <input type="hidden" name="next" value={next} />
               <input type="hidden" name="email" value={state.email} />
               <input type="hidden" name="intent" value="verify" />
@@ -69,6 +108,18 @@ export default function AuthForm({ next }: { next: string }) {
               <button className="btn btn-link btn-sm p-0" type="submit" disabled={pending}>
                 Resend code
               </button>
+              {resumed && fresh && (
+                <button
+                  className="btn btn-link btn-sm p-0 ms-3"
+                  type="button"
+                  onClick={() => {
+                    writePending(null);
+                    setResumed(null);
+                  }}
+                >
+                  Use a different email
+                </button>
+              )}
             </form>
           </>
         )}

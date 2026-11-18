@@ -4,6 +4,8 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import RedditPixel from "@/components/RedditPixel";
+import EmbedBridge from "@/components/EmbedBridge";
+import { Suspense } from "react";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://www.instagraphic.app";
@@ -60,6 +62,9 @@ export default function RootLayout({
         <main className="container py-4">{children}</main>
         <Analytics />
         <RedditPixel />
+        <Suspense fallback={null}>
+          <EmbedBridge />
+        </Suspense>
       </body>
     </html>
   );

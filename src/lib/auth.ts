@@ -3,6 +3,16 @@ import { cookies } from "next/headers";
 import { sql } from "./db";
 
 const COOKIE = "ig_session";
+// SameSite=None so the session works inside the Chrome extension popup, which
+// embeds the site in a cross-site iframe. Cross-site API writes are blocked by
+// the Origin check in src/proxy.ts. Secure is required with None; Chrome and
+// Firefox accept it on http://localhost.
+const COOKIE_OPTS = {
+  httpOnly: true,
+  sameSite: "none",
+  secure: true,
+  path: "/",
+} as const;
 
 function secret() {
   return new TextEncoder().encode(
@@ -25,18 +35,13 @@ export async function createSession(userId: number) {
     .setExpirationTime("30d")
     .sign(secret());
   const jar = await cookies();
-  jar.set(COOKIE, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 30,
-    path: "/",
-  });
+  jar.set(COOKIE, token, { ...COOKIE_OPTS, maxAge: 60 * 60 * 24 * 30 });
 }
 
 export async function destroySession() {
   const jar = await cookies();
-  jar.delete(COOKIE);
+  // Matching attributes so the deletion is also accepted in the iframe.
+  jar.set(COOKIE, "", { ...COOKIE_OPTS, maxAge: 0 });
 }
 
 export async function sessionUserId(): Promise<number | null> {

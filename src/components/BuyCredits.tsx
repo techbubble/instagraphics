@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { isEmbedded } from "@/lib/embed";
 
 export default function BuyCredits() {
   const [quantity, setQuantity] = useState(10);
@@ -13,6 +14,9 @@ export default function BuyCredits() {
   async function checkout() {
     setBusy(true);
     setError(null);
+    // Stripe Checkout refuses to load in an iframe (the extension popup), so
+    // open a tab now, while the click still counts as a user gesture.
+    const tab = isEmbedded() ? window.open("", "_blank") : null;
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -24,8 +28,14 @@ export default function BuyCredits() {
         throw new Error(body.error || "Checkout failed.");
       }
       const { url } = await res.json();
-      window.location.href = url;
+      if (tab) {
+        tab.location.href = url;
+        setBusy(false);
+      } else {
+        window.location.href = url;
+      }
     } catch (e) {
+      tab?.close();
       setError(e instanceof Error ? e.message : "Checkout failed.");
       setBusy(false);
     }
