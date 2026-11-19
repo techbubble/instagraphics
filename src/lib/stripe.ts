@@ -2,7 +2,11 @@ import Stripe from "stripe";
 import { sql } from "./db";
 import { sendRedditConversion } from "./reddit-capi";
 
-export const CREDIT_PRICE_CENTS = 99;
+// Credits are $0.20 each, sold in $1 packs of 5.
+export const CREDIT_PRICE_CENTS = 20;
+export const CREDITS_PER_PACK = 5;
+export const PACK_PRICE_CENTS = CREDIT_PRICE_CENTS * CREDITS_PER_PACK;
+export const MAX_PACKS = 200;
 
 let _stripe: Stripe | null = null;
 
@@ -26,9 +30,12 @@ export async function fulfillCheckoutSession(
   if (!Number.isInteger(userId) || !Number.isInteger(credits) || credits < 1) {
     return false;
   }
+  // amount_total is what Stripe actually charged; the fallback only covers
+  // sessions without it.
+  const amountCents = session.amount_total ?? credits * CREDIT_PRICE_CENTS;
   const inserted = (await sql()`
     INSERT INTO purchases (user_id, credits, amount_cents, stripe_session_id)
-    VALUES (${userId}, ${credits}, ${credits * CREDIT_PRICE_CENTS}, ${session.id})
+    VALUES (${userId}, ${credits}, ${amountCents}, ${session.id})
     ON CONFLICT (stripe_session_id) DO NOTHING
     RETURNING id
   `) as { id: number }[];
@@ -37,7 +44,7 @@ export async function fulfillCheckoutSession(
   await sendRedditConversion({
     event: "Purchase",
     conversionId: session.id,
-    value: (session.amount_total ?? credits * CREDIT_PRICE_CENTS) / 100,
+    value: amountCents / 100,
     email: session.customer_email ?? session.customer_details?.email ?? undefined,
   });
   return true;

@@ -22,7 +22,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font
 <text x="64" y="390" font-size="52" font-weight="bold" fill="#212529">in seconds.</text>
 <text x="64" y="448" font-size="25" fill="#6c757d">Pick a layout, apply your colors and fonts,</text>
 <text x="64" y="484" font-size="25" fill="#6c757d">type your content, and download SVG, PNG or GIF.</text>
-<text x="64" y="560" font-size="27" font-weight="bold" fill="#0d6efd">$0.99 per graphic - no subscription</text>
+<text x="64" y="560" font-size="27" font-weight="bold" fill="#0d6efd">$0.20 per graphic - no subscription</text>
 <rect x="650" y="60" width="500" height="510" rx="16" fill="#ffffff" stroke="#dee2e6" stroke-width="2"/>
 <svg x="660" y="70" width="480" height="490" viewBox="0 0 1000 1000">${sample}</svg>
 </svg>`;

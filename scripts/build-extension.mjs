@@ -17,7 +17,7 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 cpSync(src, out, { recursive: true });
 
-for (const f of ["manifest.json", "popup.js"]) {
+for (const f of ["manifest.json", "panel.js"]) {
   const p = join(out, f);
   writeFileSync(p, readFileSync(p, "utf8").replaceAll("__BASE__", base));
 }

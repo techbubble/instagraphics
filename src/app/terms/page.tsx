@@ -30,7 +30,7 @@ export default function TermsPage() {
 
         <h2 className="h6 fw-bold">3. Credits and payments</h2>
         <p className="text-secondary">
-          Credits cost $0.99 each and are purchased through Stripe. One credit
+          Credits cost $0.20 each, sold in $1 packs of 5, and are purchased through Stripe. One credit
           unlocks one saved graphic for unlimited downloads in both formats.
           Credits never expire. All credit purchases are final and
           non-refundable; no refunds, credits, or exchanges are issued for any

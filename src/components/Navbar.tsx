@@ -14,6 +14,11 @@ export default async function Navbar() {
         </Link>
         <ul className="navbar-nav me-auto">
           <li className="nav-item">
+            <Link className="nav-link" href="/about">
+              About
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" href="/faq">
               FAQ
             </Link>
@@ -43,7 +48,7 @@ export default async function Navbar() {
             </>
           ) : (
             <li className="nav-item">
-              <Link className="btn btn-primary btn-sm" href="/login">
+              <Link className="btn btn-primary btn-sm text-nowrap" href="/login">
                 Sign in
               </Link>
             </li>

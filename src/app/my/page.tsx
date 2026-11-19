@@ -9,10 +9,10 @@ export default async function MyGraphicsPage() {
   const user = await currentUser();
   if (!user) redirect("/login?next=%2Fmy");
   const rows = (await sql()`
-    SELECT id, title, created_at, paid_at FROM graphics
+    SELECT id, template_id, title, created_at, paid_at FROM graphics
     WHERE user_id = ${user.id}
     ORDER BY created_at DESC
-  `) as { id: number; title: string; created_at: string; paid_at: string | null }[];
+  `) as { id: number; template_id: string; title: string; created_at: string; paid_at: string | null }[];
 
   return (
     <>
@@ -42,9 +42,20 @@ export default async function MyGraphicsPage() {
                   />
                 </div>
                 <div className="card-body py-2 bg-light rounded-bottom">
-                  <div className="fw-semibold">{g.title}</div>
-                  <div className="small text-secondary mb-2">
-                    {new Date(g.created_at).toLocaleDateString()}
+                  <div className="d-flex justify-content-between align-items-start gap-2">
+                    <div>
+                      <div className="fw-semibold">{g.title}</div>
+                      <div className="small text-secondary mb-2">
+                        {new Date(g.created_at).toLocaleDateString()}
+                      </div>
+                    </div>
+                    <Link
+                      href={`/publish/${g.template_id}?copy=${g.id}`}
+                      className="btn btn-outline-primary btn-sm"
+                      title="Open a copy in the builder"
+                    >
+                      Duplicate
+                    </Link>
                   </div>
                   <DownloadButtons graphicId={g.id} paid={!!g.paid_at} />
                 </div>

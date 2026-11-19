@@ -310,3 +310,54 @@ export function brandFromQuery(sp: URLSearchParams): BrandKit {
     },
   });
 }
+
+// Delivered assets are cropped to the graphic's content bounds, with
+// explicit dimensions so client-side PNG rasterization keeps the aspect.
+// `pad` adds that fraction of the larger side as margin on every edge.
+export async function cropToContent(svg: string, pad = 0): Promise<string> {
+  try {
+    const { Resvg } = await import("@resvg/resvg-js");
+    const b = new Resvg(svg, { font: { loadSystemFonts: true } }).getBBox();
+    if (!b) return svg;
+    const m = Math.max(b.width, b.height) * pad;
+    const x = b.x - m;
+    const y = b.y - m;
+    const w = Math.ceil(b.width + 2 * m);
+    const h = Math.ceil(b.height + 2 * m);
+    return svg.replace(
+      /<svg\b[^>]*>/,
+      (tag) =>
+        tag
+          .replace(/\s(width|height)="[^"]*"/g, "")
+          .replace(
+            /viewBox="[^"]*"/,
+            `viewBox="${x.toFixed(1)} ${y.toFixed(1)} ${w} ${h}" width="${w}" height="${h}"`
+          )
+    );
+  } catch {
+    return svg;
+  }
+}
+
+// Inputs of a graphic saved before brand/values were stored: read them back
+// from the rendered SVG, which keeps the data-ig-* slot annotations.
+export function inputsFromSvg(svg: string): { brand: BrandKit; values: Record<string, string> } {
+  const colors: Record<string, string> = {};
+  const fonts: Record<string, string> = {};
+  for (const [tag] of svg.matchAll(/<[a-zA-Z][^>]*>/g)) {
+    const attr = (name: string) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
+    const fillSlot = attr("data-ig-fill");
+    if (fillSlot && !colors[fillSlot] && attr("fill")) colors[fillSlot] = attr("fill")!;
+    const strokeSlot = attr("data-ig-stroke");
+    if (strokeSlot && !colors[strokeSlot] && attr("stroke")) colors[strokeSlot] = attr("stroke")!;
+    const fontSlot = attr("data-ig-font");
+    if (fontSlot && !fonts[fontSlot] && attr("font-family")) fonts[fontSlot] = attr("font-family")!;
+  }
+  const unescape = (t: string) =>
+    t.replace(/<[^>]*>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+  const values: Record<string, string> = {};
+  for (const m of svg.matchAll(/<text\b[^>]*\bdata-ig-text="([^"]+)"[^>]*>([\s\S]*?)<\/text>/g)) {
+    if (values[m[1]] === undefined) values[m[1]] = unescape(m[2]).trim();
+  }
+  return { brand: sanitizeBrand({ colors, fonts }), values: sanitizeValues(values) };
+}

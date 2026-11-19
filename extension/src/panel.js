@@ -1,4 +1,4 @@
-// Reopen the popup where the user left off; the site keeps form state in
+// Reopen the panel where the user left off; the site keeps form state in
 // localStorage, and the last path is remembered here.
 const BASE = "__BASE__";
 const frame = document.getElementById("app");

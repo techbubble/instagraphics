@@ -3,13 +3,17 @@
 import { useState } from "react";
 import { isEmbedded } from "@/lib/embed";
 
+// Mirrors src/lib/stripe.ts (server-only module): $1 buys 5 credits.
+const CREDITS_PER_DOLLAR = 5;
+const MAX_DOLLARS = 200;
+
 export default function BuyCredits() {
-  const [quantity, setQuantity] = useState(10);
+  const [dollars, setDollars] = useState(5);
   const [busy, setBusy] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const valid = Number.isInteger(quantity) && quantity >= 1 && quantity <= 1000;
+  const valid = Number.isInteger(dollars) && dollars >= 1 && dollars <= MAX_DOLLARS;
 
   async function checkout() {
     setBusy(true);
@@ -21,7 +25,7 @@ export default function BuyCredits() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quantity }),
+        body: JSON.stringify({ packs: dollars }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -66,24 +70,27 @@ export default function BuyCredits() {
     <div className="card">
       <div className="card-body">
         <label className="form-label" htmlFor="qty">
-          Number of credits
+          Amount
         </label>
-        <div className="input-group mb-3">
+        <div className="input-group mb-1">
+          <span className="input-group-text">$</span>
           <input
             id="qty"
             type="number"
             className="form-control"
             min={1}
-            max={1000}
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
+            max={MAX_DOLLARS}
+            step={1}
+            value={dollars}
+            onChange={(e) => setDollars(Number(e.target.value))}
           />
-          <span className="input-group-text">x $0.99</span>
+          <span className="input-group-text">.00</span>
         </div>
+        <div className="small text-secondary mb-3">$0.20 per credit, in $1 steps (5 credits).</div>
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <span className="text-secondary">Total</span>
+          <span className="text-secondary">You get</span>
           <span className="fs-5 fw-semibold">
-            {valid ? `$${(quantity * 0.99).toFixed(2)}` : "--"}
+            {valid ? `${dollars * CREDITS_PER_DOLLAR} credits` : "--"}
           </span>
         </div>
         {error && <div className="alert alert-danger">{error}</div>}

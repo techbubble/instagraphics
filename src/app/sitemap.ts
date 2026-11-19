@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const families = [...new Set(TEMPLATES.map((t) => t.family))];
   return [
     { url: `${BASE}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${BASE}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     ...families.map((f) => {

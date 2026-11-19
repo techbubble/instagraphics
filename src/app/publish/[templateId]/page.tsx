@@ -5,6 +5,7 @@ import { currentUser } from "@/lib/auth";
 import { sql } from "@/lib/db";
 import { BrandKit, ColorSlot, DEFAULT_BRAND, FONT_CHOICES, FontSlot } from "@/lib/svg-engine";
 import Builder from "@/components/Builder";
+import { inputsFromSvg } from "@/lib/server-render";
 
 const FONT_SLOTS: FontSlot[] = ["primary", "secondary"];
 const COLOR_SLOTS: ColorSlot[] = ["primary", "secondary", "tertiary", "quaternary", "accent"];
@@ -37,10 +38,10 @@ export default async function BuildPage({
   searchParams,
 }: {
   params: Promise<{ templateId: string }>;
-  searchParams: Promise<{ cats?: string }>;
+  searchParams: Promise<{ cats?: string; copy?: string }>;
 }) {
   const { templateId } = await params;
-  const { cats } = await searchParams;
+  const { cats, copy } = await searchParams;
   const template = getTemplate(templateId);
   if (!template) notFound();
   const ua = (await headers()).get("user-agent") ?? "";
@@ -60,8 +61,26 @@ export default async function BuildPage({
         SELECT brand, field_values FROM preferences WHERE user_id = ${user.id}
       `) as { brand: unknown; field_values: Record<string, string> }[])
     : [];
-  const brand = mergeBrand(rows[0]?.brand);
-  const savedValues = rows[0]?.field_values ?? {};
+  let brand = mergeBrand(rows[0]?.brand);
+  let savedValues = rows[0]?.field_values ?? {};
+
+  // ?copy=<graphicId>: start a new graphic from the inputs of one of the
+  // user's saved graphics. Older graphics predate stored inputs, so those
+  // are read back from the SVG.
+  let copyOf: string | undefined;
+  const copyId = Number(copy);
+  if (user && Number.isInteger(copyId) && copyId > 0) {
+    const g = (await sql()`
+      SELECT title, svg, brand, field_values FROM graphics
+      WHERE id = ${copyId} AND user_id = ${user.id} AND template_id = ${template.id}
+    `) as { title: string; svg: string; brand: unknown; field_values: Record<string, string> | null }[];
+    if (g[0]) {
+      const recovered = g[0].brand && g[0].field_values ? null : inputsFromSvg(g[0].svg);
+      brand = mergeBrand(g[0].brand ?? recovered?.brand);
+      savedValues = g[0].field_values ?? recovered?.values ?? {};
+      copyOf = g[0].title;
+    }
+  }
 
   const selected = (cats || "").split(",").filter(Boolean);
   let rail = selected.length
@@ -76,6 +95,7 @@ export default async function BuildPage({
       initialBrand={brand}
       savedValues={savedValues}
       authed={!!user}
+      copyOf={copyOf}
     />
   );
 }

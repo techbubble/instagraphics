@@ -24,12 +24,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unknown template" }, { status: 400 });
   }
   const values = sanitizeValues(body.values);
+  const brand = sanitizeBrand(body.brand);
   const eff = displayValues(template, values);
-  const svg = renderTemplate(templateSvg(template, eff), sanitizeBrand(body.brand), eff);
+  const svg = renderTemplate(templateSvg(template, eff), brand, eff);
   const title = template.title.slice(0, 80);
   const rows = (await sql()`
-    INSERT INTO graphics (user_id, template_id, title, svg)
-    VALUES (${uid}, ${template.id}, ${title}, ${svg})
+    INSERT INTO graphics (user_id, template_id, title, svg, brand, field_values)
+    VALUES (${uid}, ${template.id}, ${title}, ${svg}, ${JSON.stringify(brand)}::jsonb, ${JSON.stringify(values)}::jsonb)
     RETURNING id
   `) as { id: number }[];
   return NextResponse.json({ id: Number(rows[0].id) });

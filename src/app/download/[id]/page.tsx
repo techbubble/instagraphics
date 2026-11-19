@@ -16,9 +16,9 @@ export default async function DownloadPage({
   const graphicId = Number(id);
   if (!Number.isInteger(graphicId)) notFound();
   const rows = (await sql()`
-    SELECT id, title, paid_at FROM graphics
+    SELECT id, template_id, title, paid_at FROM graphics
     WHERE id = ${graphicId} AND user_id = ${user.id}
-  `) as { id: number; title: string; paid_at: string | null }[];
+  `) as { id: number; template_id: string; title: string; paid_at: string | null }[];
   const graphic = rows[0];
   if (!graphic) notFound();
 
@@ -48,6 +48,11 @@ export default async function DownloadPage({
             Buy Credits
           </Link>
         )}
+        <div className="text-center mt-3">
+          <Link href={`/publish/${graphic.template_id}?copy=${graphic.id}`} className="btn btn-outline-primary">
+            Duplicate
+          </Link>
+        </div>
       </div>
     </div>
   );
