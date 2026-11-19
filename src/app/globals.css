@@ -101,6 +101,46 @@
   flex-shrink: 0;
 }
 
+/* Navbar: drop About/FAQ, show Sign out as an icon, and drop the wordmark
+   when signed in so everything fits a 300px sidebar. */
+.ig-signout-icon {
+  display: none;
+  vertical-align: -0.125em;
+}
+
+.ig-embed .ig-nav-links,
+.ig-embed .ig-signout-text,
+.ig-embed .ig-credits-word,
+.ig-embed .ig-authed .ig-brand-word {
+  display: none !important;
+}
+
+/* In the Slides/Docs add-on the Google account is the sign-in. */
+.ig-embed-workspace .ig-signout {
+  display: none !important;
+}
+
+.ig-embed .ig-signout-icon {
+  display: inline-block;
+}
+
+@media (max-width: 340px) {
+  .ig-embed .ig-brand-word {
+    display: none !important;
+  }
+}
+
+/* The builder's Save / Sign In button would cover the preview at panel width. */
+.ig-embed .btn-ig-save {
+  --bs-btn-padding-x: 1.5rem;
+  --bs-btn-padding-y: 0.375rem;
+  --bs-btn-font-size: 1rem;
+}
+
+.ig-embed .ig-builder-note {
+  font-size: 0.85rem !important;
+}
+
 .ig-thumb-grid {
   grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
   gap: 0.5rem;

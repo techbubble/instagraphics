@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms & Privacy",
@@ -59,12 +60,11 @@ export default function TermsPage() {
         <h2 className="h6 fw-bold">6. Privacy</h2>
         <p className="text-secondary">
           We store your email address, your saved graphics, and your saved
-          preferences (colors, fonts, and field text) to operate the service.
-          Payments are processed by Stripe; we never see or store your card
-          details. Transactional email (sign-in codes) is sent to the address
-          you provide. We use Vercel Analytics for anonymous, aggregate usage
-          statistics. We do not sell personal data. To delete your account and
-          data, email info@instagraphic.app.
+          preferences to operate the service. Payments are processed by Stripe;
+          we never see or store your card details. We do not sell personal
+          data. Full details, including how the Chrome extension and the Google
+          Slides and Docs add-on handle data, are in the{" "}
+          <Link href="/privacy">Privacy Policy</Link>.
         </p>
 
         <h2 className="h6 fw-bold">7. Disclaimer and liability</h2>

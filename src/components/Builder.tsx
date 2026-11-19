@@ -452,8 +452,8 @@ export default function Builder({
               <span className="small text-secondary">{template.description}</span>
             </div>
           )}
-          <div className="mb-2 d-flex align-items-center" style={{ height: 56, width: side ?? "100%" }}>
-            <div className="w-100 h-100 px-3 rounded-2 border border-primary bg-primary-subtle text-primary-emphasis fw-bold d-flex align-items-center justify-content-center gap-2" style={{ fontSize: "1.05rem" }}>
+          <div className="mb-2 d-flex align-items-stretch" style={{ minHeight: 56, width: side ?? "100%" }}>
+            <div className="ig-builder-note w-100 px-3 py-1 rounded-2 border border-primary bg-primary-subtle text-primary-emphasis fw-bold d-flex align-items-center justify-content-center gap-2" style={{ fontSize: "1.05rem" }}>
               {/* Bootstrap Icons "arrow-repeat" */}
               <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" className="flex-shrink-0" aria-hidden="true">
                 <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />

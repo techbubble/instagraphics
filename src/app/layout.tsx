@@ -49,11 +49,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Flag the Chrome extension side panel before first paint so CSS can
-            switch to the compact layout without a flash. */}
+        {/* Flag the Chrome extension side panel and the Slides/Docs add-on
+            sidebar before first paint so CSS can switch to the compact layout
+            without a flash. Mirrors embedHost() in lib/embed.ts. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(window.self!==window.top&&String((location.ancestorOrigins||[])[0]||"").indexOf("chrome-extension://")===0)document.documentElement.classList.add("ig-embed")}catch(e){}`,
+            __html: `try{if(window.self!==window.top){var o=String((location.ancestorOrigins||[])[0]||""),h=o.indexOf("chrome-extension://")===0?"extension":/^https:\\/\\/[a-z0-9-]+-script\\.googleusercontent\\.com$/.test(o)?"workspace":"";if(h)document.documentElement.classList.add("ig-embed","ig-embed-"+h)}}catch(e){}`,
           }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
