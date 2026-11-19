@@ -53,6 +53,59 @@
   box-shadow: 0 0.25rem 0.5rem rgba(13, 110, 253, 0.25);
 }
 
+/* ---- Chrome extension side panel (html.ig-embed, set in layout.tsx) ---- */
+
+.ig-embed-only {
+  display: none !important;
+}
+
+.ig-embed .ig-embed-hide {
+  display: none !important;
+}
+
+.ig-embed .ig-embed-only {
+  display: grid !important;
+}
+
+.ig-embed .ig-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  height: 56px;
+}
+
+.ig-embed main.container {
+  padding-top: 0 !important;
+}
+
+/* Category pills: one horizontally scrolling row pinned under the navbar. */
+.ig-embed .ig-pills {
+  position: sticky;
+  top: 56px;
+  z-index: 1020;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: #fff;
+  margin: 0 calc(var(--bs-gutter-x, 1.5rem) * -0.5) 0.75rem !important;
+  padding: 0.6rem calc(var(--bs-gutter-x, 1.5rem) * 0.5);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.ig-embed .ig-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.ig-embed .ig-pills .btn {
+  flex-shrink: 0;
+}
+
+.ig-thumb-grid {
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 0.5rem;
+}
+
 /* ---- About page ------------------------------------------------------- */
 
 .ig-hero {

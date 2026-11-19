@@ -5,7 +5,7 @@ import { logoutAction } from "@/app/(auth)/actions";
 export default async function Navbar() {
   const user = await currentUser();
   return (
-    <nav className="navbar navbar-expand bg-white border-bottom">
+    <nav className="navbar navbar-expand bg-white border-bottom ig-navbar">
       <div className="container-fluid px-3">
         <Link className="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="/">
           {/* eslint-disable-next-line @next/next/no-img-element -- app icon asset */}

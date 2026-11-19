@@ -81,7 +81,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
 
   return (
     <>
-      <div className="row justify-content-center mb-3">
+      <div className="row justify-content-center mb-3 ig-embed-hide">
         <div className="col-md-6">
           <input
             type="search"
@@ -93,7 +93,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
           />
         </div>
       </div>
-      <div className="d-flex flex-wrap gap-2 justify-content-center mb-4">
+      <div className="d-flex flex-wrap gap-2 justify-content-center mb-4 ig-pills">
         <button
           type="button"
           className={`btn btn-sm rounded-pill ${selected === null ? "btn-primary" : "btn-outline-primary"}`}
@@ -120,7 +120,29 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
       {filtered.length === 0 ? (
         <p className="text-center text-secondary">No layouts match.</p>
       ) : (
-        <div className="row g-4">
+        <>
+        {/* Side panel: compact square thumbs, as in the builder's layout rail. */}
+        <div className="ig-thumb-grid ig-embed-only">
+          {filtered.map((t) => (
+            <Link
+              key={t.family}
+              href={`/publish/${t.defaultId}${catsQuery}`}
+              title={t.title}
+              aria-label={`Customize ${t.title}`}
+              className="ig-thumb d-block border rounded bg-white"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- dynamic PNG endpoint */}
+              <img
+                src={`/api/preview/${t.defaultId}?w=220&plain=1&v=${t.rev}`}
+                alt={t.title}
+                loading="lazy"
+                style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "contain", display: "block" }}
+                draggable={false}
+              />
+            </Link>
+          ))}
+        </div>
+        <div className="row g-4 ig-embed-hide">
           {filtered.map((t) => (
             <div key={t.family} className="col-sm-6 col-md-4 col-lg-3">
               <div className="card ig-tile h-100">
@@ -205,6 +227,7 @@ export default function HomeGallery({ tiles }: { tiles: Tile[] }) {
             </div>
           ))}
         </div>
+        </>
       )}
     </>
   );
