@@ -115,11 +115,6 @@
   display: none !important;
 }
 
-/* In the Slides/Docs add-on the Google account is the sign-in. */
-.ig-embed-workspace .ig-signout {
-  display: none !important;
-}
-
 .ig-embed .ig-signout-icon {
   display: inline-block;
 }

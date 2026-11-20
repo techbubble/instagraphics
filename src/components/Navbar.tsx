@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { logoutAction } from "@/app/(auth)/actions";
-import { Suspense } from "react";
-import WorkspaceSignIn from "@/components/WorkspaceSignIn";
 
 export default async function Navbar() {
   const user = await currentUser();
@@ -56,15 +54,9 @@ export default async function Navbar() {
             </>
           ) : (
             <li className="nav-item">
-              <Suspense
-                fallback={
-                  <Link className="btn btn-primary btn-sm text-nowrap" href="/login">
-                    Sign in
-                  </Link>
-                }
-              >
-                <WorkspaceSignIn />
-              </Suspense>
+              <Link className="btn btn-primary btn-sm text-nowrap" href="/login">
+                Sign in
+              </Link>
             </li>
           )}
         </ul>

@@ -225,8 +225,8 @@ export default async function AboutPage() {
               <span className="ig-step-icon mb-3"><Icon d={SLIDES} /></span>
               <h3 className="h5 fw-bold">Google Workspace add-on{soon}</h3>
               <p className="text-secondary">
-                Build graphics in a sidebar inside Google Slides and Docs and insert them straight into
-                your slide or document.
+                Your graphics in the Google Slides and Docs side panel. Insert them straight into your
+                slide or document.
               </p>
               <StoreButton href={WORKSPACE_MARKETPLACE_URL} sub="Available in the" label="Workspace Marketplace" icon={SLIDES} />
             </div>

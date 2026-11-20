@@ -1,7 +1,38 @@
 {
   "timeZone": "America/New_York",
-  "dependencies": {
-  },
+  "dependencies": {},
   "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8"
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/presentations.currentonly",
+    "https://www.googleapis.com/auth/documents.currentonly",
+    "https://www.googleapis.com/auth/script.external_request",
+    "openid",
+    "https://www.googleapis.com/auth/userinfo.email"
+  ],
+  "urlFetchWhitelist": ["https://www.instagraphic.app/"],
+  "addOns": {
+    "common": {
+      "name": "Instagraphic",
+      "logoUrl": "https://www.instagraphic.app/addon-icon.png",
+      "layoutProperties": {
+        "primaryColor": "#0d6efd",
+        "secondaryColor": "#ffc107"
+      },
+      "homepageTrigger": {
+        "runFunction": "onHomepage"
+      },
+      "openLinkUrlPrefixes": ["https://www.instagraphic.app/"]
+    },
+    "slides": {
+      "homepageTrigger": {
+        "runFunction": "onHomepage"
+      }
+    },
+    "docs": {
+      "homepageTrigger": {
+        "runFunction": "onHomepage"
+      }
+    }
+  }
 }

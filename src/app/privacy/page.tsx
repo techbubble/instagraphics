@@ -47,7 +47,7 @@ export default function PrivacyPage() {
         <h2 className="h6 fw-bold">3. Cookies</h2>
         <p className="text-secondary">
           One sign-in cookie keeps you logged in. It is marked so it also works when Instagraphic
-          is opened inside the Chrome extension or the Slides and Docs add-on. We use the Reddit
+          is opened inside the Chrome extension. We use the Reddit
           pixel to measure whether our ads lead to sign-ups and purchases.
         </p>
 
@@ -61,12 +61,28 @@ export default function PrivacyPage() {
 
         <h2 className="h6 fw-bold">5. Google Slides and Google Docs add-on</h2>
         <p className="text-secondary">
-          The add-on shows Instagraphic in a sidebar and inserts the graphics you choose into the
-          presentation or document you have open. It requests access only to that current file
-          (the <code>presentations.currentonly</code> and <code>documents.currentonly</code>{" "}
-          scopes) and permission to show the sidebar. It uses this access only to add the image
-          you selected. It does not read, store, or transmit the contents of your files, and it
-          does not access your other Google files or your Google account information.
+          The add-on lists your Instagraphic graphics in the Slides or Docs side panel and inserts
+          the one you choose into the presentation or document you have open. It requests:
+        </p>
+        <ul className="text-secondary">
+          <li>
+            Access to the current file only (<code>presentations.currentonly</code>,{" "}
+            <code>documents.currentonly</code>), used only to add the image you selected. It does
+            not read, store, or transmit the contents of your files or access your other files.
+          </li>
+          <li>
+            Your Google account email address (<code>openid</code>, <code>userinfo.email</code>),
+            used only to sign you in to your Instagraphic account under that email. It creates
+            the account on first use.
+          </li>
+          <li>
+            Permission to connect to an external service (<code>script.external_request</code>),
+            used only to load your graphics and the image to insert from www.instagraphic.app.
+          </li>
+        </ul>
+        <p className="text-secondary">
+          No other Google account information is accessed, and nothing from your Google account
+          is shared with third parties.
         </p>
         <p className="text-secondary">
           Instagraphic&apos;s use and transfer of information received from Google APIs adheres

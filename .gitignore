@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# google apps script (clasp)
+.clasp.json
+.clasprc.json
